@@ -8,19 +8,13 @@ Kokeile miltä tuntuu ohjelmoida kielellä, jonka vallitseva suunnitteluparadigm
 
 Kurssin yhteistyökumppanina toimii pitkän linjan Rails-talo [Kisko](https://www.kiskolabs.com/fi/). Katso [täältä](https://www.youtube.com/watch?v=P8THIRXnLGk) Kiskon Vesan ja Antin terveiset kurssilaisille siitä miksi Rails on edelleen vuonna 2023 oivallinen teknologiavalinta moniin projekteihin.
 
+Loppuvuodesta on kurssin suorittaneille on luvassa Rails-henkinen illanvietto Kiskon tiloissa...
+
 Kurssilla keskitytään palvelinpuolen toiminnallisuuden toteuttamiseen, kurssilla tuotettavat käyttöliittymät tulevat olemaan alkeellisia. Kurssi ei ole johdatuskurssi selainohjelmointiin ja käyttöliittymäsuunnitteluun, HTML:n, CSS:n ja JavaScriptin rooli kurssilla on hyvin vähäinen.
 
 Kurssin laajuus on 5 opintopistettä.
 
 Vaikka kurssi on sisällöllisesti hyvin samankaltainen kuin [Web-palvelinohjelmointi Java](https://courses.helsinki.fi/fi/TKT21007/124962332), molempien kurssien suorittaminen on mahdollista.
-
-## Kisko afterparty joulukuussa!
-
-Suomen johtava Rails-talo [Kisko](https://www.kiskolabs.com/) järjestää kurssilaisille illanvieton joulukuussa
-
-<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/kisko.png" width="600">
-
-Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai Discordissa kurssikanavalla tai @mluukkai
 
 ## Esitietovaatimukset
 
