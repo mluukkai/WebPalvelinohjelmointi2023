@@ -1,0 +1,71 @@
+inherit_from:
+- https://relaxed.ruby.style/rubocop.yml
+
+AllCops:
+  Exclude:
+    - __test/**
+    - test/**
+    - test/channels/application_cable/** # for whatever reason this directory was not excluded even though two previous exclusion lines
+    - bin/**
+    - spec/**/*
+    - config/**/*
+    - db/**/*
+    - Gemfile
+    - "*.gemspec"
+    - bundler/**/*
+    - vendor/bundle/**/* # travis with --deployment
+  TargetRubyVersion: 3.1.2
+  NewCops: enable
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: ()
+    '%i': '()'
+    '%I': '()'
+    '%r': '{}'
+    '%w': '()'
+    '%W': '()'
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: true
+  MinSize: 3
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Gemspec/OrderedDependencies:
+  Enabled: false
+
+Style/PerlBackrefs:
+  Enabled: true
+
+Layout/SpaceInsideParens:
+  Enabled: true
+
+Style/SpecialGlobalVars:
+  Enabled: true
+
+Style/Alias:
+  Enabled: true
+
+Style/BeginBlock:
+  Enabled: true
+
+Style/OpenStructUse:
+  Enabled: false
+
+Naming/MethodParameterName:
+  AllowedNames:
+    - cn
+
+Metrics/BlockLength:
+  Enabled: false

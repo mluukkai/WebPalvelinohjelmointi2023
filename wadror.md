@@ -28,7 +28,7 @@ Kurssin rakenne poikkeaa jossain määrin osaston kurssistandardista. Kurssilla 
 
 Kurssi jakautuu seitsemään "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.12.2023 klo 23.59.
 
-Jokainen "viikko" palautetaan erikseen kurssin [palautussovellukseen](https://studies.cs.helsinki.fi/stats/courses/rails2022/). Palautettuasi yhden viikon tehtävät, pääset näkemään viikon esimerkkivastauksen. Seuraavalla viikolla on mahdollista jatkaa joko oman sovelluksen rakentamista tai ottaa pohjaksi edellisen viikon esimerkkivastaus.
+Jokainen "viikko" palautetaan erikseen kurssin [palautussovellukseen](https://studies.cs.helsinki.fi/stats/courses/rails2023/). Palautettuasi yhden viikon tehtävät, pääset näkemään viikon esimerkkivastauksen. Seuraavalla viikolla on mahdollista jatkaa joko oman sovelluksen rakentamista tai ottaa pohjaksi edellisen viikon esimerkkivastaus.
 
 Osa viikon tehtävistä on käytännössä pakollisia, muuten eteneminen pysähtyy viikon osalta. Osa tehtävistä taas on vapaaehtoisia, ei-kriittisten ominaisuuksien toteutuksia.
 
@@ -81,7 +81,7 @@ Pajaohjausta järjestetään Kumpulan kampuksella huoneessa BK107 syyslukukaudel
 
 Rubyn harjoitteluun tarkoitetun materiaalin [ensimmäinen osa](https://github.com/HY-TKTL/ruby-materiaali/blob/master/Perusteet.md) ja [toinen osa](https://github.com/HY-TKTL/ruby-materiaali/blob/master/LuokkiaJaOlioita.md)
 
-[Tehtäväkirjanpito](https://studies.cs.helsinki.fi/stats/courses/rails2022)
+[Tehtäväkirjanpito](https://studies.cs.helsinki.fi/stats/courses/rails2023)
 
 [Kurssin Tietokone työvälineenä HTML:ää koskeva osuus](https://tkt-lapio.github.io/verkkosivut/)
 

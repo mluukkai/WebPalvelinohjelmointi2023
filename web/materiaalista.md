@@ -1,0 +1,7 @@
+## Muutama sana kurssimateriaalista
+
+Kurssin materiaali pohjautuu vuoden 2018 [Ruby on Rails- wepa kurssin materiaaleihin](https://github.com/mluukkai/WebPalvelinohjelmointi2018) ja se on päivitetty toimimaan sekä Rubyn, että Railsin uusimmilla versioilla. Materiaalissa on sekaisin uusia sekä vanhoja kuvakaappauksia jonka seurauksena kuvissa oleva selain ja sovelluksen ulkoasu välillä vaihtelevat. Vanhat kuvat ovat kuitenkin oleellisilta osilta edelleen ajankohtaisia ja niitä ei sen takia päivitetty. Materiaalissa olevat stacktracet ovat myös suurilta osin vanhoja, mutta ne joita on ollut oleellista päivittää on päivitetty.
+
+Vaikka kurssin materiaali onkin päivitetty toimimaan modernien versioiden kanssa, ei siinä oteta juurikaan kantaa moderniin Rails-kehitykseen. Modernissa rails-kehityksessä suosioon on noussut [Turbo](https://turbo.hotwired.dev/), jonka avulla sovelluksesta saadaan [single-page application](https://en.wikipedia.org/wiki/Single-page_application) jonkalaisia esim. React-sovellukset ovat. Tästä huolimatta materiaalista oppii työskentelemään sekä Rails-ympäristössä, että ohjelmoimaan käyttäen apunaan rubyä. Kurssin jälkeen kannattaakin tutustua Turboon ja sen tarjoamiin mahdollisuuksiin jos sovelluskehitys RoRilla kiinnostaa!
+
+Jos materiaalissa on epäselvyyksiä, päivitettävää tai virheitä kannattaa tehdä [pull request](https://github.com/mluukkai/WebPalvelinohjelmointi2023/pulls)
