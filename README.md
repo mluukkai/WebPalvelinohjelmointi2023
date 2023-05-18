@@ -1,4 +1,4 @@
-## Web-palvelinohjelmointi Ruby on Rails, syksy 2023
+## Web-palvelinohjelmointi Ruby on Rails 2023
 
 Web-palvelinohjelmointi Ruby on Rails palasi toiveuusintana opetusohjelmaan syksysyksi 2022. Kansa vaati lisää ja kurssi on taas täällä!
 
