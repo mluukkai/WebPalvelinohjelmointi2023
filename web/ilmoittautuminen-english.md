@@ -14,48 +14,48 @@ Voit selvittää oman opiskelijanumerosi seuraavilla tavoilla:
 
 #### A) Sisu 
 
-Jos sinulla on Helsingin yliopiston käyttäjätunnus, löydät opiskelijanumerosi Helsingin yliopiston opintotietojärjestelmä Sisusta omien tietojesi yhteydestä: 
-- Kirjaudu Sisuun Helsingin yliopiston käyttäjätunnuksellasi.  
-- Valitse: Omat tiedot 
-- Valitse välilehti: Henkilötiedot 
+If you have a University of Helsinki user account, you can find your student number from your profile in the University of Helsinki’s study information system Sisu:
 
-#### B) Ilmoittautumisen vahvistusviesti
+- Log in to Sisu with your University of Helsinki username and password.
+- Select: My profile
+- Select: Personal information
 
-Kurssi-ilmoittautumisesi yhteydessä sinulle lähetään sähköpostivahvistus ilmoittamaasi sähköpostiosoitteeseen. Tässä viestissä on joko suoraan opiskelijanumerosi tai linkki, jonka kautta pääset sen näkemään. 
+#### B) Enrollment confirmation email
 
-#### C) Yhteydenotto opintoneuvontaan
+After course enrollment, you will receive a confirmation email to an email address you have entered on the enrollment form. This message either directly has your student number on it or includes a link that takes you to a page displaying your University of Helsinki student number. 
+#### C) Contact Student Services
 
-Jos sinulla on ongelmia selvittää opiskelijanumerosi yllä olevilla tavoilla, voit myös lähettää sähköpostia opintoneuvontaan. 
+If you have trouble finding your student number through the means listed above, you can send an email to University of Helsinki Student Services <avoin-student@helsinki.fi> . Make sure you have enrolled in the course through the Open University before sending the email!
 
-Kerro sähköpostissa 
-- mille kurssille olet ilmoittautunut, 
-- nimesi ja 
-- syntymäaikasi. 
+In your email, include the following information
 
-Opiskelijaneuvonnan sähköpostiosoite: <avoin-student@helsinki.fi> 
+- name of the course you have enrolled in,
+- your name, and
+- your date of birth.
+- Student Services email address: avoin-student@helsinki.fi
 
-## Suoritusmerkinnän pyytäminen
+## How to get your credits
 
-Kun et enää halua palauttaa enempää tehtäviä ja olet ilmoittautunut kurssille voit pyytää suoritusmerkintää palautussovelluksen My submissions -välilehdeltä.
-
-Suoritusmerkinnän pyytäminen edellyttää, että olet tallettanut Helsingin yliopiston opiskelijanumerosi palautussovellukseen:
+If you want to receive University of Helsinki credits, save your University of Helsinki student number to
 
 ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-1.png)
 
-Suoritusmerkintä pyydetään painamalla My submissions -välilehden sinistä nappia
+You will receive your credits after you have submitted enough exercises for a passing grade, passed the exam and then letting us know through the exercise submission system that you have completed the course:
 
 ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-2.png)
 
-Huomaa, että joudut painamaan nappia vielä toisen kerran:
+Remember to press the big blue button to ask for the credits to be registered.
+
+Note that you have to press the button twice:
 
 ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-3.png)
 
-Kun nappia on painettu tarpeeksi monta kertaa näet seuraavan tekstin:
+When pressed twice you should see the following text
 
 > University credit registration in progress...
 
-Arvosana siirtyy Helsingin yliopiston opintorekisteriin Sisuun ja [Opintopolkuun](https://opintopolku.fi/oma-opintopolku/) neljän viikon sisällä suoritusmerkintäpyynnön jälkeen.
+You can view your grade in University of Helsinki Sisu and [Opintopolku](https://opintopolku.fi/oma-opintopolku/) approximately four weeks after notifying us.
 
-Kun suoritusmerkintä on kirjattu, näet palautussovelluksessa tekstin
+When the registration is done, the following text appears in the submission system
 
 > University credits registered, see the course page how to get a transcript if you need one

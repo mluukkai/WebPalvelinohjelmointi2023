@@ -14,7 +14,7 @@ Kurssisivu https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/wadr
 
 ## Web-development Ruby on Rails 2023, Department of Computer Science, University of Helsinki
 
-Course oage https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/wadror-english.md
+Course page https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/wadror-english.md
 
 ### In English
 
