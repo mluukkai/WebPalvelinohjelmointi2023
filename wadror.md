@@ -8,7 +8,7 @@ Kokeile miltä tuntuu ohjelmoida kielellä, jonka vallitseva suunnitteluparadigm
 
 Kurssin yhteistyökumppanina toimii pitkän linjan Rails-talo [Kisko](https://www.kiskolabs.com/fi/). Katso [täältä](https://www.youtube.com/watch?v=P8THIRXnLGk) Kiskon Vesan ja Antin terveiset kurssilaisille siitä miksi Rails on edelleen vuonna 2023 oivallinen teknologiavalinta moniin projekteihin.
 
-Loppuvuodesta on kurssin suorittaneille on luvassa Rails-henkinen illanvietto Kiskon tiloissa...
+Joulukuun 15 päivä on kurssin suorittaneille on luvassa Rails-henkinen illanvietto Kiskon tiloissa...
 
 Kurssilla keskitytään palvelinpuolen toiminnallisuuden toteuttamiseen, kurssilla tuotettavat käyttöliittymät tulevat olemaan alkeellisia. Kurssi ei ole johdatuskurssi selainohjelmointiin ja käyttöliittymäsuunnitteluun, HTML:n, CSS:n ja JavaScriptin rooli kurssilla on hyvin vähäinen.
 
