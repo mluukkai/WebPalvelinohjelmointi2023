@@ -8,7 +8,7 @@ Try how it feels to program in a language whose prevailing design paradigm is th
 
 The long-term Rails house [Kisko](https://www.kiskolabs.com/fi/) is the partner of the course. See [here](https://www.youtube.com/watch?v=P8THIRXnLGk) Kisko's Vesa and Antti's greetings to the course participants about why Rails is still the right technology choice for many projects in 2023.
 
-At the end of the year, those who have completed the course will have a Rails-inspired evening at Kisko's premises...
+At 15th December those who have completed the course will have a Rails-inspired evening at Kisko's premises...
 
 The course focuses on implementing server-side functionality, the user interfaces produced in the course will be elementary. The course is not an introductory course to browser programming and user interface design, the role of HTML, CSS and JavaScript in the course is very minor.
 
