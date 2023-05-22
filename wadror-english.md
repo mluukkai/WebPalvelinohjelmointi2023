@@ -40,7 +40,7 @@ The course grade is based on the number of assignments returned. A grade of 1 re
 
 The deadline for course assignments is December 31, 2023 at 11:59 p.m.
 
-After completing the course, [register](https://github.com/mluukkai/WebPalvelinojjelmointi2023/blob/main/web/ilmoittauminning-english.md) for the course implementation of the open university and [request a completion note](https://github.com/mluukkai/WebPalvelinojjelmointi2023/blob /main/web/ilmoittauminen.md#prøwtusmerkinn%C3%A4n-pyyt%C3%A4minen) in the recovery application.
+After completing the course, [register](https://github.com/mluukkai/WebPalvelinojjelmointi2023/blob/main/web/ilmoittauminning-english.md) for the course implementation of the open university and [request a completion note](https://github.com/mluukkai/WebPalvelinojjelmointi2023/blob/main/web/ilmoittauminen.md#prøwtusmerkinn%C3%A4n-pyyt%C3%A4minen) in the recovery application.
 
 
 ## Teaching
