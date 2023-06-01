@@ -2,7 +2,7 @@
 
 Suomen johtava Rails-talo [Kisko](https://www.kiskolabs.com/) järjestää kurssilaisille illanvieton pe 16.12. klo 16-18
 
-<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/kisko.png" width="600">
+<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/kisko.png" width="600">
 
 Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai Discordissa kurssikanavalla tai @mluukkai
 
@@ -10,7 +10,7 @@ Jatkamme sovelluksen rakentamista siitä, mihin jäimme viikon 6 lopussa. Allaol
 
 ## Muistutus debuggerista
 
-Viikolla 2 tutustuimme [debuggeriin](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko2.md#debuggeri) ja [viime viikolla](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko6.md#muistutus-debuggerista) oli muistutus debuggerin käytösä. Eli vielä kertauksena **kun kohtaat ongelman, turvaudu arvailun sijaan debuggeriin!**
+Viikolla 2 tutustuimme [debuggeriin](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md#debuggeri) ja [viime viikolla](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko6.md#muistutus-debuggerista) oli muistutus debuggerin käytösä. Eli vielä kertauksena **kun kohtaat ongelman, turvaudu arvailun sijaan debuggeriin!**
 
 Rails-konsolin käytön tärkeyttä sovelluskehityksen välineenä on yritetty korostaa läpi kurssin. Eli **kun teet jotain vähänkin epätriviaalia, testaa asia ensin konsolissa.** Joissain tilanteissa voi olla jopa parempi tehdä kokeilut debuggerin avulla avautuvassa konsolissa, sillä tällöin on mahdollista avata konsolisessio juuri siihen kontekstiin, mihin koodia ollaan kirjoittamassa. Näin ollen päästään käsiksi esim. muuttujiin <code>params</code>, <code>sessions</code> ym. suorituskontekstista riippuvaan dataan.
 
@@ -176,7 +176,7 @@ Kun sivu nyt avataan uudelleen, haetaan ensin JavaScriptillä id:n <code>beers</
 
 JavaScript-ohjelmoinnissa selaimessa oleva konsoli on **erittäin tärkeä** työväline. Konsolin saa avattua Chromessa tools-valikosta tai painamalla ctrl, shift, j (linux) tai alt, cmd, i (mac):
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-1.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-1.png)
 
 **Konsoli on syytä pitää koko ajan auki JavaScriptillä ohjelmoitaessa!**
 
@@ -190,11 +190,11 @@ Jos kokeilemme selaimella osoitetta http://localhost:3000/beers.json huomaamme, 
 
 Json-muotoisen sivun saa hieman luettavampaan muotoon esim. kopioimalla sivun sisällön [jsonlint](http://jsonlint.com/) palveluun:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-3.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-3.png)
 
 Parempi ratkaisu on asentaa selaimeen jsonia ymmärtävä plugin, eräs suositeltava on chromen [jsonview](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc), plugin muotoilee jsonin selaimeen todella siististi:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-4.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-4.png)
 
 Tarkemmin tarkasteltuna jokainen yksittäinen json-muotoinen olut muistuttaa hyvin paljon Rubyn hashiä:
 
@@ -470,7 +470,7 @@ end
 
 Nyt palvelimen lähettämä oluiden jsonmuotoinen lista on huomattavasti inhimillisemmän kokoinen:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-5.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-5.png)
 
 Rekisteröimme vielä järjestämisen suorittavat tapahtumankuuntelijat linkeille (seuraavassa lopullinen JavaScript-koodi):
 
@@ -647,11 +647,11 @@ Finished in 21.17 seconds (files took 5.33 seconds to load)
 ```
 
 Näyttää siis siltä että sivulla ei ole ollenkaan oluiden listaa. Varmistetaan tämä laittamalla testiin juuri ennen komentoa <code>expect</code> komento <code>save_and_open_page</code> jonka avulla saamme siis avattua selaimeen sivun jolle capybara on navigoinut
-(ks. https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko4.md#capybarav4#capybara).
+(ks. https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko4.md#capybarav4#capybara).
 
 Ja aivan kuten arvelimme, sivulla näytettävä oluttaulukko on tyhjä:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-2.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-2.png)
 
 Syy ongelmalle löytyy capybaran dokumentaatiosta https://github.com/jnicklas/capybara#drivers
 
@@ -686,7 +686,7 @@ Kun suoritamme testit, törmäämme virheilmoitukseen
       ============================================================
 ```
 
-Virheen syy on siinä, että otimme viikolla 5 käyttöömme [WebMock-gemin](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko5.md#olutpaikkojen-etsimistoiminnon-testaaminen) joka oletusarvoisesti kieltää testikoodin suorittamat HTTP-yhteydet. JavaScriptilla toteutettu olutlistahan yrittää hakea oluiden listan json-muodossa palvelimelta. Pääsemme virheestä eroon sallimalla yhteydet, esim. muuttamalla testit alustavaan <code>before :all</code> -lohkoa seuraavasti:
+Virheen syy on siinä, että otimme viikolla 5 käyttöömme [WebMock-gemin](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko5.md#olutpaikkojen-etsimistoiminnon-testaaminen) joka oletusarvoisesti kieltää testikoodin suorittamat HTTP-yhteydet. JavaScriptilla toteutettu olutlistahan yrittää hakea oluiden listan json-muodossa palvelimelta. Pääsemme virheestä eroon sallimalla yhteydet, esim. muuttamalla testit alustavaan <code>before :all</code> -lohkoa seuraavasti:
 
 ```ruby
 before :all do
@@ -800,18 +800,18 @@ Lisää asset pipelinestä ja mm. JavaScriptin liittämisestä railssovelluksiin
 > - jäsenyyden vahvistamattomuus kannattaa huomioida siten, että Membership-modeliin lisätään boolean-arvoinen kenttä _confirmed_
 > - Kun kerho luodaan, tee sen luoneesta käyttäjästä automaattisesti kerhon jäsen
 > - Näytä kerhon sivulla jäsenille lista vahvistamattomana olevista jäsenyyksistä (eli jäsenhakemuksista)
-> - Jäsenyyden statuksen muutos voidaan hoitaa esim. oman [custom-reitin](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko6.md#reitti-panimon-statuksen-muuttamiselle) avulla.
+> - Jäsenyyden statuksen muutos voidaan hoitaa esim. oman [custom-reitin](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko6.md#reitti-panimon-statuksen-muuttamiselle) avulla.
 >
 > Tehtävä saattaa olla hieman haastava. [Active Record Associations -guiden](http://guides.rubyonrails.org/association_basics.html) luku **4.3.3 Scopes for has_many** tarjoaa erään hyvän työvälineen tehtävään. Tehtävän voi toki tehdä monella muullakin tavalla.
 > Myös luku **4.3.2.3 :class_name** voi olla hyödyksi.
 
 Tehtävän jälkeen sovelluksesi voi näyttää esim. seuraavalta. Olutseuran sivulla näytetään lista jäsenyyttä hakeneista, jos kirjautuneena on olutseurassa jo jäsenenä oleva käyttäjä:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-6.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-6.png)
 
 Käyttäjän omalla sivulta näytetään toistaiseksi käsittelemättömät hakemukset:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-5.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-5.png)
 
 ## Indeksi tietokantaan
 
@@ -891,13 +891,13 @@ Miniprofilerin käyttöönotto on helppoa, riittää että Gemfileen lisätään
 
 Suorita <code>bundle install</code> ja käynnistä Rails server uudelleen. Kun menet tämän jälkeen osoitteeseen http://localhost:3000/beers huomaat, että sivun yläkulmaan ilmestyy aikalukema joka kuvaa HTTP-pyynnön suoritukseen käytettyä aikaa. Numeroa klikkaamalla avautuu tarkempi erittely ajankäytöstä:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/profile1.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/profile1.png)
 
 Raportti kertoo että <code>Executing action: index</code> eli kontrollerimetodin suoritus aiheuttaa muutaman SQL-kyselyn. Sen sijaan <code>Rendering: beers/index</code> eli näkymätemplaten suoritus aiheuttaa huomattavasti enemmän SQL-kyselyjä!
 
 Kyselyjä klikkaamalla päästään tarkastelemaan syytä:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/profiler2.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/profiler2.png)
 
 Tarkemman kuvan perusteella kontrolleri suorittaa aiemmasta raportista huolimatta kuitenkin vain yhden kyselyn
 
@@ -956,7 +956,7 @@ end
 
 Huomaamme kuitenkin että vaikka kyselyjen määrä on vähentynyt, toistuu edelleen reittausten keskiarvon selvittävä kysely jokaisen oluen kohdalla:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/profiler3.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/profiler3.png)
 
 Syynä tälle on se, että olemme määritelleet että reittausten keskiarvo lasketaan SQL:n avulla:
 
@@ -989,7 +989,7 @@ end
 
 Kontrollerin suoritus aiheuttaa nyt entistä vähemmän kyselyjä ja näytön renderöinti ainoastaan yhden kyselyn.
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/profiler4.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/profiler4.png)
 
 Miniprofiler paljastaa että kysely on
 
@@ -1147,7 +1147,7 @@ Datamäärän ollessa suuri, ei pelkkä kyselyjen optimointi riitä, vaan on ets
 
 Vaihtoehdoksi nousee tällöin **cachaus eli välimuistien käyttö**.
 
-Web-sovelluksessa cachaystä voidaan suorittaa sekä selaimen, että palvelimen puolella (sekä selaimen ja palvelimen välissä olevissa proxyissä). Tarkastellaan nyt palvelimen puolella tapahtuvaa cachaystä. Toteutimme jo [toissa viikolla](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko5.md#suorituskyvyn-optimointi) "käsin" beermapping-apista haettujen tietojen cachaystä Rails.cachen avulla. Tutkitaan nyt railsin tarjoamaa hieman automaattisempaa cachaysmekanismia.
+Web-sovelluksessa cachaystä voidaan suorittaa sekä selaimen, että palvelimen puolella (sekä selaimen ja palvelimen välissä olevissa proxyissä). Tarkastellaan nyt palvelimen puolella tapahtuvaa cachaystä. Toteutimme jo [toissa viikolla](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko5.md#suorituskyvyn-optimointi) "käsin" beermapping-apista haettujen tietojen cachaystä Rails.cachen avulla. Tutkitaan nyt railsin tarjoamaa hieman automaattisempaa cachaysmekanismia.
 
 Cachays ei ole oletusarvoisesti päällä kun sovellusta suoritetaan development-moodissa. Kytkit ehkä cachen päälle viikolla 5.
 
@@ -1215,13 +1215,13 @@ Fragmentticachayksen lisääminen oluiden listalle views/beers/index.html on hel
 
 Kun nyt menemme sivulle, ei sivufragmenttia ole vielä talletettu välimuistin ja sivun lataaminen kestää yhtä kauan kuin ennen cachayksen lisäämistä:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-9.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-9.png)
 
 Sivun latausaika on 234564ms, mistä itse sivun renderöimiseen kulunut aika <code>Rendering: beers/index</code> on siis 5041.2 millisekuntia.
 
 Sivulla käytyämme sivun osa tallettuu välimuistiin ja seuraava sivun avaaminen on huomattavasti nopeampi:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-10.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-10.png)
 
 Koko sivun latausaika on 299 millisekuntia, josta ainoastaan 6.3 millisekuntia kuluu näkymätemplaten lataamiseen.
 
@@ -1278,7 +1278,7 @@ Ehdossa oleva <code>request.format.html?</code> varmistaa sen, että suoritamme 
 
 Sivu nopeutuu entisestään:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-11.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-11.png)
 
 Huomaamme kuitenkin että sivulla on pieni ongelma. Oluet sai järjestettyä sarakkeita klikkaamalla vaihtoehtoisiin järjestyksiin. Cachays on kuitenkin rikkonut toiminnon!
 
@@ -1438,7 +1438,7 @@ Käytännössä <code>belongs_to</code>-yhteyteen liitetty <code>touch: true</co
 
 Muuta seuraavaa tehtävää varten yksittäisen panimon näkymää siten, että se listaa panimon oluiden tiedot esim. seuraavaan tapaan
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/w7-brewery.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/w7-brewery.png)
 
 > ## Tehtävä 11
 >
@@ -1651,7 +1651,7 @@ http://www.martinfowler.com/bliki/PolyglotPersistence.html
 
 ## Refaktorointi: luokkametodit
 
-Viikon 6 tehtävässä [6-7](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko6.md#teht%C3%A4v%C3%A4-6-7-kahden-teht%C3%A4v%C3%A4n-arvoinen) kehoitettiin tekemään luokille _Beer_, _Brewery_ ja _Style_ luokkametodit, joiden avulla kontrollerin on helppo selvittää saa reittausten perusteella parhaat panimot, oluet ja oluttyylit.
+Viikon 6 tehtävässä [6-7](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko6.md#teht%C3%A4v%C3%A4-6-7-kahden-teht%C3%A4v%C3%A4n-arvoinen) kehoitettiin tekemään luokille _Beer_, _Brewery_ ja _Style_ luokkametodit, joiden avulla kontrollerin on helppo selvittää saa reittausten perusteella parhaat panimot, oluet ja oluttyylit.
 
 Metodit ovat kaikissa luokissa täsmälleen samat:
 
@@ -1666,7 +1666,7 @@ class Beer < ApplicationRecord
 end
 ```
 
-Viikolla 2 siirrettiin luokkien määrittelemiä samanlaisia _oliometodeita_ [yhteiseen moduuliin](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko2.md#yhteisen-koodin-siirto-moduuliin).
+Viikolla 2 siirrettiin luokkien määrittelemiä samanlaisia _oliometodeita_ [yhteiseen moduuliin](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md#yhteisen-koodin-siirto-moduuliin).
 
 Myös luokkametodeja voidaan siirtää yhteiseen moduuliin, tekniikka ei kuitenkaan ole täysin sama kuin oliometodeja käytettävissä
 
@@ -1684,17 +1684,17 @@ Myös luokkametodeja voidaan siirtää yhteiseen moduuliin, tekniikka ei kuitenk
 >
 > Kurssi on tehtävien osalta ohi ja on aika antaa kurssipalaute osoitteessa coursefeedback.helsinki.fi
 >
-> Voit antaa palautteeen kun olet ensin [ilmoittautunut](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/ilmoittautuminen.md) avoimen yliopiston kurssitoteutukseen (ilmoittautumisen jälkeen menee noin 2 tuntia ennen kuin ilmoittautumistieto valuu kurssipalautesovellukseen)
+> Voit antaa palautteeen kun olet ensin [ilmoittautunut](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen.md) avoimen yliopiston kurssitoteutukseen (ilmoittautumisen jälkeen menee noin 2 tuntia ennen kuin ilmoittautumistieto valuu kurssipalautesovellukseen)
 
 ## Tehtävien palautus
 
 Commitoi kaikki tekemäsi muutokset ja pushaa koodi GitHubiin. Deployaa myös uusin versio Fly.io:n tai Herokuun. Muista myös testata Rubocopilla, että koodisi noudattaa edelleen määriteltyjä tyylisääntöjä.
 
-Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2022/
+Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2023/
 
 ## Suoritusmerkintä
 
-[Ilmoittaudu](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/ilmoittautuminen.md) avoimen yliopiston kurssitoteutukseen ja [pyydä suoritusmerkintää](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/ilmoittautuminen.md#suoritusmerkinn%C3%A4n-pyyt%C3%A4minen) palautussovelluksessa.
+[Ilmoittaudu](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen.md) avoimen yliopiston kurssitoteutukseen ja [pyydä suoritusmerkintää](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen.md#suoritusmerkinn%C3%A4n-pyyt%C3%A4minen) palautussovelluksessa.
 
 ## Mitä seuraavaksi?
 
