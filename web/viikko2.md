@@ -2,7 +2,7 @@
 
 Suomen johtava Rails-talo [Kisko](https://www.kiskolabs.com/) järjestää kurssilaisille illanvieton pe 16.12. klo 16-18
 
-<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/kisko.png" width="600">
+<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/kisko.png" width="600">
 
 Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai Discordissa kurssikanavalla tai @mluukkai
 
@@ -10,7 +10,7 @@ Jatkamme sovelluksen rakentamista siitä, mihin jäimme viikon 1 lopussa. Allaol
 
 ## Järkevä editori
 
-Käytäthän jo järkevää editoria, eli jotain muuta kun nanoa, geditiä tai notepadia? Suositeltavia editoreja ovat esim. RubyMine, Visual Studio Code, ks. lisää [täältä](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/wadror.md#editoriide).
+Käytäthän jo järkevää editoria, eli jotain muuta kun nanoa, geditiä tai notepadia? Suositeltavia editoreja ovat esim. RubyMine, Visual Studio Code, ks. lisää [täältä](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/wadror.md#editoriide).
 
 Nykyään hyvin yleisesti käytössä on [Visual Studio Codea](https://code.visualstudio.com). Jos käytät VSC:tä, kannattaa ehdottamasti asentaa [Ruby-plugin](https://code.visualstudio.com/docs/languages/overview)
 
@@ -252,7 +252,7 @@ Ja nyt sivu toimii!
 
 Huomaa taas Railsin konventiot, tiedoston sijainti on tarkasti määritelty, eli koska kyseessä on näkymätemplate jota kutsutaan ratings-kontrollerista (joka siis on täydelliseltä nimeltään RatingsController), sijoitetaan se hakemistoon /views/ratings.
 
-Muistutuksena vielä [viime viikosta](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko1.md#kontrollerin-ja-viewien-yhteys): kontrollerimetodi <code>index</code> renderöi oletusarvoisesti suorituksensa lopuksi (oikeassa hakemistossa olevan) index-nimisen näkymän. Eli koodi
+Muistutuksena vielä [viime viikosta](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko1.md#kontrollerin-ja-viewien-yhteys): kontrollerimetodi <code>index</code> renderöi oletusarvoisesti suorituksensa lopuksi (oikeassa hakemistossa olevan) index-nimisen näkymän. Eli koodi
 
 ```ruby
 class RatingsController < ApplicationController
@@ -303,7 +303,7 @@ Jos olet suorittanut jo migraation ja huomaat että generaattorin luoma koodi on
 
     rails db:rollback
 
-Jotta yhteydet saadaan myös oliotasolle (muistutuksena [viime viikon materiaali](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko1.md#oluet-ja-yhden-suhde-moneen--yhteys)), tulee luokkia päivittää seuraavasti
+Jotta yhteydet saadaan myös oliotasolle (muistutuksena [viime viikon materiaali](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko1.md#oluet-ja-yhden-suhde-moneen--yhteys)), tulee luokkia päivittää seuraavasti
 
 ```ruby
 class Beer < ApplicationRecord
@@ -386,7 +386,7 @@ vierasavaimen arvo [ei saa olla alustamaton](https://blog.bigbinary.com/2016/02/
 >
 > lisää molemmille oluille muutama reittaus
 >
-> Kertaa tarvittaessa edellisen viikon [materiaalista](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko1.md) konsolia käsittelevät osuudet.
+> Kertaa tarvittaessa edellisen viikon [materiaalista](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko1.md) konsolia käsittelevät osuudet.
 >
 > Palauta tämä tehtävä lisäämällä sovelluksellesi hakemisto exercises ja sinne tiedosto exercise1, joka sisältää copypasten konsolisessiosta
 
@@ -558,7 +558,7 @@ Panimon sisällä <code>year</code> siis on ActiveRecordin tietokantaan tallenta
 >
 > Muuta sivun ratings-näkymä sellaiseksi, että arvosteluoliosta tehdään parempi merkkijonoesitys muodossa "karhu 35", eli ensin reitatun oluen nimi ja sen jälkeen reittauksen pistemäärä.
 >
-> Merkkijonon muodostamisessa myös seuraavasta voi olla apua https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#merkkijonot
+> Merkkijonon muodostamisessa myös seuraavasta voi olla apua https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#merkkijonot
 >
 > Voit tehdä kaiken suoraan tiedostoon views/partials/index.html.erb tai voit halutessasi myös tehdä luokalle Rating partials-tiedoston, joka hoitaa yhden ratingin muotoilemisen
 > 
@@ -713,7 +713,7 @@ http://guides.rubyonrails.org/form_helpers.html#dealing-with-model-objects
 
 Jos yritämme luoda reittauksen, ei mitään näytä tapahtuvan. Selaimen developer-konsoli paljastaa kuitenkin, että selain on tehnyt POST-pyynnön osoitteeseen http://localhost:3000/ratings mutta palvelin on vastannut siihen 404
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/w2-post.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/w2-post.png)
 
 Joudumme siis luomaan tiedostoon config/routes.rb reitin lomakkeen lähetyksen käsittelyyn:
 
@@ -1232,7 +1232,7 @@ Huomaamme, että oluella ja panimolla on täsmälleen samalla tavalla toimiva ja
 
 > ## Tehtävä 15
 >
-> Ruby tarjoaa keinon jakaa metodeja kahden luokan välillä moduulien avulla, ks. https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#moduuli
+> Ruby tarjoaa keinon jakaa metodeja kahden luokan välillä moduulien avulla, ks. https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#moduuli
 >
 > Moduleilla on useampia käyttötarkoituksia, niiden avulla voidaan mm. muodostaa nimiavaruuksia. Nyt olemme kuitenkin kiinnostuneita modulien avulla toteutettavasta _mixin_-perinnästä.
 >
@@ -1404,7 +1404,7 @@ Viikon lopuksi on taas aika deployata sovellus Fly.io:n Herokuun. Deployment Fly
 
 Navigoitaessa reittausten sivulle syntyy pahaenteinen virheilmoitus:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w2-12.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w2-12.png)
 
 Tuotantomoodissa pyörivän sovelluksen virheiden jäljittäminen on aina hiukan vaikeampaa kuin kehitysmoodissa, jossa Rails tarjoaa sovellusohjelmoijalle monia mahdollisuuksia virheiden selvittämiseen.
 
@@ -1516,6 +1516,6 @@ Koska kyseessä on tuotannossa oleva ohjelma, tietokannan resetointi (<code>rail
 
 Commitoi kaikki tekemäsi muutokset ja pushaa koodi GitHubiin. Deployaa myös uusin versio Fly.io:n tai Herokuun.
 
-Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2022
+Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2023
 
-Ja ei kun eteenpäin: [viikko 3](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko3.md).
+Ja ei kun eteenpäin: [viikko 3](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko3.md).
