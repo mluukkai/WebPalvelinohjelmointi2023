@@ -2,7 +2,7 @@
 
 Suomen johtava Rails-talo [Kisko](https://www.kiskolabs.com/) järjestää kurssilaisille illanvieton pe 16.12. klo 16-18
 
-<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/kisko.png" width="600">
+<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/kisko.png" width="600">
 
 Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai Discordissa kurssikanavalla tai @mluukkai
 
@@ -10,7 +10,7 @@ Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai 
 
 Web-sovellusten toimintaperiaate on periaatteessa yksinkertainen. Käyttäjä avaa selaimen ja kirjoittaa osoiteriville haluamansa sivun URL:in, esim. https://www.cs.helsinki.fi/u/mluukkai/. URL:in ensimmäinen osa, eli esimerkissämme www.cs.helsinki.fi on yleensä DNS-nimi, jonka avulla pystytään selvittämään www-sivua hallinnoivan palvelimen ip-osoite. Selain lähettää web-palvelimelle pyynnön sivusta käyttäen HTTP-protokollan GET-metodia. Jos osoite on oikea, ja sivupyynnön lähettäjällä on oikeus URL:n polun määrittelemään resurssiin (esimerkissämme mluukkai/index.html), palvelin palauttaa selaimelle _statuskoodin_ 200 ja sivun sisällön HTML-muodossa. Selain renderöi sitten sivun käyttäjälle. Jos sivua ei ole olemassa, palvelin palauttaa selaimelle virheestä kertovan statuskoodin 404.
 
-Palvelimen palauttama www-sivu voi olla **staattinen**, eli "käsin" palvelimella sijaitsevaan html-tiedostoon kirjoitettu tai **dynaaminen**, eli esim. palvelimen tietokannassa olevan datan perusteella pyynnön yhteydessä generoitu. Esim. [opintotarjonnan sivulla](https://studies.helsinki.fi/opintotarjonta?organisation=hy-org-116716376&page=0&period=hy-university-root-id%2F2022%2F0%2F1&searchText=&studyYear=2022) oleva kurssien lista luetaan tietokannasta ja sivun renderöivä html-koodi muodostetaan aina uudelleen sivulle mentäessä, senhetkisen tietokannassa olevan kurssien listan perusteella.
+Palvelimen palauttama www-sivu voi olla **staattinen**, eli "käsin" palvelimella sijaitsevaan html-tiedostoon kirjoitettu tai **dynaaminen**, eli esim. palvelimen tietokannassa olevan datan perusteella pyynnön yhteydessä generoitu. Esim. [opintotarjonnan sivulla](https://studies.helsinki.fi/opintotarjonta?organisation=hy-org-116716376&page=0&period=hy-university-root-id%2F2022%2F0%2F1&searchText=&studyYear=2023) oleva kurssien lista luetaan tietokannasta ja sivun renderöivä html-koodi muodostetaan aina uudelleen sivulle mentäessä, senhetkisen tietokannassa olevan kurssien listan perusteella.
 
 Toisinaan www-sivuilla tiedon kulun suunta muuttuu ja dataa lähetetään selaimelta palvelimelle. Useimmiten tämä tapahtuu siten, että sivustolla on _lomake_, jolle käyttäjä syöttää palvelimelle lähetettävät tiedot. Tietojen lähettämistä varten HTTP-protokolla tarjoaa metodin POST (myös HTTP:n GET-metodia voi käyttää tietojen lähettämiseen).
 
@@ -103,7 +103,7 @@ Railsilla tapahtuvassa sovelluskehityksessä komentorivin käyttön hallinta on 
 
 Kurssin rakenne poikkeaa jossain määrin Tietojenkäsittelytieteen osaston kurssistandardista. Kurssilla tehdään ainoastaan yksi sovellus, samaa sovellusta tehdään sekä kurssimateriaalissa että materiaalin sekaan upotetuissa tehtävissä. Kurssin materiaalia ei pystykään pelkästään lukemaan. Materiaalia seuratessa tulee itse rakentaa matkan varrella täydentyvää sovellusta, sillä muuten tehtävien tekeminen on mahdotonta. 
 
-Kurssi jakautuu seitsemään "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.12.2022 klo 23.59.
+Kurssi jakautuu seitsemään "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.12.2023 klo 23.59.
 
 Jokainen "viikko" palateaan erikseen kurssin palautussovellukseen. Palautettuasi yhden viikon tehtävät, pääset näkemään viikon esimerkkivastauksen. Seuraavalla viikolla on mahdollista jatkaa joko oman sovelluksen rakentamista tai ottaa pohjaksi edellisen viikon esimerkkivastaus.
 
@@ -111,7 +111,7 @@ Osa viikon tehtävistä on käytännössä pakollisia, muuten eteneminen pysäht
 
 ## Railsin asennus
 
-Asennusohje osoitteessa https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/railsin_asentaminen.md
+Asennusohje osoitteessa https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/railsin_asentaminen.md
 
 ## Sovelluksen luominen
 
@@ -396,7 +396,7 @@ Olemme tässä hyödyntäneet Rubyn vapaamielistä suhtautumista sulkujen käytt
 Brewery.new( name: "Stadin Panimo", year: 1997 )
 ```
 
-Myös parametri on hieman erikoisessa formaatissa. Kyseessä on symboleilla indeksöity assosiatiivinen taulukko eli _hash_, ks. https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#hash-ja-symbolit
+Myös parametri on hieman erikoisessa formaatissa. Kyseessä on symboleilla indeksöity assosiatiivinen taulukko eli _hash_, ks. https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#hash-ja-symbolit
 
 Kuten yo. linkistä selviää, hashit määritellään aaltosuluissa:
 
@@ -448,7 +448,7 @@ t = Brewery.where name: "Koff"
 t.first.year                   # t.first tarkoittaa kuin t[0] eli taulukon 1. alkiota
 ```
 
-Lisää Rubyn taulukosta ks. https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#taulukko
+Lisää Rubyn taulukosta ks. https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#taulukko
 
 Huomaa, että jätimme edellä kaikissa esimerkeissä metodikutsuista sulut pois. <code>Brewery.find 1</code> siis tarkoittaa samaa kuin <code>Brewery.find(1)</code>
 
@@ -769,7 +769,7 @@ irb(main):071:0> koff.beers.create name: "Extra Light Triple Brewed", style: "La
 > - Päädymme kuitenkin siihen että Hartwall on huonon laatunsa takia poistettava. Ennen poistamista, ota muistiin Hartwall-olion id
 > - Hartwallin poistaminen jättää tietokantaan olut-olioita, jotka liittyvät jo poistettuun panimoon
 > - Hae orvoksi jääneet oluet komennolla <code>Beer.where tähänsopivaparametri</code>
-> - Tuhoa operaation palauttamat oluet. Ohjeita oluiden listan läpikäyntiin esim. seuraavasta https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#taulukko
+> - Tuhoa operaation palauttamat oluet. Ohjeita oluiden listan läpikäyntiin esim. seuraavasta https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#taulukko
 
 ## Kontrollerin ja viewien yhteys
 
@@ -848,7 +848,7 @@ Palataan sitten tarkemmin panimot listaavaan koodiin. Jokainen panimo tulostuu o
   <% end %>
 ```
 
-Muuttujaan `@breweries` talletettu panimoiden lista käydään läpi `each`-iteraattorin avulla. (lisää eachista ks. https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#each). 
+Muuttujaan `@breweries` talletettu panimoiden lista käydään läpi `each`-iteraattorin avulla. (lisää eachista ks. https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#each). 
 
 Rails luo rivit käyttäen <code>render</code> metodia jota se kutsuu jokaiselle panimolle: 
 
@@ -932,7 +932,7 @@ Mitä tarkoittaa `"breweries/#{brewery.id}"`? Kyseinen merkkijonon alussa on ens
 
 Tehtävän jälkeen sovelluksesi panimot näyttävien sivujen tulisi näyttää seuraavalta
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/brewery-w1-0a.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/brewery-w1-0a.png)
 
 ## Oluiden listaaminen panimon sivulla
 
@@ -1097,7 +1097,7 @@ Jatketaan muutosten tekemistä.
 
 Sivusi tulisi näyttää tehtävän jälkeen seuraavalta
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/brewery-w1-1.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/brewery-w1-1.png)
 
 Parannellaan vielä hieman sovelluksemme navigaatiota.
 
@@ -1119,13 +1119,13 @@ Viritellään lopuksi kaikkien oluiden listaa.
 
 Lopputuloksen pitäisi näyttää seuraavalta:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/brewery-w1-2.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/brewery-w1-2.png)
 
 ## nil
 
 Saatat törmätä seuraavanlaiseen virheilmoitukseen
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/brewery-w1-3.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/brewery-w1-3.png)
 
 Kyse on oikeastaan klassisesta nullpointer-poikkeuksesta, tai sen Ruby-versiosta nilpointer-poikkeuksesta. Rails vihjaa, että olet yrittänyt kutsua nil:ille (joka on Rubyssä olio!) metodia name, ja että sellaista ei ole. Syynä tälle on todennäköisesti se, että tietokannassasi on oluita joihin ei liity panimoa tai että niihin liittyvä panimo on poistettu.
 
@@ -1366,7 +1366,7 @@ Edetään sitten noudattaen Fly.io:n [Rails](https://fly.io/docs/rails/getting-s
 
 Mene sovelluksen hakemistoon ja luo Fly.io-sovellus komennolla `fly launch`. Samalla tapahtuu Postgres-tietokannan luominen. Vastaile kysymyksiin "sopivasti". (Sovelluksen nimen tulee sisältää vain numeroita, pieniä kirjaimia ja väliviivoja.) Huomaa, että joudut hyväksymään tietokannan luomisen, oletusarvoisesti kysymykseen on vastattu 'No':
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/fly-pg.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/fly-pg.png)
     
 Vie sovellus tuotantoon komennolla `fly deploy`. Tämä komento toistetaan aina kun sovellukseen uusi versio halutaan internettiin.
 
@@ -1559,6 +1559,6 @@ Commitoi kaikki tekemäsi muutokset ja pushaa koodi Githubiin. Lisää GitHubin 
 
 Jos käytät yksityistä repositoriota, lisää käyttäjät mluukkai ja kaltsoon collaboraattoreiksi!
 
-Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2022
+Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2023
 
-Jatketaan tykitystä: [viikko 2](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko2.md).
+Jatketaan tykitystä: [viikko 2](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md).
