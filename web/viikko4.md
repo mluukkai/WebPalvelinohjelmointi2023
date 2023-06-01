@@ -2,7 +2,7 @@
 
 Suomen johtava Rails-talo [Kisko](https://www.kiskolabs.com/) järjestää kurssilaisille illanvieton pe 16.12. klo 16-18
 
-<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/kisko.png" width="600">
+<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/kisko.png" width="600">
 
 Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai Discordissa kurssikanavalla tai @mluukkai
 
@@ -14,7 +14,7 @@ Jatkamme sovelluksen rakentamista siitä, mihin jäimme viikon 3 lopussa. Allaol
 
 Muista testata rubocopilla, että kaikki tulevaisuudessa tekemäsi koodisi noudattaa määriteltyjä tyylisääntöjä.
 
-Jos käytät Visual studio codea, kannattaa asentaa [rubocop-laajennus](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko3.md#rubocop)
+Jos käytät Visual studio codea, kannattaa asentaa [rubocop-laajennus](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko3.md#rubocop)
 
 ### Ongelmia lomakkeiden kanssa
 
@@ -44,7 +44,7 @@ end
 
 Näiden muutosten jälkeen oluen tietojen editointi ei yllättäen enää toimi. Seurauksena on virheilmoitus <code>undefined method `map' for nil:NilClass</code>, johon olet kenties jo kurssin aikana törmännyt:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w4-0.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w4-0.png)
 
 Syynä tälle on se, että uuden oluen luominen ja oluen tietojen editointi käyttävät molemmat samaa lomakkeen generoivaa näkymätemplatea (app/views/beers/\_form.html.erb) ja muutosten jälkeen näkymän toiminta edellyttää, että muuttuja <code>@breweries</code> sisältää panimoiden listan ja muuttuja <code>@styles</code> sisältää oluiden tyylit. Oluen tietojen muutossivulle mennään kontrollerimetodin <code>edit</code> suorituksen jälkeen, ja joudummekin muuttamaan kontrolleria seuraavasti korjataksemme virheen:
 
@@ -176,7 +176,7 @@ Tarkka silmä huomaa lokin seasta että ongelma on _ActionView::Template::Error 
 <li> <%= rating %> <%= link_to rating.user.username, rating.user %> </li>
 ```
 
-vaikuttaa siis siltä, että tietokannassa on <code>rating</code>-olio, johon liittyvä <code>user</code> on <code>nil</code>. Kyseessä on siis jo [viikolta 2 tuttu](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko2.md#ongelmia-herokussa) ongelma.
+vaikuttaa siis siltä, että tietokannassa on <code>rating</code>-olio, johon liittyvä <code>user</code> on <code>nil</code>. Kyseessä on siis jo [viikolta 2 tuttu](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md#ongelmia-herokussa) ongelma.
 
 Ongelman perimmäinen syy on joko se, että jonkin ratingin <code>user_id</code>-kentän arvo on <code>nil</code>, tai että jonkin rating-olion <code>user_id</code>:n arvona on virheellinen id. Tilanteesta selvitään esim. tuhoamalla 'huonot' rating-oliot konsolista käsin. Herokussa konsoli avautuu komennolla <code>heroku run console</code>. Fly.io:n konsoliin pääset antamalla ensin komennon <code>fly ssh console</code> ja sen jälkeen komennon <code>/app/bin/rails c</code>
 
@@ -967,7 +967,7 @@ FactoryBot.define do
 end
 ```
 
-Tämä saattaa aiheuttaa yllättäviä tilanteita (mm. jos määrittelet itse saman nimisen tehtaan, käytetään sen sijaan oletusarvoista tehdasta!), eli kannattanee määritellä gemi ainoastaan testausympäristöön luvun https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko4.md#testiymp%C3%A4rist%C3%B6t-eli-fixturet ohjeen tapaan.
+Tämä saattaa aiheuttaa yllättäviä tilanteita (mm. jos määrittelet itse saman nimisen tehtaan, käytetään sen sijaan oletusarvoista tehdasta!), eli kannattanee määritellä gemi ainoastaan testausympäristöön luvun https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko4.md#testiymp%C3%A4rist%C3%B6t-eli-fixturet ohjeen tapaan.
 
 #### testitietokantaan jäävät oliot
 
@@ -1105,7 +1105,7 @@ Nyt jokainen peräkkäisten tehtaan <code>FactoryBot.create(:user)</code> kutsuj
 
 ## Testit ja debuggeri
 
-Toivottavasti olet jo tässä vaiheessa kurssia rutinoitunut [debuggerin](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko2.md#debuggeri) käyttäjä. Koska testitkin ovat normaalia Ruby-koodia, on myös _binding.pry_ käytettävissä sekä testikoodissa että testattavassa koodissa. Testausympäristön tietokannan tila saattaa joskus olla yllättävä, kuten edellä olevista esimerkeistä näimme. Ongelmatilanteissa kannattaa ehdottomasti pysäyttää testikoodi debuggerilla ja tutkia vastaako testattavien olioiden tila oletettua.
+Toivottavasti olet jo tässä vaiheessa kurssia rutinoitunut [debuggerin](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md#debuggeri) käyttäjä. Koska testitkin ovat normaalia Ruby-koodia, on myös _binding.pry_ käytettävissä sekä testikoodissa että testattavassa koodissa. Testausympäristön tietokannan tila saattaa joskus olla yllättävä, kuten edellä olevista esimerkeistä näimme. Ongelmatilanteissa kannattaa ehdottomasti pysäyttää testikoodi debuggerilla ja tutkia vastaako testattavien olioiden tila oletettua.
 
 ## Yksittäisten testien suorittaminen
 
@@ -1497,7 +1497,7 @@ Saattaa olla järkevää siirtää myös aiemmin tiedostoon _user_spec.rb_ mää
 >
 > Huomaa, että testin on luotava sovellukseen ainakin yksi panimo, jotta oluiden luominen olisi mahdollista.
 >
-> **HUOM:** ohjelmassasi saattaa olla bugi tilanteessa, jossa yritetään luoda epävalidin nimen omaava olut. Kokeile toiminnallisuutta selaimesta. Syynä tälle on selitetty viikon alussa, kohdassa https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko4.md#muutama-huomio. Korjaa vika koodistasi.
+> **HUOM:** ohjelmassasi saattaa olla bugi tilanteessa, jossa yritetään luoda epävalidin nimen omaava olut. Kokeile toiminnallisuutta selaimesta. Syynä tälle on selitetty viikon alussa, kohdassa https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko4.md#muutama-huomio. Korjaa vika koodistasi.
 >
 > Muista ongelmatilanteissa komento <code>save_and_open_page</code>!
 
@@ -1558,7 +1558,7 @@ Coverage report generated for RSpec to /Users/mluukkai/opetus/ratebeer/coverage.
 
 Testien rivikattavuus on siis 48.35 prosenttia. Tarkempi raportti on nähtävissä avaamalla selaimella tiedosto coverage/index.html. Kuten kuva paljastaa, on suuria osia ohjelmasta, erityisesti kontrollereista vielä erittäin huonosti testattu:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w4-1.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w4-1.png)
 
 Suurikaan rivikattavuus ei tietysti vielä takaa että testit testaavat järkeviä asioita. Helposti mitattavana metriikkana se on kuitenkin parempi kuin ei mitään ja näyttää ainakin ilmeisimmät puutteet testeissä.
 
@@ -1580,7 +1580,7 @@ Githubissa olevat projektit on helppo asettaa Github actionsin tarkkailtaviksi.
 >
 > Mene oman projektisi repositorioon ja paina yläpalkista Actions-painiketta. Jos sinulla ei ole olemassaolevia actioneja github vie sinut suoraan sivulle, jossa ehdotetaan valmiita pohjia valittavaksi.
 >
-> ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w4-2.png)
+> ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w4-2.png)
 >
 > Valitaan Ruby on Rails painamalla Configure-nappia. Tämän seurauksena github vie sivulle jossa muokataan <code>rubyonrails.yml</code> nimistä tiedostoa. Tämä workflow tiedosto kertoo Github actionsille mitä CI:n tulee tehdä.
 >
@@ -1694,7 +1694,7 @@ Testauskattavuuden lisäksi myös koodin laatua kannattaa valvoa. SaaS-palveluna
 >
 > Löydät linkin raporttiin seuraavasti
 >
-> ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w4-4c.png)
+> ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w4-4c.png)
 >
 > Nyt myös codeclimate aiheuttaa sovelluskehittäjälle sopivasti painetta pitää koodi koko ajan hyvälaatuisena!
 
@@ -1702,7 +1702,7 @@ Sovelluskehittäjän elämää helpottavien pilvipalveluiden määrä kasvaa kov
 
 ## Kirjautuneiden toiminnot
 
-Jätetään testien teko hetkeksi ja palataan muutamaan aiempaan teemaan. Viikolla 2 rajoitimme http basic -autentikaation avulla sovellustamme siten, että ainoastaan admin-salasanan syöttämällä oli mahdollista poistaa panimoita. [Viikolla 3](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko3.md#vain-omien-reittausten-poisto) rajoitimme sovelluksen toiminnallisuutta siten, että reittausten poistaminen ei ole mahdollista kuin reittauksen tehneelle käyttäjälle. Sen sijaan esim. olutkerhojen ja oluiden luominen, poistaminen ja editointi on tällä hetkellä mahdollista jopa ilman kirjautumista.
+Jätetään testien teko hetkeksi ja palataan muutamaan aiempaan teemaan. Viikolla 2 rajoitimme http basic -autentikaation avulla sovellustamme siten, että ainoastaan admin-salasanan syöttämällä oli mahdollista poistaa panimoita. [Viikolla 3](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko3.md#vain-omien-reittausten-poisto) rajoitimme sovelluksen toiminnallisuutta siten, että reittausten poistaminen ei ole mahdollista kuin reittauksen tehneelle käyttäjälle. Sen sijaan esim. olutkerhojen ja oluiden luominen, poistaminen ja editointi on tällä hetkellä mahdollista jopa ilman kirjautumista.
 
 Luovutaan http basic -autentikoinnin käytöstä ja muutetaan sovellusta siten, että oluita, panimoita ja olutkerhoja voivat luoda, muokata ja poistaa ainoastaan kirjautuneet käyttäjät.
 
@@ -1760,7 +1760,7 @@ end
 
 Eli jos metodia kutsuttaessa käyttäjä ei ole kirjautunut, suoritetaan uudelleenohjaus kirjautumissivulle. Koska metodi on sijoitettu luokkaan <code>ApplicationController</code> jonka kaikki kontrollerit perivät, on se kaikkien kontrollereiden käytössä.
 
-Lisätään metodi esifiltteriksi (ks. http://guides.rubyonrails.org/action_controller_overview.html#filters ja https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko2.md#yksinkertainen-suojaus) olut- ja panimo- ja olutkerhokontrollerille kaikille metodeille paitsi index:ille ja show:lle:
+Lisätään metodi esifiltteriksi (ks. http://guides.rubyonrails.org/action_controller_overview.html#filters ja https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md#yksinkertainen-suojaus) olut- ja panimo- ja olutkerhokontrollerille kaikille metodeille paitsi index:ille ja show:lle:
 
 ```ruby
 class BeersController < ApplicationController
@@ -1792,4 +1792,4 @@ Voit halutessasi tehdä hienosäätöä sovelluksen näkymiin, esim. poistaa res
 
 Commitoi kaikki tekemäsi muutokset ja pushaa koodi GitHubiin. Deployaa myös uusin versio Fly.io:n tai Herokuun. Muista myös testata Rubocopilla, että koodisi noudattaa edelleen määriteltyjä tyylisääntöjä.
 
-Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2022/
+Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2023/

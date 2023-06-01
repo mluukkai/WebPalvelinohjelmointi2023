@@ -2,7 +2,7 @@
 
 Suomen johtava Rails-talo [Kisko](https://www.kiskolabs.com/) järjestää kurssilaisille illanvieton pe 16.12. klo 16-18
 
-<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/kisko.png" width="600">
+<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/kisko.png" width="600">
 
 Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai Discordissa kurssikanavalla tai @mluukkai
 
@@ -14,7 +14,7 @@ Osa tämän viikon tehtävistä saattaa hajottaa jotain edellisinä viikkoina te
 
 ## Muistutus debuggerista
 
-Viikolla 2 tutustuimme [debuggeriin](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko2.md#debuggeri). Jos debuggeri ei ole vielä löytänyt tietänsä sinun työkaluvalikoimaan niin tässä vielä nopea kertaus käytöstä.
+Viikolla 2 tutustuimme [debuggeriin](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md#debuggeri). Jos debuggeri ei ole vielä löytänyt tietänsä sinun työkaluvalikoimaan niin tässä vielä nopea kertaus käytöstä.
 
 Debuggerin käyttö on erittäin helppoa. Riittää kirjoittaa komento <code>binding.pry</code> (tai hieman huonommin toimiva Railsin natiividebuggeri komennolla <code>binding.break</code>) _mihin tahansa_ kohtaan sovelluksen koodia. Seuraavassa esimerkki:
 
@@ -290,11 +290,11 @@ Bootstrapin dokumentaatio ei ole ihan selkein mahdollinen, mutta pienellä ihmet
 
 Vaikka Bootstrapilla muotoiltu navigaatiopalkki on koodina pidempi ja sotkuisempikin kuin aiempi navigaatiopalkkimme, on sillä kuitenkin eräs merkittävä etu. Jos sovellusta tarkastellaan "isolta" näytöltä, näkyy navigaatiopalkki normaalisti:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-0a.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-0a.png)
 
 Jos taas sovellusta tarkastellaan pienemmältä näytöltä, esim. mobiililaitteelta, näytetään navigaatiopalkin sijaan symboli, jota klikkaamalla navigaatiopalkki aukeaa alaspäin:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-0b.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-0b.png)
 
 Bootstrapilla muotoiltu navigaatiopalkki on _responsiivinen_, se mukautuu sovellusta käyttävän selaimen kokoon.
 
@@ -397,7 +397,7 @@ Lisäämällä taulukolle vielä luokka <code>table-hover</code>, saadaan se riv
 
 Tehtävän jälkeen oluiden sivu voi näyttää esim. seuraavalta
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/beers-bootstrapped.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/beers-bootstrapped.png)
 
 Bootstrap tarjoaa valmiit tyylit myös painikkeille https://getbootstrap.com/docs/5.2/components/buttons/
 
@@ -432,7 +432,7 @@ Luokka voidaan lisätä myös niihin linkkeihin, jotka halutaan napin painikkeen
 >
 > Saat päättää lomakkeen tarkan tyylin itse. Eräs tapa muotoilla lomake on seuraava
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-3a.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-3a.png)
 
 > ## Tehtävä 4
 >
@@ -440,7 +440,7 @@ Luokka voidaan lisätä myös niihin linkkeihin, jotka halutaan napin painikkeen
 >
 > Apua löydät [navbarin](https://getbootstrap.com/docs/5.2/components/navbar/) ohjeiden _dropdown_-elementtejä sisältävistä esimerkeistä.
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-3c.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-3c.png)
 
 > Jos dropdownit eivät tunnu toimivan varmista, että <code>application.js</code> tiedoston requiret ja importit ovat oikein päin, eli requiret ennen importteja
 
@@ -516,7 +516,7 @@ def brewery_params
 end
 ```
 
-Kuten [viikolla 2 totesimme](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko2.md#reittauksen-talletus) on jokainen massasijoitettavaksi tarkoitettu attribuutti eksplisiittisesti sallittava <code>permit</code> metodin avulla. Muutetaan metodia <code>brewery_params</code> seuraavasti:
+Kuten [viikolla 2 totesimme](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md#reittauksen-talletus) on jokainen massasijoitettavaksi tarkoitettu attribuutti eksplisiittisesti sallittava <code>permit</code> metodin avulla. Muutetaan metodia <code>brewery_params</code> seuraavasti:
 
 ```ruby
 def brewery_params
@@ -677,7 +677,7 @@ Brewery.active.where("year > 2000")
 
 Reittausten sivu voi näyttää tehtävävien jälkeen esim. seuraavalta:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-4.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-4.png)
 
 Sivun muotoiluun voi olla apua seuraavasta: https://getbootstrap.com/docs/5.2/layout/grid/#nesting
 
@@ -828,7 +828,7 @@ http://guides.rubyonrails.org/routing.html#adding-more-restful-actions
 >
 > Validointien suorittamisen voi ohittaa myös tallentamalla olion komennolla <code>u.save(validate: false)</code>
 >
-> **HUOM:** toteutuksessa kannattanee hyödyntää [esifiltteriä](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko4.md#kirjautuneiden-toiminnot)
+> **HUOM:** toteutuksessa kannattanee hyödyntää [esifiltteriä](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko4.md#kirjautuneiden-toiminnot)
 
 > ## Tehtävät 11-12 (kahden tehtävän arvoinen)
 >
@@ -838,19 +838,19 @@ http://guides.rubyonrails.org/routing.html#adding-more-restful-actions
 
 Administraattori voi sulkea käyttäjätunnuksen käyttäjän sivulta
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-1c.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-1c.png)
 
 Administraattori näkee käyttäjien näkymästä suljetut käyttäjätunnukset
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-1b.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-1b.png)
 
 Jos käyttjätunnus on suljettu, kirjautuminen ei onnistu
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-1x.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-1x.png)
 
 Administraattori voi uudelleenaktivoida suljetun käyttäjätunnuksen käyttäjän sivulta
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-1d.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-1d.png)
 
 > ## Tehtävä 13
 >
@@ -884,7 +884,7 @@ Emme ole vielä toistaiseksi puhuneet mitään Rails-sovellusten tietoturvasta. 
 
 Ylläolevasta dokumentista ei käy täysin selväksi se, että Rails _sanitoi_ (eli escapettaa kaikki script- ja html-tagit yms) oletusarvoisesti sivuilla renderöitävän syötteen, eli esim. jos yrittäisimme syöttää JavaScript-pätkän <code> &lt;script&gt;alert(&#39;Evil XSS attack&#39;);&lt;/script&gt;</code> oluttyylin kuvaukseen, koodia ei suoriteta, vaan koodi renderöityy sivulle 'tekstinä':
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-7.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-7.png)
 
 Jos katsomme sivun lähdekoodia, huomaamme, että Rails on korvannut HTML-tägit aloittavat ja sulkevat < -ja > -merkit niitä vastaavilla tulostuvilla merkeillä, jolloin syöte muuttuu selaimen kannalta normaaliksi tekstiksi:
 
@@ -902,7 +902,7 @@ Oletusarvoisen sanitoinnin saa 'kytkettyä pois' pyytämällä eksplisiittisesti
 
 suoritetaan JavaScript-koodi sivun renderöinnion yhteydessä:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-8.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-8.png)
 
 Lisätietoa http://www.railsdispatch.com/posts/security ja http://railscasts.com/episodes/204-xss-protection-in-rails-3
 
@@ -910,7 +910,7 @@ Lisätietoa http://www.railsdispatch.com/posts/security ja http://railscasts.com
 
 Tällä viikolla ei ole enää enempää tehtäviä. Riittää että luet tästä eteenpäin olevan materiaalin. Seuraavan viikon materiaali ei riipu millään tavalla tämän viikon päättävästä refaktoroinnista.
 
-Viikon 4 [tehtävissä 3 ja 4](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko4.md#teht%C3%A4v%C3%A4-3) toteutettiin metodit henkilön suosikkipanimon ja oluttyylin selvittämiseen. Seuraavassa on eräs melko suoraviivainen ratkaisu metodien <code>favorite_style</code> ja <code>favorite_brewery</code> toteuttamiseen:
+Viikon 4 [tehtävissä 3 ja 4](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko4.md#teht%C3%A4v%C3%A4-3) toteutettiin metodit henkilön suosikkipanimon ja oluttyylin selvittämiseen. Seuraavassa on eräs melko suoraviivainen ratkaisu metodien <code>favorite_style</code> ja <code>favorite_brewery</code> toteuttamiseen:
 
 ```ruby
 class User
@@ -1050,7 +1050,7 @@ grouped_ratings = ratings.group_by{ |r| r.beer.style }
 grouped_ratings = ratings.group_by{ |r| r.beer.brewery }
 ```
 
-Saamme nämäkin rivin täsmälleen samanlaisiksi kutsumalla metodia epäsuoraan viime viikolta tuttua [send](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/viikko5.md#olion-metodien-kutsuminen-send-metodin-avulla)-metodia hyödyntäen:
+Saamme nämäkin rivin täsmälleen samanlaisiksi kutsumalla metodia epäsuoraan viime viikolta tuttua [send](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko5.md#olion-metodien-kutsuminen-send-metodin-avulla)-metodia hyödyntäen:
 
 ```ruby
 def favorite_style
@@ -1213,4 +1213,4 @@ Commitoi kaikki tekemäsi muutokset ja pushaa koodi GitHubiin. Deployaa myös uu
 
 Jos Herokun kanssa on ongelmia niin muista käyttää tarkastelussa apuna <code>heroku logs</code>, jonka avulla pääset tarkastelemaan Herokun logeja. Sama onnistuu Fly.io:a käyttävillä komennolla <code>fly logs</code>
 
-Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2022/
+Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2023/
