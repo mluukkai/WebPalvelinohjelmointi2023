@@ -51,7 +51,7 @@ In this course, we use Ruby on Rails application framework to implement Web appl
 
 Rails applications comply with the [MVC model](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) (or WebMVC, which is slightly different from the original MVC). The idea behind this model is that the application data and logic (Model), the visual composition (View) and the functions coordination (Controller) are separated into clearly defined parts. Almost all modern Web frameworks follow the MVC principle.
 
-Let's take a look at what happens when users go to a Web page which was implemented with Rails, suppose the URL be https://ratebeer22.fly.dev/breweries, that is the sample application page which we are going to make during our course. The page lists all the breweries which our sample application knows.
+Let's take a look at what happens when users go to a Web page which was implemented with Rails, suppose the URL is https://ratebeer22.fly.dev/breweries, that is the sample application page which we are going to make during our course. The page lists all the breweries which our sample application knows.
 
 ![mvc-kuva](http://www.cs.helsinki.fi/u/mluukkai/rails_mvc.png)
 
