@@ -57,7 +57,7 @@ Let's take a look at what happens when users go to a Web page which was implemen
 
 1. Once users write the URL into the browser address line, the browser makes an HTTP GET-request to the server ratebeer22.fly.dev
 
-2. Often a web server software is run on the server (for instance, Apache, Nginx) This software operates as a proxy server  and  guides requests to the Rails application registered at that address. The application finds out what application _controller_ is registered to take care of the GET calls for the resources of the breweries. This phase is called internal routing of the Rails application, which means that we are looking for "a way to handle the request". It is also possible to bypass the proxy server. In this case the Rails application itself is the first to receive the request. However, a proxy server is often used as a "light layer" to e.g. enhance performance and distribute request to multiple servers.
+2. Often a web server software is run on the server (for instance, Apache, Nginx) This software operates as a proxy server  and  guides requests to the Rails application registered at that address. The application finds out what application _controller_ is registered to take care of the GET calls for the resources of the breweries. This phase is called internal routing of the Rails application, which means that we are looking for "a way to handle the request". It is also possible to bypass the proxy server. In this case the Rails application itself is the first to receive the request. However, a proxy server is often used as a "light layer" to e.g. enhance performance and distribute requests to multiple servers.
 
 3. When it finds out the right controller (in our example the controller which takes care of the breweries) and the method handling its requests, the application calls the method. The method is given as parameter the data which had possibly been attached to the HTTP request. The controller takes care of the actions concerning the operation. The executions of these actions usually requires method calls to some _models_, which contain the application data and logic.
 
@@ -73,7 +73,7 @@ Let's take a look at what happens when users go to a Web page which was implemen
 
 In the MVC model, the so called models are usually objects and their state is saved to the database. The database is usually handled in an abstract way, meaning that rarely there is the need to write SQL language and database configurations at the level of the program code. The details are handled by the Object Relational Mapping (ORM) library. The ORM used in Rails is called ActiveRecord, which works a bit differently than EclipseLink and Hibernate, which are based on the JPA standard and might be better know to Java users.
 
-Rails is strongly based on the __convention over configuration__ principle, which means that Rails aims at minimizing the need of configuration by defining a group of conventions for file names and their hierarchic location, among the other things. We will see soon what the CoC principle means for the application developer, in practice. In fact, Rails does allow us to break the conventions, but it such case, the developer has to configure things by hand, to some extent.
+Rails is strongly based on the __convention over configuration__ principle, which means that Rails aims at minimizing the need of configuration by defining a group of conventions for file names and their hierarchic location, among the other things. We will see soon what the CoC principle means for the application developer, in practice. In fact, Rails does allow us to break the conventions, but in such cases, the developer has to configure things by hand, to some extent.
 
 Creating applications on Rails naturally requires some kind of Ruby knowledge. Ruby is a dynamic-type object language which also enables functional programming. In other words, Ruby's code is never compiled. On the contrary, the interpreter executes the code command after command. Because there is no compiler, syntax mistakes appear only when the code is being executed, which is in contrast with languages which have to be transpiled. Modern developer environments help us a little, providing us with some kind of "syntax proofreading" on the go, but the developer environment help is not nearly as good as it is in Java, for instance.
 
@@ -86,14 +86,14 @@ Creating applications on Rails naturally requires some kind of Ruby knowledge. R
 > * http://tryruby.org/levels/1/challenges/0
 
 ## Command line
-Web development with Rails requires familiarity with working from the command line. If your routine is lacking, consider freashing up your skills at this point.  
+Web development with Rails requires familiarity with working from the command line. If your routine is lacking, consider freshening up your skills at this point.  
 ## Passing the course
 
 The course structure is slightly different from the course standard of the department. In the course, we only make one application, the same application will be worked on in both the course material and the exercises. It's not possible to read the course material alone; while you go through the material, you have to develop your application alongside, otherwise it will be impossible to pass the exercises. 
 
 The course is split into seven "weeks". However, the course has only one deadline.
 
-Each week is turned in separately in the course submission system. Sfter submitting a week you get access to that week's example answer. The following week you can continue from where you left at or take the example answer as your starting point. 
+Each week is turned in separately in the course submission system. After submitting a week, you get access to that week's example answer. The following week you can continue from where you left at or take the example answer as your starting point. 
 
 A part of the exercises are in practice compulsory, skipping them will prevent you from advancing on the week. Others are optional, and they regard the implementation of non-critical features. Because we expect to find a part of these features the following week, you'd better start from the sample answer or copy paste the useful parts from it, if you haven't done all the exercises of the week.
 
@@ -113,7 +113,7 @@ We create a new Rails application with the generator new. Go to the suitable dir
 
 This generates the _ratebeer_ directory which will contain our application.
 
-Attention: once you continue with the course, it will be convenient that you make a git reposition of the created directory. This means that you should not place the application inside any other git reposition!
+Attention: once you continue with the course, it will be convenient that you make a git repository of the created directory. This means that you should not place the application inside any other git repository!
 
 Go to the directory with _cd ratebeer_.
 
@@ -149,7 +149,7 @@ You see an abridged structure below:
 38 directories, 39 files
 </pre>
 
-The most important directory is **app** which contains the application code. Under the **config** directory you find data concerning the application configuration, among which routes.rb, which defines how the application handles the different HTTP requests. The database configurations have to be located in the directory **db**. Gemfile defines the libraries used by the application. With time, we'll get to know the application directory better.
+The most important directory is **app** which contains the application code. Under the **config** directory you find data concerning the application configuration, among which, `routes.rb` defines how the application handles the different HTTP requests. The database configurations have to be located in the directory **db**. `Gemfile` defines the libraries used by the application. With time, we'll get to know the application directory better.
 
 The directory structure is an important part of Rails' Convention over Configuration principle. Each component (for instance, the controller which takes care of the breweries) has a strictly defined location, so that Rails can find the component without the help of the application developer, who does not need to explain in what directory and file the component is located.
 
@@ -157,7 +157,7 @@ Start the application with the following command
 
     rails server
 
-You can also use the short form rails s
+You can also use the short form `rails s`
 
 The command starts a Puma HTTP server (see https://github.com/puma/puma) by default, which begins to execute the  Rails application he directory. The application runs in the local computer (that is, in localhost) in the port 3000.
 
