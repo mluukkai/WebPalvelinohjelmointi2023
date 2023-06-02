@@ -180,8 +180,8 @@ ATTENTION: **While you read the document, the idea is that you execute in your a
 Let's start with building our application. We want to start with breweries, that is:
 
 * we create a database table for breweries
-* we implement the funtionality to list all the breweries
-* we implement the funtionality to add a new brewery
+* we implement the functionality to list all the breweries
+* we implement the functionality to add a new brewery
 * While doing this, we additionally gain the functionality to modify and delete breweries
 
 Conventionally, in Rails (almost) every 'thing' we save should have their own model class, controller class, as well as a set of files that make the view.
