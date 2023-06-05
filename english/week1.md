@@ -12,7 +12,7 @@ In addition to the address, the data (that is, the message body) and the [status
 
 With the words Web Server Programming, we refer to how the Web server creates the Web pages to show to the browser and handles the data the user enters with the help of a form.
 
-Nowadays, Web pages are not just simple HTML. HTML is used to represent the page structure and contents. The page design is usually affected by using files like CSS, see http://en.wikipedia.org/wiki/Cascading_Style_Sheets. Recently, there's been a trend to provide the www-page with more and more code is executed in the __browser__, which is made in Javascript. It's a matter of opinion what would be best handled by the browser and what by the server. 
+Nowadays, Web pages are not just simple HTML. HTML is used to represent the page structure and contents. The page design is usually affected by using files like CSS, see http://en.wikipedia.org/wiki/Cascading_Style_Sheets. Recently, there's been a trend to provide the www-page with more and more code is executed in the __browser__, which is made in Javascript. It's a matter of opinion what would be best handled by the browser and what by the server.
 
 For instance, suppose the www-page contains a form to log in into the website. It's clear that password and user name have to be checked on the server. On the other hand, we can allow the browser Javascript to check whether the user name box is empty when they try to log in. In such situations it is useless to bother the browser at all, because the log in would never succeed.
 
@@ -63,7 +63,7 @@ Let's take a look at what happens when users go to a Web page which was implemen
 
 4. In our example, the controller asks from the model class which takes care of the breweries to load the list of all breweries from the database.
 
-5. Once it has retrieved the list of all breweries, the controller asks the brewery list _view_ to render itself. 
+5. Once it has retrieved the list of all breweries, the controller asks the brewery list _view_ to render itself.
 
 6. The view renders itself, that is, the controller gets an HTML page listing all the beers.
 
@@ -83,17 +83,17 @@ Creating applications on Rails naturally requires some kind of Ruby knowledge. R
 > * http://www.ruby-lang.org/en/documentation/quickstart/
 >
 > If you have the time and energy, you can also have a look at
-> * http://tryruby.org/levels/1/challenges/0
+> * https://try.ruby-lang.org/
 
 ## Command line
-Web development with Rails requires familiarity with working from the command line. If your routine is lacking, consider freashing up your skills at this point.  
+Web development with Rails requires familiarity with working from the command line. If your routine is lacking, consider freashing up your skills at this point.
 ## Passing the course
 
-The course structure is slightly different from the course standard of the department. In the course, we only make one application, the same application will be worked on in both the course material and the exercises. It's not possible to read the course material alone; while you go through the material, you have to develop your application alongside, otherwise it will be impossible to pass the exercises. 
+The course structure is slightly different from the course standard of the department. In the course, we only make one application, the same application will be worked on in both the course material and the exercises. It's not possible to read the course material alone; while you go through the material, you have to develop your application alongside, otherwise it will be impossible to pass the exercises.
 
 The course is split into seven "weeks". However, the course has only one deadline.
 
-Each week is turned in separately in the course submission system. Sfter submitting a week you get access to that week's example answer. The following week you can continue from where you left at or take the example answer as your starting point. 
+Each week is turned in separately in the course submission system. Sfter submitting a week you get access to that week's example answer. The following week you can continue from where you left at or take the example answer as your starting point.
 
 A part of the exercises are in practice compulsory, skipping them will prevent you from advancing on the week. Others are optional, and they regard the implementation of non-critical features. Because we expect to find a part of these features the following week, you'd better start from the sample answer or copy paste the useful parts from it, if you haven't done all the exercises of the week.
 
@@ -250,7 +250,7 @@ If you have already executed the migration and you notice that the code created 
 
 ## The Console
 
-One of the most important instruments for a Rails application developer is the Rails console. The console is an interactive command interpreter, and is also connected to the application database. 
+One of the most important instruments for a Rails application developer is the Rails console. The console is an interactive command interpreter, and is also connected to the application database.
 
 Make sure you are in the application folder and open the console with the command
 
@@ -329,7 +329,7 @@ We save objects into our database in the following way:
     b = Brewery.new name:"Stadin Panimo", year:1997
     b.save
 
-The object was created and saved into a variable <code>b</code>, then we called the object method <code>save</code>. 
+The object was created and saved into a variable <code>b</code>, then we called the object method <code>save</code>.
 Save is an object method inherited from ActiveRecord, which saves our object in the database – as you might have guessed. Notice that you don't need (and you can not) define the variable type, because Ruby is a dynamically typed language!
 
 You can also create and save an obect directly by using the class method create instead of new:
@@ -776,7 +776,7 @@ Let us have a look at the view template which has been ready-generated, the file
 <h1>Breweries</h1>
 
 <div id="breweries">
-  <% @breweries.each do |brewery| %> 
+  <% @breweries.each do |brewery| %>
     <%= render brewery %>
     <p><%= link_to "Show this brewery", brewery %></p>
   <% end %>
@@ -839,7 +839,7 @@ The partial is as follows:
 
 For each individual brewery the rows contained by the div tags are created and placed in to a list. The first row contains the name of the brewery and the second its founding year.
 
-Partial template files are named with a starting underscore ( _ ) so that they can be easily recognized. 
+Partial template files are named with a starting underscore ( _ ) so that they can be easily recognized.
 
 The definition and use of a partial uses a bit of Rails magic. A partial is called like this:
 
@@ -850,7 +850,7 @@ The definition and use of a partial uses a bit of Rails magic. A partial is call
   <% end %>
 ```
 
-The render method gets the brewery object saved in the variable brewery as a parameter. 
+The render method gets the brewery object saved in the variable brewery as a parameter.
 From the type of the object Rails kcan deduce that it should use the partial defined in file \_brewery.html.erb.
 
 In the partial, a brewery object is referred to with the variable brewery:
@@ -882,7 +882,7 @@ which generates HTML code which looks like the one below (the number below depen
 ```
 
 ie. a link to the address "breweries/1". The first parameter of the command ```link_to``` is the name of the a-tag and the second is the link address.
- 
+
 The address itself is created in this longer form with the helper method ```brewery_path(brewery.id)```which returns the path to the page of the brewery with the ID ```brewery.id```. The same thing is accomplished by the object itself, in our example the variable <code>brewery</code>, as a parameter to the method <code>link_to</code>.
 
 We could also "hardcode" a command which generates a link using the form ```<%= link_to 'Show', "breweries/#{brewery.id}" %>```, but hardcoding is not usually a smart thing to do, and in this case even less.
@@ -972,7 +972,7 @@ The code of the view template views/breweries/show.html.erb koodi is the followi
 
 The part with the __notice__ ID at the beginning of the page is for displaying the messages concerning brewery creation or editing. We'll speak more about the topic later on.
 
-The page uses the same partial for brewery as the page listing all the breweries does. Thanks to earlier changes, the title of page is now a clickable link to itself. 
+The page uses the same partial for brewery as the page listing all the breweries does. Thanks to earlier changes, the title of page is now a clickable link to itself.
 
 Some notes on partials: the partial showing a brewery's details is as follows:
 ```html
@@ -989,7 +989,7 @@ Some notes on partials: the partial showing a brewery's details is as follows:
 
 </div>
 ```
-The brewery given as a parameter to the partial is stored in the variable brewery. The partial is then called like this: 
+The brewery given as a parameter to the partial is stored in the variable brewery. The partial is then called like this:
 
 ```html
 <%= render @brewery %>
@@ -1012,12 +1012,12 @@ We will be soon modifying the individual brewery view but as we don't want the c
       <p>
         <%= link_to brewery.name, brewery %>
       </p>
-    
+
       <p>
         <strong>Year:</strong>
         <%= brewery.year %>
       </p>
-    
+
     </div>
   <% end %>
 </div>
@@ -1025,7 +1025,7 @@ We will be soon modifying the individual brewery view but as we don't want the c
 <%= link_to "New brewery", new_brewery_path %>
 ```
 
-Now the code from the partial \_brewery.html.erb is copy-pasted directly to the all breweries template. 
+Now the code from the partial \_brewery.html.erb is copy-pasted directly to the all breweries template.
 
 > ## Excercise 7: Polishing the brewery page
 >
@@ -1298,9 +1298,9 @@ git add -A
 git commit -m"updated Gemfile for Internet"
 ```
 
-There are countles solutions for hosting application, that is "putting them to the internet". 
+There are countles solutions for hosting application, that is "putting them to the internet".
 
-The easiest way to host applications nowadays are the PaaS (or Platform as a Service) services that handle setting up databases and runtime environments on behalf of the developer. 
+The easiest way to host applications nowadays are the PaaS (or Platform as a Service) services that handle setting up databases and runtime environments on behalf of the developer.
 
 For ten years the best PaaS solution was [Heroku](http://heroku.com). However in August 2022 Heroku announced that starting 27.11.2022 all free services will be shut down. For that reason we will also introduce a promising competitor [Fly.io](https://fly.io/). You can use either one as long as you remember that Heroku's free options have come to an end. Heroku has promised some free student options but at the moment we don't count on them.
 
@@ -1324,7 +1324,7 @@ You can open your application in a browser with  `fly open`.
 
 If something is not working, one should start by looking for the cause in the server logs. You can see them with  `fly logs`.
 
-You can also access the Rails console of your application on the server. To do this, first enter the Docker container running your application with `fly ssh console`. Then, in the console, run the command `/app/bin/rails c`. 
+You can also access the Rails console of your application on the server. To do this, first enter the Docker container running your application with `fly ssh console`. Then, in the console, run the command `/app/bin/rails c`.
 
 Before the command you will most likely have to authenticate yourself with `fly log`.
 
@@ -1358,7 +1358,7 @@ https://young-escarpment-87255.herokuapp.com/ | https://git.heroku.com/young-esc
 
 Type your Heroku ID when it's required.
 
-The application URL will in this case be https://young-escarpment-87255.herokuapp.com/. The beginning of the application URL can be edited by running **heroku create url_beginning**. 
+The application URL will in this case be https://young-escarpment-87255.herokuapp.com/. The beginning of the application URL can be edited by running **heroku create url_beginning**.
 
 **Note**, that there is nothing in the application root so far, at the addresshttps://young-escarpment-87255.herokuapp.com/. The beers of our application will be found athttps://young-escarpment-87255.herokuapp.com/beers and the breweries at hhttps://young-escarpment-87255.herokuapp.com/breweries
 
