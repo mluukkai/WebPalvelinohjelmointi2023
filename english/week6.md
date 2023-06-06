@@ -7,10 +7,10 @@ A part of this week exercises may break some of the tests from the previous week
 
 ## A reminder on debugger
 
-On week 2 we got to know  [debugger](https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#debugger).
-If you haven't yet gotten into the hait of using it, here's a quick recap on its use.
+On week 2 we got to know  [debugger](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#debugger).
+If you haven't yet gotten into the habit of using it, here's a quick recap on its use.
 
-Using debugger is very simple. You just write  <code>binding.pry</code> (or for the sglihtly less well working Rails native debugger: <code>binding.break</code> ) to _any_ part of your code. An example:
+Using debugger is very simple. You just write  <code>binding.pry</code> (or for the slightly less well working Rails native debugger: <code>binding.break</code> ) to _any_ part of your code. An example:
 
 ```ruby
 class PlacesController < ApplicationController
@@ -54,8 +54,8 @@ From: /myapp/app/controllers/places_controller.rb:13 PlacesController#search:
 [2] pry(#<PlacesController>)>
 ```
 
-We could now for example check that the contenst of the <code>params</code> hash
- is as we exoect it to be.
+We could now for example check that the content of the <code>params</code> hash
+ is as we expect it to be.
 
 Execute the next command and see whether the result is as expected. The next command can be executed with the <code>ne</code> command.
 
@@ -130,7 +130,7 @@ From: /myapp/app/views/beers/_form.html.erb:15 #<Class:0x00007ffb824e7ac0>#_app_
 
 Once more: **When you have problems, instead of guessing, use the debugger!**
 
-Throughout this course, the importance of using the Rails console as a development tool has been emphasized. So **when you are doing something even slightly untrivial, first test it in the console.** In some cases it might be even better to do the testing in the console launched by the debugger as then you can work in exactly the context you are writing the code for. This way you can access eg. variables <code>params</code>, <code>sessions</code> and other execution context dependent data.
+Throughout this course, the importance of using the Rails console as a development tool has been emphasized. So **when you are doing something even slightly nontrivial, first test it in the console.** In some cases it might be even better to do the testing in the console launched by the debugger as then you can work in exactly the context you are writing the code for. This way you can access eg. variables <code>params</code>, <code>sessions</code> and other execution context dependent data.
 
 
 ## Bootstrap
@@ -287,11 +287,11 @@ Bootstrap documentation is not the most legible documentation out there but with
 
 Even though the new navigation bar code is longer and messier than the previous version, there is a notable advantage. When viewing the application from a "big" screen, the navbar is shown normally:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-0a.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-0a.png)
 
 But if we view the app from a smaller screen, say, mobile device, instead of the navbar an icon is shown and tapping this icon drops down the navigation bar:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-0b.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-0b.png)
 
 A navigation bar formed with Bootstrap is _responseve_, it adjusts itself according to screen size.
 
@@ -326,7 +326,7 @@ Change it into:
 ```
 
 
-In the Bootstrap container (the part containing the contents of actual pages) we add a row that is split into two columns: an 8 wide column, into which the contents of a page will be embeded into and a 4 wide column in which we will display a picture, no matter which page the user currently is on. 
+In the Bootstrap container (the part containing the contents of actual pages) we add a row that is split into two columns: an 8 wide column, into which the contents of a page will be embedded into and a 4 wide column in which we will display a picture, no matter which page the user currently is on. 
 
 The page background is good now, and you can use Bootstrap styles and components on your pages.
 
@@ -371,7 +371,7 @@ If you use Visual Studio Code you can use the _replace in files_ functions to re
 
 ### More components
 
-Bootstrap offers many different components. For example you can create stylish tables by using bootstrap's component https://getbootstrap.com/docs/5.2/content/tables/. You can use Bootstrap's default layout by adding the class <code>table</code> to the table HTML code, as it follows below:
+Bootstrap offers many different components. For example, you can create stylish tables by using bootstrap's component https://getbootstrap.com/docs/5.2/content/tables/. You can use Bootstrap's default layout by adding the class <code>table</code> to the table HTML code, as it follows below:
 
 ```erb
 <table class="table">
@@ -391,11 +391,11 @@ You want to add the class <code>table-hover</code> too. Thanks to this, if you m
 >
 > The page listing all the beers becomes quite cumbersome when the number of beers grows. Make the beer page use a bootstrap styled [table](https://www.w3schools.com/html/html_tables.asp), see https://getbootstrap.com/docs/5.2/content/tables/
 >
-> If you edit a beer row using _partials_ file, remember to take this into consideration in other files. In this exercise it is recommendable to stop using the <code>_beer.html.erb</code> partial in rendering the beer table. Instead form the entire table in file <code>views/beers/index.html.erb</code>
+> If you edit a beer row using _partials_ file, remember to take this into consideration in other files. In this exercise it is recommendable to stop using the <code>_beer.html.erb</code> partial in rendering the beer table. Instead, form the entire table in file <code>views/beers/index.html.erb</code>
 
 After the exercise your application can look something like this
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/beers-bootstrapped.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/beers-bootstrapped.png)
 
 
 
@@ -431,25 +431,25 @@ The class can also be added to links which you want to look like buttons:
 >
 > You can decide the style yourself. One way to style the form is:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-3a.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-3a.png)
 
 
-> ## Excercise 4
+> ## Exercise 4
 > Change the navigation bar so that when users sign in, their signed-in user actions are contained in a drop down menu like in the picture below.
 >
 >You find guidelines from the [navbar documentation](https://getbootstrap.com/docs/5.2/components/navbar/) from examples containing _dropdown_ elements.
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-3c.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-3c.png)
 
 > If your dropdowns don't seem to work, make sure the requires and imports are in the right order in the file <code>application.js</code>, requires before imports.
 
 > ## Exercise 5
 >
-> Make part of your Web site fashionable using some Bootstrap component. You can mark this exercise if you spend at least 15 minutes to improve the outlook of your pages. 
+> Make part of your website fashionable using some Bootstrap component. You can mark this exercise if you spend at least 15 minutes to improve the outlook of your pages. 
 
 ## Brewery activity
 
-Some of the breweries have gone out of bussiness and you want to distinguish them from the active breweries in the list. Add a boolean column to the brewery database that tells whether they are active. Create a migration:
+Some of the breweries have gone out of business, and you want to distinguish them from the active breweries in the list. Add a boolean column to the brewery database that tells whether they are active. Create a migration:
 
     rails g migration AddActivityToBrewery active:boolean
 
@@ -518,7 +518,7 @@ def brewery_params
 end
 ```
 
-As you've seen in [week 2](https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#saving-a-rating) every attribute intended for mass assignment has to be explicitely allowed through the method <code>permit</code>. Change the method <code>brewery_params</code> as it follows:
+As you've seen in [week 2](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#saving-a-rating) every attribute intended for mass assignment has to be explicitly allowed through the method <code>permit</code>. Change the method <code>brewery_params</code> as it follows:
 
 ```ruby
 def brewery_params
@@ -535,7 +535,7 @@ def index
 end
 ```
 
-The value <code>active</code> of the field can either be explicitally set as <code>false</code> or <code>nil</code>; we had to add both options to the last <code>where</code> sentence so that they both refer to inactive breweries.
+The value <code>active</code> of the field can either be explicitly set as <code>false</code> or <code>nil</code>; we had to add both options to the last <code>where</code> sentence so that they both refer to inactive breweries.
 
 Copy paste the table in the view twice, for the active and inactive ones:
 
@@ -571,7 +571,7 @@ Copy paste the table in the view twice, for the active and inactive ones:
 
 The solution works, but there are a couple of options which are even better. Start with the controller first.
 
-The controllers requires a list of both active and inactive breweries. The controller also tells how the two lists are retrived from the database.
+The controller requires a list of both active and inactive breweries. The controller also tells how the two lists are retrieved from the database.
 
 You could polish the controller by making so that the class <code>Brewery</code> provides a better interface to find the breweries list. ActiveRecord provides a nice solution for this, scope, see http://guides.rubyonrails.org/active_record_querying.html#scopes
 
@@ -614,7 +614,7 @@ end
 ```
 
 
-The solution is better not only for the clarity but also in terms of responsibility assignment of the objects. It is not too good to make the controller tell <em>how</em> active and retired breweries have to be retrived from the database. Instead, it is natural to make a model responsible for it, because models role is to act as an abstract level between the rest of the application and the database.
+The solution is better not only for the clarity but also in terms of responsibility assignment of the objects. It is not too good to make the controller tell <em>how</em> active and retired breweries have to be retrieved from the database. Instead, it is natural to make a model responsible for it, because models role is to act as an abstract level between the rest of the application and the database.
 
 Note that ActiveRecord allows operation chaining. You could write:
 
@@ -628,7 +628,7 @@ and the result would be a SQL query:
 SELECT "breweries".* FROM "breweries" WHERE "breweries"."active" = ? AND (year>2000)
 ```
 
-ActiveRecord knows to optimize chained method call as one SQL operation. The scope also works as a part of a chain. Eg. You can find all still active breweries that were founded after 2000 with the following one-liner:
+ActiveRecord knows to optimize chained method call as one SQL operation. The scope also works as a part of a chain. E.g. You can find all still active breweries that were founded after 2000 with the following one-liner:
 
 ```ruby
 Brewery.active.where("year > 2000")
@@ -680,7 +680,7 @@ Brewery.active.where("year > 2000")
 
 After the exercises, the ratings page could look like:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-4.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-4.png)
 
 This might help with page styling: https://getbootstrap.com/docs/5.2/layout/grid/#nesting
 
@@ -697,7 +697,7 @@ class ApplicationController < ActionController::Base
  end
 ```
 
-Both controllers and views can use the method to check the identity of users who have signed in. Because the method is defined in the class <code>ApplicationController</code> it is available for all controllers. Being definied as helper method, it is available for views too.
+Both controllers and views can use the method to check the identity of users who have signed in. Because the method is defined in the class <code>ApplicationController</code> it is available for all controllers. Being defined as helper method, it is available for views too.
 
 Applications often need auxiliary methods (which are called helper methods in Rails) only for view templates. In such cases, they shouldn't be placed in the class <code>ApplicationController</code> but in the modules in <em>app/helpers/</em>. If an auxiliary method is supposed to be used in more than one view, the correct place for them is <code>application_helper</code>. Instead, if the auxiliary methods are for the pages which depend on only one controller, they should be defined into the helper module corresponding to the controller.
 
@@ -750,13 +750,13 @@ It would also be possible to separate the buttons code in their own partial, and
 
 > ## Exercise 9
 >
-> Most of the pages show the average rating value. Average values are Decimal types, so sometimes they are printed with too much precision even. Define an auxiliary method <code>round(param)</code> to render the average value of ratings. The medhod should always print its parameter with only <code>one</code> decimal digit precision. Make use of this helper method in the view templates (or at least in some of them).
+> Most of the pages show the average rating value. Average values are Decimal types, so sometimes they are printed with too much precision even. Define an auxiliary method <code>round(param)</code> to render the average value of ratings. The method should always print its parameter with only <code>one</code> decimal digit precision. Make use of this helper method in the view templates (or at least in some of them).
 >
 > You can use the Rails method <code>number_with_precision</code> in your helper, see http://api.rubyonrails.org/classes/ActionView/Helpers/NumberHelper.html#method-i-number_with_precision
 
 ## Route for changing the brewery status
 
-A moment ago, breweries were added the information about their activity and they were given the possibility to change their activity status from the brewery information editing form. It is quite unrealistic, but think that breweries could stop for some time and start again their activity. In such case, editing the activity status from the brewery information editing form would be a bit cumbersome. In such cases, it would be easier if the list with all breweries had a button to change their status with a click. You could implement this kind of button by embedding a suitable form for each breweries in the list. You want to choose another solution this time, though. In addition to Rails' six default routes, add the new route <code>toggle_activity</code> to the breweries, so that you will be able edit the brewery status with the help of the HTTP POST calls made to this route.
+A moment ago, breweries were added the information about their activity, and they were given the possibility to change their activity status from the brewery information editing form. It is quite unrealistic, but think that breweries could stop for some time and start again their activity. In such case, editing the activity status from the brewery information editing form would be a bit cumbersome. In such cases, it would be easier if the list with all breweries had a button to change their status with a click. You could implement this kind of button by embedding a suitable form for each brewery in the list. You want to choose another solution this time, though. In addition to Rails' six default routes, add the new route <code>toggle_activity</code> to the breweries, so that you will be able to edit the brewery status with the help of the HTTP POST calls made to this route.
 
 Make the following change to breweries in the file routes.rb as:
 
@@ -800,7 +800,7 @@ def toggle_activity
 end
 ```
 
-Implementing this functionality was easy, but does it make sence to add  the route <code>toggle_activity</code> in first place? According to the RESTful ideology, it would be more orthodox to use a form to do this, through a PUT request for the path breweries/:id. In any case, you should avoid situations, where a resource status is changed through GET requests. For this reason you defined the path toggle_activity for POST requests.
+Implementing this functionality was easy, but does it make sense to add  the route <code>toggle_activity</code> in first place? According to the RESTful ideology, it would be more orthodox to use a form to do this, through a PUT request for the path breweries/:id. In any case, you should avoid situations, where a resource status is changed through GET requests. For this reason you defined the path toggle_activity for POST requests.
 
 More about custom routes at http://guides.rubyonrails.org/routing.html#adding-more-restful-actions
 
@@ -813,7 +813,7 @@ More about custom routes at http://guides.rubyonrails.org/routing.html#adding-mo
 >
 > - Create a new boolean field <code>admin</code> for the User model. The field helps to indicate the users who have admin rights to the system.
 > - It's enough that admins can be defined only from console.
-> - Make breweries, beers, beer clubs, and styles deletion possible only for aministrators.
+> - Make breweries, beers, beer clubs, and styles deletion possible only for administrators.
 >
 > **Attention:** because of password validation reasons, turning a user into admin will not be possible from console if the password field has no value:
 >
@@ -831,30 +831,30 @@ More about custom routes at http://guides.rubyonrails.org/routing.html#adding-mo
 > > u.update_attribute(:admin, true)
 > ```
 >
->**ATTENTION:** you'd better use a [before filter](https://github.com/mluukkai/webdevelopment-rails/blob/main/week4.md#functions-for-signed-in-users) when you do this
+>**ATTENTION:** you'd better use a [before filter](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week4.md#functions-for-signed-in-users) when you do this
 
 
 > ## Exercises 11 – 12 (it's worth of two points)
 >
-> Implement such functionality to let administrators freeze user accounts. Freezing can happen with a button that only administrators see on a user's page. Frozen users can not sign in the system. When they try to sign in, the application should tell that their user name has been frozen, and they should get in touch with admins. Administrators should be able to reactivate frozen user accounts.
+> Implement such functionality to let administrators freeze user accounts. Freezing can happen with a button that only administrators see on a user's page. Frozen users can not sign in the system. When they try to sign in, the application should tell that their username has been frozen, and they should get in touch with admins. Administrators should be able to reactivate frozen user accounts.
 >
 > You may implement this functionality following the pictures below
 
 The administrator can freeze a user account from the user's page
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-1c.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-1c.png)
 
 The administrator can see the frozen user accounts from the users view
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-1b.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-1b.png)
 
 If an user's account is frozen, they won't be able to sign in
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-1x.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-1x.png)
 
-The administrator can reactivate frozen user names from the user's page
+The administrator can reactivate frozen usernames from the user's page
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-1d.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-1d.png)
 
 > ## Exercise 13
 >
@@ -886,9 +886,9 @@ We haven't said anything about Rails applications' information security, so far.
 > - https://guides.rubyonrails.org/action_controller_overview.html#force-https-protocol
 > - https://guides.rubyonrails.org/action_controller_overview.html#log-filtering
 
-The documents above fail to stress that Rails <em>sanitates</em> (that is, escapes all the script and html tags) by default the input that is rendered on pages. So for instance if you try to input the javascript chunk <code> &lt;script&gt;alert(&#39;Evil XSS attack&#39;);&lt;/script&gt;</code> to describe the beer style, the code won't be executed, but it will be rendered on the page 'as text':
+The documents above fail to stress that Rails <em>sanitizes</em> (that is, escapes all the script and html tags) by default the input that is rendered on pages. So for instance if you try to input the javascript chunk <code> &lt;script&gt;alert(&#39;Evil XSS attack&#39;);&lt;/script&gt;</code> to describe the beer style, the code won't be executed, but it will be rendered on the page 'as text':
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-7.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-7.png)
 
 If you take a look at the page source code, you'll notice that Rails has switched &lt; and &gt; signs of the HTML tags with the corresponding printing characters, where the input changes into normal text when it comes to the browser:
 
@@ -906,7 +906,7 @@ The default sanitation can be 'turned off' by making an explicit request with th
 
 the javascript code is executed while it is rendered:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-8.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-8.png)
 
 More info at http://www.railsdispatch.com/posts/security and http://railscasts.com/episodes/204-xss-protection-in-rails-3
 
@@ -915,7 +915,7 @@ More info at http://www.railsdispatch.com/posts/security and http://railscasts.c
 
 There are no more exercises for this week. It is enough that you read the following material. Next week's material is in no way dependent on the refactoring ending this week.
 
-In the exercises 3 and 4 of week 4 (see https://github.com/mluukkai/webdevelopment-rails/blob/main/week4.md#exercise-3) you implemented the methods to find out a person's favourite brewery and beer style. The following is a straightforward solution to implement the methods <code>favorite_style</code> and <code>favorite_brewery</code>:
+In the exercises 3 and 4 of week 4 (see https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week4.md#exercise-3) you implemented the methods to find out a person's favourite brewery and beer style. The following is a straightforward solution to implement the methods <code>favorite_style</code> and <code>favorite_brewery</code>:
 
 ```ruby
 class User
@@ -1015,7 +1015,7 @@ forms a table. Its items are hashes that contain a brewery and the average of it
 ]
 ```
 
-The last row of the method chooses the item with highest _score_ value and returns the brewery matching it.
+The last row of the method chooses the item with the highest _score_ value and returns the brewery matching it.
 
 ```ruby
 averages.max_by{ |r| r[:score] }[:brewery]
@@ -1057,7 +1057,7 @@ grouped_ratings = ratings.group_by{ |r| r.beer.style }
 grouped_ratings = ratings.group_by{ |r| r.beer.brewery }
 ```
 
-You can make these rows match by calling the method indirectly with the [send](https://github.com/mluukkai/webdevelopment-rails/blob/main/week5.md#calling-object-methods-with-the-send-method) method which is familiar from last week.
+You can make these rows match by calling the method indirectly with the [send](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week5.md#calling-object-methods-with-the-send-method) method which is familiar from last week.
 
 ```ruby
 def favorite_style
@@ -1220,4 +1220,6 @@ Commit all your changes and push the code to Github. Deploy to the newest versio
 
 If you have problems with Heroku, remember to use <code>heroku logs</code> to view the logs. The same can be done for Fly.io with <code>fly logs</code>.
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2022.
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023.
+
+[Week 7](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md)

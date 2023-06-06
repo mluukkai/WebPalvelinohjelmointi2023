@@ -652,7 +652,7 @@ Komento "seedaa" kannan automaattisesti eli vanhan datan poistamisen lisäksi su
 
 **HUOM:** et välttämättä tarvitse sovelluksessasi ollenkaan tiedostoon _seeds.rb_ määriteltyä dataa. Seediin määritelty data voi olla tarpeen jos sovellus tarvitsee esim. käynnistyäkseen joitan valmiksi määriteltyjä olioita. Tällöin seedin olemassaolo helpottaa uuden sovelluskehittäjän työtä, hän saa sovelluksen heti toimimaan omalla koneellaan ilman potentiaalisesti vaivalloista välttämättömien olioiden luomista.
 
-## lisää konsolin käyttöä
+## Lisää konsolin käyttöä
 
 Tutkitaan uutta dataa konsolista käsin:
 
@@ -1341,12 +1341,12 @@ Committoidaan kaikki muutokset versionhallintaan antamalla komennot:
 
 ```ruby
 git add -A
-git commit -m"updated Gemfile for Internet"
+git commit -m "updated Gemfile for Internet"
 ```
 
 Sovellusten hostaamiseen, eli "internettiin laittamiseen" on olemassa lukematon määrä erilaisia ratkaisuja. Helpoimpia näistä sovelluskehittäjän kannalta ovat ns PaaS (eli Platform as a Service) -palvelut, jotka huolehtivat sovelluskehittäjän puolesta tietokannan ja suoritusympäristön asentamisen.
 
-Kymmenen vuoden ajan PaaS-ratkaisujen ykkönen on ollut [Heroku](http://heroku.com). Elokuun 2022 lopussa Heroku ilmoitti että 27.11.2022 alkaen alustan maksuttomat palvelut loppuvat. Tämän takia esittelemme seuraavassa myös lupaavan korvaajan [Fly.io](https://fly.io/). Voit käyttää kumpaa vaan kunhan muistat sen että Herokun ilmaisuus loppuu pian. Heroku on lupaillut jonkinlaista ilmaista käyttömahdollisuutta opiskelijoille, mutta sen varaan ei kannata liiaksi tässä vaiheessa laskea.
+Kymmenen vuoden ajan PaaS-ratkaisujen ykkönen on ollut [Heroku](http://heroku.com). Elokuun 2022 lopussa Heroku ilmoitti että 27.11.2022 alkaen alustan maksuttomat palvelut loppuvat. Tämän takia esittelemme seuraavassa myös lupaavan korvaajan [Fly.io](https://fly.io/). Voit käyttää kumpaa vaan kunhan muistat sen että Heroku ei ole enää oletuksena ilmainen. Opiskelijana saat kuitenkin 156 dollarin edestä ilmaiskrediittejä Herokun käyttöön [Github Student Developer Packin](https://www.heroku.com/github-students) kautta.
 
 ### Fly.io
 

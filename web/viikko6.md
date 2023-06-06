@@ -1206,3 +1206,5 @@ Commitoi kaikki tekemäsi muutokset ja pushaa koodi GitHubiin. Deployaa myös uu
 Jos Herokun kanssa on ongelmia niin muista käyttää tarkastelussa apuna <code>heroku logs</code>, jonka avulla pääset tarkastelemaan Herokun logeja. Sama onnistuu Fly.io:a käyttävillä komennolla <code>fly logs</code>
 
 Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2023/
+
+[Viikko 7](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko7.md)

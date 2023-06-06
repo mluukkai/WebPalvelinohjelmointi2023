@@ -28,13 +28,13 @@ As you'll notice, the response is in XML. This is a bit outdated because the cur
 
 If you use your browser, you'll see the returned XML in a form which can be read more easily for humans:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-1.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-1.png)
 
 **ATTENTION: do not use the API key which is shown here but register one for your own.**
 
 **ATTENTION2:** In Fall 2022, the API doesn't find any bars in Espoo, try another city! The API's coverage for Finland is lacking.
 
-Make now the search funtionality for your application beer restaurants.
+Make now the search functionality for your application beer restaurants.
 
 Create a page for this at the address places, so go to route.rb and define
 
@@ -114,7 +114,7 @@ The call will return an object of the class <code>HTTParty::Response</code>.  [T
 >
 ```
 
-The headers include metadata related to the answer of the HTTP request, eg. _content-type_ tells the type of the answer.
+The headers include metadata related to the answer of the HTTP request, e.g. _content-type_ tells the type of the answer.
 
 ```
 "content-type"=>["text/xml;charset=UTF-8"]
@@ -166,7 +166,7 @@ The answer object method <code>parsed_response</code> will return the data as Ru
 ...
 ```
 
-Even though the server returns the answer in XML format, the gem HTTParty parses it, and and makes it possible that it is handled straight in the best form as Ruby hash.
+Even though the server returns the answer in XML format, the gem HTTParty parses it, and makes it possible that it is handled straight in the best form as Ruby hash.
 
 You can get the restaurant table returned by the request in the following way:
 
@@ -207,7 +207,7 @@ As we create the class from a hash representing a beer restaurant, we will make 
 
 With OpenStruct it is easy to "wrap" a hash into an object which makes referencing fields of the hash possible with the dot-notation.
 
-Eg. if we have a normal hash:
+E.g. if we have a normal hash:
 
 ```ruby
 bar_hash = {
@@ -230,7 +230,7 @@ If we "wrap" a hash into an OpenStruct object:
 > bar = OpenStruct.new baari_hash
 ```
 
-we can accesss all fields with dot-notation:
+we can access all fields with dot-notation:
 ```ruby
 bar.name
 => "Pullman Bar"
@@ -240,7 +240,7 @@ bar.city
 
 in this way we got an object which is used similarly to normal Rails models such as Beer, Brewery, etc.
 
-However we do not want to use OpenStructs directly in our code. That is way we create the class Places for beer restaurants and this class inherits OpenStruct:
+However, we do not want to use OpenStructs directly in our code. That is way we create the class Places for beer restaurants and this class inherits OpenStruct:
 
 ```ruby
 class Place < OpenStruct
@@ -281,7 +281,7 @@ class PlacesController < ApplicationController
 end
 ```
 
-We also add the status code 418 to render. This is to let [Turbo](https://github.com/hotwired/turbo-rails) (which is used by Rails) know that it should rerender the same page after the POST request. With this, the tests will also work. If we were to set eg. status code 303 [the tests would break](https://stackoverflow.com/a/30555199). This hack is an example of bad code, but as we navigate between Turbo and the tests, it is necessary.
+We also add the status code 418 to render. This is to let [Turbo](https://github.com/hotwired/turbo-rails) (which is used by Rails) know that it should rerender the same page after the POST request. With this, the tests will also work. If we were to set e.g. status code 303 [the tests would break](https://stackoverflow.com/a/30555199). This hack is an example of bad code, but as we navigate between Turbo and the tests, it is necessary.
 
 Modify app/views/places/index.html.erb so that it shows the restaurants which have been found:
 
@@ -328,7 +328,7 @@ If you use the debugger, you will see what the locality list returned by the API
 {"id"=>nil, "name"=>nil, "status"=>nil, "reviewlink"=>nil, "proxylink"=>nil, "blogmap"=>nil, "street"=>nil, "city"=>nil, "state"=>nil, "zip"=>nil, "country"=>nil, "phone"=>nil, "overall"=>nil, "imagecount"=>nil}
 ```
 
-So the return value is an hash. But if the search finds restaurants, the return value is a table which contains hashes. Fix the code taking this into consideration. The code will also take into consideration the case where the API returns a hash which does not correspond to an unexistent place anyway. This is the case when a town has only one restaurant.
+So the return value is a hash. But if the search finds restaurants, the return value is a table which contains hashes. Fix the code taking this into consideration. The code will also take into consideration the case where the API returns a hash which does not correspond to an nonexistent place anyway. This is the case when a town has only one restaurant.
 
 ```ruby
 class PlacesController < ApplicationController
@@ -395,7 +395,7 @@ below the improved code for index.html.erb:
 <% end %>
 ```
 
-The restaurants are now showns as a [HTML table](https://developer.mozilla.org/en-US/docs/Learn/HTML/Tables/Basics).
+The restaurants are now shows as an [HTML table](https://developer.mozilla.org/en-US/docs/Learn/HTML/Tables/Basics).
 
 ## Calling object methods with the _send_ method
 
@@ -469,7 +469,7 @@ Should you do this? It partly up to personal preferences. By defining the list o
 </thead>
 ```
 
-If we now decided to add or remove some showable fields, it is enough to just edit the list defined in the class <code>Places</code>. No need to touch the template.
+If we now decided to add or remove some visible fields, it is enough to just edit the list defined in the class <code>Places</code>. No need to touch the template.
 
 ```ruby
 class Place < OpenStruct
@@ -570,7 +570,7 @@ end
 
 You will want to create Rspec tests for the functionality you've implemented. The new functionality makes use of external services. Tests should be written in any case without making use of the external services. Luckily, it is easy to replace an external interface with Rails stub component.
 
-You will want to devide the tests in two parts. The class <code>BeermappingApi</code> encapsulates the external interface, so replace its functionality by hard coding a new one with the help of stubs. The test will check whether the places page works properly, assuming that the <code>BeermappingApi</code> components works properly.
+You will want to divide the tests in two parts. The class <code>BeermappingApi</code> encapsulates the external interface, so replace its functionality by hard coding a new one with the help of stubs. The test will check whether the places page works properly, assuming that the <code>BeermappingApi</code> components works properly.
 
 The functionality of the <code>BeermappingApi</code> component will then be tested separately with unit tests written with Rspec.
 
@@ -612,7 +612,7 @@ When the tests make an HTTP request to the places controller, and as the control
 > * if the API returns various beer restaurants, all of them are shown on the page
 > * if the API does not find any beer restaurant in town (so if the return value is an empty table), the page should show the message "No locations in _place name_"
 >
-> Section [Polishing the signing up](https://github.com/mluukkai/webdevelopment-rails/blob/main/week3.md#polishing-the-signing-up) from week 3 may be helpful for the second task.
+> Section [Polishing the signing up](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week3.md#polishing-the-signing-up) from week 3 may be helpful for the second task.
 
 Let's move to testing the class <code>BeermappingApi</code>. The class makes an HTTP GET request for the Beermapping service with the help of the HTTParty library. You could stub the HTTParty get method like in the previous exercise. This would not be nice, though, because the method returns an <code>HTTPartyResponse</code> object and creating that by hand with stub is not the most fun thing to do.
 
@@ -690,7 +690,7 @@ describe "BeermappingApi" do
 end
 ```
 
-So the test first defines that the HTTP GET request for the URL ending in the string "turku" (which was defined through the regexp <code>/.\*turku/</code>) should return an hardcoded XML; it defines in the header that the information returned is in XML form. Without this definition the HTTParty library will not know how to parse correctly the data of the HTTP request.
+So the test first defines that the HTTP GET request for the URL ending in the string "turku" (which was defined through the regexp <code>/.\*turku/</code>) should return a hardcoded XML; it defines in the header that the information returned is in XML form. Without this definition the HTTParty library will not know how to parse correctly the data of the HTTP request.
 
 
 The test itself is straightforward: it checks the table returned by the BeermappingApi method <code>places_in</code>.
@@ -709,7 +709,7 @@ The test itself is straightforward: it checks the table returned by the Beermapp
          to_return(:status => 200, :body => "", :headers => {})
 ```
 
-As you'll understand from the error message, you can also stub the HTTP call for the singular URL string with the help of the comand <code>stub_request</code>. The same test can also contain various <code>stub_request</code> calls, all defining answers for different URL requests.
+As you'll understand from the error message, you can also stub the HTTP call for the singular URL string with the help of the command <code>stub_request</code>. The same test can also contain various <code>stub_request</code> calls, all defining answers for different URL requests.
 
 > ## Exercise 3
 >
@@ -750,7 +750,7 @@ config.cache_store = :file_store, 'tmp/cache_store'
 
 Also restart your console and application.
 
-You can access your cache tgrough the object saved in the variable <code>Rails.cache</code>. Try on your console:
+You can access your cache through the object saved in the variable <code>Rails.cache</code>. Try on your console:
 
 ```ruby
 > Rails.cache.write "avain", "arvo"
@@ -814,7 +814,7 @@ class BeermappingApi
 end
 ```
 
-The lowercase city name is used as key. The logic is quite simple: if restaurants corresponding to a key can be found in the cache (ie. value is not nil) they are returned. If the cache doesn't contain restaurants for a certain city, they will be fetched with the method <code>get_places_in(city)</code>, saved into cache and returned to the method caller.
+The lowercase city name is used as key. The logic is quite simple: if restaurants corresponding to a key can be found in the cache (i.e. value is not nil) they are returned. If the cache doesn't contain restaurants for a certain city, they will be fetched with the method <code>get_places_in(city)</code>, saved into cache and returned to the method caller.
 
 If you do a search for New York beer restaurants twice in a row, you'll see that the answer will be returned much faster the second time.
 
@@ -851,7 +851,7 @@ class BeermappingApi
 end
 ```
 
-If the cache contains data for the key it got as a parameter, the method returns the data in cache. If the cache doesn't contain any data corresponding to the key, the code block passed with the method will be executed and the retun value of that block will be saved into cache. The command _fetch_ in itself will also return the code block's value.
+If the cache contains data for the key it got as a parameter, the method returns the data in cache. If the cache doesn't contain any data corresponding to the key, the code block passed with the method will be executed and the return value of that block will be saved into cache. The command _fetch_ in itself will also return the code block's value.
 
 ## Outdated data
 
@@ -932,7 +932,7 @@ end
 
 In the first <code>describe</code> block the <code>before :each</code> block clears the cache before the tests are run. So when the test uses the method call <code>BeermappingApi.places_in</code>, the restaurant information is fetched with a HTTP request. In the second describe block the method <code>BeermappingApi.places_in</code> is called twice. The first call makes sure that the information for the searched location is saved into cache. The second call is answered from cache and the result is tested.
 
-The test is very redundant and it should be refactored, but we won't stop for now.
+The test is very redundant, and it should be refactored, but we won't stop for now.
 
 **One more thing to keep in mind:** because you are testing a code which makes use of Rails.cache, you'd better configure the cache so that it makes use of the __central memory__ instead of the file system when it saves during tests. You can implement this adding the following line in the file _config/environments/test.rb_
 
@@ -974,9 +974,9 @@ class BeermappingApi
 end
 ```
 
-The code contains an exeption which is executed in case the apikey is not found.
+The code contains an exception which is executed in case the apikey is not found.
 
-The value of the environment variable will have to be defined if you search for beer restaurants. You can define the enviroment variable by starting your application as follows:
+The value of the environment variable will have to be defined if you search for beer restaurants. You can define the environment variable by starting your application as follows:
 
 ```ruby
 mluukkai@melkki$ export BEERMAPPING_APIKEY="731955affc547174161dbd6f97b46538"
@@ -991,7 +991,7 @@ mluukkai@melkki$ BEERMAPPING_APIKEY="731955affc547174161dbd6f97b46538" rails s
 
 You can define the value of the environment variable (with the export command) in the file which is executed when the shell is started (the file format will be .zshrc, .bascrc or .profile according to the shell).
 
-It's simple to set up the enviroment variable value in [Heroku](https://devcenter.heroku.com/articles/config-vars) and [Fly.io](https://fly.io/docs/reference/secrets/#setting-secrets ) too.
+It's simple to set up the environment variable value in [Heroku](https://devcenter.heroku.com/articles/config-vars) and [Fly.io](https://fly.io/docs/reference/secrets/#setting-secrets ) too.
 
 **ATTENTION** If you want to keep GitHub Actions in working order you need to define the environment variable in the workflow configuration, see https://docs.github.com/en/actions/learn-github-actions/environment-variables.
 
@@ -1005,7 +1005,7 @@ Take a look at a brewery controller. The controller method to show a singular br
   def show
   end
 ```
-the view template app/views/breweries/show.html.erb renders by default anyway and it points to the <code>@brewery</code> variable:
+the view template app/views/breweries/show.html.erb renders by default anyway, and it points to the <code>@brewery</code> variable:
 
 ```ruby
 <h2><%= @brewery.name %></h2>
@@ -1089,7 +1089,7 @@ so this time you define the route so that the brewery ID was referenced through 
 > post 'places', to: ' places#search'
 > ```
 >
->* Attention: the restaurant information are retrieved from cache a bit inderectly when users go to a restaurant page. In order to have access to this information you will have to "remember" the city where the restaurant was found, in addition to its ID – or the result of the last search operation. One way to do this is through sessions, see https://github.com/mluukkai/webdevelopment-rails/blob/main/week3.md#user-and-session
+>* Attention: the restaurant information are retrieved from cache a bit indirectly when users go to a restaurant page. In order to have access to this information you will have to "remember" the city where the restaurant was found, in addition to its ID – or the result of the last search operation. One way to do this is through sessions, see https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week3.md#user-and-session
 >
 > Another way to implement this functionality is the so-called "Locquery Service," as described at the page http://beermapping.com/api/reference/ 
 >
@@ -1134,7 +1134,7 @@ so this time you define the route so that the brewery ID was referenced through 
 
 After the exercise, your application can look something like this:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-2.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-2.png)
 
 
 ## Rating beers straight from a beer page
@@ -1182,11 +1182,11 @@ Because the form is created with the helper <code>form_for</code>, it will be se
 
 There is a small issue in this solution. If users try to give an invalid rating:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-4.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-4.png)
 
 the controller (that is, the rating controller <code>create</code> method) will render a new rating form instead of the beer view:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-3.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-3.png)
 
 A possible solution would be checking what address the create method has been accessed from and then rendering the right page based on the address found. We won't implement this change now, however.
 
@@ -1245,13 +1245,13 @@ And now some small changes to joining beer clubs
 >
 > Change your code (the appropriate method of the membership controller) so that after joining a beer club the browser redirects to the beer club page and the page shows a message of the user having joined the club.
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-5.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-5.png)
 
 > ## Exercise 9
 >
 > Extend your application functionality so that members can leave a beer club.
 >
-> Add a button for the beer club page which allows to leave the club. The button should be visible only if the sign-in user goes to a beer club page where he is a member already. When they press the button, user's memberships is detroyed and they are redirected back to their own page. The page should show a message reporting the successful action, as the pictures below show.
+> Add a button for the beer club page which allows to leave the club. The button should be visible only if the sign-in user goes to a beer club page where he is a member already. When they press the button, user's memberships is destroyed, and they are redirected back to their own page. The page should show a message reporting the successful action, as the pictures below show.
 >
 > Hint: this functionality can be implemented in the same way as for joining a club, that is with a form on the beer club page. The HTTP method used in the form should be defined as "delete":
 >
@@ -1269,11 +1269,11 @@ And now some small changes to joining beer clubs
 
 If the user is the club member, the page should show a button to leave the club:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-5a.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-5a.png)
 
 After leaving a club, the user should be redirected to their page and a message should appear:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-5b.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-5b.png)
 
 
 ## Migrations
@@ -1322,7 +1322,7 @@ You have been using Rails migrations already from the first week. Now it's time 
 
 The beer style page will look something like this, after you have completed the exercise:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-6.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-6.png)
 
 A good beer style list and their descriptions is found at the address http://beeradvocate.com/beer/style/
 
@@ -1332,17 +1332,17 @@ A good beer style list and their descriptions is found at the address http://bee
 >
 > Even though the broken tests are many, keep calm. Solve the problems one test after the other, the same problems are accumulated in various different places and updating the tests will not be too difficult at the end.
 >
-> _NOTE_ Yo can delete Rails' auto-generated tests, eg. the test _spec/views/styles/index.html.erb_spec.rb_
+> _NOTE_ You can delete Rails' auto-generated tests, e.g. the test _spec/views/styles/index.html.erb_spec.rb_
 
 ## Beer weather
 
 > ## Exercise 15
 >
-> On the page showing a location's beer places add the current weather forecast for that location. There are dozen of services offering weather forecasts. Personally I used [https://weatherstack.com/](https://weatherstack.com/). Remember to handle the the API keys sensibly in your code!
+> On the page showing a location's beer places add the current weather forecast for that location. There are dozens of services offering weather forecasts. Personally I used [https://weatherstack.com/](https://weatherstack.com/). Remember to handle the the API keys sensibly in your code!
 
 After the exercise, the places page could look like
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w5-7.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w5-7.png)
 
 > ## Exercise 16
 >
@@ -1352,4 +1352,6 @@ After the exercise, the places page could look like
 
 Commit all your changes and push the code to Github. Deploy to the newest version of Heroku or Fly.io, too. Remember to check with Rubocop that your code still adheres to style rules. 
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2022.
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023.
+
+[Week 6](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week6.md)

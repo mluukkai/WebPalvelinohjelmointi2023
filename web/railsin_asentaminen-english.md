@@ -1,43 +1,42 @@
-**HUOM** sudoa ei tule käyttää rbenv:iä tai muita rubyn versiomanagereja käyttäessä (poislukien kirjastojen asentaminen), sillä asennus tehdään käyttäjän omaan kotihakemistoon.
+**Note** do not use sudo when installing rbenv or other ruby version managers (except when installing libraries), since the installation is done in the user's home directory.
 
-Varaa asennukseen kunnolla aikaa ja tee se mieluusti joskus kun levypalvelinten käyttö on muutoin vähäistä. Älä jätä asennusta ohjauksen alkuun, jos haluat tehdä muutakin kuin pyöritellä peukaloita.
+You should reserve enough time for the installation and do it when you are not using the server for anything else. Do not leave the installation to the beginning of the course if you want to do anything else than twiddle your thumbs.
 
-Kurssilla suositellaan ensisijaisesti käytettävän omaa tietokonetta.
+Recommendation for the course is to use your own computer.
 
 --
 
-Asennamme tässä Rubyn version 3.1.2 ja Railsin version 7.0.4 [rbenv-versiomanagerilla](https://github.com/sstephenson/rbenv)
+We will install Ruby version 3.1.2 and Rails version 7.0.4 with the [rbenv version manager](https://github.com/sstephenson/rbenv)
 
-7.0.4 on uusin versio tätä kirjoitettaessa (15.9.2022), voit katsoa [täältä](https://rubygems.org/gems/rails/versions) löytyykö vielä uudempaa versiota. Rubyn versiot selviävät [täältä](https://www.ruby-lang.org/en/downloads/releases/). 3.2 ilmestynee vielä syksyn aikana. Pärjäät kyllä kurssin 3.1.2:lla.
+7.0.4 is the latest version at the time of writing (15.9.2022), you can check [here](https://rubygems.org/gems/rails/versions) if there is a newer version. Ruby versions can be found [here](https://www.ruby-lang.org/en/downloads/releases/). 3.2 will probably be released during the fall. You will be fine with 3.1.2.
 
-Voit halutessasi käyttää myös [RVM:ää](https://rvm.io/rvm/install) eli rbenvin lähisukulaista.
+If you want, you can also use [RVM](https://rvm.io/rvm/install), a close relative of rbenv.
 
-**Älä kuitenkaan missään tapauksessa asenna Rubyä/Railsia Linuxin paketinhallintajärjestelmän kautta!**
+**But do not install Ruby/Rails through the Linux package management system!**
 
-**Huom:** seuraavassa on ohjeet ainoastaan Linuxille ja OSX:lle.
+**Note:** the following instructions are only for Linux and OSX.
 
-## Rails Windowsille
+## Rails for Windows
 
-Ruby on Railsin asentaminen Windowsiin onnistuu (ehkä) sivun [http://railsinstaller.org/en](http://railsinstaller.org/en) ohjeilla.
+Installation of Ruby on Rails for Windows (might) work with the instructions on the page [http://railsinstaller.org/en](http://railsinstaller.org/en).
 
-Windowsilla suositellaan käytettäväksi [WSL:ää](https://docs.microsoft.com/en-us/windows/wsl/install)
+[WSL](https://docs.microsoft.com/en-us/windows/wsl/install) is recommended to be used with Windows.
 
-Jos haluat välttämättä käyttää Windowsia ja et suostu käyttämään osaston konetta tai omaa fuksiläppäriä, tapahtuu kurssille osallistuminen omalla vastuulla.
+If you want to use Windows and refuse to use the department's computer or your own laptop, you participate in the course at your own risk.
 
-## Yliopiston etätyöpöytä
+## Remote desktop of the university
 
-Yliopiston Linuxeille on nykyään mahdollista ottaa graafinen etätyöpöytäyhteys, ks  
-https://helpdesk.it.helsinki.fi/ohjeet/tietokone-ja-tulostaminen/tyoasemapalvelu/etakaytettavat-tyopoydat-vdi-ja-vmware eli jos et saa asennettua Railsia omalle koneellesi, etätyöpöytä voi pelastaa päiväsi.
+Nowadays, it is possible to use a graphical remote desktop connection to the university's Linux computers, see https://helpdesk.it.helsinki.fi/en/instructions/computer-and-printing/workstation-service/virtual-desktops-vdi so if you can't install Rails on your own computer, remote desktop can save your day.
 
-Myös etätyöpöytää käyttäessäsi joudut asentamaan Rubyn ja Railsin allaolevan ohjeen mukaan.
+When using remote desktop, you will also have to install Ruby and Rails according to the instructions below.
 
-## rbenv Linuxille
+## rbenv for Linux
 
-Allaolevat on testattu osaston koneissa ja Ubuntun uusimman LTS version kanssa. Seuraavassa luvussa ohjeet OSX:lle. Windowsiin asentaminen ainoastaan omalla vastuulla!
+Instructions below have been tested with the department's computers and the latest LTS version of Ubuntu. Instructions for OSX in the next chapter. Installation for Windows is at your own risk!
 
-**Huom:** koneella tulee olla muutamia kirjastoja, joiden asennus onnistuu Ubuntussa komennolla <code>sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn</code>. **Osaston koneilla ja ajantasalla olevilla fuksikannettavilla kirjastot ovat valmiina.**
+**Note:** your computer needs to have a few libraries, which can be installed in Ubuntu with the command <code>sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn</code>. **Department's computers and up-to-date fresher laptops have the libraries installed.**
 
-Toimitaan sivun [https://github.com/rbenv/rbenv#installation](https://github.com/rbenv/rbenv#installation) kohdan _Installation, Basic GitHub Checkout_ mukaan, eli annetaan terminaalissa seuraavat komennot:
+We will follow the instructions on the page [https://github.com/rbenv/rbenv#installation](https://github.com/rbenv/rbenv#installation) under _Installation, Basic GitHub Checkout_, i.e. we will give the following commands in the terminal:
 
 - _git clone https://github.com/rbenv/rbenv.git ~/.rbenv_
 - _echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile_
@@ -45,16 +44,16 @@ Toimitaan sivun [https://github.com/rbenv/rbenv#installation](https://github.com
 - _echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc_
 - _echo 'eval "$(rbenv init -)"' >> ~/.bashrc_
 
-Uudelleenkäynnistä terminaali
+Restart the terminal
 
 - _mkdir -p "$(rbenv root)"/plugins_
 - _git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build_
 
-Käynnistä terminaali ja varmista seuraavan komennon avulla, että kaikki on kunnossa
+Restart the terminal and make sure everything is ok with the following command
 
 - curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
 
-Komennon tulostuksen pitäisi näyttää suunilleen seuraavalta:
+Command printout should look something like this:
 
 ```
 Checking for `rbenv' in PATH: /home/user/.rbenv/bin/rbenv
@@ -67,50 +66,50 @@ Checking RubyGems settings: OK
 Auditing installed plugins: OK
 ```
 
-Siirry kohtaan [Rubyn ja railsin asennus](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/railsin_asentaminen.md#rubyn-ja-railsin-asennus)
+Move to [Installing Ruby and Rails](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/railsin_asentaminen-english.md#installing-ruby-and-rails)
 
-## rbenv OSXlle
+## rbenv for OSX
 
-Rbenvin asennus onnistuu helpoiten homebrew:in avulla. Ohjeet homebrewin asennukseen löydät osoitteesta http://brew.sh/
+Installation of rbenv is easiest with homebrew. Instructions for installing homebrew can be found at http://brew.sh/
 
-Homebrewin asennuksen jälkeen
+After installing homebrew
 
     brew update
     brew install rbenv
     brew install ruby-build
 
-Lisää myös rivit
+Add the following lines
 
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 
-Tiedostoon `.bash_profile` kotihakemistoosi. Voit mahdollisesti joutua luomaan sen. .-alkuiset tiedostot eivät oletuksena näy Finderissä.
+to file `.bash_profile` in your home directory. You might have to create it. Files starting with . are not shown in Finder by default.
 
-Tiedoston luominen tapahtuu terminaalista käsin esim. seuraavasti
+Creating the file can be done from the terminal, for example as follows
 
     cd
     nano .bash_profile
 
-kopioi rivit tiedoston, tallenna tiedosto painamalla _control_ ja _o_, sulje se komennolla _control_ ja _x_.
+copy the lines to the file, save the file by pressing _control_ and _o_, close it with _control_ and _x_.
 
-Käynnistä tässä vaiheessa terminaali uudelleen.
+At this point, restart the terminal.
 
-**Huom:** joissain vanhoissa OSX:issä saattaa olla tarve tehdä em. rivien lisäys kotihakemistossa olevaan tiedostoon `.bashrc`
+**Note:** in some older OSX versions, you might have to add the previously mentioned lines to file `.bashrc` in your home directory.
 
-## Rubyn ja Railsin asennus
+## Installing Ruby and Rails
 
-Kun _rbenv_ on asennettu, asennetaan ja määritellään käytettävä Ruby:n versio komennoilla
+When _rbenv_ has been installed, we will install and define the version of Ruby to be used with the commands
 
     rbenv install 3.1.2
     rbenv global 3.1.2
 
-Komento asentaa Rubyn version 3.1.2, joka on Rubyn uusin versio. Voit tarkistaa asennettavissa olevat versiot komennolla <code>rbenv install --list</code>
+Command installs Ruby version 3.1.2, which is the latest version of Ruby. You can check the available versions with the command <code>rbenv install --list</code>
 
-Varmista, että komennon <code>which ruby</code> tulos on suunnilleen seuraava:
+Make sure that the command <code>which ruby</code> gives the following result:
 
-    /Users/kayttajatunnus/.rbenv/shims/ruby
+    /Users/username/.rbenv/shims/ruby
 
-Asennetaan sitten Rails antamalla komentoriviltä seuraavat komennot (vastaa mahdollisiin **Overwrite the executable?** -kyselyihin Y):
+We will then install Rails with the following commands (answer **Y** to possible **Overwrite the executable?** questions):
 
     echo 'gem: --no-ri --no-rdoc' >> ~/.gemrc
     gem install bundler
