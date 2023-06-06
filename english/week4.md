@@ -35,7 +35,7 @@ end
 
 Interestingly after these changes, editing a beer information will stop working. It causes the error message <code>undefined method `map' for nil:NilClass</code>, which you have probably already encountered in the course:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w4-0.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w4-0.png)
 
 The reason for this is that creating a new beer and editing a beer require the use of the same view template to generate the form (app/views/beers/_form.html.erb). Also after the changes, the view requires that the variable <code>@breweries</code> contains a list of the breweries and that the variable <code>styles</code> contains the beers styles. You access the beer editing page by executing the <code>edit</code> controller method, and you will have to fix the controller like shown below, if you want to fix the issue:
 
@@ -95,7 +95,7 @@ class BeersController < ApplicationController
   # ...
 ```
 
-in this way, the method to set the values of the variables <code>@styles</code> and <code>@breweries</code> is executed authomatically always before executing the methods <code>new</code>, <code>create</code> and <code>edit</code>. We might not need to set the variables values in the method <code>create</code> because they are needed only in case the validation fails. It might have made sense to use an explicit call in create.
+in this way, the method to set the values of the variables <code>@styles</code> and <code>@breweries</code> is executed automatically always before executing the methods <code>new</code>, <code>create</code> and <code>edit</code>. We might not need to set the variables values in the method <code>create</code> because they are needed only in case the validation fails. It might have made sense to use an explicit call in create.
 
 ### Problems with Heroku or Fly.io
 
@@ -169,7 +169,7 @@ The line which caused the problem:
 <li> <%= rating %> <%= link_to rating.user.username, rating.user %> </li>
 ```
 
-It seems that in the database there is a `rating` object whose associated user is `nil`. We already met this issue in [week 2](https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#problems-with-heroku).
+It seems that in the database there is a `rating` object whose associated user is `nil`. We already met this issue in [week 2](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#problems-with-heroku).
 
 The reason behind this is either a <code>nil</code> value for the <code>user_id</code> field of a rating, or an erroneous ID. One of the ways to solve the issue is destroying the 'bad' rating objects from the console. Heroku console opens with <code>heroku run console</code> and Fly.io with first running <code>fly ssh console</code> and then <code>/app/bin/rails c</code>.
 
@@ -215,11 +215,9 @@ Get started with rspec-rails gem by adding the following to your Gemfile:
 ```ruby
 group :test do
   # ...
-  gem 'rspec-rails', '~> 6.0.0.rc1'
+  gem 'rspec-rails', '~> 6.0.0'
 end
 ```
-
-> At the moment of writing, the only available version of rspec-rails 6 ends in .rc1. The repository of the rspec project recommends using version 6.0.0 which might start working agin during the course.
 
 You can set up the new gem in the familiar way, executing <code>bundle install</code> from the command line.
 
@@ -229,7 +227,7 @@ You can initialize rspec in your application running the following from command 
 
 The initialization creates a folder /spec in the application and the various tests – or specs – will be placed in its subfolders.
 
-According to Rails standard but currently less common testing framework, the test are place in the folder /test. The folder will be useless after taking rspec and you can delete it.
+According to Rails standard but currently less common testing framework, the test are place in the folder /test. The folder will be useless after taking rspec, and you can delete it.
 
 The tests – the correct words would be specs or specifications when it comes to rspec, we will be using the word test in the future however – can be written at different levels: unit tests for models and controllers, view tests, and integration tests for controllers. In addition to these, the application can be tested using a simulated browser with the help of the capybara gem https://github.com/jnicklas/capybara.
 
@@ -296,7 +294,7 @@ end
 
 The test is written in the code chunk which is given to the method called <code>it</code>. The first parameter of the method is a string, which will act as the test's name. otherwise the test is written in similarly to e.g. jUnit, meaning that the data to test is created first, later the action to test is executed, and at the end the result will be evaluated.
 
-Execute the test and we see that it goes through:
+Execute the test, and we see that it goes through:
 
 ```ruby
 $ rspec spec
@@ -309,7 +307,7 @@ Differently from the jUnit testing framework, Rspecs don't make use of assert co
 
     expect(user.username).to eq("Pekka")
 
-In the test you have just run, you used the command <code>new</code> so the object was not save in the database. Try to store the object now. You defined that User objects have a password whose length is over 4 and that contains at least one digit and one uppercase letter. So if the password is not set up, the object should not be stored in the database. 
+In the test you have just run, you used the command <code>new</code> so the object was not saved in the database. Try to store the object now. You defined that User objects have a password whose length is over 4 and that contains at least one digit and one uppercase letter. So if the password is not set up, the object should not be stored in the database. 
 
 Test this:
 
@@ -452,7 +450,7 @@ RSpec.describe User, type: :model do
 end
 ```
 
-Initializing variables happens with the sligthly peculiar looking <code>let</code> method. E.g.:
+Initializing variables happens with the slightly peculiar looking <code>let</code> method. E.g.:
 
 ```ruby
 let(:user){ User.create username: "Pekka", password: "Secret1", password_confirmation: "Secret1" }
@@ -503,7 +501,7 @@ Remember to name your tests in a way so that the "spec" produced will sound gram
 
 ## Test environments or fixtures
 
-What we did before, creating the object structures for the tests by hand, might not be the best thing to do in some cases. A better way is grouping the structures for the test environment – that is to say the data to initialise the tests – in their own place, a "test fixture". Instead of using Rails standard fixture mechanism to initialize the tests, try the gem called FactoryBot, see
+What we did before, creating the object structures for the tests by hand, might not be the best thing to do in some cases. A better way is grouping the structures for the test environment – that is to say the data to initialise the tests – in their own place, a "test fixture". Instead of using Rails standard fixture mechanism to initialise the tests, try the gem called FactoryBot, see
 https://github.com/thoughtbot/factory_bot and https://github.com/thoughtbot/factory_bot_rails
 
 Add the following to your Gemfile
@@ -544,7 +542,7 @@ Modify your tests now to use FactoryBot for creating user objects.
 
 ```ruby
 describe "with a proper password" do
-  let(:user) { FactoryBot.create(:user) } # tämä rivi muuttui
+  let(:user) { FactoryBot.create(:user) } # this row changed
   let(:test_brewery) { Brewery.new name: "test", year: 2000 }
   let(:test_beer) { Beer.create name: "testbeer", style: "teststyle", brewery: test_brewery }
 
@@ -599,7 +597,7 @@ On top of the factory creating ratings, fixtures for creating breweries and beer
 
 The factory <code>FactoryBot.create(:brewery)</code> creates a brewery whose name is 'anonymous' and is founded in 1900.
 
-The factory <code>FactoryBot.create(:beer)</code> creates a beer whose style is 'Lager' and name 'anonymous' and a brewery is created for it. Accordingly, the factory <code>FactoryBot.create(:rating)</code> creates a rating which is associated with the beer and user created by the factory. Additionally the value of the rating, field _score_, is set to 10.
+The factory <code>FactoryBot.create(:beer)</code> creates a beer whose style is 'Lager' and name 'anonymous' and a brewery is created for it. Accordingly, the factory <code>FactoryBot.create(:rating)</code> creates a rating which is associated with the beer and user created by the factory. Additionally, the value of the rating, field _score_, is set to 10.
 
 The test can be edited to following:
 
@@ -622,7 +620,7 @@ describe "with a proper password" do
 end
 ```
 
-The test creates two ratings, other's scrore is 10 and the other's 20, that are are associated with the user created with the help of a factory in the _let_ command.
+The test creates two ratings, other's score is 10 and the other's 20, that are associated with the user created with the help of a factory in the _let_ command.
 
 ```ruby
 FactoryBot.create(:rating, score: 10, user: user)
@@ -649,16 +647,16 @@ FactoryBot.create(:brewery, name: 'homebrew', year: 2011)
 
 this would create three breweries of which one would get the default name _anonymous_ and foundation year _1900_. The second brewery would get the default foundation year but the name _crapbrew_. The third would get both its name and year from the given parameters. 
 
-Also the user factory could be called twice:
+Also, the user factory could be called twice:
 
 ```ruby
 FactoryBot.create(:user)
 FactoryBot.create(:user)
 ```
 
-This would however raise an exception as <code>User</code> object validations expects that usernames are unique but the the factory by default always creates users with the username "Pekka".
+This would however raise an exception as <code>User</code> object validations expects that usernames are unique but the factory by default always creates users with the username "Pekka".
 
-The follwing would however be okay; creating two users with different usernames, the default _Pekka_ and additionally _Vilma_
+The following would however be okay; creating two users with different usernames, the default _Pekka_ and additionally _Vilma_
 
 ```ruby
 FactoryBot.create(:user)
@@ -731,7 +729,7 @@ it "is the only rated if only one rating" do
 end
 ```
 
-First a beer is created, the a rating. The <code>create</code> method of rating is given the score, beer object and user object (both created with Factorybot) as parameters. These are to be associated with the rating.
+First a beer is created, then a rating. The <code>create</code> method of rating is given the score, beer object and user object (both created with Factorybot) as parameters. These are to be associated with the rating.
 
 The created rating is connected to the user and is that user's only rating. In the end, the test expects that the beer associated with the rating is the user's favorite beer:
 
@@ -866,7 +864,7 @@ def create_beer_with_rating(user, score)
   beer
 end
 ```
-However the previous method is more flexible in this case. It makes expanding the <code>create_beer_with_rating</code> method (needed in exercises 3 and 4) without breaking any test code possible.
+However, the previous method is more flexible in this case. It makes expanding the <code>create_beer_with_rating</code> method (needed in exercises 3 and 4) without breaking any test code possible.
 
 Auxiliary method can (and should) be defined in rspec files. If the auxiliary method is needed in only in one test file, it can be place at the end of the file, for instance.
 
@@ -969,11 +967,11 @@ end
 ```
 
 
-This may put you into strange situations (if you define a factory with the same name yourself, the default one will be used instead!), so you'd better define the gem only in the test environment following the instructions of the section https://github.com/mluukkai/webdevelopment-rails/blob/main/week4.md#test-environments-or-fixtures.
+This may put you into strange situations (if you define a factory with the same name yourself, the default one will be used instead!), so you'd better define the gem only in the test environment following the instructions of the section https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week4.md#test-environments-or-fixtures.
 
 #### Objects left in test database
 
-Normally, rspec resets the database after each test execution. This is because rspec executes each test in a transaction by default which is rollbacked or canceled after the test execution. Tests are not saved in the dataabase, then.
+Normally, rspec resets the database after each test execution. This is because rspec executes each test in a transaction by default which is rollbacked or canceled after the test execution. Tests are not saved in the database, then.
 
 Occasionally objects can go to the database permanently during testing, however.
 
@@ -996,7 +994,7 @@ end
 
 the <code>Beer</code> object created by the test would go to your test database for good, because the command <ode>FactoryBot.create(:beer)</code>  is located outside the tests, and it is not executed it during canceling transactions!
 
-Therefore, you will not want to place object creation code outside the tests (except for the methods which are called by the tests). Objects should be created in the test contex, either inside the method <code>it</code>:
+Therefore, you will not want to place object creation code outside the tests (except for the methods which are called by the tests). Objects should be created in the test context, either inside the method <code>it</code>:
 
 ```ruby
 describe "when one beer exists" do
@@ -1034,7 +1032,7 @@ You can delete the beers which eventually ended up in the test database by start
 
 #### Validation
 
-The uniqueness restrictions which are defined in the validation can produce something unespected sometimes. The User username has been defined as unique, so the test
+The uniqueness restrictions which are defined in the validation can produce something unexpected sometimes. The User username has been defined as unique, so the test
 
 ```ruby
 describe "the application" do
@@ -1103,11 +1101,11 @@ end
 
 Now the names of the users created by sequential <code>FactoryBot.create(:user)</code> factory calls would be _Pekka1_, _Pekka2_, _Pekka3_ ...
 
-**However, don't change** your factory to this form as it will break a part of this week's tests!
+**However, don't change** your factory to this form as it will break part of this week's tests!
 
 ## Tests and debugger
 
-Hopefully you've made a routine of using [debugger](https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#debugger). Because tests are also normal Ruby code,  _binding.pry_  can also be used in both the test code and the code to be tested. The database status of the testing environment can be surprising sometimes, as you have seen in the examples above. In case of problems you should definitely stop your test code with the debugger and check whether the state of the ojects to test corresponds to what you expected.
+Hopefully you've made a routine of using [debugger](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#debugger). Because tests are also normal Ruby code,  _binding.pry_  can also be used in both the test code and the code to be tested. The database status of the testing environment can be surprising sometimes, as you have seen in the examples above. In case of problems you should definitely stop your test code with the debugger and check whether the state of the objects to test corresponds to what you expected.
 
 ## Executing individual tests
 With rspec you can also execute individual tests or _describe_ blocks. Eg. the following would execute only the test starting from line 108 of file user_spec.rb:
@@ -1124,7 +1122,7 @@ If/when you ran into problems:
 >
 > ### This and the following exercise might be challenging. It is not essential that you make these two exercises if you want to continue with the material of the rest of the week, so do not get stuck here. You can also do them after you are done with the others.
 >
-> Make the method <code>favorite_style</code> for the <code>User</code> object in a TDD style. The method should return the style whose beers have received the highest avarage rating from the user.
+> Make the method <code>favorite_style</code> for the <code>User</code> object in a TDD style. The method should return the style whose beers have received the highest average rating from the user.
 >
 >Add information about the user's favourite style to their page.
 >
@@ -1132,7 +1130,7 @@ If/when you ran into problems:
 
 > ## Exercise 4
 >
-> Make now the method <code>favorite_brewery</code> for the <code>User</code> object in a TDD style. The method should return the brewery whose beers have received the highest avarage rating from the user.
+> Make now the method <code>favorite_brewery</code> for the <code>User</code> object in a TDD style. The method should return the brewery whose beers have received the highest average rating from the user.
 >
 >Add information about the user favourite brewery to their page.
 >
@@ -1162,7 +1160,7 @@ You are ready now for your first browser-level test.
 
 It is common to place the browser-level tests in the folder _spec/features_. Unit tests are usually organised so that the tests for each class are put in their own file. It is not always so clear how user-level tests which are executed through the browser should be organised. One option is using a file for each controller, another option is dividing the tests in different files according to the different functionalities of the system.
 
-Get started by defining the tests for your breweries funcionality, and create the file spec/features/breweries_page_spec.rb:
+Get started by defining the tests for your breweries functionality, and create the file spec/features/breweries_page_spec.rb:
 
 ```ruby
 require 'rails_helper'
@@ -1184,7 +1182,7 @@ Another option is providing the test with the command <code>save_and_open_page</
 
     export BROWSER='/usr/bin/chromium-browser'
 
-The definition will be enforced only in the shell where you make it. If you want to make it persistant, add it in the file ~/.bashrc
+The definition will be enforced only in the shell where you make it. If you want to make it persistent, add it in the file ~/.bashrc
 
 For both <code>puts page.html</code> and <code>save_and_open_page</code> command to work they need to be placed before the last line of test. In this test both could be placed even on the first line.
 
@@ -1281,7 +1279,7 @@ end
 
 Notice that the <code>before :each</code> inside the describe chunk is executed once before each test defined under describe and **each test starts in a situation where the database is empty**.
 
-Also note that if you must refer to variables created inside the <code>before :each</code> block from inside a test (ie. _it_ block) the variable names must start with the @ character.
+Also note that if you must refer to variables created inside the <code>before :each</code> block from inside a test (i.e. _it_ block) the variable names must start with the @ character.
 
 ## Testing user functionality
 
@@ -1334,7 +1332,7 @@ Implement a couple of tests more for user. The input of a wrong password should 
   end
 ```
 
-The tests uses the method <code>current_path</code> which returns the path where the test execution has led to when the method is called. The method helps making sure the user is redirected back to the sign-in page if signing in failed.
+The tests use the method <code>current_path</code> which returns the path where the test execution has led to when the method is called. The method helps to make sure the user is redirected back to the sign-in page if signing in failed.
 
 It is not always so clear to what extent you should test your application business logic through browser-level tests. At least testing the logic to find out the user object favourite beer, brewery, and beer style with unit tests is sensible.
 
@@ -1364,7 +1362,7 @@ If the method has to test a value, the value is given between brackets, like <co
 
 Read more about this in Rspec documentation https://relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
 
-So the last test checked whether the operation executed at browser level created an object in the database. Should you make a separate test to see whether a user name can sign in the system? Maybe. After all, the previous test did not questioned whether the user object was saved in the database correctly.
+So the last test checked whether the operation executed at browser level created an object in the database. Should you make a separate test to see whether a username can sign in the system? Maybe. After all, the previous test did not questioned whether the user object was saved in the database correctly.
 
 The scope for testing is so wide, however, that a complete analysis is impossible and tests should be written in first place for things which might break.
 
@@ -1402,7 +1400,7 @@ describe "Rating" do
 end
 ```
 
-The test builds its brewery, two beers and a user with the method <code>let!</code> instead of <code>let</code> which we used earlier. In fact, the version without exclamative mark does not execute the operation immediately, but only once the code refers to the object explicitely. The object <code>beer1</code> is mentioned only at the end of the code, so if you had created it with the method <code>let</code>, you would have run into a problem creating the rating, because its beer would have not existed in the database yet, and the corresponding select element would not have been found.
+The test builds its brewery, two beers and a user with the method <code>let!</code> instead of <code>let</code> which we used earlier. In fact, the version without exclamation mark does not execute the operation immediately, but only once the code refers to the object explicitly. The object <code>beer1</code> is mentioned only at the end of the code, so if you had created it with the method <code>let</code>, you would have run into a problem creating the rating, because its beer would have not existed in the database yet, and the corresponding select element would not have been found.
 
 
 The code contained in the <code>before</code> chunk of the test helps users to sign in the system. Most probably, the same code chunk will be useful in various different test files. You had better extract the test code needed in various different places and make a [module](https://relishapp.com/rspec/rspec-core/docs/helper-methods/define-helper-methods-in-a-module), which can be included in all test files which need it. Create a module <code>Helpers</code> in a file named _helpers.rb_ in the _specs_ directory and put the sign-in code there:
@@ -1495,7 +1493,7 @@ Moving the previously defined methods <code>create\_beer\_with\_rating</code> an
 >
 > Note that the test must first create at least one brewery to make creating beers possible.
 >
-> **ATTENTION:** your code might contain a bug in situations, when you try to create an beer with an invalid name. Check out the fuctionality through your browser. The cause is explained at the beginning of week, https://github.com/mluukkai/webdevelopment-rails/blob/main/week4.md#some-things-to-keep-in-mind. Fix the bug in your code.
+> **ATTENTION:** your code might contain a bug in situations, when you try to create a beer with an invalid name. Check out the functionality through your browser. The cause is explained at the beginning of week, https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week4.md#some-things-to-keep-in-mind. Fix the bug in your code.
 >
 > Keep in mind you can use the command <code>save_and_open_page</code> if you run into problems!
 
@@ -1560,7 +1558,7 @@ Coverage report generated for RSpec to /Users/mluukkai/opetus/ratebeer/coverage.
 
 The tests line coverage is 48.35 percent. You find a more detailed report opening the file coverage/index.html with your browser. As it is shown by the picture, there are still large parts of the program which are tested poorly, especially as far as the controllers are concerned:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w4-1.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w4-1.png)
 
 
 Wide-ranging tests does not mean that you are testing smart things, of course. Because it is easy to measure, it is better than nothing and it shows the most evident issues, at least.
@@ -1584,11 +1582,11 @@ Projects stored in GitHub are easy to set under GitHub Actions' watch.
 >
 > Go to your project repository and press _Actions_ from the topbar. If you have no pre-existing actions, github will take you directly to a page which suggests ready templates.
 >
-> ![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w4-2.png)
+> ![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w4-2.png)
 >
 > Select Ruby on Rails by pressing the _Configure_ button. Github will redirect you to a page where you'll edit a file called <code>rubyonrails.yml</code>. This workflow file tells GitHub Actions what the CI should do.
 >
-> However the file contents won't work as they are so to begin with, let's change the contents to following:
+> However, the file contents won't work as they are so to begin with, let's change the contents to following:
 > ```
 > # This workflow uses actions that are not certified by GitHub. They are
 > # provided by a third-party and are governed by separate terms of service,
@@ -1629,7 +1627,7 @@ Projects stored in GitHub are easy to set under GitHub Actions' watch.
 >         run: bundle exec rspec
 > ```
 >
-> The diffrence to the default version is that we are using newer versions of actions that set-up both Ubuntu and Ruby to make the compatible with Ruby version 3.1.2.
+> The difference to the default version is that we are using newer versions of actions that set-up both Ubuntu and Ruby to make the compatible with Ruby version 3.1.2.
 >
 > After changing the contents, select _Start commit_ and add the file to your version control. GitHub Actions will start automatically and execute tests.
 >
@@ -1657,9 +1655,9 @@ Projects stored in GitHub are easy to set under GitHub Actions' watch.
 >          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 > ```
 >
-> GIRHYB_TOKEN row uses an [automatic token provided by GitHub](https://docs.github.com/en/actions/security-guides/automatic-token-authentication) which enables authtenticating  GitHub applications
+> GITHUB_TOKEN row uses an [automatic token provided by GitHub](https://docs.github.com/en/actions/security-guides/automatic-token-authentication) which enables authenticating  GitHub applications
 >
-> Now GitHub should be able to run both the tests and Rubocop everytime changes are commited to the repository.
+> Now GitHub should be able to run both the tests and Rubocop everytime changes are committed to the repository.
 
 ## Continuous delivery
 
@@ -1672,7 +1670,7 @@ Especially for Web application, continuous deployment can be an operation which 
 >
 > Implement a continuous deployment of your application to Heroku or Fly.io.
 >
-> Intructions for Fly.io: https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
+> Instructions for Fly.io: https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
 >
 > Instruction for Heroku: https://devcenter.heroku.com/articles/github-integration
 >
@@ -1694,17 +1692,17 @@ In addition to the test coverage, you should also pay attention to the code qual
 >Link the quality metric report to your repository README file, too:
 >
 > To find the link:
-> ![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w4-4c.png)
+> ![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w4-4c.png)
 >
 > Now codeclimate will also put enough pressure on you as the application developer to keep high quality code all the time!
 >
 
 
-The amount of services to help the application developer's life increases from day to day. Instead of or in addition to Simplecov, you can delegate the test coverage report to Coveralls https://coveralls.io/ -nimiselle pilvipalvelulle. This time we will skip that.
+The amount of services to help the application developer's life increases from day to day. Instead of or in addition to Simplecov, you can delegate the test coverage report to Coveralls https://coveralls.io/ cloud service. This time we will skip that.
 
 ## Functions for signed-in users
 
-Leave tests for a moment and go back to a couple of the previous themes. In week 2, you defined your application with http basic authentication so that users could delete breweries only with the admin password. [In week 3](https://github.com/mluukkai/webdevelopment-rails/blob/main/week3.md#deleting-only-ones-own-ratings) you defined your application functionality so that deleting ratings was not possible for others than the user who created that rating. Instead, things like creating, removing, and editing beer clubs and beers are possible even without signing in, so far.
+Leave tests for a moment and go back to a couple of the previous themes. In week 2, you defined your application with http basic authentication so that users could delete breweries only with the admin password. [In week 3](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week3.md#deleting-only-ones-own-ratings) you defined your application functionality so that deleting ratings was not possible for others than the user who created that rating. Instead, things like creating, removing, and editing beer clubs and beers are possible even without signing in, so far.
 
 Put http basic authentication aside, and change your application so that beers, breweries, and beer groups can be created, edited and deleted only by signed-in users.
 
@@ -1746,7 +1744,7 @@ Actually, <code>unless</code> would be useless now, because <code>nil</code> is 
 <%= link_to('New Beer', new_beer_path) if current_user %>
 ```
 
-You will remove the adding, removing, and editing links soon, before doing it however, have a look at the protection at controller level. In fact, even though you removed all links to restriced actions, nothing prevents users from making a straight HTTP request to the application, and in this way doing an action which should be restricted to signed-in users.
+You will remove the adding, removing, and editing links soon, before doing it however, have a look at the protection at controller level. In fact, even though you removed all links to restricted actions, nothing prevents users from making a straight HTTP request to the application, and in this way doing an action which should be restricted to signed-in users.
 
 So you will still have to make sure at controller level that if users try for some reason to do a forbidden action straight with HTTP, the action will not be executed.
 
@@ -1760,9 +1758,9 @@ def ensure_that_signed_in
 end
 ```
 
-So if users call the medhod without being signed-in, they are redirected to the signed-in page. Because the method is located in the class <code>ApplicationController</code> and all the controllers inherit this class, the method will be available for all controllers.
+So if users call the method without being signed-in, they are redirected to the signed-in page. Because the method is located in the class <code>ApplicationController</code> and all the controllers inherit this class, the method will be available for all controllers.
 
-Add the method as a "before" filter (see http://guides.rubyonrails.org/action_controller_overview.html#filters and https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#a-simple-protection) for beer, brewery, and beer club controllers for all the methods except for index and show:
+Add the method as a "before" filter (see http://guides.rubyonrails.org/action_controller_overview.html#filters and https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#a-simple-protection) for beer, brewery, and beer club controllers for all the methods except for index and show:
 
 
 ```ruby
@@ -1773,9 +1771,9 @@ class BeersController < ApplicationController
 end
 ```
 
-For instance, when a beer is being created Rails executes the filter <code>ensure_that_signed_in</code> before the method <code>create</code>, so the filter redirects to the sign-in page users who did not sign-in. If the user had signed in the system, the filter would not have done anything, and the new beer would have been created normally.
+For instance, when a beer is being created Rails executes the filter <code>ensure_that_signed_in</code> before the method <code>create</code>, so the filter redirects to the sign-in page users who did not sign in. If the user had signed in the system, the filter would not have done anything, and the new beer would have been created normally.
 
-Try out that the changes work with your browser. So non-signed-in users are redirected to the sign-in page when they do any action which is restriced with the "before" filter, but signed-in users can access the page smoothly.
+Try out that the changes work with your browser. So non-signed-in users are redirected to the sign-in page when they do any action which is restricted with the "before" filter, but signed-in users can access the page smoothly.
 
 > ## Exercise 15
 >
@@ -1795,7 +1793,6 @@ If you want, you can polish the application views. For instance, you can remove 
 
 Commit all your changes and push the code to Github. Deploy to the newest version of Heroku or Fly.io, too.
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2022.
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023.
 
-
-
+And towards next week: [week 5](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week5.md)

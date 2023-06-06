@@ -40,15 +40,15 @@ Kun et enää halua palauttaa enempää tehtäviä ja olet ilmoittautunut kurssi
 
 Suoritusmerkinnän pyytäminen edellyttää, että olet tallettanut Helsingin yliopiston opiskelijanumerosi palautussovellukseen:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-1.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ilmo-1.png)
 
 Suoritusmerkintä pyydetään painamalla My submissions -välilehden sinistä nappia
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-2.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ilmo-2.png)
 
 Huomaa, että joudut painamaan nappia vielä toisen kerran:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-3.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ilmo-3.png)
 
 Kun nappia on painettu tarpeeksi monta kertaa näet seuraavan tekstin:
 

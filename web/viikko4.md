@@ -213,11 +213,9 @@ Otetaan käyttöön rspec-rails gem lisäämällä Gemfileen seuraava:
 ```ruby
 group :test do
   # ...
-  gem 'rspec-rails', '~> 6.0.0.rc1'
+  gem 'rspec-rails', '~> 6.0.0'
 end
 ```
-
-> Materiaaleja kirjottaessa ainoa tarjolla oleva versio rspec-rails 6:sta on .rc1 päätteinen. Rspec-projektin repositorio ohjeistaa käyttämään 6.0.0 versiota, joka saattaa toimia jälleen kurssin aikana.
 
 Uusi gem otetaan käyttöön tutulla tavalla, eli antamalla komentoriviltä komento <code>bundle install</code>
 
@@ -1785,3 +1783,5 @@ Voit halutessasi tehdä hienosäätöä sovelluksen näkymiin, esim. poistaa res
 Commitoi kaikki tekemäsi muutokset ja pushaa koodi GitHubiin. Deployaa myös uusin versio Fly.io:n tai Herokuun. Muista myös testata Rubocopilla, että koodisi noudattaa edelleen määriteltyjä tyylisääntöjä.
 
 Tehtävät kirjataan palautetuksi osoitteeseen https://studies.cs.helsinki.fi/stats/courses/rails2023/
+
+Ja seuraavaan viikkoon: [viikko 5](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko5.md)

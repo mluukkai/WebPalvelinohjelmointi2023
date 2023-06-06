@@ -2,9 +2,9 @@ You will continue to develop your application from the point you arrived at the 
 
 ## Rails developer workflow
 
-The optimal way to program on Rails is evidently different than eg. Java. As a rule, when you are programming on Rails you should _avoid_ writing lots of code, and testing it only later on when you go to the page which implements your code. A partial reason for this is the fact Rails is a dynamically typed and interpreted language, which makes it impossible for even the best IDEs to check the program syntax. On the other hand, the fact that it is an interpreted language together with its console tools (the console itself and the debugger) makes it possible to test the functionality of smaller code chunks before they are put into the edited code file.
+The optimal way to program on Rails is evidently different from e.g. Java. As a rule, when you are programming on Rails you should _avoid_ writing lots of code, and testing it only later on when you go to the page which implements your code. A partial reason for this is the fact Rails is a dynamically typed and interpreted language, which makes it impossible for even the best IDEs to check the program syntax. On the other hand, the fact that it is an interpreted language together with its console tools (the console itself and the debugger) makes it possible to test the functionality of smaller code chunks before they are put into the edited code file.
 
-Let us take for example what we implemented last week, the implementation of the avarage value of beer ratings, and let us follow a natural Rails workflow.
+Let us take for example what we implemented last week, the implementation of the average value of beer ratings, and let us follow a natural Rails workflow.
 
 Each beer contains a collection of ratings:
 
@@ -30,9 +30,9 @@ class Beer < ApplicationRecord
 end
 ```
 
-If we wanted to do it in "Java's way" we could find the sum by going through all the ratings item after item and we could divide it by the number of items.
+If we wanted to do it in "Java's way" we could find the sum by going through all the ratings item after item, and we could divide it by the number of items.
 
-All Ruby's things which have something to do with collections (for instance tables and <code>hash_many</code> field) contain the auxiliary methods provided by the Enumerable module (ks. ks. http://ruby-doc.org/core-2.5.1/Enumerable.html). Now we want to use the auxiliary methods to find out the avarage value.
+All Ruby's things which have something to do with collections (for instance tables and <code>hash_many</code> field) contain the auxiliary methods provided by the Enumerable module (ks. ks. http://ruby-doc.org/core-2.5.1/Enumerable.html). Now we want to use the auxiliary methods to find out the average value.
 
 When you write the code, you should _definitely_ use your console. In fact, the debugger would be an even better option than the console. The debugger will open the console straight in the context for which we are writing the code. Add the <code>binding.pry</code> command to the method call, which starts the debugger:
 
@@ -101,8 +101,8 @@ and you have access to the object fields using either dot notation or simply the
 Notice that if you want to modify the object field value inside a method, you have to use dot notation:
 
 ```ruby
-def methid
-  #following methods print to console the value of field 'name'
+def method
+  # following methods print to console the value of field 'name'
   puts self.name
   puts name
 
@@ -152,7 +152,7 @@ if you want to sum up ratings, you have to take the value of the <code>score</co
 21
 ```
 
-The <code>map</code> method of the enumerable module provides us with a way to make a new collection out of an old one. You can retrieve the items of the new collection from the original collection, by executing a mapping function to each of the orginal items.
+The <code>map</code> method of the enumerable module provides us with a way to make a new collection out of an old one. You can retrieve the items of the new collection from the original collection, by executing a mapping function to each of the original items.
 
 If you use the name <code>r</code> to refer to the items of the original collection, the mapping function will be simple:
 
@@ -179,14 +179,14 @@ the mapping function is given as a code chunk between curly brackets which is gi
 
 The map method makes use of the rating collection to help you build the values of the table ratings. You'll have to sum these values next.
 
-Rails has added the method [sum](http://apidock.com/rails/Enumerable/sum) to all Enumberables. Try that out on the table you got with map.
+Rails has added the method [sum](http://apidock.com/rails/Enumerable/sum) to all Enumeberables. Try that out on the table you got with map.
 
 ```ruby
 (ruby) ratings.map { |r| r.score }.sum
 39
 ```
 
-In order to find out the avarage value, you will still have to devide the sum by the total number of items. Check how the <code>count</code> method works:
+In order to find out the average value, you will still have to divide the sum by the total number of items. Check how the <code>count</code> method works:
 
 ```ruby
 (ruby) ratings.count
@@ -194,7 +194,7 @@ In order to find out the avarage value, you will still have to devide the sum by
 2
 ```
 
-and then form a oneliner to find the avarage value:
+and then form an oneliner to find the average value:
 
 
 ```ruby
@@ -203,7 +203,7 @@ and then form a oneliner to find the avarage value:
 19
 ```
 
-you will see that the result is rounded erroneously. The problem is evidently that both the devidend and divisor are integers. Change to float one of them. Before you do it, check how the method works to change integers to floats:
+you will see that the result is rounded erroneously. The problem is evidently that both the dividend and divisor are integers. Change to float one of them. Before you do it, check how the method works to change integers to floats:
 
 ```ruby
 > 1.to_f
@@ -216,7 +216,7 @@ Think of a proper search term and you will have an answer quite certainly. You'l
 
 In Ruby and Rails there is typically a ready-made method or gem for almost everything, so you should always google or check the documentation instead of reinventing the wheel.
 
-You can make now the final version of your code to find the avarage value:
+You can make now the final version of your code to find the average value:
 
 ```ruby
 (ruby) ratings.map { |r| r.score }.sum / ratings.count.to_f
@@ -259,7 +259,7 @@ irb(main):004:0> b.average
 => NaN
 ```
 
-Rating avarage value of the second beer in the database is <code>NaN</code>. Go back to your debugger. Write the command <code>binding.pry</code>in the method for the avarage value, reload the code and call the method for the problematic object:
+Rating average value of the second beer in the database is <code>NaN</code>. Go back to your debugger. Write the command <code>binding.pry</code>in the method for the avarage value, reload the code and call the method for the problematic object:
 
 ```ruby
 irb(main):008:0> b.average
@@ -294,7 +294,7 @@ We are dividing integers by zero. See the result of the operation:
 NaN
 ```
 
-In order to prevent a number being devided by zero, the method will have to handle the case separately:
+In order to prevent a number being divided by zero, the method will have to handle the case separately:
 
 ```ruby
 def average
@@ -314,13 +314,13 @@ def average
 end
 ```
 
-In any case, you should comply to the peculiar style of the language you are using, expecially if you are dealing with a project where there are various different developers.
+In any case, you should comply to the peculiar style of the language you are using, especially if you are dealing with a project where there are various different developers.
 
 If using the debugger has not become a routine yet, do review last week's debugger material.
 
 ## Rubocop: it's all about style
 
-In bigger software projects teams usually set common styling policies, eg. naming conventions, how brackets are placed, where to use space and where not to. Rail conventions already cover some of these, namely on class and  method naming level.
+In bigger software projects teams usually set common styling policies, e.g. naming conventions, how brackets are placed, where to use space and where not to. Rail conventions already cover some of these, namely on class and  method naming level.
 
 Let's implement [Rubocop](https://github.com/rubocop-hq/rubocop), which will help us define styling rules for our project and to enforce them. Rubocop is a similar _static analysis_ tool such as [ESLint](https://eslint.org/) from the JavaScript world and [checkstyle](http://checkstyle.sourceforge.net/) for Java.
 
@@ -328,9 +328,9 @@ Rubocop is installed from your command line
  
     gem install rubocop
 
-The styling rules monitored by Rubocop are defined in _.rubocop.yml_ that is placed in the project root. Create the file in your project (note the dot at the start of the name) and copy content for it from [here](https://github.com/mluukkai/WebPalvelinohjelmointi2022/main/misc/.rubocop.yml).
+The styling rules monitored by Rubocop are defined in _.rubocop.yml_ that is placed in the project root. Create the file in your project (note the dot at the start of the name) and copy content for it from [here](https://github.com/mluukkai/WebPalvelinohjelmointi2023/main/misc/.rubocop.yml).
 
-The rules defined there are based on the [Relaxed Ruby](https://relaxed.ruby.style/) style but they are a bit stricter on some points. The file contents also define that some files are to be left out of any style checks.
+The rules defined there are based on the [Relaxed Ruby](https://relaxed.ruby.style/) style, but they are a bit stricter on some points. The file contents also define that some files are to be left out of any style checks.
 
 A code style check is executed with the command _rubocop_ on the command line.
 
@@ -386,7 +386,7 @@ app/models/rating.rb:7:1: C: Layout/TrailingWhitespace: Trailing whitespace dete
 
 > ## Exercise 2
 >
->Add a rule that forbids methods over 15 lines long. Check that _rubocop_ announces if you you have a too long method in your code.
+>Add a rule that forbids methods over 15 lines long. Check that _rubocop_ announces if you have a too long method in your code.
 > 
 > Instructions for defining style rules can be found in the Metrics section of [documentation](https://docs.rubocop.org/rubocop/cops_metrics.html).
 
@@ -402,12 +402,12 @@ You can fix such errors automatically with the command `rubocop -A`.
 From now on, we recommend that you make sure that any code you create follows Rubocop's rules. You can edit the already configured rules to your liking if you wish.
 ## User and session
 
-Next, you will expand your application, so that users will be able to register a user name for themselves in the system.
+Next, you will expand your application, so that users will be able to register a username for themselves in the system.
 You will soon modify the functionality so that each rating will belong to a registered user.
 
 ![mvc picture](http://yuml.me/4abc9b51.png)
 
-Start with creating a user object which has a user name, and later add a password too.
+Start with creating a user object which has a username, and later add a password too.
 
 Create a model, a view, and a controller for the user, with the command <code>rails g scaffold user username:string</code>
 
@@ -421,12 +421,12 @@ So the HTTP GET request to the signup address will also be handled by the Users 
 
 HTTP is a stateless protocol, which means that all the requests executed with an HTTP protocol are mutually independent. If we want to implement a state in our Web application, for instance user registration or a web store shopping basket, the information of a Web session state will have to be transmitted together with every browser HTTP request. The most common way to transmit state information is to use cookies, see http://en.wikipedia.org/wiki/HTTP_cookie
 
-To tell a long story short, the idea behind cookies is the following: when the browser tries to access a Web site, the server can answer the browser and send a request to store a coockie. After that, the browser will add a cookie to all the HTTP requests for the Web site. A cookie is nothing else than a small amount of data, and the server can make use of the cookie data as it prefers to recognise browser owning the cookie.
+To tell a long story short, the idea behind cookies is the following: when the browser tries to access a website, the server can answer the browser and send a request to store a cookie. After that, the browser will add a cookie to all the HTTP requests for the website. A cookie is nothing else than a small amount of data, and the server can make use of the cookie data as it prefers to recognise browser owning the cookie.
 
 Rails application developers will not have to work with cookies directly, because thanks to cookies, Rails has implemented __sessions__ which work at higher level and which are used by the application to "remember" browser information, such as the user identity, and the time of various HTTP requests, see
 http://guides.rubyonrails.org/action_controller_overview.html#session.
 
-Let's try to use sessions to remember an user's latest rating. In Rails applications, you have access to the session of a user (or of a browser) who did an HTTP request through the object <code>session</code> which works like a hash.
+Let's try to use sessions to remember a user's latest rating. In Rails applications, you have access to the session of a user (or of a browser) who did an HTTP request through the object <code>session</code> which works like a hash.
 
 Store the rating session by adding the following chunk in the rating controller:
 
@@ -442,7 +442,7 @@ def create
 end
 ```
 
-add the following chunk of code to the application layout (tiedostoon app/views/layouts/application.html.erb) to make sure the rating will be seen in all pages:
+add the following chunk of code to the application layout (to file app/views/layouts/application.html.erb) to make sure the rating will be seen in all pages:
 
 ```erb
 <% if session[:last_rating].nil? %>
@@ -460,13 +460,13 @@ Open your application in an incognito window or another browser now. You will se
 
 The idea is implementing the registration functionality so that when users sign in, the <code>ID</code> of the corresponding <code>User</code> object is  saved in the session. When users sign out, the session is reset.
 
-Attention: almost any kind of object can be saved in the session basically, and you could save in the session also the <code>User</code> object corresponding to the users who signed in. It is a best practice however (see http://guides.rubyonrails.org/security.html#session-guidelines) to store as little data as possible in the session (you can save up to 4kB of information in Rails sessions, by default). You should store just the the amount of data you need to identify users who signed in, whereas their other information can be retrieved from the database if needed.
+Attention: almost any kind of object can be saved in the session basically, and you could save in the session also the <code>User</code> object corresponding to the users who signed in. It is a best practice however (see http://guides.rubyonrails.org/security.html#session-guidelines) to store as little data as possible in the session (you can save up to 4kB of information in Rails sessions, by default). You should store just the amount of data you need to identify users who signed in, whereas their other information can be retrieved from the database if needed.
 
 Create now a controller to sign in and out of your application. Typically, you should follow Rails RESTful idea and conventional path names to implement the signing in functionality.
 
-You can think of the session as something which is born when users sign up, and a session can almost be considered as the same kind of resource as a beer, fo instance. Accondingly, the controller for signing up will be called <code>SessionsController</code>.
+You can think of the session as something which is born when users sign up, and a session can almost be considered as the same kind of resource as a beer, fo instance. Accordingly, the controller for signing up will be called <code>SessionsController</code>.
 
-A session resource is anyway different than beers, for instance, because users either are or are not signed in, in a particular moment. Differently than beers, a user can have not many but maximum one session. Differently than beers, it does not make sense to have a list with all sessions. Routes should be written in singular and this can be at least done when you create a session routes into routes.rb with the <code>resource</code> command:
+A session resource is anyway different from beers, for instance, because users either are or are not signed in, in a particular moment. Differently than beers, a user can have not many but maximum one session. Differently than beers, it does not make sense to have a list with all sessions. Routes should be written in singular and this can be at least done when you create a session routes into routes.rb with the <code>resource</code> command:
 
     resource :session, only: [:new, :create, :destroy]
 
@@ -513,7 +513,7 @@ The code of the sign up page app/views/sessions/new.html.erb is below:
 <% end %>
 ```
 
-Differently than the form you made for the ratings (review [the information from last week](https://github.com/mluukkai/webdevelopment-rails/main/week2.md#form-and-post)), the form you are going to create is not based on an object and you will create it with method <code>form_with</code>-, see http://guides.rubyonrails.org/form_helpers.html#dealing-with-basic-forms
+Differently than the form you made for the ratings (review [the information from last week](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#form-and-post)), the form you are going to create is not based on an object, and you will create it with method <code>form_with</code>-, see http://guides.rubyonrails.org/form_helpers.html#dealing-with-basic-forms
 
 Sending the form will cause an HTTP POST request to the session_path (notice the singular) that is the address **session**.
 
@@ -527,7 +527,7 @@ def create
 end
 ```
 
-Attention 1: the command <code>redirect_to user</code> is a short form for <code>redirect_to user_path(user)</code>, see [week 1](https://github.com/mluukkai/webdevelopment-rails/main/week1.md#review-naming-conventions-for-paths-and-controllers).
+Attention 1: the command <code>redirect_to user</code> is a short form for <code>redirect_to user_path(user)</code>, see [week 1](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week1.md#review-naming-conventions-for-paths-and-controllers).
 
 Attention 2: Instead of the <code>if not</code> combination we can use <code>unless</code> in Ruby, and the second line of the method could have been written like
 
@@ -540,7 +540,7 @@ The best form for the command is however
   session[:user_id] = user.id if user
 ```
 
-You see, in Ruby all values apart from _nil_ and _false_ are evaluated as true. Therefore now the command is performed if _user_ is something else than _nil_ and this is exactly how we want it to work.
+You see, in Ruby all values apart from _nil_ and _false_ are evaluated as true. Therefore, now the command is performed if _user_ is something else than _nil_ and this is exactly how we want it to work.
 
 Add the following code to the application layout to add the name of the signed in user to all the pages (you can delete now the session code we added for training in the last section):
 
@@ -616,25 +616,25 @@ so that singing out would happen through HTTP GET. It is not a best practice, th
 
 > ## Exercise 4
 >
-> Modify the navigation bar in the application layout so that the bar will contain links to sign in and out. Notice that you should use HTTP DELETE for the signing out functionality. Rails version 7  links don't have direct support for using delete but you can [make links use delete method](https://github.com/heartcombo/devise/issues/5439#issuecomment-997927041)
+> Modify the navigation bar in the application layout so that the bar will contain links to sign in and out. Notice that you should use HTTP DELETE for the signing out functionality. Rails version 7  links don't have direct support for using delete, but you can [make links use delete method](https://github.com/heartcombo/devise/issues/5439#issuecomment-997927041)
 >
-> In addition to the previous two, add a link to the page with all users to the navigation bar, as welll as the signed up user name, which should link to the user's personal page. When the user is signed in, the bar should also show a link to create a new beer rating.
+> In addition to the previous two, add a link to the page with all users to the navigation bar, as well as the signed up username, which should link to the user's personal page. When the user is signed in, the bar should also show a link to create a new beer rating.
 >
 > Remember: you can see the defined routes and path methods using the command <code>rails routes</code> from the command line, or you can go to whatever unexisting application address, like [http://localhost:3000/wrong](http://localhost:3000/wrong)
 
 At the end of the exercise, your application will look more or less like the following, if a user is signed in:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-1.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-1.png)
 
 and if users are not signed in, it will be like below (notice also the sign up link now):
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-2.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-2.png)
 
 ## User ratings
 
-Now we'll make ratings belong to an user. After that, associations between objects should look like this:
+Now we'll make ratings belong to a user. After that, associations between objects should look like this:
 
-![pic](http://yuml.me/4abc9b51.png)
+![picture](http://yuml.me/4abc9b51.png)
 
 The change will be nothing new at model level:
 
@@ -679,7 +679,7 @@ class AddUserIdToRatings < ActiveRecord::Migration[7.0]
 end
 ```
 
-In order to implement the migration change, execute the well-known commande <code>rails db:migrate</code> from the command line.
+In order to implement the migration change, execute the well-known command <code>rails db:migrate</code> from the command line.
 
 Migration are a vast field, and we will go back to them later on in the course. More information about migrations can be found at the address http://guides.rubyonrails.org/migrations.html
 
@@ -721,7 +721,7 @@ We will define the first user created as the user of all the existing ratings:
 
 The user page will look more or less like below:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-3.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-3.png)
 
 
 Creating new ratings from the www-page does not work yet, because ratings are not connected to the signed in user. Change the rating controller so that a signed in user will be linked to the rating created.
@@ -749,11 +749,11 @@ After we create a rating, the controller redirects the browser to the page of th
 
 The page with all ratings should look like below, after doing the exercise:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-4.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-4.png)
 
 ## Polishing the signing up
 
-You application will give you pains at the moment, if users try to sign in with a user name which does not exist.
+Your application will give you pains at the moment, if users try to sign in with a username which does not exist.
 
 Change your application to dedirect users back to the sign in page, if signing in does not work out. Change the session controller like below:
 
@@ -791,15 +791,15 @@ If you want that your message will be seen in the sign up page, add the element 
 
 The element is ready in the user page template (unless you have deleted it by mistake), so the message will work there.
 
-The __flashes__ are the messages connected to eg. redirections and that are remembered until the next HTTP request and that are shown on the page when needed. They are implemented in Rails thanks to the sessions, more about this at http://guides.rubyonrails.org/action_controller_overview.html#the-flash
+The __flashes__ are the messages connected to e.g. redirections and that are remembered until the next HTTP request and that are shown on the page when needed. They are implemented in Rails thanks to the sessions, more about this at http://guides.rubyonrails.org/action_controller_overview.html#the-flash
 
 ## Validating object fields
 
-Our application has a small problem now: it is possible to create many users with the same user name. In the <code>create</code> method of our user controller there should be the functionality to check that the <code>username</code> is not used.
+Our application has a small problem now: it is possible to create many users with the same username. In the <code>create</code> method of our user controller there should be the functionality to check that the <code>username</code> is not used.
 
-A versitile mechanism to validate object fields comes built-in with Rails, see http://guides.rubyonrails.org/active_record_validations.html.
+A versatile mechanism to validate object fields comes built-in with Rails, see http://guides.rubyonrails.org/active_record_validations.html.
 
-Validating the unicity of user names is simple, and you just need to add a short chunk of code to your User class:
+Validating the unity of usernames is simple, and you just need to add a short chunk of code to your User class:
 
 ```ruby
 class User < ApplicationRecord
@@ -836,7 +836,7 @@ end
 
 The controllers created with Rails scaffold generator are implemented in a way that if the validation works out and the object is stored in the database, the browser is redirected to the page of the object created. If the validation does not work out, it shows again the form to create objects and the error message is rendered in the page with the form.
 
-How can the controller know, whether the validation worked out? The validation happens when it tries to save something in the database. If the controller saves the object with the method <code>save</code>, the controller can test the method return value whether the validation worked out or not:
+How can the controller know whether the validation worked out? The validation happens when it tries to save something in the database. If the controller saves the object with the method <code>save</code>, the controller can test the method return value whether the validation worked out or not:
 
 ```ruby
   @user = User.new(parameters)
@@ -906,7 +906,7 @@ class Rating < ApplicationRecord
 end
 ```
 
-If users create inappropriate ratings, they won't be saved any more. You will notice however, that users won't receive any error message. The problem is that you created the form by hand, it does not contain error report functionality like the forms generated automatically with scaffold. Also the controller will never check whether the validation worked out.
+If users create inappropriate ratings, they won't be saved anymore. You will notice however, that users won't receive any error message. The problem is that you created the form by hand, it does not contain error report functionality like the forms generated automatically with scaffold. Also, the controller will never check whether the validation worked out.
 
 Change first the rating controller method <code>create</code> so that it renders again the form to create ratings if the validation failed:
 
@@ -928,7 +928,7 @@ end
 The method creates first a Rating object with the command <code>new</code>, and this is not saved in the database yet. Then, it executes the database saving process with the method <code>save</code>. During this, it validates the object, and if this fails, the method returns false, and the object will not be saved in the database. In such case, the new view template will be rendered. Rendering the view template requires that the beer list is stored in the variable <code>@beers</code>.
 [Rails 7 won't render the error messages](https://stackoverflow.com/questions/71751952/rails-7-signup-form-doesnt-show-error-messages) unless we return also a symbol :unprocessable_entity using HTTP status code 422. Read more about status codes from [wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) or with pictures [here](https://http.cat/).
 
-As you try to create an erroneous rating, the user remains in the view showing the form (which technically is rendered again after the POST call). However there is no error message, yet.
+As you try to create an erroneous rating, the user remains in the view showing the form (which technically is rendered again after the POST call). However, there is no error message, yet.
 
 When the validation fails, Rails validator saves the error messages in the field <code>@rating.errors</code> (which belongs to the object <code>@ratings</code>.
 
@@ -976,7 +976,7 @@ Take the view template views/users/_form.html.erb as example and change your for
 <% end %>
 ```
 
-When it finds valitation errors, the view template renders all the error message contained in <code>@rating.errors.full_messages</code>.
+When it finds validation errors, the view template renders all the error message contained in <code>@rating.errors.full_messages</code>.
 
 **Attention:** when the validation fails the redirection is not executed (why doesn't it work here?), but the view template is rendered instead, as it usually happens when you execute the <code>new</code> method.
 
@@ -991,10 +991,10 @@ http://guides.rubyonrails.org/active_record_validations.html ja https://apidock.
 > * the length of the username attribute of the User class is 3 – 30 characters
 
 If you try to create a beer with an empty name, you get an error message
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-9.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-9.png)
 
 Why? If beer creation fails due to an error in validation the <code>create</code> method of beer controller executes the else branch. That is, re-renders the beer creation form. The form for beer creation uses the <code>@styles</code> variable containing the list of beer styles in generating the form. The reason for the error message is that this variable is not initialized in this case (as it is when coming from the controller method  <code>new</code>). The form also assumes that the variable <code>@breweries</code> contains the list of all breweries.
-Therefore we can fix our issue by initializing these variables in the else branch:
+Therefore, we can fix our issue by initializing these variables in the else branch:
 
 ```ruby
 def create
@@ -1035,7 +1035,7 @@ end
 
 One beer has many ratings, and a rating has always one user, which means a beer has many users who made a rating. Similarly, a user has many ratings and a rating has one beer. This means that a user has many rated beers. The connection between beers and users is **many to many** where the rating table acts as a union table.
 
-We can create this many to many connection at code level easily using the way we got acquainted with [last week](https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#inderect-object-connection), the **has_many through** connection:
+We can create this many to many connection at code level easily using the way we got acquainted with [last week](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#inderect-object-connection), the **has_many through** connection:
 
 ```ruby
 class Beer < ApplicationRecord
@@ -1155,7 +1155,7 @@ More about defining connections in normal and more complicated circumstances at 
 
 Attention: there is also another way to create many-to-many connections on Rails, <code>has_and_belongs_to_many</code>, see http://guides.rubyonrails.org/association_basics.html#the-has-and-belongs-to-many-association which might be useful if the only purpose of your connection table is to establish a connection.
 
-However the trend is to use the has_many through combination and explicitely defined connection tables, instead of the method has_and_belongs_to_many (because of its various issues). Among the others, Chad Fowler suggests that users should avoid using has_and_belongs_to_many in his book [Rails recepies](http://pragprog.com/book/rr2/rails-recipes), Obie Fernandez gives the same suggestion in his autoritative work [Rails 5 Way](https://leanpub.com/tr5w)
+However, the trend is to use the has_many through combination and explicitly defined connection tables, instead of the method has_and_belongs_to_many (because of its various issues). Among the others, Chad Fowler suggests that users should avoid using has_and_belongs_to_many in his book [Rails recipies](http://pragprog.com/book/rr2/rails-recipes), Obie Fernandez gives the same suggestion in his autoritative work [Rails 5 Way](https://leanpub.com/tr5w)
 
 > ## Exercises 9-10: Beer clubs
 >
@@ -1183,9 +1183,9 @@ However the trend is to use the has_many through combination and explicitely def
 
 The following two pictures will help you understand what your application should look like after exercises 9–11.
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-5.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-5.png)
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-6.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-6.png)
 
 ## Password
 
@@ -1225,7 +1225,7 @@ Rails uses the <code>bcrypt-ruby</code> gem to store the digest. Get started wit
 
 After this, run <code>bundle install</code> from the command line to set up the gem.
 
-Try out the new functionality from the console now (you will have to restart the console to set up the new gem). It is recommend to also restart the application at this point.
+Try out the new functionality from the console now (you will have to restart the console to set up the new gem). It is recommended to also restart the application at this point.
 
 __Also, remember to execute the migration!__
 
@@ -1262,7 +1262,7 @@ irb(main):006:0>
 
 the method <code>authenticate</code> returns <code>false</code> if the password given as parameter is wrong. If the password is right. the method returns the object itself.
 
-Implement the functionality to check the password when users sign in. Change first the sing-in page (app/views/sessions/new.html.erb) so that in addition to asking the user name, it asks for the password as well (notice that the type of the form field is *password_field*, which only shows stars instead of the written password):
+Implement the functionality to check the password when users sign in. Change first the sing-in page (app/views/sessions/new.html.erb) so that in addition to asking the username, it asks for the password as well (notice that the type of the form field is *password_field*, which only shows stars instead of the written password):
 
 ```erb
 <h1>Sign in</h1>
@@ -1330,7 +1330,7 @@ Attention: If you get the error message  <code>BCrypt::Errors::InvalidHash</code
 
 ## Deleting only one's own ratings
 
-At this point, an user is able to delete the ratings of anyone else. Modify your application so that users can remove only their own ratings. It will be simple if it's verified in the rating controller:
+At this point, a user is able to delete the ratings of anyone else. Modify your application so that users can remove only their own ratings. It will be simple if it's verified in the rating controller:
 
 ```ruby
 def destroy
@@ -1367,13 +1367,13 @@ Notice that simply removing the **delete** link does not prevent deleting other 
 
 > ## Exercise 14
 >
-> Create a new user name, sign in as that user, and then distroy the user. Deleting the user name will cause an annoying error. **You will get over it by deleting the browser cookies.** Try to think what caused the error and fix the bug in the application too, so that deleting a user would not bring about an error situation.
+> Create a new username, sign in as that user, and then destroy the user. Deleting the username will cause an annoying error. **You will get over it by deleting the browser cookies.** Try to think what caused the error and fix the bug in the application too, so that deleting a user would not bring about an error situation.
 
 > ## Exercise 15
 >
-> Extend your application so that when an user is deleted, their ratings are also automatically deleted. See https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#orphan-objects
+> Extend your application so that when a user is deleted, their ratings are also automatically deleted. See https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#orphan-objects
 >
-> If you completed exercises 9-11, that is, implemented the beer clubs, make sure that destroying an user destroys also their beer club memberships.
+> If you completed exercises 9-11, that is, implemented the beer clubs, make sure that destroying a user destroys also their beer club memberships.
 
 
 ## More adjustments
@@ -1453,9 +1453,9 @@ With the method <code>new_record?</code>, you can request from the object <code>
 <% end %>
 ```
 
-Your form will do now, but it is still possible to change the user name by sending an HTTP POST request with a new username straight to the server.
+Your form will do now, but it is still possible to change the username by sending an HTTP POST request with a new username straight to the server.
 
-Implement another verification in the <code>update</code> method of the User controller, to prevent changing the user name:
+Implement another verification in the <code>update</code> method of the User controller, to prevent changing the username:
 
 ```ruby
 def update
@@ -1473,13 +1473,13 @@ end
 
 The form to change the user information will look like below, after all the changes you've implemented:
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-7.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-7.png)
 
 > ## Exercise 16
 >
 > The only information of users are their password now. Change the form used in modifying the user information so that it will look like the picture below. Notice, that the new user signup has to look like before.
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-8.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-8.png)
 
 ## Application to Internet
 
@@ -1491,7 +1491,7 @@ If the program updated version is deployed in heroku, you will run into problems
 
 ![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2017/raw/master/images/ratebeer-w2-12.png)
 
-As we saw [last week](https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#problems-with-heroku) you will have to find the reason from heroku logs.
+As we saw [last week](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#problems-with-heroku) you will have to find the reason from heroku logs.
 
 The page with all users causes the following error:
 
@@ -1549,11 +1549,13 @@ Remember to use Rubocop to check that your code still follows the configured sty
 
 If you are using Visual Studio Code you can install the [ruby-rubocop](https://marketplace.visualstudio.com/items?itemName=misogi.ruby-rubocop) plugin. The editor will then notify you immediately of any styling errors:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w3-10.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w3-10.png)
 
 ## Submitting the exercises
 
 
 Commit all your changes and push the code to Github. Deploy to the newest version to Heroku or Fly.io, too.
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2022.
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023.
+
+[Week 4](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week4.md)

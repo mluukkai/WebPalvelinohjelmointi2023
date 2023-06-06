@@ -210,7 +210,7 @@ Yritetään saada kaikkien reittausten lista jsonina, eli kokeillaan osoitetta h
 
 Seurauksena on virheilmoitus:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-4b.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-4b.png)
 
 Eli ihan automaattisesti jsonit eivät synny, loimme kaiken reittaukseen liittyvän koodin käsin, ja kuten virheilmoituksesta voimme päätellä, formaatille 'json' ei ole olemassa sopivaa templatea.
 

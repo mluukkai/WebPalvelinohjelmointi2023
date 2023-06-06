@@ -1,4 +1,4 @@
-## perusteita
+## Perusteita
 
 Ruby on dynaamisesti tyypitetty tulkattu erittäin olio-orientoitunut kieli.
 
@@ -32,7 +32,7 @@ Jos aiot ostaa yhden kirjan Rubystä, erittäin suositeltava on Russ Olsenin __E
 
 Seuraavassa listataan muutamia Railsin kannalta oleellisimpia asioita Rubystä
 
-## hash ja symbolit
+## Hash ja symbolit
 
 Seuraavassa irb-sessio joka luo hashin eli assosiatiivisen taulukon ja lisää sinne kahdella eri avaimella dataa. Avaimina käytetään Rubyn symboleja, eli :-alkuisia "vakion tapaan" käyttäytyviä merkkijonoja:
 
@@ -76,7 +76,7 @@ irb(main):014:0> h3 = { :nimi => "Esko", :osoite => "Westend" }
 lue seuraavasta linkistä lisää:
 * http://nicholasjohnson.com/ruby/ruby-course/exercises/hashes-and-symbols/
 
-## taulukko
+## Taulukko
 
 Seuraavassa IRB-sessio, jossa luodaan taulukko, lisätään taulukkoon dataa parilla eri tavalla, aksessoidaan dataa  ja tulostetaan taulukon sisältö kahdella eri tavalla (erittäin harvoin Rubyssä käytetyllä) for-lauseella sekä rubymaisesti each-iteraattorin avulla:
 
@@ -113,7 +113,7 @@ irb(main):026:0>
 lue seuraavasta linkistä lisää:
 * http://www.techotopia.com/index.php/Understanding_Ruby_Arrays
 
-## each
+## Each
 
 Vaikka Rubystä löytyvät tutut for- ja while-lauseet niitä käytetään erittäin harvoin. Erityisesti erilaisten kokoelmien, esim. taulukoiden läpikäynti hoidetaan käytännössä aina each-iteraattorin avulla.
 
@@ -131,6 +131,8 @@ irb(main):028:0> t.each { |alkio| puts alkio }
 5
 ```
 
+## Lohko
+
 Rubyssä vaihtoehtoinen tapa määritellä koodilohko on seuraava
 
 ```ruby
@@ -141,15 +143,15 @@ end
 
 Yleensä käytäntönä on määritellä lohko aaltosulkeilla jos kyseessä on yhdelle riville mahtuva lohko, pitemmät lohkot taas määritellään yleensä do:n ja end:in avulla.
 
-lisätietoja
-* https://www.railstutorial.org/book/rails_flavored_ruby#sec-blocks
+Lohkot ovat hyvin keskeinen käsite Rubyssä ja ne mahdollistavat paljon erilaisia asioita. Lisätietoja:
+* https://www.tutorialspoint.com/ruby/ruby_blocks.htm
 
-# merkkijonot
+## Merkkijonot
 
 ks.
 * https://www.rubyguides.com/2019/07/ruby-string-concatenation/
 
-# moduuli
+## Moduuli
 
 ks.
 

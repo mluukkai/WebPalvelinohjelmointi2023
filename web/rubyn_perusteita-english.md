@@ -1,4 +1,4 @@
-## basics
+## Basics
 
 Ruby is a dynamically typed interpreted highly object oriented language.
 
@@ -31,7 +31,7 @@ The book is not a tutorial but is good for those with a programming background f
 
 The following lists some of the most relevant things about Ruby for Rails
 
-## hash and symbols
+## Hash and symbols
 
 Next is the irb session that creates a hash, or associative table, and adds data there with two different keys. Ruby symbols are used as keys, i.e. strings that start with "behave like a standard":
 
@@ -75,7 +75,7 @@ irb(main):014:0> h3 = { :name => "Esko", :address => "Westend" }
 read more at the following link:
 * http://nicholasjohnson.com/ruby/ruby-course/exercises/hashes-and-symbols/
 
-## taulukko
+## Array
 
 In the following IRB session, where a table is created, data is added to the table in a couple of different ways, the data is accessed and the contents of the table are printed in two different ways with a (very rarely used in Ruby) for statement and in a Ruby-like way with the each iterator:
 
@@ -112,7 +112,7 @@ irb(main):026:0>
 read more from
 * http://www.techotopia.com/index.php/Understanding_Ruby_Arrays
 
-## each
+## Each
 
 Although the familiar for and while statements found in Ruby, they are used very rarely. In particular, the traversal of different collections, e.g. tables, is practically always handled using the each iterator.
 
@@ -137,17 +137,19 @@ t.each do |element|
 end
 ```
 
+## Block
+
 Generally, the practice is to define a block with curly braces if it is a block that fits on one line, while longer blocks are usually defined with do and end.
 
-read more at the following link:
-* https://www.railstutorial.org/book/rails_flavored_ruby#sec-blocks
+Blocks are core feature of Ruby and allow us to do much more also. Read more at the following link:
+* https://www.tutorialspoint.com/ruby/ruby_blocks.htm
 
-# strings
+## Strings
 
-read more at the following link:
+Read more at the following link:
 * https://www.rubyguides.com/2019/07/ruby-string-concatenation/
 
-# modules
+## Modules
 
-read more at the following link:
+Read more at the following link:
 * http://juixe.com/techknow/index.php/2006/06/15/mixins-in-ruby/

@@ -8,7 +8,7 @@ Sometimes, the direction of information changes on the www-page and data is sent
 
 For instance, clicking the magnifying glass ("Haku") in the top right corner of the courses page,  we can open a form which allows users to send data to the Web server. When the users presses on "hae" (search), the browser sends a POST-method request (containing the string the user has written on the form) to the server http://www.cs.helsinki.fi. Most commonly, the server answers to form based POST requests by returning a new HTML file, which the browser then renders for the user. (In fact, POST requests are not usually answered by returning an HTML page, but we are redirected to another page which contains the HTML code which has to be rendered, see http://en.wikipedia.org/wiki/Post/Redirect/Get, we'll speak more on the topic in the second week.)
 
-In addition to the address, the data (that is, the message body) and the [statuscodes](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes), HTTP requests also containtain the __headers__ data (see http://en.wikipedia.org/wiki/List_of_HTTP_header_fields). They help to make requests and their answers more specific, for instance by defining what kind of data the browser is ready to receive.
+In addition to the address, the data (that is, the message body) and the [statuscodes](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes), HTTP requests also contain the __headers__ data (see http://en.wikipedia.org/wiki/List_of_HTTP_header_fields). They help to make requests and their answers more specific, for instance by defining what kind of data the browser is ready to receive.
 
 With the words Web Server Programming, we refer to how the Web server creates the Web pages to show to the browser and handles the data the user enters with the help of a form.
 
@@ -18,7 +18,7 @@ For instance, suppose the www-page contains a form to log in into the website. I
 
 The latest trends have been pushing towards Web applications which mimic normal desktop applications as much as possible. A good example is Google Drive, which "imitates" Word/Openoffice functionality as accurately as possible. In such applications, the largest part of the application logic is realised in the browser. In any case, we always need some functionality executed in the server, otherwise information can not be shared by users who use the application in different places.
 
-When we retrive data from the server in modern applications, the server does not necessary return ready-made HTML-pages. On the contrary, it returns raw data (usually in json format); these data will be handled by the Javascript code that is executed in the browser andthen displayed on the page. In this way, only the required part of the website will update.
+When we retrieve data from the server in modern applications, the server does not necessary return ready-made HTML-pages. On the contrary, it returns raw data (usually in json format); these data will be handled by the Javascript code that is executed in the browser and then displayed on the page. In this way, only the required part of the website will update.
 
 In this course, we focus almost completely on implementing the functionality on the Web-application server side. In weeks 6 and 7, we take a look at a couple of examples of functionality which is implemented with Javascript as well as at application design through CSS files.
 
@@ -28,7 +28,7 @@ The course [Full Stack Web Development](https://fullstackopen.com/en/) on the ot
 
 All the exercises of the course are contained in this material. Except for the following exercise, all the others have to be returned using github. In addition to returning them through github, we keep track of the homework by marking the exercises in the course exercise tracking system. We'll speak more about this at the end of the page. Let's start with the first exercise.
 
-> ## Excercise 1: HTTP in action
+> ## Exercise 1: HTTP in action
 >
 > The browsers' Web developer tools are extremely useful when we implement the functionality on the browser. The most friendly browser to Web developers is Chrome, and we assume here that you are using Chrome. Other browsers also have similar functionality.
 >
@@ -45,7 +45,7 @@ All the exercises of the course are contained in this material. Except for the f
 >
 > Spend some time inspecting the HTTP protocol communication caused by the requests to other pages.
 
-## Ruby on Rails foundamentals
+## Ruby on Rails fundamentals
 
 In this course, we use Ruby on Rails application framework to implement Web applications.
 
@@ -53,7 +53,7 @@ Rails applications comply with the [MVC model](https://en.wikipedia.org/wiki/Mod
 
 Let's take a look at what happens when users go to a Web page which was implemented with Rails, suppose the URL be https://ratebeer22.fly.dev/breweries, that is the sample application page which we are going to make during our course. The page lists all the breweries which our sample application knows.
 
-![mvc-kuva](http://www.cs.helsinki.fi/u/mluukkai/rails_mvc.png)
+![mvc-picture](http://www.cs.helsinki.fi/u/mluukkai/rails_mvc.png)
 
 1. Once users write the URL into the browser address line, the browser makes an HTTP GET-request to the server ratebeer22.fly.dev
 
@@ -77,7 +77,7 @@ Rails is strongly based on the __convention over configuration__ principle, whic
 
 Creating applications on Rails naturally requires some kind of Ruby knowledge. Ruby is a dynamic-type object language which also enables functional programming. In other words, Ruby's code is never compiled. On the contrary, the interpreter executes the code command after command. Because there is no compiler, syntax mistakes appear only when the code is being executed, which is in contrast with languages which have to be transpiled. Modern developer environments help us a little, providing us with some kind of "syntax proofreading" on the go, but the developer environment help is not nearly as good as it is in Java, for instance.
 
-> ## Excercise 2: Introduction to Ruby
+> ## Exercise 2: Introduction to Ruby
 >
 > Do/go through the following
 > * http://www.ruby-lang.org/en/documentation/quickstart/
@@ -86,26 +86,26 @@ Creating applications on Rails naturally requires some kind of Ruby knowledge. R
 > * https://try.ruby-lang.org/
 
 ## Command line
-Web development with Rails requires familiarity with working from the command line. If your routine is lacking, consider freashing up your skills at this point.
+Web development with Rails requires familiarity with working from the command line. If your routine is lacking, consider refreshing up your skills at this point.
 ## Passing the course
 
 The course structure is slightly different from the course standard of the department. In the course, we only make one application, the same application will be worked on in both the course material and the exercises. It's not possible to read the course material alone; while you go through the material, you have to develop your application alongside, otherwise it will be impossible to pass the exercises.
 
 The course is split into seven "weeks". However, the course has only one deadline.
 
-Each week is turned in separately in the course submission system. Sfter submitting a week you get access to that week's example answer. The following week you can continue from where you left at or take the example answer as your starting point.
+Each week is turned in separately in the course submission system. After submitting a week you get access to that week's example answer. The following week you can continue from where you left at or take the example answer as your starting point.
 
 A part of the exercises are in practice compulsory, skipping them will prevent you from advancing on the week. Others are optional, and they regard the implementation of non-critical features. Because we expect to find a part of these features the following week, you'd better start from the sample answer or copy paste the useful parts from it, if you haven't done all the exercises of the week.
 
 ## Setting up Rails
 
-Guidelines to set up rails at https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/railsin_asentaminen.md
+Guidelines to set up rails at https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/railsin_asentaminen.md
 
 ## Creating an application
 
 In the course, we create a service for beer aficionados. They should be able to scan the breweries, the beers, the beer types, as well as to evaluate the beers they have tasted (that is, to give a vote to beers according to their personal taste). After week 7, the application should look more or less like the following: https://ratebeer22.fly.dev/
 
-Rails provides various generators for application developers (see http://guides.rubyonrails.org/generators.html), and they make it easy to generate templete files that contain some ready-made functionalities.
+Rails provides various generators for application developers (see http://guides.rubyonrails.org/generators.html), and they make it easy to generate template files that contain some ready-made functionalities.
 
 We create a new Rails application with the generator new. Go to the suitable directory and create an application called ratebeer using the following command in the command line:
 
@@ -159,13 +159,13 @@ Start the application with the following command
 
 You can also use the short form rails s
 
-The command starts a Puma HTTP server (see https://github.com/puma/puma) by default, which begins to execute the  Rails application he directory. The application runs in the local computer (that is, in localhost) in the port 3000.
+The command starts a Puma HTTP server (see https://github.com/puma/puma) by default, which begins to execute the Rails application in the directory. The application runs in the local computer (that is, in localhost) in the port 3000.
 
 Try to check that the application starts by browsing the following address [http://localhost:3000](http://localhost:3000).
 
 ATTENTION: **While you read the document, the idea is that you execute in your application the same actions we do in our sample application**. A part of the things we implement are designed as homework – as it is with the following point. A part of the instructions is compulsory anyway, so that you may proceed with the material.
 
-> ## Excercise 3
+> ## Exercise 3
 >
 > We save our course application in the Github repository.
 >
@@ -180,8 +180,8 @@ ATTENTION: **While you read the document, the idea is that you execute in your a
 Let's start with building our application. We want to start with breweries, that is:
 
 * we create a database table for breweries
-* we implement the funtionality to list all the breweries
-* we implement the funtionality to add a new brewery
+* we implement the functionality to list all the breweries
+* we implement the functionality to add a new brewery
 * While doing this, we additionally gain the functionality to modify and delete breweries
 
 Conventionally, in Rails (almost) every 'thing' we save should have their own model class, controller class, as well as a set of files that make the view.
@@ -244,7 +244,7 @@ As we can see, Rails scaffold produced quite a lot of ready-made functionality. 
 
     rails destroy scaffold brewery
 
-If you have already executed the migration and you notice that the code created by the generator has to be destroyed, it's **extremely important** to cancel the migration with the command
+If you have already executed the migration, and you notice that the code created by the generator has to be destroyed, it's **extremely important** to cancel the migration with the command
 
     rake db:rollback
 
@@ -332,7 +332,7 @@ We save objects into our database in the following way:
 The object was created and saved into a variable <code>b</code>, then we called the object method <code>save</code>.
 Save is an object method inherited from ActiveRecord, which saves our object in the database – as you might have guessed. Notice that you don't need (and you can not) define the variable type, because Ruby is a dynamically typed language!
 
-You can also create and save an obect directly by using the class method create instead of new:
+You can also create and save an object directly by using the class method create instead of new:
 
     Brewery.create name:"Weihenstephan", year:1040
 
@@ -351,7 +351,7 @@ irb(main):009 > b
  => #<Brewery id: 4, name: "Stadin Panimo", year: 1997, created_at: "2022-08-09 13:21:37", updated_at: "2022-08-09 13:21:37">
 ```
 
-As you might have guessed, object variables – or object fields – correspond to the columns of our database table. When an object is saved into the database, the database automatically generates a primary key for the object – the ID – as well as a couple of timestaps. The ID is unique for the brewery that has just been created.
+As you might have guessed, object variables – or object fields – correspond to the columns of our database table. When an object is saved into the database, the database automatically generates a primary key for the object – the ID – as well as a couple of timestamps. The ID is unique for the brewery that has just been created.
 
 Check the situation now at the [web page](http://localhost:3000/breweries). The created breweries should be available on the page now.
 
@@ -363,7 +363,7 @@ In this case we have made use of Ruby's liberal approach to brackets. Using brac
 
     Brewery.new( name:"Stadin Panimo", year:1997 )
 
-The parameter has also got a particular format. It's an associative array indexed with symbols, that is to say, hash, see https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#hash-ja-symbolit
+The parameter has also got a particular format. It's an associative array indexed with symbols, that is to say, hash, see https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#hash-ja-symbolit
 
 As you can see from the link above, hashes are defined with curly brackets, like
 
@@ -409,9 +409,9 @@ Here are some examples, try them all from the console:
     t = Brewery.where name:"Koff"
     t.first.year          # t.first is same as t[0], the first element in the table
 
-More about Ruby tables at https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#taulukko
+More about Ruby tables at https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#taulukko
 
-Note that we left the brakets out of all the method calls: <code>Brewery.find 1</code> means the same as <code>Brewery.find(1)</code>
+Note that we left the brackets out of all the method calls: <code>Brewery.find 1</code> means the same as <code>Brewery.find(1)</code>
 
 ## Underscore
 
@@ -469,8 +469,7 @@ In our console, when we say <code>b.created_at</code> we really execute the <cod
 
 ## Beers and the one-to-many connection
 
-Let us expand our application to include beers. Every beer is associated with one brewery, and one brewery is naturally associated with many beers. After our expansion, the class design of our application domain (that is to say, of the persistent objects in the database which contain business logic) will look the following
-Laajennetaan sovellustamme seuraavaksi oluilla. Jokainen olut liittyy yhteen panimoon, ja panimoon luonnollisesti liittyy useita oluita. Laajennuksen jälkeen sovelluksemme domainin (eli bisneslogiikkaa sisältävien tietokantaan persistoitavien olioiden) luokkamalli näyttää seuraavalta:
+Let us expand our application to include beers. Every beer is associated with one brewery, and one brewery is naturally associated with many beers. After our expansion, the class design of our application domain (that is to say, of the persistent objects in the database which contain business logic) will look the following:
 
 ![Breweries and beers](http://yuml.me/4f643b44.png)
 
@@ -611,7 +610,7 @@ b3.beers.create name: "Hefeweizen", style: "Weizen"
 b3.beers.create name: "Helles", style: "Lager"
 ```
 
-lets remove all previous data from the database with:
+let's remove all previous data from the database with:
 
     rails db:reset
 
@@ -620,7 +619,7 @@ The command automatically "seeds" the database, meaning that in addition to dele
 
 **It is recommended to reboot both the application and the Rals console after seeding**
 
-**ATTENTION:** You might not need the data defined in seeds.rb at all in your application. Data defined in seed.rb might be needed when eg. launching the application requires some ready defined objects. In this case the existance of seed makes things easier for a new application developer. They can easily launch the application on their own computer without needing to first hand-create the required objects.
+**ATTENTION:** You might not need the data defined in seeds.rb at all in your application. Data defined in seed.rb might be needed when eg. launching the application requires some ready defined objects. In this case the existence of seed makes things easier for a new application developer. They can easily launch the application on their own computer without needing to first hand-create the required objects.
 
 ## More on console use
 
@@ -728,16 +727,16 @@ irb(main):071:0> koff.beers.create name: "Extra Light Triple Brewed", style: "La
 >
 > Work by hand on the console and implement the following:
 > * Create the brewery Hartwall and three beers for it using all three ways demonstrated above.
-> * However we realise that Harwall has to be deleted because of its bad quality. Before deleting it, write down the Hartwall object ID
+> * However, we realise that Harwall has to be deleted because of its bad quality. Before deleting it, write down the Hartwall object ID
 > * After deleting Hartwall, the database will keep on storing beer objects which belong to the brewery you have already deleted
 > * Retrieve the orphan beers with the command <code>Beer.where suitableparameterhere</code>
-> * Destroy the beers which were retrieved with the operation. You find information on how to go through a list at https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#taulukko
+> * Destroy the beers which were retrieved with the operation. You find information on how to go through a list at https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#taulukko
 
 ## The connection between controller and views
 
 Let us analyze the ready-made controller of the brewery  at app/controller/breweries_controller.rb
 
-The controller has been named according to Rails convensions in the plural form. According to Rails convetions, there are six methods in the controller. Let us inspect the <code>index</code> method first, which takes care of displaying all the breweries:
+The controller has been named according to Rails conventions in the plural form. According to Rails conventions, there are six methods in the controller. Let us inspect the <code>index</code> method first, which takes care of displaying all the breweries:
 
 ```ruby
 class BreweriesController < ApplicationController
@@ -757,7 +756,7 @@ The method contains only one command
 
 this means that the method sets the list of all breweries to a variable called <code>@breweries</code> which forwards the brewery list to the view. After this, the index method renders the HTML page which was defined in the view template app/views/breweries/index.html.erb. The method does never point to the view template or contain a command to render it. Once again, it's about Rails' Convention Over Configuration principle: if we don't specify anything, the view template index.html.erb is rendered at the end of the index method.
 
-We could also write down explicitely the rendering command:
+We could also write down explicitly the rendering command:
 
 ```ruby
 def index
@@ -808,7 +807,7 @@ Let us go back to the code which lists the breweries and let us take a closer lo
   <% end %>
 ```
 
-We go through the brewery list which is stored in the variable ```@breweries``` with the help of the ```each``` iterator. (More information about each at https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#each).
+We go through the brewery list which is stored in the variable ```@breweries``` with the help of the ```each``` iterator. (More information about each at https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#each).
 
 Rails creates the rows by using the ```render``` method which it invokes for each brewery.
 
@@ -851,7 +850,7 @@ The definition and use of a partial uses a bit of Rails magic. A partial is call
 ```
 
 The render method gets the brewery object saved in the variable brewery as a parameter.
-From the type of the object Rails kcan deduce that it should use the partial defined in file \_brewery.html.erb.
+From the type of the object Rails can deduce that it should use the partial defined in file \_brewery.html.erb.
 
 In the partial, a brewery object is referred to with the variable brewery:
 
@@ -881,7 +880,7 @@ which generates HTML code which looks like the one below (the number below depen
 <a href="/breweries/1">Show this brewery</a>
 ```
 
-ie. a link to the address "breweries/1". The first parameter of the command ```link_to``` is the name of the a-tag and the second is the link address.
+i.e. a link to the address "breweries/1". The first parameter of the command ```link_to``` is the name of the a-tag and the second is the link address.
 
 The address itself is created in this longer form with the helper method ```brewery_path(brewery.id)```which returns the path to the page of the brewery with the ID ```brewery.id```. The same thing is accomplished by the object itself, in our example the variable <code>brewery</code>, as a parameter to the method <code>link_to</code>.
 
@@ -889,12 +888,12 @@ We could also "hardcode" a command which generates a link using the form ```<%= 
 
 What does ```"breweries/#{brewery.id}"``` mean? The string starts with a reference to all breweries ("breweries"), followed by a variable that contains the id of a specific brewery. The variable is set using the ```#{}``` notation. This notation allows us to embed variables into strings.
 
-> ## Excercise 6
+> ## Exercise 6
 > change the name of the brewery so that it can be clicked on (do tjis on the partial file) and delete the show field and its link from the table
 
 After the exercise, the pages showing the breweries of your application should look like the one below
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/brewery-w1-0a.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/brewery-w1-0a.png)
 
 ## Listing beers in the brewery page
 
@@ -912,7 +911,7 @@ class BreweriesController < ApplicationController
 end
 ```
 
-The method does not contain any code! We notice however that at the beginning of the class defition there is the line
+The method does not contain any code! We notice however that at the beginning of the class definition there is the line
 
     before_action :set_brewery, only: [:show, :edit, :update, :destroy]
 
@@ -948,14 +947,14 @@ this refers to the variable ```params```, which contains the information concern
 We retrieve the brewery with the well-known command ```Brewery.find``` and we store it into the variable ```@brewery```.
 At the end, the method <code>show</code> renders the view template ```show.html.erb```. The view template is generated again automatically based on Rails conventions: the ```show``` method of the brewery controller is executed, and towards the end, the view views/breweries/show.html.erb is rendered unless something else is defined in the code.
 
-If we write outthe same explicitely, the code to be executed together with the <code>show</code> method will look like the following:
+If we write out the same explicitly, the code to be executed together with the <code>show</code> method will look like the following:
 
 ```ruby
     @brewery = Brewery.find(params[:id])
     render :show
 ```
 
-The code of the view template views/breweries/show.html.erb koodi is the following:
+The code of the view template views/breweries/show.html.erb is the following:
 
 ```
 <p style="color: green"><%= notice %></p>
@@ -995,7 +994,7 @@ The brewery given as a parameter to the partial is stored in the variable brewer
 <%= render @brewery %>
 ```
 
-The partial could be given more parameters but here we only give one. Because the type of the parameter is Brewery, the partial _brewery.html.erb is rendered. Additionally the partial will be given a parameter through a variable named brewery. The variable relaying the parameter is automatically named based on the name of the partial.
+The partial could be given more parameters but here we only give one. Because the type of the parameter is Brewery, the partial _brewery.html.erb is rendered. Additionally, the partial will be given a parameter through a variable named brewery. The variable relaying the parameter is automatically named based on the name of the partial.
 
 We will be soon modifying the individual brewery view but as we don't want the changes to affect the all breweries view (which uses the same partial) let's now stop using the partial on the all breweries view. Change the contents of app/views/breweries/index.html.erb to following:
 
@@ -1025,15 +1024,15 @@ We will be soon modifying the individual brewery view but as we don't want the c
 <%= link_to "New brewery", new_brewery_path %>
 ```
 
-Now the code from the partial \_brewery.html.erb is copy-pasted directly to the all breweries template.
+Now the code from the partial \_brewery.html.erb is copy-pasted directly to the all breweries' template.
 
-> ## Excercise 7: Polishing the brewery page
+> ## Exercise 7: Polishing the brewery page
 >
 >
 > Add information about the number of beers belonging to each brewery, with <code>@brewery.beers.count</code>.
 >
 >
-> Edit the ready-made page so that the brewery name becomes a header level h2 and the year is in cursive like "_Established_ _in_ _1897_". To do this, you need to need to stop using the partial rendering and do rendering without it.
+> Edit the ready-made page so that the brewery name becomes a header level h2 and the year is in cursive like "_Established_ _in_ _1897_". To do this, you need to stop using the partial rendering and do rendering without it.
 >
 > Changes described here and in the next exercise are meant be done in the partial taking care of displaying individual breweries \_brewery.html.erb
 
@@ -1058,17 +1057,17 @@ Let us continue with our editing.
 
 After the exercise, you page should look like the following
 
-![brewery and beers](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/brewery-w1-1.png)
+![brewery and beers](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/brewery-w1-1.png)
 
 Let us improve a bit more the navigation of our application.
 
-> ## Excercise 9
+> ## Exercise 9
 >
 > In all the brewery pages, add a link to all the beers page. Similarly add a link to all breweries page, in the all beers page. As an example, you can insert the link to the beers page with the command ```link_to 'list of beers', beers_path```
 
 Let us try to get going the list with all the beers, finally.
 
-> ## Excercise 10
+> ## Exercise 10
 >
 > At this point, the brewery ID of the beers is shown on the page with all the beers
 >
@@ -1080,21 +1079,21 @@ Let us try to get going the list with all the beers, finally.
 
 The result should look like the following:
 
-![Picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/brewery-w1-2.png)
+![Picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/brewery-w1-2.png)
 
 ## nil
 
 You might encounter the following error exception
 
-![Picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/brewery-w1-3.png)
+![Picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/brewery-w1-3.png)
 
-The problem is actually the classic nullpointer exeption, or a nilpointer exeption – as it is called in Ruby. Rails points out that you have tried to call the method 'name' for nil (which is an object in Ruby!), and that method does not exist. The reason is most probably that your database contains beers which were not assigned a brewery or where their brewery has been deleted.
+The problem is actually the classic nullpointer exception, or a nilpointer exception – as it is called in Ruby. Rails points out that you have tried to call the method 'name' for nil (which is an object in Ruby!), and that method does not exist. The reason is most probably that your database contains beers which were not assigned a brewery or where their brewery has been deleted.
 
 You can delete the beers which cause troubles by hand or with the help of your console. Using the console, you can retrieve orphan beers with the command:
 
     orphan_beers = Beer.all.select{ |b| b.brewery.nil? }
 
-then you can delete them with the help of an each iteretor
+then you can delete them with the help of an each iterator
 
     orphan_beers.each{ |orphan| orphan.delete }
 
@@ -1165,22 +1164,22 @@ class BreweriesController < ApplicationController
   end
 ```
 
-The explicit <code>render</code> method is needed only when the controller renders a view different than the default one.
+The explicit <code>render</code> method is needed only when the controller renders a view different from the default one.
 
 ## Review: Views and view partials
 
-Let's revise a few things about partial templates. Let's consider a situation where an user navigates to the page of single beer eg. beers/1. The application executes the BeerController method 'show', which by default renders the template  views/beers/show.html.erb. The controller set the desired beer in variable @beer thanks to the before_action configuration.
+Let's revise a few things about partial templates. Let's consider a situation where a user navigates to the page of single beer e.g. beers/1. The application executes the BeerController method 'show', which by default renders the template  views/beers/show.html.erb. The controller set the desired beer in variable @beer thanks to the before_action configuration.
 
 ```ruby
 class BeersController < ApplicationController
   before_action :set_beer, only: %i[ show edit update destroy ]
-
-  # suoritetaan mentäessä yksittäisen oluen sivulle /beers/1
+  
+  # executed when navigating to the page of a single beer e.g. beers/1
   def show
   end
 
   private
-    # tämä suoritetaan metodin show suoritusta ennen
+    # executed before the method show 
     def set_beer
       @beer = Beer.find(params[:id])
     end
@@ -1226,7 +1225,7 @@ Because the type of the parameter of the method call is Beer, Rails knows that i
 </div>
 ```
 
-> ## Excercise 11
+> ## Exercise 11
 >
 > Temporarily, make the following change to the <code>index</code> method of the brewery controller:
 >
@@ -1240,9 +1239,9 @@ Because the type of the parameter of the method call is Beer, Rails knows that i
 >
 > Try to see what happens when you go to the breweries page, at the address http://localhost:3000/breweries
 >
-> Add the file panimot.html.erb to the directory app/views/breweries and add something like the following
+> Add the file breweries.html.erb to the directory app/views/breweries and add something like the following
 > ```ruby
->  panimoita <%= @breweries.count %>
+>  breweries <%= @breweries.count %>
 > ```
 >
 > Go to the breweries page
@@ -1251,7 +1250,7 @@ Because the type of the parameter of the method call is Beer, Rails knows that i
 
 ## To the Internet
 
-By default Rails applications use a SQLite database but in production some proper database, such as PostgreSQL, should be used. Libraries used in a Rails application, or gems, in Rails lingo, are defined in Gemfile, located in the root of the application. To implement PostgreSQL, we need to edit Gemfile.
+By default, Rails applications use a SQLite database but in production some proper database, such as PostgreSQL, should be used. Libraries used in a Rails application, or gems, in Rails lingo, are defined in Gemfile, located in the root of the application. To implement PostgreSQL, we need to edit Gemfile.
 
 Remove the line
 ```ruby
@@ -1289,32 +1288,32 @@ Use `bundle info [gemname]` to see where a bundled gem is installed.
 If <code>bundle install</code> throws an error (most likely only happens on OS X) you can either:
 - rerun the command with additional parameters <code>bundle install --without production</code>
   - This is the recommended way unless you explicitly want to install a _postgresql_ database to you computer (there's no need for that during this course as we won't use _postgresql_ locally)
-  - Note that if you chooce this option, you need need to use this form of the command always in the future as well.
+  - Note that if you choose this option, you need to use this form of the command always in the future as well.
 - alternatively, you can first install _postgresql_ to your own computer and the rerun the command
 
 Let's commit all the changes to version control:
 ```ruby
 git add -A
-git commit -m"updated Gemfile for Internet"
+git commit -m "updated Gemfile for Internet"
 ```
 
-There are countles solutions for hosting application, that is "putting them to the internet".
+There are countless solutions for hosting application, that is "putting them to the internet".
 
 The easiest way to host applications nowadays are the PaaS (or Platform as a Service) services that handle setting up databases and runtime environments on behalf of the developer.
 
-For ten years the best PaaS solution was [Heroku](http://heroku.com). However in August 2022 Heroku announced that starting 27.11.2022 all free services will be shut down. For that reason we will also introduce a promising competitor [Fly.io](https://fly.io/). You can use either one as long as you remember that Heroku's free options have come to an end. Heroku has promised some free student options but at the moment we don't count on them.
+For ten years the best PaaS solution was [Heroku](http://heroku.com). However, in August 2022 Heroku announced that starting 27.11.2022 all free services will be shut down. For that reason we will also introduce a promising competitor [Fly.io](https://fly.io/). You can use either one as long as you remember that Heroku's free options have come to an end. For students [Github Student Developer Pack](https://www.heroku.com/github-students) offers 156$ of credits.
 
 ### Fly.io
 Create credentials to [Fly.io](https://fly.io/). You can also use your GitHub account.
 
 Install Fly.io with [these instructions](https://fly.io/docs/getting-started/installing-flyctl/).
-During installation you might be asked to manually set some environmental variables, do as prompted.
+During installation, you might be asked to manually set some environmental variables, do as prompted.
 
 Then proceed according to the Fly.io [Rails guide](https://fly.io/docs/rails/getting-started/).
 
 Go to the application directory and create a Fly.io application with `fly launch`. A Postgres database will be initialized during this. Give "suitable" answers to the following questions. (The application name can contain only integers, lowercase letters and hyphens). Note that if you need to approve the creation of the database, by default this is set to 'No'.
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/fly-pg.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/fly-pg.png)
 
 Deploy your application to production with `fly deploy`. Use this command everytime you wish to push the current version of your application to the internet.
 
@@ -1328,7 +1327,7 @@ You can also access the Rails console of your application on the server. To do t
 
 Before the command you will most likely have to authenticate yourself with `fly log`.
 
-You can also connect to the application postgre database with the command flyctl postgres connect -a name_of_database`. The name of the datebase is the name of the application with an additional '-db' at the end. My application is named ratebeer, so connecting to the database would be done as follows:
+You can also connect to the application postgre database with the command flyctl postgres connect -a name_of_database`. The name of the database is the name of the application with an additional '-db' at the end. My application is named ratebeer, so connecting to the database would be done as follows:
 
 `flyctl postgres connect -a ratebeer-db`
 
@@ -1343,7 +1342,7 @@ You can deploy the application in Heroku very easily if the application folder i
 
 If you haven't used Heroku before
 - Make a Heroku ID.
-- Create a ssh key and add it to Heroku at the page https://dashboard.heroku.com/account
+- Create an ssh key and add it to Heroku at the page https://dashboard.heroku.com/account
     * information on how to create an ssh key at  https://github.com/mluukkai/otm-2018/blob/master/tehtavat/viikko1.md#julkinen-avain
 - Install the Heroku command line interface, Heroku CLI, according to https://devcenter.heroku.com/articles/heroku-cli
 
@@ -1360,9 +1359,9 @@ Type your Heroku ID when it's required.
 
 The application URL will in this case be https://young-escarpment-87255.herokuapp.com/. The beginning of the application URL can be edited by running **heroku create url_beginning**.
 
-**Note**, that there is nothing in the application root so far, at the addresshttps://young-escarpment-87255.herokuapp.com/. The beers of our application will be found athttps://young-escarpment-87255.herokuapp.com/beers and the breweries at hhttps://young-escarpment-87255.herokuapp.com/breweries
+**Note**, that there is nothing in the application root so far, at the address https://young-escarpment-87255.herokuapp.com/. The beers of our application will be found at https://young-escarpment-87255.herokuapp.com/beers and the breweries at https://young-escarpment-87255.herokuapp.com/breweries
 
-Now were are ready to launch our application to Heroku. The application is booted by exuting the following from the command line: <code>git push heroku main</code>
+Now were are ready to launch our application to Heroku. The application is booted by executing the following from the command line: <code>git push heroku main</code>
 
 ```ruby
 $ git push heroku main
@@ -1427,11 +1426,11 @@ irb(main):001:0> Brewery.all
 => #<ActiveRecord::Relation [#<Brewery id: 1, name: "Koff", year: 1897, created_at: "2022-08-09 14:57:30", updated_at: "2022-08-09 14:57:30">, #<Brewery id: 2, name: "Malmgard", year: 2001, created_at: "2022-08-09 14:57:30", updated_at: "2022-08-09 14:57:30">, #<Brewery id: 3, name: "Weihenstephaner", year: 1040, created_at: "2022-08-09
 ```
 
-This is a normal Rails console session so you can use it to eg. check the state of the database of the application in Heroku.
+This is a normal Rails console session, so you can use it to e.g. check the state of the database of the application in Heroku.
 
 
 
-## Dependecy management
+## Dependency management
 
 As we mentioned in the previous section, the libraries used on Rails – the gems – are defined in the Gemfile which is located at the root of the application.
 
@@ -1457,7 +1456,7 @@ The Gemfile has got a list of gems, which are used by the application. As we see
 
 The associations are loaded at the address https://rubygems.org, using the program Bundler, see http://bundler.io/. You'll have to give the command <code>bundle install</code> from the command line. Bundler loads the gems and their associations from rubygem.org, and then the application is ready to use.
 
-After <code>bundle install</code> is executed for the first time, the file <code>Gemfile.lock</code> is born and it defines precisely what gem versions are set up. It doesn't necessarily define precise versions. After this, when you call <code>bundle install</code>, the versions which were defined in Gemfile.lock are installed. If you execute <code>bundle update</code>, you'll get the newer gem versions if needed and a new Gemfile.lock is created. You can see more information about Bundler at http://bundler.io/v1.5/rationale.html
+After <code>bundle install</code> is executed for the first time, the file <code>Gemfile.lock</code> is born, and it defines precisely what gem versions are set up. It doesn't necessarily define precise versions. After this, when you call <code>bundle install</code>, the versions which were defined in Gemfile.lock are installed. If you execute <code>bundle update</code>, you'll get the newer gem versions if needed and a new Gemfile.lock is created. You can see more information about Bundler at http://bundler.io/v1.5/rationale.html
 
 ## Runtime environments
 
@@ -1474,7 +1473,7 @@ The application that has been deployed to Heroku starts to work in the productio
 
 We'll get to know the test environment in the course week 4.
 
-Dirrent environments need different dependencies sometimes. For instance, when we execute the application in Heroku, the PostgreSQL database is used in the production environment. However, we use the sqlite3 database while we develop the applications. Same gems do not suit all the execution environments.
+Different environments need different dependencies sometimes. For instance, when we execute the application in Heroku, the PostgreSQL database is used in the production environment. However, we use the sqlite3 database while we develop the applications. Same gems do not suit all the execution environments.
 
 When we use different environments, gems can be defined with the group chunks in Gemfile. Below,  our Gemfile after the changes required for Heroku:
 
@@ -1507,8 +1506,10 @@ sqlite3 gem is used only in the development and test environments. Only the deve
 
 Commit all the changes you have made and push the code in Github. Add a link in Github readme file to the Heroku or Fly.io instance of your application. The contents which are generated by default in the readme file of your Rails application might be best deleted.
 
-_Deploying your application to Heroku/Fly.io is not obligatory. However it is higly recommended to do so as it is very educational_.
+_Deploying your application to Heroku/Fly.io is not obligatory. However, it is highly recommended to do so as it is very educational_.
 
 If you use a private repository, add mluukkai as a collaborator.
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2022
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023
+
+Let's continue coding: [week 2](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md).

@@ -1,13 +1,11 @@
 You will continue to develop your application from the point you arrived at the end of week 6. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer to the previous week from the submission system. 
 
-<a id="user-content-muistutus-debuggerista" class="anchor" href="#muistutus-debuggerista" aria-hidden="true"><span class="octicon octicon-link"></span></a>Muistutus debuggerista
-
 ## Reminder on debugger
-You ran into  [debugger](https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#debugger) on week 2 and also got an reminder [last week](https://github.com/mluukkai/webdevelopment-rails/blob/main/week6.md#a-reminder-on-debugger). 
+You ran into [debugger](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#debugger) on week 2 and also got a reminder [last week](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week6.md#a-reminder-on-debugger). 
 
 Once more: **When you have problems, instead of guessing, use the debugger!**
 
-Throughout this course, the importance of using the Rails console as a development tool has been emphasized. So **when you are doing something even slightly untrivial, first test it in the console.** In some cases it might be even better to do the testing in the console launched by the debugger as then you can work in exactly the context you are writing the code for. This way you can access eg. variables <code>params</code>, <code>sessions</code> and other execution context dependent data.
+Throughout this course, the importance of using the Rails console as a development tool has been emphasized. So **when you are doing something even slightly nontrivial, first test it in the console.** In some cases it might be even better to do the testing in the console launched by the debugger as then you can work in exactly the context you are writing the code for. This way you can access e.g. variables <code>params</code>, <code>sessions</code> and other execution context dependent data.
 
 
 ## About tests
@@ -35,7 +33,7 @@ You want to implement now a new functionality to sort your beer list against the
 so the table titles have now become links which point back to the same page, but in addition, they add the [query parameter](https://en.wikipedia.org/wiki/Query_string) <code>:order</code> to the request, defining the new order.
 What happens is that the parameter is passed along the url, attached to the end of it, separated by a question mark. For example if you click the style column, the url becomes _beers?order=style_
 
-The controller can avćcess the parameter through the  <code>params</code> hash. As expected, the value of the parameter defining the order is <code>params[:order]</code>.
+The controller can access the parameter through the  <code>params</code> hash. As expected, the value of the parameter defining the order is <code>params[:order]</code>.
 
 Let's extend the beer controller so that it tests whether the request has a parameter, and if so, the beers are sorted in the right order:
 
@@ -86,16 +84,16 @@ and it works by default in the same way as the code below
   end
 ```
 
-**Attention 2:** in the example the beers are first retrived from the database and then they are sorted in central memory. The beer list could also be sorted at database level:
+**Attention 2:** in the example the beers are first retrieved from the database, and then they are sorted in central memory. The beer list could also be sorted at database level:
 
 ```ruby
-# oluet nimen perusteella järjestettynä
+# beers ordered by name
 Beer.order(:name)
 
-# oluet panimoiden nimien perusteella järjestettynä
+# beers ordered by brewery name
 Beer.includes(:brewery).order("breweries.name")
 
-# oluet tyylin nimien perusteella järjestettynä
+# beers ordered by name of style of beer
 Beer.includes(:style).order("style.name")
 ```
 
@@ -103,7 +101,7 @@ Beer.includes(:style).order("style.name")
 
 ## Exercise 1
 
-Change the list page so that beer clubs can be sorted in alphabetic order against their names or or cities or by their foundation year. The name order is the default one.
+Change the list page so that beer clubs can be sorted in alphabetic order against their names or cities or by their foundation year. The name order is the default one.
 
 _ATTENTION_ if you haven't implemented beer clubs in your application, you can do this exercise for breweries page (and assume that both active and inactive breweries are sorted the same way)
 
@@ -125,7 +123,7 @@ So use the <code>list</code> method that is contained in the beer controller. Th
 ```ruby
 class BeersController < ApplicationController
   before_action :ensure_that_signed_in, except: [:index, :show, :list]
-  # muut before_actionit ennallaan
+  # keep the other before_actions as they are
 
   def list
   end
@@ -144,9 +142,9 @@ Also the view views/beers/list.html.erb is minimalist:
 <div id="beers"></div>
 ```
 
-SO the view only places a div element on the page, and giving it "beer" as ID (that is a reference to access the element).
+So the view only places a div element on the page, and giving it "beer" as ID (that is a reference to access the element).
 
-As expected, nothing else than an h2 element will be seen at http://localhost:3000/beerlist.
+As expected, nothing else than a h2 element will be seen at http://localhost:3000/beerlist.
 
 Start now to write the action logic implementation with Javascript.
 
@@ -175,11 +173,11 @@ Also take javascript (located in the _custom_ folder) into use in the applicatio
 pin_all_from "app/javascript/custom", under: "custom"
 ```
 
-If you open the page again again now, Javascript will first search for the element with the id  <code>beers</code>, after which it   will set up the text "hello from javascript" as its text. The next command writes the greeting to the Javascript console.
+If you open the page again now, Javascript will first search for the element with the id  <code>beers</code>, after which it   will set up the text "hello from javascript" as its text. The next command writes the greeting to the Javascript console.
 
 The console is an <strong>extremely important</strong> tool as far as Javascript programming in the browser is concerned. You can open the console in Chrome from the tools tap or pressing ctrl,shift,j (in linux) or alt,cmd,i (in mac):
 
-![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-1.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-1.png)
 
 <strong>You want to keep the console open all the time when you program with Javascript!</strong>
 
@@ -193,11 +191,11 @@ If you check the address http://localhost:3000/beers.json with your browser, you
 
 You can improve the readability of a Json page by copying the page contents into the [jsonlint](http://jsonlint.com/) service:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-3.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-3.png)
 
-A better option is installing a plugin on the browser, which can be understand json. A good choice is Chrome's [jsonview](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc), the plugin shapes json nicely in the browser:
+A better option is installing a plugin on the browser, which can understand json. A good choice is Chrome's [jsonview](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc), the plugin shapes json nicely in the browser:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-4.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-4.png)
 
 A closer look shows that each singular json beer reminds of Ruby's hash:
 
@@ -217,11 +215,11 @@ A closer look shows that each singular json beer reminds of Ruby's hash:
 
 How can Rails return the results in json instead of HTML when needed?
 
-Try to get the list of all raitings in json, so try out the address http://localhost:3000/ratings.json
+Try to get the list of all ratings in json, so try out the address http://localhost:3000/ratings.json
 
 You'll get an error message:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-4b.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-4b.png)
 
 So it's not that jsons are created completely automatically, you created the whole code for the rating by hand, and as you saw in the error message, there was no suitable template for the format 'json'.
 
@@ -257,7 +255,7 @@ json.url rating_url(rating, format: :json)
 ```
 
 
-More about jbuilderista at https://github.com/rails/jbuilder.
+More about jbuilder at https://github.com/rails/jbuilder.
 
 In addition to Json's jbuilder template, another way to return data in json form would be to use a <code>respond_to</code> command, which is used by some methods generated with scaffolds. In such case, there would be no need for the json jbuilder template, and the controller would look like below
 
@@ -266,7 +264,7 @@ def index
   @ratings = Rating.all
 
   respond_to do |format|
-    format.html { } # renderöidään oletusarvoinen template
+    format.html { } # render default template
     format.json { render json: @ratings }
   end
 end
@@ -280,7 +278,7 @@ Change your javascript code as below:
 
 ```javascript
 const handleResponse = (data) => {
-  document.getElementById("beers").innerText = `oluita löytyi ${data.length}`;
+  document.getElementById("beers").innerText = `found ${data.length} beers`;
 };
 
 const beers = () => {
@@ -292,9 +290,9 @@ const beers = () => {
 export { beers };
 ```
 
-The hello fucntion is renamed as beers (remmebr to change the name also in export and application.js import!). 
+The hello function is renamed as beers (remember to change the name also in export and application.js import!). 
 
-The beers function uses the [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) method available for the browser to fetch the json form beers from the address beers.json. The data returned by fetch is accessible by calling the method twice. The first call causes that the beers are parsed separately into json format from the data returned to the browser. The second call asks the function _handleResponse_ to handle the data. The handleResponse adds the number of beers to the page. You can combine text and variables in javascript, like you can in Ruby, except that in javascript you use the dollar symbol and ` instead of normal apostrophies.
+The beers function uses the [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) method available for the browser to fetch the json form beers from the address beers.json. The data returned by fetch is accessible by calling the method twice. The first call causes that the beers are parsed separately into json format from the data returned to the browser. The second call asks the function _handleResponse_ to handle the data. The handleResponse adds the number of beers to the page. You can combine text and variables in javascript, like you can in Ruby, except that in javascript you use the dollar symbol and ` instead of normal apostrophes.
 
 Behind the slightly odd looking syntax _[then](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)_ is the fact that the function _fetch_ returns a so called [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) and the actual returned data must be taken from the promise with the _then_ function.
 
@@ -310,7 +308,7 @@ const handleResponse = (beers) => {
 };
 ```
 
-The code defines the local table variable <code>beerList</code> and goes through the list <code>beers</code> that it received as parameter. By using the _map_ function, you can create a new table directly from the return value of the function.  For each beer a HTML element is returned into `beerList`. The element is like this:
+The code defines the local table variable <code>beerList</code> and goes through the list <code>beers</code> that it received as parameter. By using the _map_ function, you can create a new table directly from the return value of the function.  For each beer an HTML element is returned into `beerList`. The element is like this:
 
 ```erb
 <li>Extra Light Triple Brewed</li>
@@ -372,7 +370,7 @@ export { beers };
 ```
 The click handler of the text is defined in the page's _beers_ function. So when the document has been loaded, the click handler is _registered_ to the element with the id "reverse".
 
-When the link is clicked the event handler first calls the method <code>e.preventDefault</code>. This method prevents the "normal" function, that is, accessing a (now inexistent) link.
+When the link is clicked the event handler first calls the method <code>e.preventDefault</code>. This method prevents the "normal" function, that is, accessing a (now nonexistent) link.
 After that, methods _reverse_ and _show_ are called to render the beers on the screen in reverse order.
 
 You'll now understand the basics well enough to implement the real functionality.
@@ -462,7 +460,7 @@ const createTableRow = (beer) => {
 };
 ```
 
-The beers list in json form will contain also a lot of useless information, because at the same time, the brewery json forms of each beer brewery and style are rendered completely. You could optimize the the single beer json template so that the beer brewery and style would follow the json form only as far as their name is concerned:
+The beers list in json form will contain also a lot of useless information, because at the same time, the brewery json forms of each beer brewery and style are rendered completely. You could optimize the single beer json template so that the beer brewery and style would follow the json form only as far as their name is concerned:
 
 ```ruby
 json.extract! beer, :id, :name
@@ -476,7 +474,7 @@ end
 
 Now the json-form list sent by the server is much more compact:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w7-5.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w7-5.png)
 
 The links have to be set up now with the event listeners that execute the sorting (you find the final javascript code below):
 
@@ -588,7 +586,7 @@ The current trend tells us we should move more and more of a Web pages functiona
 
 The code of the page you implemented with Javascript to list the beers was decent structure-wise. However, if compared to Rails fluency and effortless coding style, what you wrote was quite heavy and full of annoying and rutine-like details, at times. If the amount of browser executable code keeps growing, it is easy to end up with a messy code base which is hard to read and even harder to expand.
 
-Javascript frontend development frameworks come to the rescue. For a long while, the most popular solution for frontend development has been [React](https://facebook.github.io/react/) which is developed by Facebook. React is a vast subject, in which you can immerse yourself on the Full Stack Web Development course offered by the the department. It is ongoing as a [open university course](https://fullstackopen.github.io/).
+Javascript frontend development frameworks come to the rescue. For a long while, the most popular solution for frontend development has been [React](https://facebook.github.io/react/) which is developed by Facebook. React is a vast subject, in which you can immerse yourself on the Full Stack Web Development course offered by the department. It is ongoing as an [open university course](https://fullstackopen.github.io/).
 
 >## Exercise 2
 >
@@ -654,17 +652,17 @@ Finished in 21.17 seconds (files took 5.33 seconds to load)
 ```
 
 It looks like that the page does not contain any beers list at all. Check this out with the command <code>save_and_open_page</code> that you should put right before the  <code>expect</code> command. This will open the browser page where capybara has navigated to
-(see https://github.com/mluukkai/webdevelopment-rails/blob/main/week4.md#capybara).
+(see https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week4.md#capybara).
 
 And the beer table to show on the page is empty as expected:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-2.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-2.png)
 
 You find the reason for this from Capybara documentation https://github.com/jnicklas/capybara#drivers.
 
-> By default, Capybara uses the :rack_test driver, which is fast but limited: it does not support JavaScript, nor is it able to access HTTP resources outside of your Rack application, such as remote APIs and OAuth services. To get around these limitations, you can set up a different default driver for your features.
+> By default, Capybara uses the :rack_test driver, which is fast but limited: it does not support JavaScript, nor is it able to access HTTP resources outside your Rack application, such as remote APIs and OAuth services. To get around these limitations, you can set up a different default driver for your features.
 
-Fixing this is simple, too. The Javascript tests only need to be added a parameter and they will be executed with the help of Selenium, a test driver which knows Javascript:
+Fixing this is simple, too. The Javascript tests only need to be added a parameter, and they will be executed with the help of Selenium, a test driver which knows Javascript:
 
 ```ruby
 it "shows the known beers", js:true do
@@ -694,7 +692,7 @@ Run the tests. You'll run in an error message again:
 ```
 
 
-The reason is that you started to use the WebMock gem in [week 5](https://github.com/mluukkai/webdevelopment-rails/blob/main/week5.md#testing-beer-restaurant-search), blocking the test code HTTP connections by default. The Javascript beer list tries to fetch the beers list in json form from the server, in fact. You get over this if you allow the connections, for instance by editing the <code>before :all</code> code chunk (which initializes the tests):
+The reason is that you started to use the WebMock gem in [week 5](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week5.md#testing-beer-restaurant-search), blocking the test code HTTP connections by default. The Javascript beer list tries to fetch the beers list in json form from the server, in fact. You get over this if you allow the connections, for instance by editing the <code>before :all</code> code chunk (which initializes the tests):
 
 ```ruby
 before :all do
@@ -705,7 +703,7 @@ before :all do
 end
 ```
 
-The tests works finally.
+The tests work finally.
 
 When you create page contents with Javascript, these contents do not appear on the page together with the HTML base, but only later on, when the execution of the Javascript return call function. So if you look at the page contents right after navigating to the page, the Javascript won't have managed to form the final page outlook yet. For instance, the following <code>save_and_open_page</code> may open a page, that does not contain any beers yet:
 
@@ -717,7 +715,7 @@ it "shows a known beer", js:true do
 end
 ```
 
-As the page https://github.com/jnicklas/capybara#asynchronous-javascript-ajax-and-friends says, Capybara is able to wait for asycronic Javascript calls till the page elements required for the tests have loaded.
+As the page https://github.com/jnicklas/capybara#asynchronous-javascript-ajax-and-friends says, Capybara is able to wait for asynchronous Javascript calls till the page elements required for the tests have loaded.
 
 It's known that the Javascript should add rows to the page table. You will get the page to look correct by adding the command <code>find('table').find('tr:nth-child(2)')</code> at its beginning. This looks for a table in the page and for the second line inside the table (the table first line is already the table title in the page template):
 
@@ -793,9 +791,9 @@ beertable();
 
 Even though the require statements look as if they were comments, they are actually "real" commands of the  [sprockets compiler](https://github.com/sstephenson/sprockets) that takes care of asset pipeline. They help define the Javascript files that have to be linked in the application. The file tells to take jquery3, popper, and bootstrap-sprockets. These are all set up in the application through gems.
 
-For execution performance reasons, it is usually better to avoid using too many Javascript and style files in production-use applications. When the application is started in production mode, Sprockets links all the application Javascript and style files into singular, optimised files. You'll notice this if you look at application HTML source code in Fly.io: for instance https://ratebeer22.fly.dev/, it contains now only one js and one css files, and expecially the js file readability is weak for an human.
+For execution performance reasons, it is usually better to avoid using too many Javascript and style files in production-use applications. When the application is started in production mode, Sprockets links all the application Javascript and style files into singular, optimised files. You'll notice this if you look at application HTML source code in Fly.io: for instance https://ratebeer22.fly.dev/, it contains now only one js and one css files, and especially the js file readability is weak for a human.
 
-More about asset pipiline and for instance Javascript linking in Rails applications, at:
+More about asset pipeline and for instance Javascript linking in Rails applications, at:
 
 - http://railscasts.com/episodes/279-understanding-the-asset-pipeline
 - http://railsapps.github.io/rails-javascript-include-external.html
@@ -815,7 +813,7 @@ Some notes
 </li>
 <li>When a club is created, the user who created it should automatically become that club's member</li>
 <li>Show a list of the membership applications which haven't been confirmed on the club page</li>
-<li>Membership status change can be managed for instance with its own [custom route](https://github.com/mluukkai/webdevelopment-rails/blob/main/week6.md#route-for-changing-the-brewery-status).</li>
+<li>Membership status change can be managed for instance with its own [custom route](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week6.md#route-for-changing-the-brewery-status).</li>
 </ul>
 
 The exercise may be a bit challenging. [Active Record Associations guide](http://guides.rubyonrails.org/association_basics.html) section **4.3.3 Scopes for has_many**  provides a good tool to make the exercise. Of course, the exercise can also be solved in different ways.
@@ -823,19 +821,19 @@ The exercise may be a bit challenging. [Active Record Associations guide](http:/
 Section **4.3.2.3 :class_name** might be useful as well.
 </blockquote>
 
-At the end of the exercise, you application can look something like this. The beer club page shows a list of the membership applications, if the signed-in user is already that beer club's member:
+At the end of the exercise, your application can look something like this. The beer club page shows a list of the membership applications, if the signed-in user is already that beer club's member:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-6.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-6.png)
 
 
 Users' personal pages show the applications which haven't been confirmed yet:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-5.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-5.png)
 
 
 ## Index to the database
 
-When the user signs in the system, the session controller executes an operation to retrive the user object from the database against the user name:
+When the user signs in the system, the session controller executes an operation to retrieve the user object from the database against the username:
 
 
 ```ruby
@@ -851,7 +849,7 @@ end
 
 In order to execute the operation, the database has to go through the whole <code>users</code> table. Searches by the object ID are faster, because each table has been indexed against their ID. The index works as with hash tables, providing access to the required database row in "O(1)" time.
 
-Database tables can be added other indexes if needed. Add an index to the <code>users</code> table, making the search against user name faster.
+Database tables can be added other indexes if needed. Add an index to the <code>users</code> table, making the search against username faster.
 
 Create a migration for the index
 
@@ -869,7 +867,7 @@ end
 
 Execute the migration with the command <code>rails db:migrate</code> and the index is ready!
 
-The bad thing about this is that when the system is added a new user or an existing user is deleted, the index has to be edited and this requires time obviously. Adding an index is a tradeoff on what operation you want to optimize, then. In most cases database reading operations happen so much more often than writing operations that the benefits of indexes far outweight the extra work caused by upkeeping them.
+The bad thing about this is that when the system is added a new user or an existing user is deleted, the index has to be edited and this requires time, obviously. Adding an index is a tradeoff on what operation you want to optimize, then. In most cases database reading operations happen so much more often than writing operations that the benefits of indexes far outweigh the extra work caused by upkeeping them.
 
 
 ## Lazy loading, the n+1 issue, and database request optimisation
@@ -913,13 +911,13 @@ Getting started with Miniprofiler is easy, you only need to add the following li
 
 Execute <code>bundle install</code> and restart your Rails server. When you go to the address http:localhost:300/beers next time, you'll see a timer will have appeared on the upper side of the page. This measures the time used to execute the HTTP request. If you click the number, you'll find a better definition of the time frame:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/profile1.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/profile1.png)
 
 The report shows that <code>Executing action: index</code> – which is the controller method execution – causes one SQL request. Instead, <code>Rendering: beers/index</code> – which is the view template execution – causes notably more SQL requests!
 
 Clicking on the requests you will be able to check their reason:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/profiler2.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/profiler2.png)
 
 
 In contradiction to the earlier report, the controller makes only one request
@@ -979,7 +977,7 @@ end
 
 You notice that while the number of requests has dropped, the request for finding the beer rating average is still repeated for every beer.
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/profiler3.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/profiler3.png)
 
 This is because you have defined that calculating the average is done with SQL:
 
@@ -995,7 +993,7 @@ module RatingAverage
 end
 ```
 
-That means that having already fetched the ratings oesn't help here. We could make use of the beer ratings fetched with the _includes_ command in the avarage calculation by making it happen in the central memory instead of in SQL:
+That means that having already fetched the ratings doesn't help here. We could make use of the beer ratings fetched with the _includes_ command in the average calculation by making it happen in the central memory instead of in SQL:
 
 ```ruby
 module RatingAverage
@@ -1011,9 +1009,9 @@ module RatingAverage
 end
 ```
 
-The controller execution now triggers less requests and rendering the view only a single one.
+The controller execution now triggers fewer requests and rendering the view only a single one.
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/profiler4.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/profiler4.png)
 
 Miniprofiler shows that the request is
 
@@ -1057,7 +1055,7 @@ Note, that the _if_ condition of <code>if user.closed</code> works depending on 
 
 >## Exercise 9
 >
->There is a n+1 problem in the users page. Fix the problem eager loading the required objects when the users are fetched, like in the exercise above. Make sure that the optimisation works with miniprofiler.
+>There is an n+1 problem in the users page. Fix the problem eager loading the required objects when the users are fetched, like in the exercise above. Make sure that the optimisation works with miniprofiler.
 
 
 <strong>Attention:</strong> if the table was added also the favourite beer column
@@ -1133,7 +1131,7 @@ User.all.each do |u|
 end
 ```
 
-The file uses the version with the exclamation mark (<code>create!</code>) to create objects instead of the normal <code>create</code> methods. The difference between the two is can be seen when an object cannot be created successfully. The method without exclamation mark returns <code>nil</code> in such cases, whereas the other throws an exception. Throwing exeptions is a better option in seeding, otherwise the unsuccessful creation will be left unnoticed.
+The file uses the version with the exclamation mark (<code>create!</code>) to create objects instead of the normal <code>create</code> methods. The difference between the two is can be seen when an object cannot be created successfully. The method without exclamation mark returns <code>nil</code> in such cases, whereas the other throws an exception. Throwing exceptions is a better option in seeding, otherwise the unsuccessful creation will be left unnoticed.
 
 <strong>Make a copy of the old database <em>_db/development.sqlite_ </em></strong>, so that you may return to the old situation after tuning the performance. You can take the old database into use again by changing its name again and calling it development.sqlite.
 
@@ -1145,7 +1143,7 @@ Execute the seeding with the command
 
 Executing the script might take a while.
 
-<strong>Attention:</strong> if executing the script ends in an error, you'd better return to the pre-script database status after fixing the errror. A possible issue about executing the script is duplicate names breaking the validation. If you change the command <code>create!</code> to <code>create</code>, the script execution will not interrupt.
+<strong>Attention:</strong> if executing the script ends in an error, you'd better return to the pre-script database status after fixing the error. A possible issue about executing the script is duplicate names breaking the validation. If you change the command <code>create!</code> to <code>create</code>, the script execution will not interrupt.
 
 Your application will have plenty data now, and loading the pages will start being slower.
 
@@ -1174,9 +1172,9 @@ When the amount of data is huge, optimising the requests alone will not be enoug
 
 Caching will be an option.
 
-Web application caching can be implemented both for the browser and for the server (as well as for the proxy between the two). Take a look at server caching. [A couple of weeks ago](https://github.com/mluukkai/webdevelopment-rails/blob/main/week5.md#performance-optimization), you already implemented "by hand" the caching of the information fetched from the beermapping api through Rails.cache. You'll have a look now to some more automatic Rails caching mechanism.
+Web application caching can be implemented both for the browser and for the server (as well as for the proxy between the two). Take a look at server caching. [A couple of weeks ago](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week5.md#performance-optimization), you already implemented "by hand" the caching of the information fetched from the beermapping api through Rails.cache. You'll have a look now to some more automatic Rails caching mechanism.
 
-Caching is not on by default, when you execute your application in development mode. You might have switched it on on week 5. 
+Caching is not on by default, when you execute your application in development mode. You might have switched it on week 5. 
 
 If the cache is on, the file _tmp/caching-dev.txt_ can be found in your application. If there is no such file, you can switch cache on by executing the command <code>rails dev:cache</code> on the command line. The command  should print out
 
@@ -1205,7 +1203,7 @@ Fragment cache is possible if you put the part to cache of the view template int
 <% end %>
 ```
 
-As you may have guessed, <code>key</code> is the key with which you save the view fragment to cache. The key can be either a string or an object. <code>skip_digest: true</code> refers to [view templates versioning]([näyttötemplatejen versiointiin](http://blog.remarkablelabs.com/2012/12/russian-doll-caching-cache-digests-rails-4-countdown-to-2013)) which won't be covered now. This means however, that the cache should be cleared (with the command <code>Rails.cache.clear</code>) if the view template code is changed.
+As you may have guessed, <code>key</code> is the key with which you save the view fragment to cache. The key can be either a string or an object. <code>skip_digest: true</code> refers to [view templates versioning](http://blog.remarkablelabs.com/2012/12/russian-doll-caching-cache-digests-rails-4-countdown-to-2013) which won't be covered now. This means however, that the cache should be cleared (with the command <code>Rails.cache.clear</code>) if the view template code is changed.
 
 Adding fragment caching to the beers list views/beers/index.html is easy, you'll cache the dynamic part of the page, the beers table:
 
@@ -1243,13 +1241,13 @@ Adding fragment caching to the beers list views/beers/index.html is easy, you'll
 
 If you go to the page now, the page fragment hasn't been saved to memory yet, and loading the page will take as long as it used to before adding the caching:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-9.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-9.png)
 
 The loading time of the whole page was 234564 ms of which rendering the page (<code>Rendering: beers/index</code>) was 5041.2 milliseconds, in fact.
 
 The fragment used on the page saves in cache, and opening the page  the next time will be much faster:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-10.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-10.png)
 
 The whole page loading took 299 milliseconds of which only 6.3. ms was used for rendering the view template.
 
@@ -1277,7 +1275,7 @@ end
 
 After the changes the page will work as expected!
 
-The page of all beers could still be speeded up a bit. The controller now executes now the database operation
+The page of all beers could still be speed up a bit. The controller now executes the database operation
 
 ```erb
 @beers = Beer.includes(:brewery, :style, :ratings).all
@@ -1288,7 +1286,7 @@ even when the page fragment is found from cache memory. You could test whether t
 
 ```ruby
 def index
-  # jos fragmentti olemassa, lopetetaan metodi tähän (eli renderöidään heti näkymä)
+  # if fragment exist, stop the method here (i.e. render the view immediately)
   return if request.format.html? && fragment_exist?('beerlist')
 
   @beers = Beer.includes(:brewery, :style, :ratings).all
@@ -1307,7 +1305,7 @@ end
 
 The page is now even faster:
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ratebeer-w6-11.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w6-11.png)
 
 Notice however that the page has a little problem. The beers were sorted in different orders by clicking on the columns. Caching has broken this operation!
 
@@ -1447,7 +1445,7 @@ If you wanted to cache a singular beer page, you'd better define the object itse
 ```
 
 
-The fragment key will be a string now, which Rails generates by calling the object method <code>cache_key_with_version</code>. The method generates a key which specifies the object and includees a date stamp referring to when the object was last modified. If the object fields are modified, the fragment key value is also modified, meaning that the old fragment expires automatically. Below an example about a cache key that is generated automatically:
+The fragment key will be a string now, which Rails generates by calling the object method <code>cache_key_with_version</code>. The method generates a key which specifies the object and includes a date stamp referring to when the object was last modified. If the object fields are modified, the fragment key value is also modified, meaning that the old fragment expires automatically. Below an example about a cache key that is generated automatically:
 
 ```ruby
 > b = Beer.first
@@ -1474,7 +1472,7 @@ What happens is, the <code>touch: true</code> connected to <code>belongs_to</cod
 For the next exercise, change the single brewery view so that it lists the brewery's beers' information, for example like
 
 
-![pic](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/w7-brewery.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/w7-brewery.png)
 
 <blockquote>
 
@@ -1509,7 +1507,7 @@ This simplifies the application also because expiring the cache becomes easy, no
 
 Suppose that your system really had many users and ratings happened frequently multiple times a minute. If you wanted to show completely consistent information on the ratings page, the performance would become weak, because every beer rating would change the page status, and the page would need to be expired too often. This would make caching almost useless.
 
-SQL optimisation and caching are not yet able to make the ratings page too fast, because controller operations like <code>User.top(3)</code> require that nearly all the database data should be searched true, in fact. If you wanted to optimise your page better than this, you should use even more robust tools. For instance, the performance of <code>User.top</code> would improve dramatically if the ratings amount was saved straight in the user object, so that finding out this information wouldn't require calculating the amount of Raiting objects of the user. This would also require that when a user makes a new rating, the user object should also be updated. So executing the rating operation would be slightly slower.
+SQL optimisation and caching are not yet able to make the ratings page too fast, because controller operations like <code>User.top(3)</code> require that nearly all the database data should be searched true, in fact. If you wanted to optimise your page better than this, you should use even more robust tools. For instance, the performance of <code>User.top</code> would improve dramatically if the ratings amount was saved straight in the user object, so that finding out this information wouldn't require calculating the amount of Rating objects of the user. This would also require that when a user makes a new rating, the user object should also be updated. So executing the rating operation would be slightly slower.
 
 Another and maybe better way to accelerate the rating page would be caching the information needed by the Rails.cache controller. So the controller is this
 
@@ -1534,9 +1532,9 @@ def index
 end
 ```
 
-Optimising applications performance is not necessarily the easiest thing to do, because it requires solutions at different levels and you will often have to tailor them according to the situation. Optimisation will most probably make your code less pleasant to read.
+Optimising applications performance is not necessarily the easiest thing to do, because it requires solutions at different levels, and you will often have to tailor them according to the situation. Optimisation will most probably make your code less pleasant to read.
 
-## Asynchrony, message queues and background work
+## Asynchronization, message queues and background work
 
 A negative part of the fact cache expires from time to time is that if you used that strategy for the ratings page, for some users it would trigger a very time-consuming operation when the data has to be generated again for the cache memory.
 
@@ -1565,7 +1563,7 @@ end
 ```
 
 
-The background processing strategy shown above is simple because the application and the thread/process executing the background processing don't need to syncronise their activity. Then again, sometimes the background processing is required by a request coming to the application. In such case, the syncronisation between the application and the background processing can be handled through message queues.
+The background processing strategy shown above is simple because the application and the thread/process executing the background processing don't need to synchronise their activity. Then again, sometimes the background processing is required by a request coming to the application. In such case, the synchronisation between the application and the background processing can be handled through message queues.
 
 There are various options in Rails to implement background processing whether it is managed with message queues or with singular processes or threads. One option for the moment is [Sidekiq](http://railscasts.com/episodes/366-sidekiq).
 
@@ -1575,7 +1573,7 @@ If your application needs only a simple background operation which is executed o
 
 ## Sucker Punch
 
-As noted before, one way to perform async operations in Rails is [Sidekiq](http://railscasts.com/episodes/366-sidekiq). Sidekiq however requires its own proces, meaning that eg in Fly.io and Heroku, it is not easy to run sidekiq without reserving a separate process, [dyno](https://devcenter.heroku.com/articles/dynos), for it. And using that costs some dollars a month.
+As noted before, one way to perform async operations in Rails is [Sidekiq](http://railscasts.com/episodes/366-sidekiq). Sidekiq however requires its own process, meaning that e.g. in Fly.io and Heroku, it is not easy to run sidekiq without reserving a separate process, [dyno](https://devcenter.heroku.com/articles/dynos), for it. And using that costs some dollars a month.
 
 With Heroku services it is possible to use the [Sucker Punch](https://github.com/brandonhilkert/sucker_punch) library.
 
@@ -1583,7 +1581,7 @@ With Heroku services it is possible to use the [Sucker Punch](https://github.com
 
 Meaning Sucker Punch executes asynchronous jobs in the same process that the Rails application itself is run in.
 
-Using Suker Punch is pretty easy.
+Using Sucker Punch is pretty easy.
 
 Add <code>gem 'sucker_punch', '~> 3.0'</code> to gemfile and run bundle install.
 
@@ -1649,7 +1647,7 @@ end
 
 and give the command <code>TestJob.perform_async</code>, the operation will be repeatedly performed every 30 seconds until the console is shut down.
 
-A side note: An operation on a forever loop should not be started in the test environment as eg. GitHub Actions will stay waiting for the process to be finished.
+A side note: An operation on a forever loop should not be started in the test environment as e.g. GitHub Actions will stay waiting for the process to be finished.
 
 <blockquote>
 
@@ -1663,11 +1661,11 @@ Write a small description of your strategy to speed up the page in the <code>ind
 
 ## An application made of various services
 
-You can scale your application performance only till a certain point if your application is a monolitic entity using a single database and running on a single server. The application can be optimised so that it is scaled <strong>horizontally</strong> – that is, increasing the physical resources of its server.
+You can scale your application performance only till a certain point if your application is a monolithic entity using a single database and running on a single server. The application can be optimised so that it is scaled <strong>horizontally</strong> – that is, increasing the physical resources of its server.
 
 You will have better scaling results if you scale <strong>vertically</strong>, meaning that instead of improving the physical resources of one server, you start to use various servers, all executing your application actions at the same time. Vertical scaling is not necessarily trivial, you'll have to change the application architecture. If your application works with only one database, you may run into troubles despite vertical scaling, as that one database becomes a bottleneck. Especially so if that is a relational database, that is not easy to distribute and scale vertically.
 
-Scaling an application (and sometimes also updating and extending it) is easier if the application is made of various different <strong>services</strong> that work indipendently and communicate with each other for instance with an HTTP protocol. In fact, your application is already making use of another service, that is BeermappingAPI. In the same way, your application functionality could be expanded if new services were integrated.
+Scaling an application (and sometimes also updating and extending it) is easier if the application is made of various different <strong>services</strong> that work independently and communicate with each other for instance with an HTTP protocol. In fact, your application is already making use of another service, that is BeermappingAPI. In the same way, your application functionality could be expanded if new services were integrated.
 
 For instance, suppose you wanted that your application created food receipt suggestions for users based on their favourite beer style and location (that you can find looking at the IP location of the user's HTTP request, see http://www.iplocation.net/). You should implement the recommendation as an independent service. Your application would communicate with the service using the HTTP protocol.
 
@@ -1678,9 +1676,9 @@ Suppose instead that you wanted your application to recommend beers to users bas
 
 ## NoSQL databases
 
-Ralation databases have been dominating information storage for decades. Recently, we have started to see a new database fronteer, and the "non-relation databases" that are known under the term [NoSQL](https://en.wikipedia.org/wiki/NoSQL) have started to gain favour.
+Relational databases have been dominating information storage for decades. Recently, we have started to see a new database frontier, and the "non-relational databases" that are known under the term [NoSQL](https://en.wikipedia.org/wiki/NoSQL) have started to gain favour.
 
-A motivation behind NoSQL databases has been that relation database are difficult to scale to the perfomance required by massive Internet applications. Also, the fact some NoSQL databases are schema-less makes applications more elastic than the carefully defined database schemes of SQL databases.
+A motivation behind NoSQL databases has been that relation database are difficult to scale to the performance required by massive Internet applications. Also, the fact some NoSQL databases are schema-less makes applications more elastic than the carefully defined database schemes of SQL databases.
 
 There are various NoSQL databases, and their operating mechanisms are completely different from each other, for instance
 
@@ -1697,7 +1695,7 @@ Despite the growth of different database types, relation databases will survive 
 
 ## Refactoring: class methods
 
-In [exercises 6-7](https://github.com/mluukkai/webdevelopment-rails/blob/main/week6.md#exercises-6--7-this-equals-two-exercises) of week 6, you were told to create class methods for classes _Beer_, _Brewery_ ja _Style_. These methods were to help controllers easily find the best breweries, beers, and beer styles based on the ratings.
+In [exercises 6-7](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week6.md#exercises-6--7-this-equals-two-exercises) of week 6, you were told to create class methods for classes _Beer_, _Brewery_ ja _Style_. These methods were to help controllers easily find the best breweries, beers, and beer styles based on the ratings.
 
 The methods are exctly the same in all classes:
 
@@ -1712,7 +1710,7 @@ class Beer < ApplicationRecord
 end
 ```
 
-In week 2 you moved identical class defined _object methods_ into [a common module](https://github.com/mluukkai/webdevelopment-rails/blob/main/week2.md#moving-common-code-to-a-module).
+In week 2 you moved identical class defined _object methods_ into [a common module](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#moving-common-code-to-a-module).
 
 Class methods can also be moved into a shared module. The technique is however not exactly the same as with object methods.
 
@@ -1731,28 +1729,28 @@ Refactor your code so that the method _def self.top(how_many)_ of classes  _Beer
 
 >## Exercise 15
 >
-> The course exercises are done and it is time to give course feedback at coursefeedback.helsinki.fi.
+> The course exercises are done, and it is time to give course feedback at coursefeedback.helsinki.fi.
 >
-> You can give feedback after you have [enrolled](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/ilmoittautuminen.md) to the open university course (it will take about 2 hours before the enrollment status has been updated to the feedback application)
+> You can give feedback after you have [enrolled](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen.md) to the open university course (it will take about 2 hours before the enrollment status has been updated to the feedback application)
 
 ## Submitting the exercises
 
 Commit all your changes and push the code to Github. Deploy to the newest version of Heroku or Fly.io, too. Remember to check with Rubocop that your code still adheres to style rules. 
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2022.
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023.
 
 ## Course completion/course credit
 
-[Enroll](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/ilmoittautuminen.md) to the open university course realisation and [ask for completion](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/ilmoittautuminen.md#suoritusmerkinn%C3%A4n-pyyt%C3%A4minen) in the exercise submission system.
+[Enroll](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen.md) to the open university course realisation and [ask for completion](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen-english.md#how-to-get-your-credits) in the exercise submission system.
 
 ## What next?
 
 If Rails seems interesting you could dig more into it in the following ways
 
 - http://guides.rubyonrails.org/ A lot of good info...
-- http://railscasts.com/ excellent videos focusing on one theme at a time. Unfortunately new videos haven't been published in over a year- Hopefully the page will be re-activated at some point. It seems most pay-to-see pro-episodes can be found on Youtube... 
+- http://railscasts.com/ excellent videos focusing on one theme at a time. Unfortunately new videos haven't been published in over a year - Hopefully the page will be re-activated at some point. It seems most pay-to-see pro-episodes can be found on Youtube... 
 - https://www.ruby-toolbox.com/ help for finding gems
-- [Eloquent Ruby](http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104) an excellen book on Ruby
-- [Turbo](https://turbo.hotwired.dev/): a modern way to develop rails by makin rails applications single page applications
+- [Eloquent Ruby](http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104) an excellent book on Ruby
+- [Turbo](https://turbo.hotwired.dev/): a modern way to develop rails by making rails applications single page applications
 
 

@@ -1,16 +1,16 @@
 
-## Ilmoittautuminen ja opintopisteet 
+## Enrollment and course credits
 
-Jos haluat kurssista suoritusmerkinnän ja opintopisteet Helsingin yliopiston opintosuoritusrekisteriin, ilmoittaudu kurssille Avoimen yliopiston kautta. Vain niiden opiskelijoiden opintosuoritukset voidaan kirjata Helsingin yliopiston opintorekisteriin, jotka ovat tehneet kurssi-ilmoittautumisen Avoimeen yliopistoon. 
+If you want to receive University of Helsinki credits, enroll in the course through the Open University. Only those students who have enrolled in the course through the Open University can have their study credits registered in the University of Helsinki’s study credit registry.
 
-1. Ilmoittaudu kurssille tämän linkin kautta: <https://www.avoin.helsinki.fi/palvelut/esittely.aspx?s=otm-ae414126-b981-4942-9079-ef268abf016f>
-2. Tallenna Helsingin yliopiston opiskelijanumerosi palautussovellukseen. 
+1. Enroll through this link: <https://www.avoin.helsinki.fi/palvelut/esittely.aspx?s=otm-ae414126-b981-4942-9079-ef268abf016f>
+2. Input your student number to the submission system.
 
-### Kuinka saan selville opiskelijanumeroni
+### How to find out your student number
 
-Kun ilmoittaudut ensimmäistä kertaa Avoimen yliopiston kautta jollekin kurssille, sinulle luodaan Helsingin yliopiston opiskelijanumero. Varmista siis että olet ilmoittautunut kurssille ennen kuin alat selvittää opiskelijanumeroasi. 
+When you enroll in a course through the Open University for the first time, you will be assigned a University of Helsinki student number. Make sure you have enrolled in the course before you start looking for your student number.
 
-Voit selvittää oman opiskelijanumerosi seuraavilla tavoilla: 
+You can find out your student number in the following ways:
 
 #### A) Sisu 
 
@@ -22,10 +22,11 @@ If you have a University of Helsinki user account, you can find your student num
 
 #### B) Enrollment confirmation email
 
-After course enrollment, you will receive a confirmation email to an email address you have entered on the enrollment form. This message either directly has your student number on it or includes a link that takes you to a page displaying your University of Helsinki student number. 
+After course enrollment, you will receive a confirmation email to an email address you have entered on the enrollment form. This message either directly has your student number on it or includes a link that takes you to a page displaying your University of Helsinki student number.
+
 #### C) Contact Student Services
 
-If you have trouble finding your student number through the means listed above, you can send an email to University of Helsinki Student Services <avoin-student@helsinki.fi> . Make sure you have enrolled in the course through the Open University before sending the email!
+If you have trouble finding your student number through the means listed above, you can email University of Helsinki Student Services <avoin-student@helsinki.fi> . Make sure you have enrolled in the course through the Open University before sending the email!
 
 In your email, include the following information
 
@@ -38,17 +39,17 @@ In your email, include the following information
 
 If you want to receive University of Helsinki credits, save your University of Helsinki student number to
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-1.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ilmo-1.png)
 
 You will receive your credits after you have submitted enough exercises for a passing grade, passed the exam and then letting us know through the exercise submission system that you have completed the course:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-2.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ilmo-2.png)
 
 Remember to press the big blue button to ask for the credits to be registered.
 
 Note that you have to press the button twice:
 
-![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2022/main/images/ilmo-3.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ilmo-3.png)
 
 When pressed twice you should see the following text
 

@@ -2,14 +2,14 @@ You will continue to develop your application from the point you arrived at the 
 
 ## Sensible editor
 
-Hopefully you are already using a sensible editor at this point, that is, something else than nano, gedit or notepad. Recommendable editors include RubyMine and Visual Studio Code. See [here](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/wadror.md#editoriide) for more.
+Hopefully you are already using a sensible editor at this point, that is, something else than nano, gedit or notepad. Recommendable editors include RubyMine and Visual Studio Code. See [here](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/wadror.md#editoriide) for more.
 
-Nowadays Visual Studio Code is very popular. If you use [VSC](https://code.visualstudio.com/), it is very much recommended to install the [Ruby plugin](https://code.visualstudio.com/docs/languages/overview).
+Nowadays, Visual Studio Code is very popular. If you use [VSC](https://code.visualstudio.com/), it is very much recommended to install the [Ruby plugin](https://code.visualstudio.com/docs/languages/overview).
 
 In the end, when choosing an editor, the most important aspect is that is pleasant to use.
 ## Application layout
 
-You want to put a navigation bar in your page like modern Web sites, placing a link to the lists with beers and breweries at the top of _all_ pages.
+You want to put a navigation bar in your page like modern websites, placing a link to the lists with beers and breweries at the top of _all_ pages.
 
 You can generate a navigation bar with the help of the method <code>link_to</code> and path helpers by adding the following links to each page:
 
@@ -96,7 +96,7 @@ It's typical that all the pages of the application are the same except for the c
 </html>
 ```
 
-The auxiliary methods inside the Head element define the style and javascript files which are used by the application. The auxiliary method <code>csrf_meta_tags</code> adds to the file the logic to eliminate CSRF attacs (see the [link](http://stackoverflow.com/questions/9996665/rails-how-does-csrf-meta-tag-work) for more information). As you may have guessed, the <code>yield</code> command inside the body element helps to render the contents defined by the view template of each page.
+The auxiliary methods inside the Head element define the style and javascript files which are used by the application. The auxiliary method <code>csrf_meta_tags</code> adds to the file the logic to eliminate CSRF attacks (see the [link](http://stackoverflow.com/questions/9996665/rails-how-does-csrf-meta-tag-work) for more information). As you may have guessed, the <code>yield</code> command inside the body element helps to render the contents defined by the view template of each page.
 
 We can display a navigation bar in all pages by modifying the body element of our application layout in the following way:
 
@@ -149,7 +149,7 @@ root 'breweries#index'
 
 The address http://localhost:3000/ will now lead to a page with all breweries.
 
-What we wrote above is but the more classier way to say:
+What we wrote above is but the classier way to say:
 
 ```ruby
 get '/', to: 'breweries#index'
@@ -162,29 +162,27 @@ If we read the documentation, we should pay attention that a controller's method
 Similarly, you could also add the following line to routes.rb
   
 ```ruby
-get 'kaikki_bisset', to: 'beers#index'
+get 'all_beers', to: 'beers#index'
 ```
 
-(kaikki_bisset is Finnish for all beers)
-
-In such case, the GET requests to the URL http://localhost:3000/kaikki_bisset would lead to the page of all beers. Try that it works.
+In such case, the GET requests to the URL http://localhost:3000/all_beers would lead to the page of all beers. Try that it works.
 
 An interesting thing of the routes.rb file is that, even though it looks like a configuration file of pure text, all the contents are written in Ruby. The file lines are method calls. For instance the line
 
 ```ruby
-get 'kaikki_bisset', to: 'beers#index'
+get 'all_beers', to: 'beers#index'
 ```
 
-calls the get method with parameters that are the string '/kaikki_bisset' and the hash <code>to: 'beers#index'</code>. This uses a newer syntax for hash expressions. If we use the old syntax, the part of the hash which defines the routing would be written <code>:to => 'beers#index'</code>, and the line of routes.rb would be:
+calls the get method with parameters that are the string '/all_beers' and the hash <code>to: 'beers#index'</code>. This uses a newer syntax for hash expressions. If we use the old syntax, the part of the hash which defines the routing would be written <code>:to => 'beers#index'</code>, and the line of routes.rb would be:
 
 ```ruby
-get 'kaikki_bisset', :to => 'beers#index'
+get 'all_beers', :to => 'beers#index'
 ```
 
-we could also use brackets in the method call, and define the hash using curly brackets. The following might look clumsy but it is correct to define the route:
+we could also use brackets in the method call, and define the hash using curly brackets. The following might look clumsy, but it is correct to define the route:
 
 ```ruby
-get( 'kaikki_bisset', { :to => 'beers#index' } )
+get( 'all_beers', { :to => 'beers#index' } )
 ```
 
 The elastic syntax (together with other characteristic features of the language) allows for a form which aims at the fluency of natural languages while configuring and programming applications. The style is well known in English with the name _Internal DSL_, see http://martinfowler.com/bliki/InternalDslStyle.html.
@@ -203,7 +201,7 @@ Let us add the route by creating the following line in the routes file:
 get 'ratings', to: 'ratings#index'
 ```
 
-In Rails conventions, this defines that the index method of the RaitingsController class will be in charge of the ratings page.
+In Rails conventions, this defines that the index method of the RatingsController class will be in charge of the ratings page.
 
 Attention: if you wrote <code>match 'ratings' => 'ratings#index'</code>, you would get almost the same result. As it is typical in Rails, there are different ways to define the same thing in routes.rb, too.
 
@@ -230,7 +228,7 @@ You will receive the following error exception
 RatingsController#index is missing a template for request formats: text/html
 ```
 
-This happens beacause Rails tries to render the default view template which corresponds to the controller method and that should be located in /app/views/ratings/index.html.erb. Such file is not found, however.
+This happens because Rails tries to render the default view template which corresponds to the controller method and that should be located in /app/views/ratings/index.html.erb. Such file is not found, however.
 
 Let us create the file /app/views/ratings/index.html.erb with the following contents (you will also need to create the directory _/app/views/ratings_):
 
@@ -244,7 +242,7 @@ and now the page works!
 
 Note again Rails conventions and the file location, which is defined carefully. Because it is a view template which is called by the RatingsController, the view template is placed in the directory /views/ratings.
 
-Another reminder from [last week](https://github.com/mluukkai/webdevelopment-rails/blob/main/week1.md#the-connection-between-controller-and-views): the <code>index</code> controll method renders the index view (which is located in the appropriate directory) at the end of the execution by default. The code
+Another reminder from [last week](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week1.md#the-connection-between-controller-and-views): the <code>index</code> control method renders the index view (which is located in the appropriate directory) at the end of the execution by default. The code
 
 ```ruby
 class RatingsController < ApplicationController
@@ -263,7 +261,7 @@ class RatingsController < ApplicationController
 end
 ```
 
-In any case, we do not explicitely call the render method if the default file is rendered – that is to say the template with the same name of the controller method.
+In any case, we do not explicitly call the render method if the default file is rendered – that is to say the template with the same name of the controller method.
 
 ## Creating the model by hand: done, almost...
 
@@ -273,7 +271,7 @@ One beer has many ratings, which means that the object model should be updated t
 
 We need a database table and the corresponding model object.
 
-It is good to use migrations __always__ when you want to make changes on Rails, for instance when adding a table. The migrations are files which have to be placed in the directory db/migrate, and where we note the Ruby operations which modify the database. We will better familiarize ourselves with migrations later on. Now, we use Rails' ready-made _model generator_ to create our model. The generator not only creates a model object but it also generates automatically the migration we need.
+It is good to use migrations __always__ when you want to make changes on Rails, for instance when adding a table. The migrations are files which have to be placed in the directory db/migrate, and where we note the Ruby operations which modify the database. We will better familiarize ourselves with migrations later on. Now, we use Rails' ready-made _model generator_ to create our model. The generator not only creates a model object, but it also generates automatically the migration we need.
 
 Ratings have an integer <code>score</code> and a foreign key, which links to the rated beer. According to Rails conventions, the foreign key name has to be <code>beer_id</code>.
 
@@ -291,11 +289,11 @@ Differently than the _scaffold_ generator which we used last week, the model gen
 
     rails destroy model Rating
 
-If you have already executed the migration and you notice that the code created by the generator has to be destroyed, it is **extremely important** that you first cancel the migration with the command
+If you have already executed the migration, and you notice that the code created by the generator has to be destroyed, it is **extremely important** that you first cancel the migration with the command
 
     rails db:rollback
 
-In order to establish the connections at object level too (check [last week material](https://github.com/mluukkai/webdevelopment-rails/blob/main/week1.md#beers-and-the-one-to-many-connection), the classes have to be updates in the following way
+In order to establish the connections at object level too (check [last week's material](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week1.md#beers-and-the-one-to-many-connection), the classes have to be updates in the following way
 
 ```ruby
 class Beer < ApplicationRecord
@@ -375,10 +373,10 @@ the foreign key [cannot be uninitialized](https://blog.bigbinary.com/2016/02/15/
 >create a new brewery "BrewDog", the founding date is 2007<br/>
 >add two beers to the brewery
 >* Punk IPA (style IPA)
->* Nanny State (style lowalcohol)
+>* Nanny State (style low alcohol)
 >add a couple of ratings to both beers
 >
->Go through last week [material](https://github.com/mluukkai/webdevelopment-rails/blob/main/week1.md) in case you need and check the parts about console use.
+>Go through last week [material](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week1.md) in case you need and check the parts about console use.
 >
 >Return this exercise by adding the directory _exercises_ to your application. The directory has to contain the file exercise1, with the copy-pasted console session
 
@@ -400,7 +398,7 @@ Our database contains ratings now, and we want to make sure they appear on a pag
 
 At this point, the page should look more or less like this:
 
-![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/images/ratebeer-w2-1.png)
+![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/images/ratebeer-w2-1.png)
 
 The rating is rendered in a quite unpleasant way. This depends on the fact that the li element contains only the object name, and because we haven't defined the method <code>to_s</code> which turns the ratings to strings, the method in use is the default <code>to_s</code> method which was inherited by all classes from the parent class Object.
 
@@ -447,7 +445,7 @@ end
 
 The methods helps us to read and change the value of the object attribute. The method which changes the value does not yet implement the change in the database, which happens only when we call the <code>save</code> method, they are an example of 'getters and setters' which are generated automatically.
 
-Outsite the object, we retrieve object attributes by using 'dot notation':
+Outside the object, we retrieve object attributes by using 'dot notation':
 
     b.year
 
@@ -513,7 +511,7 @@ as you notice, the year change does not work as we expected! As far as the metho
 
     def year=(value)
 
-There is no method call which could assign a new value to the attribute. Instead, a local variable called <code>year</code> is created in the method and it is given value 2022.
+There is no method call which could assign a new value to the attribute. Instead, a local variable called <code>year</code> is created in the method, and it is given value 2022.
 
 If you want to make the assignment work, you have to call the method through a <code>self</code> reference:
 
@@ -545,21 +543,21 @@ changed year to 2022
   end
 ```
 
-The <code>code</code> inside the brewery is an attribute which is saved in the database by ActiveRecord, whereas <code>@year</code> is an instance variable of the object. Instance variables are not much used in Rails. Instance variables are used on Rails mostly to transmit information from the controlers to the views.
+The <code>code</code> inside the brewery is an attribute which is saved in the database by ActiveRecord, whereas <code>@year</code> is an instance variable of the object. Instance variables are not much used in Rails. Instance variables are used on Rails mostly to transmit information from the controllers to the views.
 
 > ## Exercise 3
 >
-> Change the ratings page so that each rating is displayed better as a string, eg. "karhu 35", which contains the name of the rated beer, followed by its rating value.
+> Change the ratings page so that each rating is displayed better as a string, e.g. "karhu 35", which contains the name of the rated beer, followed by its rating value.
 >
-> The following link might be useful to form strings: https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#merkkijonot
+> The following link might be useful to form strings: https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#merkkijonot
 >
->You can do everything directly in file views/partials/index.html.erb or optionally you create a partial template for rating. This handles diplaying a single rating.
+>You can do everything directly in file views/partials/index.html.erb or optionally you create a partial template for rating. This handles displaying a single rating.
 >
 >You can use eg. \_beer.html.erb and the responding index.html.erb files as a guide. Remember how partials files are named!
 
 After you have done the exercise, the rating pages should look more or less like this:
 
-![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/images/ratebeer-w2-2.png)
+![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/images/ratebeer-w2-2.png)
 
 Attention: when you create new code in your application, it is a good practice to make trials by hand in your console. Below, we try to use the default method <code>to_s</code> to return the value of the rating:
 
@@ -610,7 +608,7 @@ As you see above, reloading the code is not enough in itself, because the object
 
 > ## Exercise 4
 >
-> Create the method <code>avarage_rating</code> to the class <code>Beer</code> to find the avarage value of the beer ratings. Add the avarage value to the beer page __if__ the beer has ratings
+> Create the method <code>average_rating</code> to the class <code>Beer</code> to find the average value of the beer ratings. Add the average value to the beer page __if__ the beer has ratings
 >
 > The contents of the view template can be made conditional with something like this
 >
@@ -625,21 +623,21 @@ As you see above, reloading the code is not enough in itself, because the object
 
 The beer page should look more or less like the picture below, after you have done the exercise (notice that after last week, you could be showing the brewery ID instead of the brewery name on the page. If so, change your view so that it corresponds to the picture):
 
-![kuva](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/images/ratebeer-w2-3.png)
+![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/images/ratebeer-w2-3.png)
 
 > ## Exercise 5
 >
 > The module enumerable (see https://ruby-doc.org/core-3.1.2/Enumerable.html) contains a large extent of auxiliary methods to parse object collections.
 >
-> Object collection classes can include the modul enumerable functionality by inheriting it.
+> Object collection classes can include the module enumerable functionality by inheriting it.
 >
 > Get acquainted with the methods <code>map</code> and <code>reduce</code> (see for instance [reduce](https://ruby-doc.org/core-3.1.2/Enumerable.html#reduce), [map](https://ruby-doc.org/core-3.1.2/Enumerable.html#map) and google for further information) and change (in case you need) the method which calculates the rating avarage value so that it makes use of reduce or map and sum.
 >
-> Calculating the avarage value is easier in this case if you use ActiveRecord methods, see http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html
+> Calculating the average value is easier in this case if you use ActiveRecord methods, see http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html
 
 Using the console, add a rating to one previously unrated beer. The beer page should now look like the one below:
 
-![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/images/ratebeer-w2-4.png)
+![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/images/ratebeer-w2-4.png)
 
 The page has one small, but annoying grammar mistake:
 
@@ -653,7 +651,7 @@ The page has one small, but annoying grammar mistake:
 
 Make it possible that ratings are created by hand in your application from the www-page.
 
-According to Rails convensions, the form to create a Rating object has to be found at the address ratings/new, and the form can be accessed thanks to the <code>new</code> method of the ratings controller.
+According to Rails conventions, the form to create a Rating object has to be found at the address ratings/new, and the form can be accessed thanks to the <code>new</code> method of the ratings controller.
 
 Create the appropriate route in routes.rb
 
@@ -698,7 +696,7 @@ The HTML code which is rendered with the help of the view looks more or less lik
 
 As you can see, a normal HTML form is generated (you find more details at http://www.w3.org/community/webed/wiki/HTML/Training#Forms).
 
-The address where the form is sent to is /ratings and the HTTP method used is not GET but POST. There are two fields which are numbers, and their values are sent to users with a POST call as values of the variables <code>rating[beer_id]</code> and <code>rating[score]</code> arvoina.
+The address where the form is sent to is /ratings and the HTTP method used is not GET but POST. There are two fields which are numbers, and their values are sent to users with a POST call as values of the variables <code>rating[beer_id]</code> and <code>rating[score]</code>.
 
 Rails method <code>form_for</code> creates a form which works correctly and sends the data to the right address automatically. The form has input fields for all the attributes on the object in parameter.
 
@@ -707,7 +705,7 @@ You can read more about how to create forms with the <code>form_for</code> metho
 
 If we try to create ratings,nothing seems to happen. The browser's developer console however shows us that the browser has done a POST request to http://localhost:3000/ratings but the server has replied with 404.
 
-![kuva](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/images/w2-post.png)
+![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/images/w2-post.png)
 
 
 This means we have to create a route in the file config/routes.rb for sending the form:
@@ -818,7 +816,7 @@ So change your controller code to look like the following:
   end
 ```
 
-Try to create a new rating now. Against all our best hopes, the action fails and we are thrown an error message
+Try to create a new rating now. Against all our best hopes, the action fails, and we are thrown an error message
 
 ```
 ActiveModel::ForbiddenAttributesError
@@ -832,7 +830,7 @@ If the command to create the rating had been
 Rating.create beer_id: params[:rating][:beer_id], score: params[:rating][:score]
 ```
 
-which meens exactly the same as the form above because <code>params[:rating]</code> is __exactly the same__ hash as <code>beer_id:params[:rating][:beer_id], score:params[:rating][:score]</code>), we wouldn't have met any error message. Because of [information security issues](http://en.wikipedia.org/wiki/Mass_assignment_vulnerability) Rails does not allow "high-handed" mass assignments (that is to say, giving all parameters as hash) of a  <code>params</code> variable when the object is created.
+which means exactly the same as the form above because <code>params[:rating]</code> is __exactly the same__ hash as <code>beer_id:params[:rating][:beer_id], score:params[:rating][:score]</code>), we wouldn't have met any error message. Because of [information security issues](http://en.wikipedia.org/wiki/Mass_assignment_vulnerability) Rails does not allow "high-handed" mass assignments (that is to say, giving all parameters as hash) of a  <code>params</code> variable when the object is created.
 
 Starting from Rails 4, we have to specify what contents of the hash <code>params</code> we can mass-assign when we create the objects. For this, the controller uses the methods <code>require</code> and <code>permit</code> of <code>params</code>.
 
@@ -859,7 +857,7 @@ More information on how to handle form parameters in https://edgeguides.rubyonra
 
 Try now to create the rating. ATTENTION: when you use a form to create a rating, make sure that the beer ID input to the form corresponds to a beer ID which is available in the database!
 
-Creating the rating works now, check it with the console or from the page of all ratings. At least on Chrome creating a rating causes a situation where the browser seems to stay on the same page but the page "freezes". The reason for this is revealed in the log message printed into application consol:
+Creating the rating works now, check it with the console or from the page of all ratings. At least on Chrome creating a rating causes a situation where the browser seems to stay on the same page but the page "freezes". The reason for this is revealed in the log message printed into application console:
 
 ```
 ↳ app/controllers/ratings_controller.rb:12:in `create'
@@ -868,7 +866,7 @@ Completed 204 No Content in 55ms (ActiveRecord: 16.4ms | Allocations: 12093)
 ```
 So, because no view template has been configured for the create operation, the browser sends an empty response, that is, an answer that contains no HTML code. Chrome however seems to keep the previous page displayed when it receives an empty response.
 
-## Rederecting
+## Redirecting
 
 We could create the template now, but we decide that the user browser is __redirected__ to the page containing all ratings after a new rating is created. Change the controller code to look like the one below:
 
@@ -879,16 +877,16 @@ def create
 end
 ```
 
-<code>ratings_path</code> is a path auxiliary method which is provided by Rails and it means the same as "/ratings"
+<code>ratings_path</code> is a path auxiliary method which is provided by Rails, and it means the same as "/ratings"
 
-If you have created ratings where <code>beer_id</code> does not reflect an existing beer ID, you will now most likely be thrown an error message. You can distroy these ratings by hand from the Rails console in the following way:
+If you have created ratings where <code>beer_id</code> does not reflect an existing beer ID, you will now most likely be thrown an error message. You can destroy these ratings by hand from the Rails console in the following way:
 
 ```ruby
     Rating.last        # shows the rating which has been created last, check if its beer_id is incorrect
     Rating.last.delete # removes the rating which was created last
 ```
 
-You can distroy the beerless ratings also with the following one-liner:
+You can destroy the beerless ratings also with the following one-liner:
 
 ```ruby
 Rating.all.select{ |r| r.beer.nil? }.each{ |r| r.delete }
@@ -904,7 +902,7 @@ Rating.all.select{ |r| r.beer.nil? }.each(&:delete)
 
 What does the command <code>redirect_to ratings_path</code> exactly do when we use it in the controller? Usually the controller renders the appropriate view template, and the code retrieved is then returned to the browser, which renders the page on the screen.
 
-When the browser is redirected, the server sends a response which is equipped with a statuscode 302, which does not contain any HTML at all. The response contains only an address to where browser will automatically make the HTTP GET request. The redirection remains unnoticed for the browser user.
+When the browser is redirected, the server sends a response which is equipped with a status code 302, which does not contain any HTML at all. The response contains only an address to where browser will automatically make the HTTP GET request. The redirection remains unnoticed for the browser user.
 
 Try what happens if you put something like <code>redirect_to "http://www.cs.helsinki.fi"</code> as final redirection when a new rating is created!
 
@@ -926,12 +924,12 @@ Another reason concerns the browser's behaviour. If our controller rendered the 
  
 This problem does not exist with redirections: the page shown to visitors after the POST command is the page which is retrieved with the HTTP GET triggered by the redirection.
 
-The rule of thumb is that you should *always* use redirection with controllers that handle HTTP POST methods for forms. This is true not only on Rails, but more generally in Web-programming, see http://en.wikipedia.org/wiki/Post/Redirect/Get, with the only exeption if the controller operation does not work for reasons like the information sent with the form is uncorrect.
+The rule of thumb is that you should *always* use redirection with controllers that handle HTTP POST methods for forms. This is true not only on Rails, but more generally in Web-programming, see http://en.wikipedia.org/wiki/Post/Redirect/Get, with the only exception if the controller operation does not work for reasons like the information sent with the form is incorrect.
 
 Let us underline this important difference once again:
 
-* when the controller method end with the command <code>render :something</code> (which often happens implicitely), your Rails application generates an HTML page, and the server sends it to the browser to be rendered
-* when the controller finds the command  <code>redirect_to address</code>, the server sends a redirect request together with a statuscode 302 to the browser, requesting the browser to make the HTTP GET request to the address defined by the controller method. This happens automatically and the browser user will not notice the redirection
+* when the controller method end with the command <code>render :something</code> (which often happens implicitly), your Rails application generates an HTML page, and the server sends it to the browser to be rendered
+* when the controller finds the command  <code>redirect_to address</code>, the server sends a redirect request together with a status code 302 to the browser, requesting the browser to make the HTTP GET request to the address defined by the controller method. This happens automatically and the browser user will not notice the redirection
 
 **Every** Web developer has to understand the part above!
 
@@ -987,7 +985,7 @@ For instance, the last 3 routes tell us the following things:
 
 As we have already noticed,the information of the command <code>rails routes</code> arrives to the web page to render in error situations. The page even provides you with an interactive tool, which you can use to see how the application routes the input example path:
 
-![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/images/ratebeer-w2-6.png)
+![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/images/ratebeer-w2-6.png)
 
 
 > ## Exercise 7
@@ -1024,7 +1022,7 @@ If you consult page http://guides.rubyonrails.org/form_helpers.html#making-selec
 
 This means that the value of <code>beer_id</code> of the form is generated with the _select_ element of the HTML form. You can select the options of this element using the view method <code>options_from_collection_for_select</code> from the list of beers contained by the <code>@beers</code> variable. This is done by setting the beer ID (the second parameter :id) as value and the beer name (third parameter :name) is shown to the form users.
 
-The third parameter defines what individual options are shown on the form. In this case, the result of the methd _name_ for each beer. In Ruby references to method names are defined as symbols, that is, as strings starting with a colon.
+The third parameter defines what individual options are shown on the form. In this case, the result of the method _name_ for each beer. In Ruby references to method names are defined as symbols, that is, as strings starting with a colon.
 
 **Attention:** you can test the view methods from the console too. The methods can be called through the <code>helper</code> object:
 
@@ -1061,7 +1059,7 @@ The third parameter defines what individual options are shown on the form. In th
 > def new
 >  @beer = Beer.new
 >  @breweries = Brewery.all
->  @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
+>  @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Low alcohol"]
 > end
 > ```
 >
@@ -1081,7 +1079,7 @@ It is very typical, that the controller methods <code>new</code> and <code>edit<
 
 ##  REST and routing
 
-REST (representational state transfer) is an HTTP-protocol-based architecture model which is expecially used to implement web-based applications. The idea behind it is simple: the resources for editing and retrieval are defined by addresses, the request methods describe the operation for the resources, and the request body contains the data for the resources, in case they are needed.
+REST (representational state transfer) is an HTTP-protocol-based architecture model which is especially used to implement web-based applications. The idea behind it is simple: the resources for editing and retrieval are defined by addresses, the request methods describe the operation for the resources, and the request body contains the data for the resources, in case they are needed.
 
 Read now http://guides.rubyonrails.org/routing.html till point 2.5. Rails makes it easy to observe a structure such as REST. If you are interested in it, you can read more about REST from 
 [here](https://en.wikipedia.org/wiki/Representational_state_transfer), for instance.
@@ -1127,7 +1125,7 @@ Then add a link in the ratings list to delete a rating:
 </ul>
 ```
 
-Rails conventions imply that you delete objects using the HTTP DELETE method. If want to delete a rating where the ID is 5, clicking the delete button triggers a HTTP DELETE request to the address ratings/5.
+Rails conventions imply that you delete objects using the HTTP DELETE method. If you want to delete a rating where the ID is 5, clicking the delete button triggers an HTTP DELETE request to the address ratings/5.
 
 As we have mentioned before, the parameter of <code>link_to</code> can be the object which is called instead of the call <code>rating_path(rating.id)</code>. The code above can also be shortened to:
 
@@ -1167,11 +1165,11 @@ If you remove beers with ratings from your application, the ratings which belong
 >
 > Remove some beers with ratings and go to the page with all ratings. You will see the error message <code>undefined method `name' for nil:NilClass</code>
 >
-> The error is cause by the fact that it tries to call <code>beer.name</code> from the method <code>to_s</code> of the rating object.
+> The error is caused by the fact that it tries to call <code>beer.name</code> from the method <code>to_s</code> of the rating object.
 >
 > Delete the orphan ratings by hand from the console. Try to think first of a command/some commands, which can help you to make a list of the orphan ratings. If you can't think of it yourself, you can find a ready-made answer for the exercise above in this page.
 
-The ratings which belong to a beer can be deleted easily automatically. Along side the beer model code <code>has_many :ratings</code>, you should mark that ratings are dependent on beers, and that they should be destroyed if beers are distroyed:
+The ratings which belong to a beer can be deleted easily automatically. Alongside the beer model code <code>has_many :ratings</code>, you should mark that ratings are dependent on beers, and that they should be destroyed if beers are destroyed:
 
 ```ruby
 class Beer < ApplicationRecord
@@ -1216,22 +1214,22 @@ Implement this connection in your code and test the following thing from your co
 
 > ## Exercise 14
 >
-> Change the page which shows the information of the singular breweries so that it tells the amount of ratings of their beers as well as the avarage value. Add the method <code>average_rating</code> to the brewery to do this.
+> Change the page which shows the information of the singular breweries so that it tells the amount of ratings of their beers as well as the average value. Add the method <code>average_rating</code> to the brewery to do this.
 >
-> Make sure the count for the number of ratings is grammatically correct, as it was in exercise 6. If there are no ratings, do not show the avarage.
+> Make sure the count for the number of ratings is grammatically correct, as it was in exercise 6. If there are no ratings, do not show the average.
 
 The brewery page should be look more or less like the picture below after you have implemented the changes. 
 
-![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/images/ratebeer-w2-8.png)
+![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/images/ratebeer-w2-8.png)
 
-You will see, that beer and brewery both a method called <code>avarage_rating</code> which also works in the same way. You can not leave the code like this.
+You will see, that beer and brewery both a method called <code>average_rating</code> which also works in the same way. You can not leave the code like this.
 
 ## Moving common code to a module
 
 We notice that beer and brewery both have an identically named method <code>average_rating</code> that also work identically. It is not acceptable to leave our code this way.
 > ## Exercise 15
 >
-> Ruby provides you with a way to share methods between two classes with the help of modules, see https://github.com/mluukkai/WebPalvelinohjelmointi2022/blob/main/web/rubyn_perusteita.md#moduuli
+> Ruby provides you with a way to share methods between two classes with the help of modules, see https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#moduuli
 >
 > Modules have different uses – forming namespaces, for instance. However, now we are interested in the _mixin_ inheritance which can be implemented with modules.
 >
@@ -1246,9 +1244,9 @@ We notice that beer and brewery both have an identically named method <code>aver
 > end
 > ```
 >
-> - Attention: if the name of your module is <code>RatingAvarage</code>, exactly like in the example, because of Ruby naming conventions it has to be placed in the file <code>app/models/concerns/rating_average.rb</code>. In fact, even though classes names are CamelCase and start with capital letters, their files names follow the snake_case.rb style.
+> - Attention: if the name of your module is <code>RatingAverage</code>, exactly like in the example, because of Ruby naming conventions it has to be placed in the file <code>app/models/concerns/rating_average.rb</code>. In fact, even though classes names are CamelCase and start with capital letters, their files names follow the snake_case.rb style.
 
-After you have done the exercise, the class Brewery should look more or less like below (assuming your module is called RatingAvarage):
+After you have done the exercise, the class Brewery should look more or less like below (assuming your module is called RatingAverage):
 
 ```ruby
 class Brewery < ApplicationRecord
@@ -1259,7 +1257,7 @@ class Brewery < ApplicationRecord
 end
 ```
 
-and the method <code>avarage_rating</code> should still work like before:
+and the method <code>average_rating</code> should still work like before:
 
 ```ruby
 > b = Beer.first
@@ -1273,9 +1271,9 @@ and the method <code>avarage_rating</code> should still work like before:
 
 ## A simple protection
 
-At the end of the week, you now want to make your application in a way so that only the administrator is allowed to delete breweries. In week 3, you will use a more far-reaching way for autentification; implement a shortcut now, using [http basic authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). See http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Basic.html
+At the end of the week, you now want to make your application in a way so that only the administrator is allowed to delete breweries. In week 3, you will use a more far-reaching way for authentication; implement a shortcut now, using [http basic authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). See http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Basic.html
 
-At the same time, you can get to know Rails controllers _filter methods_, see hhttp://guides.rubyonrails.org/action_controller_overview.html#filters. You can use them to implement easily a particular functionality, so that some particular methods are executed before (before_action) a defined controller method.
+At the same time, you can get to know Rails controllers _filter methods_, see http://guides.rubyonrails.org/action_controller_overview.html#filters. You can use them to implement easily a particular functionality, so that some particular methods are executed before (before_action) a defined controller method.
 
 We'll define a filter method called <code>authenticate</code> for the brewery controller (which is defined as <code>private</code>). The filter has to be executed before each method of the brewery controller:
 
@@ -1296,7 +1294,7 @@ class BreweriesController < ApplicationController
 end
 ```
 
-The filter method throws an exeption. Therefore, you will be sent an exeption every time you go to whatever page of the breweries. Check this out in the browser.
+The filter method throws an exception. Therefore, you will be sent an exception every time you go to whatever page of the breweries. Check this out in the browser.
 
 Define the filter method execution so that it affects only when breweries are deleted:
 
@@ -1321,7 +1319,7 @@ Check again with your browser that other pages work, but deleting a brewery caus
 
 Implement http-basicauth authentication then (you can read more at http://blog.dcxn.com/2011/09/30/the-simplest-possible-authentication-in-rails-http-auth-basic/)
 
-Hard code an "admin" user name with the password "secret":
+Hard code an "admin" username with the password "secret":
 
 ```ruby
 class BreweriesController < ApplicationController
@@ -1348,7 +1346,7 @@ end
 
 And your application will work as desired!
 
-ATTENTION: After you have given the right user name and password once, the browser will not ask for the ID when you go to the page again. Open a new incognito window, if you want to test the sign-in process again!
+ATTENTION: After you have given the right username and password once, the browser will not ask for the ID when you go to the page again. Open a new incognito window, if you want to test the sign-in process again!
 
 The idea behind the method <code>authenticate_or_request_with_http_basic</code> is that the application requests the browser to send a username and password. These are later forwarded to the code block between <code>do</code> and <code>end</code> through the parameters <code>username</code> and <code>password</code>. If the code block is true, the page will be shown to the user.
 
@@ -1367,12 +1365,12 @@ end
 
 HTTP Basic authentication is useful for the pages simple protection needs. In more complex situations however, you will have to look for other solutions to provide better data protection.
 
-You'd better note, that the HTTP Basic authentication should not be used for other purposes than the HTTPS protocol, because user name and password are sent [Base64](http://en.wikipedia.org/wiki/Base64) encoded. This means that anyone could get to the headers and find out the password. A solution which is slightly better is the [Digest access authentication](http://en.wikipedia.org/wiki/Digest_access_authentication). In this way, users sign in with an identifier which is calculated with a one-way function and not with user name and password. Using Digest authentication is simple on Rails, see 
+You'd better note, that the HTTP Basic authentication should not be used for other purposes than the HTTPS protocol, because username and password are sent [Base64](http://en.wikipedia.org/wiki/Base64) encoded. This means that anyone could get to the headers and find out the password. A solution which is slightly better is the [Digest access authentication](http://en.wikipedia.org/wiki/Digest_access_authentication). In this way, users sign in with an identifier which is calculated with a one-way function and not with username and password. Using Digest authentication is simple on Rails, see 
 http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Digest.html
 
 > ## Exercise 16
 >
-> Expand the solution so that the program would accept other user name-password pairs which are hard coded. The available IDs are hard coded in hashes which are defined in a method. The method has to workwith hashes of arbitrary length.
+> Expand the solution so that the program would accept other user name-password pairs which are hard coded. The available IDs are hard coded in hashes which are defined in a method. The method has to work with hashes of arbitrary length.
 >
 > ```ruby
 >   def authenticate
@@ -1383,7 +1381,7 @@ http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Digest.ht
 >    end
 >  end
 > ```
-> If you test the functionality, remember that you have to use an incognito browser if you want to sign in again after giving the right combination of user name and password already once.
+> If you test the functionality, remember that you have to use an incognito browser if you want to sign in again after giving the right combination of username and password already once.
 >
 >HINT: Coming up with the correct code might be easiest with the help of a debugger. Pause the application execution:
 >
@@ -1394,7 +1392,7 @@ http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Digest.ht
 >```
 >and try what values variables _admin_accounts_, _username_ and _password_ contain ja form the right command.
 >
-> HINT 2: The code block should be evaluated either as true or untrue depending on whether the password is correct. The value doesn't however nececessarily have to be either _true_ or _false_ because Ruby interprets also other values as either true (truthy) or untrue (falsy). For example _nil_ is is interpreted as untrue/falsy. See more eg. at https://learn.co/lessons/truthiness-in-ruby-readme.
+> HINT 2: The code block should be evaluated either as true or untrue depending on whether the password is correct. The value doesn't however necessarily have to be either _true_ or _false_ because Ruby interprets also other values as either true (truthy) or untrue (falsy). For example _nil_ is interpreted as untrue/falsy. See more eg. at https://learn.co/lessons/truthiness-in-ruby-readme.
 
 ## Application to Internet
 
@@ -1402,7 +1400,7 @@ To end your week, it is time to deploy again your application to either Heroku o
 
 ## Problems with Heroku
 
-If you try to naviage to the page with all ratings, you will find the old evil error message:
+If you try to navigate to the page with all ratings, you will find the old evil error message:
 
 ![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2015/raw/master/images/ratebeer-w2-12.png)
 
@@ -1451,7 +1449,7 @@ Start heroku console with the command <code>heroku run console</code> and create
 > b.save(validate: false)
 ```
 
-and create a beer which belongs to an inexistent brewery (meaning that the reference key brewery ID is erroneous):
+and create a beer which belongs to a nonexistent brewery (meaning that the reference key brewery ID is erroneous):
 
 ```ruby
 > b = Beer.new name:"shitty beer", style:"lager", brewery_id: 123
@@ -1515,5 +1513,7 @@ Because it is a program in production, resetting the database (<code>rails db:dr
 
 Commit all your changes and push the code to Github. Deploy to the newest version to Heroku or Fly.io, as well.
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2022.
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023.
+
+And let's continue coding: [week 3](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week3.md).
 
