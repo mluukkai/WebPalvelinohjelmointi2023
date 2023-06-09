@@ -1489,7 +1489,7 @@ To end your week, it is time to deploy again your application to either Heroku o
 
 If the program updated version is deployed in heroku, you will run into problems again. The page with all ratings, the one with all users, and the signup link cause a well-known error:
 
-![picture](https://github.com/mluukkai/WebPalvelinohjelmointi2017/raw/master/images/ratebeer-w2-12.png)
+![picture](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w2-12.png)
 
 As we saw [last week](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week2.md#problems-with-heroku) you will have to find the reason from heroku logs.
 

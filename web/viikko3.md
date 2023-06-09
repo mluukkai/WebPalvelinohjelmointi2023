@@ -1469,7 +1469,7 @@ Viikon lopuksi on taas aika deployata sovellus Fly.io:n Herokuun. Deployment Fly
 
 Kun ohjelman päivitetty versio deployataan herokuun, törmätään jälleen ongelmiin. Kaikkien reittausten ja kaikkien käyttäjien sivu ja signup-linkki saavat aikaan tutun virheen:
 
-![kuva](https://github.com/mluukkai/WebPalvelinohjelmointi2017/raw/master/images/ratebeer-w2-12.png)
+![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ratebeer-w2-12.png)
 
 Kuten [viime viikolla](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko2.md#ongelmia-herokussa) jo totesimme, tulee ongelman syy selvittää herokun lokeista.
 
