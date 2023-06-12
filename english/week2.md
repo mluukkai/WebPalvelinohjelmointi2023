@@ -293,7 +293,7 @@ If you have already executed the migration, and you notice that the code created
 
     rails db:rollback
 
-In order to establish the connections at object level too (check [last week's material](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week1.md#beers-and-the-one-to-many-connection), the classes have to be updates in the following way
+In order to establish the connections at object level too (check [last week's material](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week1.md#beers-and-the-one-to-many-connection), the classes have to be updated in the following way
 
 ```ruby
 class Beer < ApplicationRecord
@@ -304,7 +304,6 @@ end
 class Rating < ApplicationRecord
   belongs_to :beer
 end
-```
 ```
 
 Each beer has many ratings and a rating belongs to one sole beer always.
@@ -412,7 +411,6 @@ Spend a second to inspect the class <code>Brewery</code>:
 class Brewery < ApplicationRecord
   has_many :beers
 end
-```
 ```
 
 The brewery has a <code>name</code> and a founding <code>year</code>. We can reach them by hand from the console:
