@@ -244,12 +244,12 @@ Note that we used a simple string "beer_index" to create a unique identifier for
 
 ## Exercise 1
 
-Change the beers list to include a button "X" (or text "remove") that will remove the beer from the database. 
+Change the beers list to include a button "X" (or text "remove") that will remove the beer from the database. Implement the changes in steps:
 
-a) Make it work first without using Turbo, allowing a full page reload after delete.
-b) Then implement dynamically removing the deleted beer from the list by using Turbo stream from controller.
-c) Then use WebSockets to stream the removal to all browsers.
-d) And finish it off by introducing a confirmation popup. When user clicks the remove button, a confirmation with text "Are you sure you want to remove beer X?" should pop up, with options "Cancel" and "Remove".
+1. Make it work first without using Turbo, allowing a full page reload after delete.
+2. Then dynamically remove the deleted beer from the list by using Turbo stream from the BeersController. 
+3. Then use WebSockets to stream the removal to all listening browsers. You need to use `after_destroy_commit` in a similar way we used `after_create_commit` above. For available callbacks, see [Transaction callbacks in Rails](https://guides.rubyonrails.org/active_record_callbacks.html#transaction-callbacks)
+4. And finish it off by introducing a confirmation popup. When user clicks the remove button, a confirmation with text "Are you sure you want to remove beer X?" should pop up, with options "Cancel" and "Remove".
 
 ## Exercise 2
 
