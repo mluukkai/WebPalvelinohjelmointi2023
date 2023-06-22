@@ -32,7 +32,7 @@ end
 
 If we wanted to do it in "Java's way" we could find the sum by going through all the ratings item after item, and we could divide it by the number of items.
 
-All Ruby's things which have something to do with collections (for instance tables and <code>hash_many</code> field) contain the auxiliary methods provided by the Enumerable module (ks. ks. http://ruby-doc.org/core-2.5.1/Enumerable.html). Now we want to use the auxiliary methods to find out the average value.
+All Ruby's things which have something to do with collections (for instance tables and <code>has_many</code> field) contain the auxiliary methods provided by the Enumerable module (ks. ks. http://ruby-doc.org/core-2.5.1/Enumerable.html). Now we want to use the auxiliary methods to find out the average value.
 
 When you write the code, you should _definitely_ use your console. In fact, the debugger would be an even better option than the console. The debugger will open the console straight in the context for which we are writing the code. Add the <code>binding.pry</code> command to the method call, which starts the debugger:
 
@@ -320,7 +320,7 @@ If using the debugger has not become a routine yet, do review last week's debugg
 
 ## Rubocop: it's all about style
 
-In bigger software projects teams usually set common styling policies, e.g. naming conventions, how brackets are placed, where to use space and where not to. Rail conventions already cover some of these, namely on class and  method naming level.
+In bigger software projects teams usually set common styling policies, e.g. naming conventions, how brackets are placed, where to use space and where not to. Rails conventions already cover some of these, namely on class and  method naming level.
 
 Let's implement [Rubocop](https://github.com/rubocop-hq/rubocop), which will help us define styling rules for our project and to enforce them. Rubocop is a similar _static analysis_ tool such as [ESLint](https://eslint.org/) from the JavaScript world and [checkstyle](http://checkstyle.sourceforge.net/) for Java.
 
@@ -328,7 +328,7 @@ Rubocop is installed from your command line
  
     gem install rubocop
 
-The styling rules monitored by Rubocop are defined in _.rubocop.yml_ that is placed in the project root. Create the file in your project (note the dot at the start of the name) and copy content for it from [here](https://github.com/mluukkai/WebPalvelinohjelmointi2023/main/misc/.rubocop.yml).
+The styling rules monitored by Rubocop are defined in _.rubocop.yml_ that is placed in the project root. Create the file in your project (note the dot at the start of the name) and copy content for it from [here](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/misc/.rubocop.yml).
 
 The rules defined there are based on the [Relaxed Ruby](https://relaxed.ruby.style/) style, but they are a bit stricter on some points. The file contents also define that some files are to be left out of any style checks.
 
@@ -400,6 +400,7 @@ Rubocop might mention in its reports that some errors could be fixed automatical
 You can fix such errors automatically with the command `rubocop -A`. 
 
 From now on, we recommend that you make sure that any code you create follows Rubocop's rules. You can edit the already configured rules to your liking if you wish.
+
 ## User and session
 
 Next, you will expand your application, so that users will be able to register a username for themselves in the system.
@@ -411,7 +412,7 @@ Start with creating a user object which has a username, and later add a password
 
 Create a model, a view, and a controller for the user, with the command <code>rails g scaffold user username:string</code>
 
-New users are created according Rails conventions with the form at the address <code>users/new</code>. It would be more natural however, if the address were <code>signup</code>. Add an optional route in routes.rb.
+New users are created according to Rails conventions with the form at the address <code>users/new</code>. It would be more natural however, if the address were <code>signup</code>. Add an optional route in routes.rb.
 
 ```ruby
 get 'signup', to: 'users#new'
@@ -464,7 +465,7 @@ Attention: almost any kind of object can be saved in the session basically, and 
 
 Create now a controller to sign in and out of your application. Typically, you should follow Rails RESTful idea and conventional path names to implement the signing in functionality.
 
-You can think of the session as something which is born when users sign up, and a session can almost be considered as the same kind of resource as a beer, fo instance. Accordingly, the controller for signing up will be called <code>SessionsController</code>.
+You can think of the session as something which is born when users sign up, and a session can almost be considered as the same kind of resource as a beer, for instance. Accordingly, the controller for signing up will be called <code>SessionsController</code>.
 
 A session resource is anyway different from beers, for instance, because users either are or are not signed in, in a particular moment. Differently than beers, a user can have not many but maximum one session. Differently than beers, it does not make sense to have a list with all sessions. Routes should be written in singular and this can be at least done when you create a session routes into routes.rb with the <code>resource</code> command:
 
@@ -487,7 +488,7 @@ class SessionsController < ApplicationController
     user = User.find_by username: params[:username]
     # saves the user ID who signed up (if the user exists)
     session[:user_id] = user.id if not user.nil?
-    #regirects the user to their own page
+    #redirects the user to their own page
     redirect_to user
   end
 
@@ -560,7 +561,7 @@ Users can now sign in the application at the address [http://localhost:3000/sess
 
 > ## Exercise 3
 >
-> Implement all the changes above and make sure that signing in works out smoothly with an existing user ID (so that a signed in user is shown on the page.) You can create an user at [http://localhost:3000/signup][/signup]). Even though signing out is not possible, you can sign in with a new ID and the old signing in will be overwritten.
+> Implement all the changes above and make sure that signing in works out smoothly with an existing user ID (so that a signed in user is shown on the page.) You can create an user at [http://localhost:3000/signup](/signup). Even though signing out is not possible, you can sign in with a new ID and the old signing in will be overwritten.
 
 ## Controller and view auxiliary method
 
@@ -604,7 +605,7 @@ The signing in address __sessions/new__ is annoying. Create another more natural
   delete 'signout', to: 'sessions#destroy'
 ```
 
-The signing in form can be found now at the address [http://localhost:3000/signin][/signin] and signing out is possible through the HTTP DELETE request to the address _signout_.
+The signing in form can be found now at the address [http://localhost:3000/signin](/signin) and signing out is possible through the HTTP DELETE request to the address _signout_.
 
 The following would also have worked
 
@@ -612,7 +613,7 @@ The following would also have worked
   get 'signout', to: 'sessions#destroy'
 ```
 
-so that singing out would happen through HTTP GET. It is not a best practice, though, that HTTP GET requests modify the application status. Stick to the the REST philosophy conventions, which tell to destroy resources with HTTP DELETE requests. In this case, the resource is only a broader concept, users signing in.
+so that signing out would happen through HTTP GET. It is not a best practice, though, that HTTP GET requests modify the application status. Stick to the the REST philosophy conventions, which tell to destroy resources with HTTP DELETE requests. In this case, the resource is only a broader concept, users signing in.
 
 > ## Exercise 4
 >
