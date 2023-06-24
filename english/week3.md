@@ -342,9 +342,9 @@ app/models/beer.rb:8:5: C: Layout/EmptyLineAfterGuardClause: Add empty line afte
     ^^^^^^^^^^^^^^^^^^^^^^^^^^
 </pre>
 
-Line 8 of file _beer.rb_ breaks the rule [Layout/EmptyLineAfterGuardClause](http://docs.rubocop.org/en/latest/cops_layout/#layoutemptylineafterguardclause).
+Line 8 of file _beer.rb_ breaks the rule [Layout/EmptyLineAfterGuardClause](https://docs.rubocop.org/rubocop/cops_layout.html#layoutemptylineafterguardclause).
 
-Documentation of the [rules](http://docs.rubocop.org/en/latest/cops/) tells us what this is all about: The problem is that there is no empty line following the first line, which is a so called _guard clause_, of our recently made method _average_. 
+Documentation of the [rules](https://docs.rubocop.org/rubocop/cops.html) tells us what this is all about: The problem is that there is no empty line following the first line, which is a so called _guard clause_, of our recently made method _average_. 
 
 ```ruby
 def average
@@ -361,7 +361,7 @@ app/models/concerns/rating_average.rb:9:38: C: Layout/SpaceAroundOperators: Surr
                                      ^
 </pre>
 
-breaks the rule that [mathematical operators must have empty spaces before and after](http://docs.rubocop.org/en/latest/cops_layout/#layoutspacearoundoperators).
+breaks the rule that [mathematical operators must have empty spaces before and after](https://docs.rubocop.org/rubocop/cops_layout.html#layoutspacearoundoperators).
 
 Many of our problems have to do with missing or extra spaces and line-breaks:
 <pre>
