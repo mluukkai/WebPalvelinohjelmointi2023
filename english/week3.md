@@ -495,7 +495,7 @@ class SessionsController < ApplicationController
   def destroy
     # resets the session
     session[:user_id] = nil
-    # redericts the application to the main page
+    # redirects the application to the main page
     redirect_to :root
   end
 end
@@ -800,7 +800,7 @@ Our application has a small problem now: it is possible to create many users wit
 
 A versatile mechanism to validate object fields comes built-in with Rails, see http://guides.rubyonrails.org/active_record_validations.html.
 
-Validating the unity of usernames is simple, and you just need to add a short chunk of code to your User class:
+Validating the uniqueness of usernames is simple, and you just need to add a short chunk of code to your User class:
 
 ```ruby
 class User < ApplicationRecord
@@ -1026,7 +1026,7 @@ end
 >
 >   validates :year, numericality: { less_than_or_equal_to: Time.now.year }
 >
-> <code>Time.now.year</code> is evaluated when the program loads the class code. If the program starts to run at the end of 2021, in 2022 users will not be able to register a 2022 brewery, because when the program started it evaluated 2021 as the year upper limit and the validation will fail.>
+> <code>Time.now.year</code> is evaluated when the program loads the class code. If the program starts to run at the end of 2021, in 2022 users will not be able to register a 2022 brewery, because when the program started it evaluated 2021 as the year upper limit and the validation will fail.
 > A possible way is defining your own validation method http://guides.rubyonrails.org/active_record_validations.html#custom-methods
 >
 > You could find an even shorter solution in terms of code, a hint could be lambda/Proc/whatever...
