@@ -179,7 +179,7 @@ the mapping function is given as a code chunk between curly brackets which is gi
 
 The map method makes use of the rating collection to help you build the values of the table ratings. You'll have to sum these values next.
 
-Rails has added the method [sum](http://apidock.com/rails/Enumerable/sum) to all Enumeberables. Try that out on the table you got with map.
+Rails has added the method [sum](http://apidock.com/rails/Enumerable/sum) to all Enumerables. Try that out on the table you got with map.
 
 ```ruby
 (ruby) ratings.map { |r| r.score }.sum
@@ -382,7 +382,7 @@ app/models/rating.rb:7:1: C: Layout/TrailingWhitespace: Trailing whitespace dete
 >
 > NOTE: You can also run the check for just one  file/directory. Eg. command _rubocop app/models/beer.rb_ checks file _beer.rb_
 >
-> NOTE2: If you don't quite understand some error, check the [documentation](https://docs.rubocop.org/rubocop/.
+> NOTE2: If you don't quite understand some error, check the [documentation](https://docs.rubocop.org/rubocop/).
 
 > ## Exercise 2
 >
@@ -433,7 +433,7 @@ Store the rating session by adding the following chunk in the rating controller:
 
 ```ruby
 def create
-  # save the creted rating into a variable
+  # save the created rating into a variable
   rating = Rating.create params.require(:rating).permit(:score, :beer_id)
 
   # save the rating to a session
@@ -488,14 +488,14 @@ class SessionsController < ApplicationController
     user = User.find_by username: params[:username]
     # saves the user ID who signed up (if the user exists)
     session[:user_id] = user.id if not user.nil?
-    #redirects the user to their own page
+    # redirects the user to their own page
     redirect_to user
   end
 
   def destroy
     # resets the session
     session[:user_id] = nil
-    # redericts the application to the main page
+    # redirects the application to the main page
     redirect_to :root
   end
 end
@@ -613,7 +613,7 @@ The following would also have worked
   get 'signout', to: 'sessions#destroy'
 ```
 
-so that signing out would happen through HTTP GET. It is not a best practice, though, that HTTP GET requests modify the application status. Stick to the the REST philosophy conventions, which tell to destroy resources with HTTP DELETE requests. In this case, the resource is only a broader concept, users signing in.
+so that signing out would happen through HTTP GET. It is not a best practice, though, that HTTP GET requests modify the application status. Stick to the REST philosophy conventions, which tell to destroy resources with HTTP DELETE requests. In this case, the resource is only a broader concept, users signing in.
 
 > ## Exercise 4
 >
@@ -682,7 +682,7 @@ end
 
 In order to implement the migration change, execute the well-known command <code>rails db:migrate</code> from the command line.
 
-Migration are a vast field, and we will go back to them later on in the course. More information about migrations can be found at the address http://guides.rubyonrails.org/migrations.html
+Migrations are a vast field, and we will go back to them later on in the course. More information about migrations can be found at the address http://guides.rubyonrails.org/migrations.html
 
 You will see from the console, that the connection between objects is implemented correctly:
 
@@ -714,7 +714,7 @@ We will define the first user created as the user of all the existing ratings:
 
 > ## Exercise 5
 >
->  Add the followin things in the user page, which is the view app/views/users/show.html.erb:
+>  Add the following things in the user page, which is the view app/views/users/show.html.erb:
 > – the amount of that user's ratings and their avarage (attention: use the module defined last week, <code>RatingAvarage</code> to find the avarage!)
 > – a list of the user ratings and the possibility to delete them
 >
@@ -756,7 +756,7 @@ The page with all ratings should look like below, after doing the exercise:
 
 Your application will give you pains at the moment, if users try to sign in with a username which does not exist.
 
-Change your application to dedirect users back to the sign in page, if signing in does not work out. Change the session controller like below:
+Change your application to redirect users back to the sign in page, if signing in does not work out. Change the session controller like below:
 
 ```ruby
 def create
@@ -790,7 +790,7 @@ If you want that your message will be seen in the sign up page, add the element 
 <p style="color: red"><%= notice %></p>
 ```
 
-The element is ready in the user page template (unless you have deleted it by mistake), so the message will work there.
+The element is already in the user page template (unless you have deleted it by mistake), so the message will work there.
 
 The __flashes__ are the messages connected to e.g. redirections and that are remembered until the next HTTP request and that are shown on the page when needed. They are implemented in Rails thanks to the sessions, more about this at http://guides.rubyonrails.org/action_controller_overview.html#the-flash
 
@@ -800,7 +800,7 @@ Our application has a small problem now: it is possible to create many users wit
 
 A versatile mechanism to validate object fields comes built-in with Rails, see http://guides.rubyonrails.org/active_record_validations.html.
 
-Validating the unity of usernames is simple, and you just need to add a short chunk of code to your User class:
+Validating the uniqueness of usernames is simple, and you just need to add a short chunk of code to your User class:
 
 ```ruby
 class User < ApplicationRecord
@@ -880,7 +880,7 @@ so the first line of the method <code>create</code> is the same as
    @user = User.new(params.require(:user).permit(:username))
 ```
 
-So what does <code>respond_to</code> at the end of the method do? If the object is created with a normal form and and the browser expects to receive an HTML answer, the functionality will be this, by default:
+So what does <code>respond_to</code> at the end of the method do? If the object is created with a normal form and the browser expects to receive an HTML answer, the functionality will be this, by default:
 
 ```ruby
 if @user.save
@@ -977,12 +977,12 @@ Take the view template views/users/_form.html.erb as example and change your for
 <% end %>
 ```
 
-When it finds validation errors, the view template renders all the error message contained in <code>@rating.errors.full_messages</code>.
+When it finds validation errors, the view template renders all the error messages contained in <code>@rating.errors.full_messages</code>.
 
 **Attention:** when the validation fails the redirection is not executed (why doesn't it work here?), but the view template is rendered instead, as it usually happens when you execute the <code>new</code> method.
 
 You find help for the next exercises at
-http://guides.rubyonrails.org/active_record_validations.html ja https://apidock.com/rails/v4.2.7/ActiveModel/Validations/ClassMethods/validates
+http://guides.rubyonrails.org/active_record_validations.html and https://apidock.com/rails/v4.2.7/ActiveModel/Validations/ClassMethods/validates
 
 > ## Exercise 7
 >
@@ -1026,10 +1026,10 @@ end
 >
 >   validates :year, numericality: { less_than_or_equal_to: Time.now.year }
 >
-> <code>Time.now.year</code> is evaluated when the program loads the class code. If the program starts to run at the end of 2021, in 2022 users will not to be able to register a 2022 brewery, because when the program started it evaluated 2021 as the year upper limit and the validation will fail.>
+> <code>Time.now.year</code> is evaluated when the program loads the class code. If the program starts to run at the end of 2021, in 2022 users will not be able to register a 2022 brewery, because when the program started it evaluated 2021 as the year upper limit and the validation will fail.
 > A possible way is defining your own validation method http://guides.rubyonrails.org/active_record_validations.html#custom-methods
 >
-> You could find even an even shorter solution in terms of code, a hint could be lambda/Proc/whatever...
+> You could find an even shorter solution in terms of code, a hint could be lambda/Proc/whatever...
 
 
 ## Connections many to many
@@ -1263,7 +1263,7 @@ irb(main):006:0>
 
 the method <code>authenticate</code> returns <code>false</code> if the password given as parameter is wrong. If the password is right. the method returns the object itself.
 
-Implement the functionality to check the password when users sign in. Change first the sing-in page (app/views/sessions/new.html.erb) so that in addition to asking the username, it asks for the password as well (notice that the type of the form field is *password_field*, which only shows stars instead of the written password):
+Implement the functionality to check the password when users sign in. Change first the sign-in page (app/views/sessions/new.html.erb) so that in addition to asking the username, it asks for the password as well (notice that the type of the form field is *password_field*, which only shows stars instead of the written password):
 
 ```erb
 <h1>Sign in</h1>
@@ -1324,7 +1324,7 @@ Attention: If you get the error message  <code>BCrypt::Errors::InvalidHash</code
 
 > ## Exercise 12
 >
-> Implement a user validation to the class, to make sure the password is at least four characters longs and it contains at least one capital letter and one figure (You don't need to worry about the scandic letters (ä, ö, ... )).
+> Implement a user validation to the class, to make sure the password is at least four characters long and it contains at least one capital letter and one figure (You don't need to worry about the scandic letters (ä, ö, ... )).
 
 **Attention**: you can test Ruby's regular expressions with the Rubular application: http://rubular.com/. You can of course solve this exercise with other techniques as well.
 
@@ -1357,7 +1357,7 @@ There is no reason actually why you should show the rating remove link in other 
 </ul>
 ```
 
-Notice that simply removing the **delete** link does not prevent deleting other users ratings, because it is extremely easy to make an HTTP DELETE operation to the urls of a of ratings. Therefore, it is essential to check the identity of the signed-in user in the control method which executes the deletion.
+Notice that simply removing the **delete** link does not prevent deleting other users ratings, because it is extremely easy to make an HTTP DELETE operation to the urls of ratings. Therefore, it is essential to check the identity of the signed-in user in the control method which executes the deletion.
 
 > ## Exercise 13
 >
@@ -1519,7 +1519,7 @@ The issue with the rating page will not be solved with the help of migrations, a
 2022-08-24T16:28:33.610241+00:00 app[web.1]: [2fb11437-8b3c-4ec2-a65c-5f725a7e65b4] app/models/rating.rb:10:in `to_s'
 ```
 
-The reason is the old one – the view code tries to call the <code>username</code> method of a nil object. It must be beacuse of the parameter in the <code>link_to</code> method
+The reason is the old one – the view code tries to call the <code>username</code> method of a nil object. It must be because of the parameter in the <code>link_to</code> method
 
 ```ruby
     rating.user.username
