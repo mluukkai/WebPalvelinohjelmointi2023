@@ -155,7 +155,7 @@ Remember to also update our cache key to include our new `@page` variable:
 <% cache "beerlist-#{@page}-#{@order}", skip_digest: true do %>
 ```
 
-![image](../images/ratebeer-w8-a1.png)
+![image](../images/ratebeer-w8-1.png)
 
 And voilà! We have working pagination for our beers. But one thing that is kinda annoying is that when we navigate between the pages, the whole pages gets reloaded with menus and all even though the contents of the table are the only thing changing. Here is where we come to where Turbo Frames can help us...
 
@@ -203,11 +203,11 @@ Turbo frame will now take every link and button inside it into its control and r
 
 `turbo_frame_request?` conditional will make sure that when the request comes inside a turbo frame, only the partial containing our beer table is returned. We can now even check what happens inside the network tab of our browser's developer tools.
 
-![image](../images/ratebeer-w8-a2.png)
+![image](../images/ratebeer-w8-2.png)
 
 We see that our headers contain id of the turbo frame we are targeting so Turbo knows which part of the page to replace.
 
-![image](../images/ratebeer-w8-a3.png)
+![image](../images/ratebeer-w8-3.png)
 
 And we see that indeed our response contains only the partial and nothing else. Turbo has automatically even prevented our application layout coming with the html document.
 
@@ -366,7 +366,7 @@ And in `app/views/breweries/_new.html.erb` define which part of the view you wan
 # ...
 ```
 
-![image](../images/ratebeer-w8-a4.png)
+![image](../images/ratebeer-w8-4.png)
 
 This allows us to add breweries directly from the index. But on closer look, adding a brewery does a full update of the page. That is not want we want. To only append the created brewery to the list and keep the rest of the page as it was, we need to change the response in controller `app/controllers/breweries_controller.rb`:
 
@@ -394,7 +394,7 @@ This is only adding couple lines of code. But a lot of things are needed for thi
 
 (1) When browser creates the new request, Turbo framework adds `text/vnd.turbo-stream.html` to the request's `Accept` headers.
 
-![image](../images/ratebeer-w8-a5.png)
+![image](../images/ratebeer-w8-5.png)
 
 (2) Based on the Accept header, the controller knows to only return a turbo_stream template instead of a full page update
 
@@ -442,7 +442,7 @@ end
 
 This means that each time a new brewery is created, an `append` action is triggered, broadcast to channel `breweries_index`, targeting element with ID `active_brewery_rows` or `retired_brewery_rows` depending on its status and using the `_brewery_row.html.erb` partial to create the template. This is almost exactly the same thing that we did earlier by responding to a client request with the fragment. The difference is that the HTML fragment is broadcast to all browsers subscribed to this channel. And the fact that it is using Websockets for communication. You can verify it (almost) works by opening two browser windows side by side and creating new a new brewery.
 
-![image](../images/ratebeer-w8-a6.png)
+![image](../images/ratebeer-w8-6.png)
 
 As you notice, we have a problem. The user who is adding new breweries, gets duplicate entries on the list. Pause here for a moment and think why this happens.
 
@@ -464,7 +464,7 @@ In `app/views/beers/_brewery_row.html`:
 This way each row has a unique identifier which prevents the duplication. This unique identifier is actually required if we would like to, for example, trigger a remove action to a brewery.
 
 You can observe the WebSocket connection details using browser developer tools and WS selection from Network tab:
-![image](../images/ratebeer-w8-a7.png)
+![image](../images/ratebeer-w8-7.png)
 
 Note that we used a simple string "beer_index" to create a unique identifier for the channel. That was sufficient since there is only one beer_index. But in some cases we would like to use an object to identify the stream. For example, if we would implement ability to add new beers to a particular brewery from the Brewery page and stream the added data only to that page, we would want to use something like  `@brewery`instead of `"beer_index"`. This way, multiple users could be on different brewery pages and streaming would be able to target those pages. 
 
