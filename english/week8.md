@@ -9,10 +9,15 @@
   * [Turbo Frames](#turbo-frames)
   * [Turbo Steams](#turbo-streams)
     * [Turbo Streams Actions](#turbo-steams-actions)
-    * [Targeting Elements in Views for Turbo Actions](#targeting-elements-in-views-for-turbo-actions)
-    * [Utilizing Partial Templates for Turbo Streams](#utilizing-partial-templates-for-turbo-streams)
+    * [Turbo Streams Targets](#turbo-streams-targets)
+    * [Turbo Streams Templates](#turbo-streams-templates)
     * [Dynamic Updates with ActionCable](#dynamic-updates-with-actioncable)
   * [Stimulus](#stimulus)
+    * [Stimulus Controllers](#stimulus-controllers)
+    * [Stimulus Actions](#stimulus-actions)
+    * [Stimulus Targets](#stimulus-targets)
+    * [Stimulus Values](#stimulus-values)
+    * [Lifecycle Methods](#lifecycle-methods)
 * [Turbo Streams Exercises](#turbo-streams-exercises)
   * [Implementing Beer Removal with Confirmation Pop-up](#implementing-beer-removal-with-confirmation-pop-up)
   * [Dynamic Updating of Active and Retired Breweries](#dynamic-updating-of-active-and-retired-breweries)
@@ -83,7 +88,7 @@ The operations that can be applied to a target element include:
 | `update`  | Updates specific attributes or properties of the target element.  |
 | `remove`  | Removes the target element from the DOM.                          |
 
-#### Targeting Elements in Views for Turbo Actions
+#### Turbo Streams Targets
 
 In order for __actions__ to function properly, Turbo requires the identification of target elements within the DOM. This can be achieved by assigning unique HTML `id` parameters to individual elements or by utilizing `class` parameters to target multiple elements.
 
@@ -111,7 +116,7 @@ Alternatively, when targeting __multiple elements__ based on specific [CSS class
 
 The remove action can be used to remove all elements with the class `lager` by targeting the CSS selector `.lager`.
 
-#### Utilizing Partial Templates for Turbo Streams
+#### Turbo Steams Templates
 
 To leverage the capabilities of Turbo Streams, view templates should be designed as [partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials) that can be rendered individually. This enables targeted streaming of changes to specific components. For example, when streaming updates for beers and appending new beer rows to a list, the beer row should be implemented as a partial.
 
@@ -289,6 +294,8 @@ It's worth noting that in our example, we used a simple string, `beer_index`, as
 
 One of the notable advantages of Stimulus is its seamless integration with Rails, making it an ideal choice for web applications built on the Rails framework. Leveraging the latest browser technologies, Stimulus delivers a fast and seamless user experience, ensuring optimal performance.
 
+Stimulus utilizes key concepts such as __controllers__, __actions__, __targets__, and __values__ to determine the appropriate actions to apply to specific target elements based on specific data.
+
 __Benefits__
 
 * Reduces the amount of custom JavaScript required to implement common functionality, streamlining development efforts.
@@ -303,11 +310,148 @@ __Considerations__
 
 #### Stimulus Controllers
 
+When working with Stimulus, it is essential to follow a specific naming convention for __controller__ files. Each controller file should be named in the format `[identifier]_controller.js`, where the identifier corresponds to the data-controller attribute associated with the respective controller in your HTML markup.
+By adhering to this naming convention, Stimulus can seamlessly link the controllers in your HTML with their corresponding JavaScript files.
+
+Here is an example of a controller named `hello_controller.js` located in the file path `/app/javascript/controllers/hello_controller.js`:
+
+```javascript
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {}
+```
+
+In the example below, a `<div>` element is associated with the data-controller attribute, which has the value `hello`. This binds it to the Stimulus controller named `hello_controller.js` (as shown above). It's important to note that the scope of a Stimulus controller includes the element it is connected to and its children, but not the surrounding elements. For instance, in the example below, the `<div>`, `<input>`, and `<button>` are part of the controller's scope, while the surrounding `<h1>` element is not.
+
+```html
+<h1>Greetings</h1>
+<div data-controller="hello">
+  <input type="text" />
+  <button>Greet</button>
+</div>
+```
+
 #### Stimulus Actions
+
+__Actions__ in Stimulus are methods defined within a controller that respond to user events or changes in the application state. These actions are identified using the data-action attribute and can be triggered by various events, such as clicks, form submissions, or custom events.
+
+For example, to add an action to a `<button>` element, you can use the data-action attribute with the format `event->controller#method`. In the following example, a click event listener is attached to the `<button>` element with the controller identifier `hello`, and it calls the `greet` method when clicked.
+
+```html
+<h1>Greetings</h1>
+<div data-controller="hello">
+  <input type="text" />
+  <button data-action="click->hello#greet">Greet</button>
+</div>
+```
+
+Stimulus provides default events for certain elements, which means that the click event can be omitted from the data-action attribute for buttons. For example, `<button data-action="hello#greet">Greet</button>` would achieve the same result.
+
+Here is a complete list of elements and their default events:
+
+| Element             | Default Event   |
+|---------------------|-----------------|
+| `a`                 | `click`         |
+| `button`            | `click`         |
+| `details`           | `toggle`        |
+| `form`              | `submit`        |
+| `input`             | `input`         |
+| `input type=submit` | `click`         |
+| `select`            | `change`        |
+| `textarea`          | `input`         |
 
 #### Stimulus Targets
 
+__Targets__ in Stimulus are special attributes that allow a controller to reference and manipulate specific elements within its scope. To define targets, you need to add the `data-[controller name]-target` attribute to the HTML elements. Stimulus scans your controller class and identifies target names in the static `targets` array. It automatically adds three properties for each target name: `sourceTarget`, which evaluates to the first matching target element, `sourceTargets`, which evaluates to an array of all matching target elements, and `hasSourceTarget`, which returns boolean value `true` or `false` depending on the presence of a matching target.
+
+```html
+<h1>Greetings</h1>
+<div data-controller="hello">
+  <input data-hello-target="name" type="text" />
+  <button data-action="hello#greet">Greet</button>
+</div>
+```
+
+To add the target's name to the controller's list of target definitions, you need to update the `hello_controller.js` file accordingly. This will automatically create a property named `nameTarget` that returns the first matching target element. You can then use this property to read the value of the element and build the greeting string.
+
+```javascript
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+  static targets = ["name"];
+
+  greet() {
+    const name = this.nameTarget.value;
+    console.log(`Hello, ${name}!`);
+  }
+}
+```
+
 #### Stimulus Values
+
+__Values__ in Stimulus are a way to store and access data within a controller using the `value` method. These values can be declared in various ways, such as static values defined in the controller, attributes on HTML elements, or dynamic values. 
+
+In the example below, the attribute `data-hello-greeting-value` is used to add a value to an HTML element. In this case, the value is set to `Welcome`.
+
+```html
+<h1>Greetings</h1>
+<div data-controller="hello" data-hello-greeting-value="Welcome">
+  <input data-hello-target="name" type="text" />
+  <button data-action="hello#greet">Greet</button>
+</div>
+```
+
+In the controller file `hello_controller.js`, a static values array is created, including the attribute name `greeting` with a type of `String`. By adding the attribute `data-hello-greeting-value="Welcome"` to the `<div>` element, the value `Welcome` is assigned to the `greetingValue` variable in the controller. This value can then be accessed and used within the controller's code.
+
+```javascript
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+  static targets = ["name"];
+  static values = { greeting: String };
+
+  greet() {
+    const name = this.nameTarget.value;
+    console.log(`${this.greetingValue}, ${name}!`);
+  }
+}
+```
+
+### Lifecycle Methods
+
+Lifecycle methods in Stimulus provide a capability for executing code at specific stages in the lifecycle of a controller. These methods, defined within the controller class, offer hooks for initialization, connection to the DOM, and disconnection from the DOM.
+
+Here is an example showcasing the available lifecycle methods in a Stimulus controller:
+
+```javascript
+import { Controller } from 'stimulus';
+
+export default class extends Controller {
+  initialize() {
+    // Executed once when the controller is first instantiated
+  }
+
+  [name]TargetConnected(target) {
+    // Executed anytime a target is connected to the DOM
+  }
+
+  [name]TargetDisconnected(target) {
+    // Executed anytime a target is disconnected from the DOM
+  }
+
+  connect() {
+    // Executed when the controller is connected to the DOM
+  }
+
+  disconnect() {
+    // Executed when the controller is disconnected from the DOM
+  }
+}
+```
+
+These lifecycle methods provide developers with the flexibility to perform specific tasks at appropriate points in the controller's lifecycle. The `initialize` method can be used for initial setup or one-time actions. The `[name]TargetConnected` and `[name]TargetDisconnected` methods enable dynamic handling of targets as they are connected or disconnected from the DOM. The `connect` and `disconnect` methods offer a convenient way to set up or clean up resources associated with the controller when it is connected or disconnected from the DOM.
+
+By leveraging these lifecycle methods, developers can ensure proper initialization, respond to changes in DOM state, and maintain organized and maintainable code in their Stimulus controllers.
 
 ## Turbo Streams Exercises
 
