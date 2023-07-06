@@ -18,10 +18,11 @@
     * [Stimulus Targets](#stimulus-targets)
     * [Stimulus Values](#stimulus-values)
     * [Lifecycle Methods](#lifecycle-methods)
-* [Turbo Streams Exercises](#turbo-streams-exercises)
-  * [Implementing Beer Removal with Confirmation Pop-up](#implementing-beer-removal-with-confirmation-pop-up)
-  * [Dynamic Updating of Active and Retired Breweries](#dynamic-updating-of-active-and-retired-breweries)
-* [Stimus Exercises](#stimulus-exercises)
+* [Exercises](#exercises)
+  * [Turbo Streams Exercises](#turbo-streams-exercises)
+    * [Implementing Beer Removal with Confirmation Pop-up](#implementing-beer-removal-with-confirmation-pop-up)
+    * [Dynamic Updating of Active and Retired Breweries](#dynamic-updating-of-active-and-retired-breweries)
+  * [Stimus Exercises](#stimulus-exercises)
 * [ActionCable, Redis, and Fly.io Integration](#actioncable-redis-and-flyio-integration)
 
 ## Introduction to Hotwire
@@ -313,7 +314,7 @@ __Considerations__
 When working with Stimulus, it is essential to follow a specific naming convention for __controller__ files. Each controller file should be named in the format `[identifier]_controller.js`, where the identifier corresponds to the data-controller attribute associated with the respective controller in your HTML markup.
 By adhering to this naming convention, Stimulus can seamlessly link the controllers in your HTML with their corresponding JavaScript files.
 
-Here is an example of a controller named `hello_controller.js` located in the file path `/app/javascript/controllers/hello_controller.js`:
+Here is an example of a controller named `hello_controller.js` located at the file path `/app/javascript/controllers/hello_controller.js`:
 
 ```javascript
 import { Controller } from "@hotwired/stimulus";
@@ -453,9 +454,11 @@ These lifecycle methods provide developers with the flexibility to perform speci
 
 By leveraging these lifecycle methods, developers can ensure proper initialization, respond to changes in DOM state, and maintain organized and maintainable code in their Stimulus controllers.
 
-## Turbo Streams Exercises
+## Exercises
 
-### Implementing Beer Removal with Confirmation Pop-up
+### Turbo Streams Exercises
+
+#### Implementing Beer Removal with Confirmation Pop-up
 
 Enhance the beers list functionality by adding a button or text "X" for removing a beer from the database. The implementation should follow these steps:
 
@@ -471,10 +474,13 @@ Leverage WebSockets to stream the removal action to all connected browsers in re
 4. __Confirmation Pop-up__
 Enhance the user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove beer X?". The pop-up should provide options for "Cancel" and "Remove" actions.
 
-### Dynamic Updating of Active and Retired Breweries
+#### Dynamic Updating of Active and Retired Breweries
 
 On the front page, you will find two sections: _Number of Active Breweries_ and _Number of Retired Breweries_. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
 
+### Stimulus Exercises
+
+TBA
 
 ## ActionCable, Redis, and Fly.io Integration
 
@@ -507,7 +513,3 @@ By default, Fly.io configures your `Gemfile` with a Redis gem version higher tha
 ```ruby
 gem "redis", ">= 3", "< 5"
 ```
-
-## Stimulus Exercises
-
-TBA
