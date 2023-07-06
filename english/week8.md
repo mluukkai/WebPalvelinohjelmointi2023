@@ -12,6 +12,7 @@
     * [Targeting Elements in Views for Turbo Actions](#targeting-elements-in-views-for-turbo-actions)
     * [Utilizing Partial Templates for Turbo Streams](#utilizing-partial-templates-for-turbo-streams)
     * [Dynamic Updates with ActionCable](#dynamic-updates-with-actioncable)
+  * [Stimulus](#stimulus)
 * [Turbo Stream Exercises](#turbo-stream-exercises)
   * [Implementing Beer Removal with Confirmation Pop-up](#implementing-beer-removal-with-confirmation-pop-up)
   * [Dynamic Updating of Active and Retired Breweries](#dynamic-updating-of-active-and-retired-breweries)
@@ -33,7 +34,7 @@ With the introduction of Hotwire, Rails aims to tackle the challenges posed by t
 
 Hotwire encompasses three core components, each serving a specific purpose: Turbo, Stimulus, and Strada (not covered in this course).
 
-### Turbo
+1. __Turbo__
 
 __Turbo Frames__ and __Turbo Streams__ enhance page loading speed by dividing the page into components and facilitating dynamic updates.
 
@@ -41,11 +42,11 @@ __Turbo Frames__ and __Turbo Streams__ enhance page loading speed by dividing th
 * __Turbo Streams over Action Cable__ - Real-time updates using Action Cable's WebSocket framework.
 * __WebSockets with Turbo__ - Bidirectional communication for real-time updates and interactivity.
 
-### Stimulus
+2. __Stimulus__
 
 Stimulus is a lightweight Javascript framework that enhances interactivity and user interactions in server-rendered HTML views. By attaching JavaScript behavior to HTML elements, it improves the user experience without complex frameworks or extensive coding.
 
-### Strada
+3. __Strada__
 
 Strada is an extension of Hotwire that allows developers to build iOS and Android applications using Rails and Turbo. Currently, Strada is being developed as separate repositories: [turbo-ios](https://github.com/hotwired/turbo-ios) for iOS and [turbo-android](https://github.com/hotwired/turbo-android) for Android, respectively.
 
@@ -280,6 +281,10 @@ To observe the WebSocket connection details, you can use the browser's developer
 ![image](../images/ratebeer-w8-4.png)
 
 It's worth noting that in our example, we used a simple string, `beer_index`, as the identifier for the channel since there is only one `beer_index`. However, in certain scenarios, you may want to use an object to identify the stream. For instance, if you implement the ability to add new beers to a specific brewery from the Brewery page and stream the added data only to that page, you would want to use something like `@brewery` instead of `"beer_index"`. This way, multiple users on different brewery pages can be targeted with the streaming updates.
+
+### Stimulus
+
+TBA
 
 ## Turbo Stream Exercises
 
