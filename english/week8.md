@@ -13,9 +13,10 @@
     * [Utilizing Partial Templates for Turbo Streams](#utilizing-partial-templates-for-turbo-streams)
     * [Dynamic Updates with ActionCable](#dynamic-updates-with-actioncable)
   * [Stimulus](#stimulus)
-* [Turbo Stream Exercises](#turbo-stream-exercises)
+* [Turbo Streams Exercises](#turbo-streams-exercises)
   * [Implementing Beer Removal with Confirmation Pop-up](#implementing-beer-removal-with-confirmation-pop-up)
   * [Dynamic Updating of Active and Retired Breweries](#dynamic-updating-of-active-and-retired-breweries)
+* [Stimus Exercises](#stimulus-exercises)
 * [ActionCable, Redis, and Fly.io Integration](#actioncable-redis-and-flyio-integration)
 
 ## Introduction to Hotwire
@@ -284,9 +285,31 @@ It's worth noting that in our example, we used a simple string, `beer_index`, as
 
 ### Stimulus
 
-TBA
+[Stimulus](https://stimulus.hotwired.dev/) is a JavaScript framework designed to enhance interactivity in HTML, eliminating the need for extensive custom JavaScript development. By utilizing a set of JavaScript modules that can be seamlessly attached to HTML elements using specific attributes, Stimulus enables developers to create simpler and more maintainable code.
 
-## Turbo Stream Exercises
+One of the notable advantages of Stimulus is its seamless integration with Rails, making it an ideal choice for web applications built on the Rails framework. Leveraging the latest browser technologies, Stimulus delivers a fast and seamless user experience, ensuring optimal performance.
+
+__Benefits__
+
+* Reduces the amount of custom JavaScript required to implement common functionality, streamlining development efforts.
+* Provides a straightforward and intuitive API for dispatching and listening to events on webpages, simplifying event handling.
+* Enhances performance by avoiding the overhead associated with full-fledged JavaScript frameworks.
+
+__Considerations__
+
+* Stimulus may not be the ideal choice for complex applications that demand extensive client-side functionality.
+* Careful organization and structuring of Stimulus controllers is necessary to prevent bloated and unmanageable code.
+* Developers who are unfamiliar with the Stimulus framework may experience a learning curve and added complexity during development.
+
+#### Stimulus Controllers
+
+#### Stimulus Actions
+
+#### Stimulus Targets
+
+#### Stimulus Values
+
+## Turbo Streams Exercises
 
 ### Implementing Beer Removal with Confirmation Pop-up
 
@@ -340,3 +363,7 @@ By default, Fly.io configures your `Gemfile` with a Redis gem version higher tha
 ```ruby
 gem "redis", ">= 3", "< 5"
 ```
+
+## Stimulus Exercises
+
+TBA
