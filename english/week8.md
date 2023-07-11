@@ -18,6 +18,7 @@
     * [Stimulus Targets](#stimulus-targets)
     * [Stimulus Values](#stimulus-values)
     * [Lifecycle Methods](#lifecycle-methods)
+    * [Application Example](#application-example)
 * [Exercises](#exercises)
   * [Turbo Streams Exercises](#turbo-streams-exercises)
     * [Implementing Beer Removal with Confirmation Pop-up](#implementing-beer-removal-with-confirmation-pop-up)
@@ -125,6 +126,7 @@ To leverage the capabilities of Turbo Streams, view templates should be designed
 
 To prepare the Beers index page for streaming, extract the row rendering logic from the `app/views/beers/index.html.erb` file and create a new partial file `app/views/beers/_beer_row.html.erb`:
 
+__app/views/beers/_beer_row.html.erb__
 ```erb
 <tbody>
   <% @beers.each do |beer| %>
@@ -140,6 +142,7 @@ To prepare the Beers index page for streaming, extract the row rendering logic f
 
 Replace the original code in `app/views/beers/index.html.erb` with the new partial:
 
+__app/views/beers/index.html.erb__
 ```erb
 <tr>
   <td><%= link_to beer.name, beer %></td>
@@ -151,6 +154,7 @@ Replace the original code in `app/views/beers/index.html.erb` with the new parti
 
 Make sure to assign a unique ID to the table body element, such as `id="beer_rows"`. This ID will be used to target the action of appending new beers as children of the table.
 
+__app/views/beers/_beer_row.html.erb__
 ```erb
 <tbody id="beer_rows">
   <% @beers.each do |beer| %>
@@ -163,12 +167,14 @@ Make sure to assign a unique ID to the table body element, such as `id="beer_row
 
 Next, let's enable the addition of new beers directly from the index page. Replace the following code in `app/views/beers/index.html.erb`:
 
+__app/views/beers/index.html.erb__
 ```erb
 <%= link_to('New Beer', new_beer_path) if current_user %>
 ```
 
 With the following Turbo Frame tag:
 
+__app/views/beers/index.html.erb__
 ```erb
 <% if current_user %>
   <%= turbo_frame_tag "new_beer", src: new_beer_path %>
@@ -181,6 +187,7 @@ This Turbo Frame will include a part of our existing code from the `new_beer` pa
 
 Create a new partial file `app/views/beers/_new.html.erb` and specify which part of the view you want to show in the Turbo Frame:
 
+__app/views/beers/_new.html.erb__
 ```erb
 <h1>New beer</h1>
 <%= turbo_frame_tag "new_beer" do %>
@@ -196,20 +203,21 @@ In order to append the created beer to the list without doing a full page update
 
 By adding the `format.turbo_stream` block, we specify that the response should be rendered as a Turbo Stream template with the action of appending the new beer row to the target element with the ID `beer_rows`. These steps enable the addition of beers directly from the index page while only appending the created beer to the list without refreshing the entire page.
 
+__app/controllers/beers_controller.rb__
 ```ruby
 def create
-	@beer = Beer.new(beer_params)
+  @beer = Beer.new(beer_params)
 
-	respond_to do |format|
-		if @beer.save
-			format.turbo_stream { render turbo_stream: turbo_stream.append("beer_rows", partial: "beer_row", locals: { beer: @beer }) }
-			format.html { redirect_to beers_path, notice: "Beer was successfully created." }
-			format.json { render :show, status: :created, location: @beer }
-		else
-			format.html { render :new, status: :unprocessable_entity }
-			format.json { render json: @beer.errors, status: :unprocessable_entity }
-		end
-	end
+  respond_to do |format|
+    if @beer.save
+      format.turbo_stream { render turbo_stream: turbo_stream.append("beer_rows", partial: "beer_row", locals: { beer: @beer }) }
+      format.html { redirect_to beers_path, notice: "Beer was successfully created." }
+      format.json { render :show, status: :created, location: @beer }
+    else
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @beer.errors, status: :unprocessable_entity }
+    end
+  end
 end
 ```
 
@@ -223,6 +231,7 @@ This process involves a simple addition of code, but several components are nece
 
 3. Using the `turbo_stream.append` method, a response HTML fragment is generated with the action set to `append`. This fragment targets the element with the identifier `beer_rows` and utilizes the `_beer_row.html.erb` partial to generate the content. Here is an example of the resulting fragment:
 
+__TBA: WHICH FILE IS THIS?__
 ```html
 <turbo-stream action="append" target="beer_rows">
   <template>
@@ -244,6 +253,7 @@ This process involves a simple addition of code, but several components are nece
 
 To establish a connection between the browser and the server for listening to changes, we define a stream or channel. In our view file, `app/views/beers/index.html.erb`, we "subscribe" to updates using the following line of code:
 
+__app/views/beers/index.html.erb__
 ```erb
 <%= turbo_stream_from "beer_index" %>
 ```
@@ -252,6 +262,7 @@ This code establishes a WebSocket connection between the browser and the server,
 
 To publish updates, we utilize the Beer model `app/models/beer.rb`. Whenever a new beer is created, the following code is triggered:
 
+__app/models/beer.rb__
 ```ruby
 after_create_commit -> { broadcast_append_to "beer_index", partial: "beers/beer_row", target: "beer_rows" }
 ```
@@ -274,8 +285,9 @@ To address this issue, there are several possible solutions:
 
 3. Opt for a simpler solution by giving each row a unique identifier. Let's proceed with this approach here.
 
-In app/views/beers/_beer_row.html, add the following line of code:
+In `app/views/beers/_beer_row.html`, add the following line of code:
 
+__app/views/beers/_beer_row.html__
 ```erb
 <tr id="<%= dom_id beer %>">
   <td>...
@@ -316,13 +328,14 @@ By adhering to this naming convention, Stimulus can seamlessly link the controll
 
 Here is an example of a controller named `hello_controller.js` located at the file path `/app/javascript/controllers/hello_controller.js`:
 
+__/app/javascript/controllers/hello_controller.js__
 ```javascript
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {}
 ```
 
-In the example below, a `<div>` element is associated with the data-controller attribute, which has the value `hello`. This binds it to the Stimulus controller named `hello_controller.js` (as shown above). It's important to note that the scope of a Stimulus controller includes the element it is connected to and its children, but not the surrounding elements. For instance, in the example below, the `<div>`, `<input>`, and `<button>` are part of the controller's scope, while the surrounding `<h1>` element is not.
+In the example below, a `<div>` element is associated with the `data-controller` attribute, which has the value `hello`. This binds it to the Stimulus controller named `hello_controller.js` (as shown above). It's important to note that the scope of a Stimulus controller includes the element it is connected to and its children, but not the surrounding elements. For instance, in the example below, the `<div>`, `<input>`, and `<button>` are part of the controller's scope, while the surrounding `<h1>` element is not.
 
 ```html
 <h1>Greetings</h1>
@@ -375,6 +388,7 @@ __Targets__ in Stimulus are special attributes that allow a controller to refere
 
 To add the target's name to the controller's list of target definitions, you need to update the `hello_controller.js` file accordingly. This will automatically create a property named `nameTarget` that returns the first matching target element. You can then use this property to read the value of the element and build the greeting string.
 
+__/app/javascript/controllers/hello_controller.js__
 ```javascript
 import { Controller } from "@hotwired/stimulus";
 
@@ -404,6 +418,7 @@ In the example below, the attribute `data-hello-greeting-value` is used to add a
 
 In the controller file `hello_controller.js`, a static values array is created, including the attribute name `greeting` with a type of `String`. By adding the attribute `data-hello-greeting-value="Welcome"` to the `<div>` element, the value `Welcome` is assigned to the `greetingValue` variable in the controller. This value can then be accessed and used within the controller's code.
 
+__/app/javascript/controllers/hello_controller.js__
 ```javascript
 import { Controller } from "@hotwired/stimulus";
 
@@ -453,6 +468,127 @@ export default class extends Controller {
 These lifecycle methods provide developers with the flexibility to perform specific tasks at appropriate points in the controller's lifecycle. The `initialize` method can be used for initial setup or one-time actions. The `[name]TargetConnected` and `[name]TargetDisconnected` methods enable dynamic handling of targets as they are connected or disconnected from the DOM. The `connect` and `disconnect` methods offer a convenient way to set up or clean up resources associated with the controller when it is connected or disconnected from the DOM.
 
 By leveraging these lifecycle methods, developers can ensure proper initialization, respond to changes in DOM state, and maintain organized and maintainable code in their Stimulus controllers.
+
+### Application Example
+
+Let's enhance the functionality of deleting user ratings by utilizing Stimulus to enable the simultaneous deletion of multiple ratings, offering a more efficient process compared to deleting them one by one.
+
+1. Create a new partial file named `_ratings.html.erb` within the `/app/views/users` folder. Next, extract the ratings code section (shown below) from the `/app/views/users/show.html.erb` file and place it into the ratings partial file (`/app/views/users/_ratings.html.erb`).
+
+__/app/views/users/_ratings.html.erb__
+```erb
+<ul>
+  <% @user.ratings.each do |rating| %>
+    <li>
+      <%= "#{rating.score} #{rating.beer.name}" %>
+      <% if @user == current_user %>
+        <%= button_to 'delete', rating, method: :delete, form: { style:'display:inline-block;', data: { 'turbo-confirm': 'Are you sure?' } } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+```
+
+2. Delete the ratings code from the `/app/views/users/show.html.erb` file and insert the ratings partial using the `<%= render partial: 'ratings' %>` statement under the ratings header.
+
+__/app/views/users/show.html.erb__
+```erb
+<h4>Ratings</h4>
+<%= render partial: 'ratings' %>
+```
+
+3. Modify the partial by removing the list elements and delete button from the `/app/views/users/_ratings.html.erb` file.
+
+__/app/views/users/_ratings.html.erb__
+```erb
+<div data-controller="rating" class="ratings mb-4">
+  <% @user.ratings.each do |rating| %>
+    <div class="rating">
+      <% if @user == current_user %>
+        <input type="checkbox" name="ratings[]" value="<%= rating.id %>" />
+      <% end %>
+      <span><%= "#{rating.score} #{rating.beer.name}" %></span>
+    </div>
+  <% end %>
+  <% if @user == current_user %>
+    <button data-action="rating#destroy">Delete selected</button>
+  <% end %>
+</div>
+```
+
+4. With the modified templates ready, let's update the `routes.rb` file (`/app/config/routes.rb`) to handle the ratings destroy action. Remove the `destroy` action from the ratings resources and add a separate delete method to handle the removal of rating IDs.
+
+__/app/config/routes.rb__
+
+```ruby
+resources :ratings, only: [:index, :new, :create]
+delete 'ratings', to: 'ratings#destroy'
+```
+
+5. Modify the `destroy` method within the `ratings_controller.rb` file (`app/controllers/ratings_controller.rb`) to handle the deletion of multiple rating IDs. Retrieve the rating IDs from the request body, loop through each ID, find the respective rating, and destroy it if the current user is the author of the rating. Implement a `rescue` block to handle any potential errors during the loop. After the destruction, ensure the user data is refreshed to reflect the changes.
+
+__app/controllers/ratings_controller.rb__
+```ruby
+def destroy
+  destroy_ids = request.body.string.split(',')
+  destroy_ids.each do |id|
+    rating = Rating.find_by(id: id)
+    rating.destroy if rating && current_user == rating.user
+  rescue StandardError => e
+    puts "Rating record has an error: #{e.message}"
+  end
+  @user = current_user
+  respond_to do |format|
+    format.html { render partial: '/users/ratings', status: :ok, user: @user }
+  end
+end
+```
+
+6. Create the Stimulus ratings controller file `ratings_controller.js` within the `/app/javascript/controllers/` folder. Import the `Controller` class from the `@hotwired/stimulus` module and define a class that extends the `Controller` class. Within this class, implement the destroy method. Begin by displaying a confirmation dialog to the user.
+
+If the user confirms the deletion, retrieve the selected rating IDs from the checkboxes, include the CSRF token in the request headers, and initiate a `fetch` request to the `/ratings` endpoint with the selected rating IDs as the request body. Handle the response accordingly, updating the HTML of the ratings element if the response is successful, and logging any errors that occur during the process.
+
+With these modifications, users can now efficiently delete one or multiple ratings at once using the Stimulus framework.
+
+__/app/javascript/controllers/ratings_controller.js__
+```javascript
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+  destroy() {
+    const confirmDelete = confirm("Are you sure you want to delete these selected ratings?");
+    if (!confirmDelete) {
+      return;
+    }
+
+    const selectedRatingsIDs = Array.from(
+      document.querySelectorAll('input[name="ratings[]"]:checked'),
+      (checkbox) => checkbox.value
+    );
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    const headers = { "X-CSRF-Token": csrfToken };
+
+    fetch("/ratings", {
+      method: "DELETE",
+      headers: headers,
+      body: selectedRatingsIDs.join(","),
+    })
+      .then((response) => {
+        if (response.ok) {
+          response.text().then((html) => {
+            document.querySelector("div.ratings").innerHTML = html;
+          });
+        } else {
+          throw new Error("Something went wrong");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}
+```
 
 ## Exercises
 
