@@ -179,7 +179,7 @@ With the following Turbo Frame tag:
 
 This Turbo Frame will include a part of our existing code from the `new_brewery` path.
 
-3. __Defining Partial View for Adding New Beer__
+3. __Defining Partial View for Adding a New Brewery__
 
 In `app/views/breweries/_new.html.erb` specify which part of the view you want to show in the Turbo Frame:
 
@@ -223,11 +223,11 @@ def create
 end
 ```
 
-This process involves a simple addition of code, but several components are necessary to ensure its proper functioning:
+This change involves one line of code, but under the hood, several components enable this to work:
 
 1. When the browser initiates a new request, the Turbo framework includes the `text/vnd.turbo-stream.html` in the request's `Accept` headers. This informs the server that it expects a Turbo Stream template instead of a full page update.
 
-![image](../images/ratebeer-w8-2.png)
+![image](../images/ratebeer-w8-turbo-streams-header.png)
 
 2. The controller, based on the `Accept` header, recognizes the request's Turbo Stream format and responds by rendering a Turbo Stream template instead of a complete page. This ensures that only the necessary HTML fragments are sent back to the browser.
 
@@ -270,7 +270,7 @@ This code broadcasts an `append` action to the `breweries_index` channel, target
 
 You can test the functionality by opening two browser windows side by side and creating a new brewery. You'll observe that the updates are instantly reflected in both windows, demonstrating the real-time nature of ActionCable and WebSockets.
 
-![image](../images/ratebeer-w8-3.png)
+![image](../images/ratebeer-w8-two-browsers.png)
 
 During the process, you may have noticed a problem: when a user adds new breweries, duplicate entries appear in the list. Let's take a moment to understand why this happens.
 
@@ -296,7 +296,7 @@ By assigning a unique identifier to each row, we prevent duplication. This uniqu
 
 To observe the WebSocket connection details, you can use the browser's developer tools.
 
-![image](../images/ratebeer-w8-4.png)
+![image](../images/ratebeer-w8-console-websockets.png)
 
 It's worth noting that in our example, we used a simple string, `breweries_index`, as the identifier for the channel since there is only one `breweries_index`. However, in certain scenarios, you may want to use an object to identify the stream. For instance, if you implement the ability to add new beers to a specific brewery from the Brewery page and stream the added data only to that page, you would want to use something like `@brewery` instead of `"breweries_index"`. This way, different brewery pages can be targeted with the streaming updates.
 
