@@ -12,6 +12,7 @@
     * [Turbo Streams Targets](#turbo-streams-targets)
     * [Turbo Streams Templates](#turbo-streams-templates)
     * [Dynamic Updates with ActionCable](#dynamic-updates-with-actioncable)
+  * [Turbo Frames](#turbo-frames)
   * [Stimulus](#stimulus)
     * [Stimulus Controllers](#stimulus-controllers)
     * [Stimulus Actions](#stimulus-actions)
@@ -59,10 +60,6 @@ Stimulus is a lightweight Javascript framework that enhances interactivity and u
 Strada is an extension of Hotwire that allows developers to build iOS and Android applications using Rails and Turbo. Currently, Strada is being developed as separate repositories: [turbo-ios](https://github.com/hotwired/turbo-ios) for iOS and [turbo-android](https://github.com/hotwired/turbo-android) for Android, respectively.
 
 ## Hotwire Components in Detail
-
-### Turbo Frames
-
-TBA
 
 ### Turbo Streams
 
@@ -302,6 +299,85 @@ To observe the WebSocket connection details, you can use the browser's developer
 ![image](../images/ratebeer-w8-4.png)
 
 It's worth noting that in our example, we used a simple string, `breweries_index`, as the identifier for the channel since there is only one `breweries_index`. However, in certain scenarios, you may want to use an object to identify the stream. For instance, if you implement the ability to add new beers to a specific brewery from the Brewery page and stream the added data only to that page, you would want to use something like `@brewery` instead of `"breweries_index"`. This way, different brewery pages can be targeted with the streaming updates.
+
+### Turbo Frames
+
+Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
+
+To begin, let's create a new partial called `_beers_page.html.erb` and extract the table containing the beers from our `index.html.erb` file. This way, our `index.html.erb` will appear as follows:
+
+**app/views/beers/index.html.erb**
+```erb
+<h1>Beers</h1>
+
+<% cache "beerlist-#{@page}-#{@order}", skip_digest: true do %>
+  <div id="beers">
+    <%= render "beers_page", beers: @beers, page: @page, order: @order, last_page: @last_page  %>
+  </div>
+<% end %>
+
+<%= link_to('New Beer', new_beer_path) if current_user %>
+```
+
+Once the above is functioning correctly, we can enclose our table within the `_beers_page.html.erb` partial using a turbo frame:
+
+**app/views/beers/_beers_page.html.erb**
+```erb
+<%= turbo_frame_tag "beers_page" do %>
+  <table class="table table-striped table-hover">
+    <!-- ... -->
+  </table>
+<% end %>
+```
+
+By using a Turbo Frame, all links and buttons within it will be controlled by Turbo, allowing the rendering of new pages triggered by the links within the Turbo Frame. However, to ensure proper functionality, we need to make a slight modification to our `index` method in `beers_controller.rb` in file path `app/controllers/beers_controller.rb`:
+
+```ruby
+def index
+  # ...
+  if turbo_frame_request?
+    render partial: "beers_page",
+      locals: { beers: @beers, page: @page, order: @order, last_page: @last_page }
+  else
+    render :index
+  end
+end
+```
+
+The `turbo_frame_request?` condition ensures that when the request is made within a Turbo Frame, only the partial containing our beer table is returned. We can now observe the behavior within the network tab of our browser's developer tools.
+
+TODO: image
+
+We can see that the headers include the ID of the Turbo Frame we are targeting, allowing Turbo to identify which part of the page should be replaced.
+
+TODO: image
+
+Indeed, the response contains only the partial and excludes the application layout that accompanies the HTML document. Turbo automatically handles this aspect.
+
+The only remaining issue is that the links to beers, breweries, and styles are no longer functional. Turbo attempts to load the links and replace our table with their content but fails to find a suitable turbo tag for replacement. We can easily resolve this by adding the target attribute to our links:
+
+***TODO: Which file is this?**
+```erb
+<% beers.each do |beer| %>
+  <tr>
+    <td><%= link_to beer.name, beer, data: { turbo_frame: "_top"} %></td>
+    <td><%= link_to beer.style.name, beer.style, data: { turbo_frame: "_top"} %></td>
+    <td><%= link_to beer.brewery.name, beer.brewery, data: { turbo_frame: "_top"} %></td>
+    <td><%= round(beer.average_rating) %></td>
+  </tr>
+<% end %>
+```
+
+The `target="_top"` signifies that Turbo should break out of the frame and replace the entire page with the opened link. Alternatively, the `target` could be set to `_self`, targeting the current frame, or the ID of another Turbo Frame, in which case Turbo would attempt to replace that specific frame.
+
+We also notice that the URL remains unchanged when navigating between pages, and using the browser's back button may lead to unexpected results. We can easily address this by promoting our Turbo Actions into visits:
+
+**TODO: Which file is this?**
+```erb
+<%= turbo_frame_tag "beers_page", data: { turbo_action: "advance" } do %>
+```
+
+Under the hood, Turbo utilizes JavaScript to manipulate the HTML DOM of the page, eliminating the need for us to write any JavaScript code ourselves!
 
 ### Stimulus
 
@@ -615,7 +691,7 @@ Hint: you can render multiple turbo stream messages from a controller response b
 
 ### Stimulus Exercises
 
-TBA
+TODO
 
 ## ActionCable, Redis, and Fly.io Integration
 
