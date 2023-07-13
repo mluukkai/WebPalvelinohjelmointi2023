@@ -7,8 +7,8 @@
 * [Introduction to Hotwire Components](#introduction-to-hotwire-components)
 * [Hotwire Components in Detail](#hotwire-components-in-detail)
   * [Turbo Frames](#turbo-frames)
-  * [Turbo Steams](#turbo-streams)
-    * [Turbo Streams Actions](#turbo-steams-actions)
+  * [Turbo Streams](#turbo-streams)
+    * [Turbo Streams Actions](#turbo-streams-actions)
     * [Turbo Streams Targets](#turbo-streams-targets)
     * [Turbo Streams Templates](#turbo-streams-templates)
     * [Dynamic Updates with ActionCable](#dynamic-updates-with-actioncable)
@@ -97,125 +97,130 @@ In order for __actions__ to function properly, Turbo requires the identification
 For identifying a single element, one can explicitly create an ID value in the view or leverage the convenient Rails [dom_id](https://api.rubyonrails.org/classes/ActionView/RecordIdentifier.html) helper, which automatically generates the ID tag. For example:
 
 ```erb
-<div id="<%= dom_id beer %>">
-  <%= beer.name %>
+<div id="<%= dom_id(brewery) %>">
+  <%= brewery.name %>
 </div>
 ```
 
 This would result in a unique ID like:
 
 ```erb
-<div id="beer_55">Karhu</div>
+<div id="brewery_55">Sinebrychoff</div>
 ```
 
 Alternatively, when targeting __multiple elements__ based on specific [CSS class selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors), such as:
 
 ```erb
-<div class="lager" id="beer_55">Karhu</div>
-<div class="ipa" id="beer_62">S-marketin IPA</div>
-<div class="lager" id="beer_71">Aura</div>
+<div class="active" id="brewery_55">Sinebrychoff</div>
+<div class="active" id="brewery_62">Laitilan Wirvoitusjuomatehdas</div>
+<div class="retired" id="brewery_71">Pyynikin käsityöläispanimo</div>
 ```
 
-The remove action can be used to remove all elements with the class `lager` by targeting the CSS selector `.lager`.
+you could use the remove action to remove all retired breweries from the list by targeting the class ".retired".
 
-#### Turbo Steams Templates
+#### Turbo Streams Templates
 
-To leverage the capabilities of Turbo Streams, view templates should be designed as [partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials) that can be rendered individually. This enables targeted streaming of changes to specific components. For example, when streaming updates for beers and appending new beer rows to a list, the beer row should be implemented as a partial.
+To leverage the capabilities of Turbo Streams, view templates should be designed as [partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials) that can be rendered individually. This enables targeted streaming of changes to specific components. For example, when streaming updates for breweries and appending new breweries to a list, the brewery row should be implemented as a partial.
 
 1. __Extracting Row Rendering Logic__
 
-To prepare the Beers index page for streaming, extract the row rendering logic from the `app/views/beers/index.html.erb` file and create a new partial file `app/views/beers/_beer_row.html.erb`:
+To prepare the Breweries index page for streaming, extract the row rendering logic (created in Exercise 1) from `app/views/breweries/_breweries_list.html.erb`:
 
-**app/views/beers/_beer_row.html.erb**
+**app/views/breweries/_breweries_list.html.erb**
 ```erb
 <tbody>
-  <% @beers.each do |beer| %>
-     <tr>
-  	  <td><%= link_to beer.name, beer %></td>
-	    <td><%= link_to beer.style.name, beer.style %></td>
-	    <td><%= link_to beer.brewery.name, beer.brewery %></td>
-	    <td><%= round(beer.average_rating) %></td>
+  <% breweries.each do |brewery| %>
+    <tr %>">
+      <td><%= link_to brewery.name, brewery, data: { turbo_frame: "_top"} %></td>
+      <td><%= brewery.year %></td>
+      <td><%= brewery.beers.count %></td>
+      <td><%= round(brewery.average_rating) %></td>
     </tr>
   <% end %>
 </tbody>
 ```
 
-Replace the original code in `app/views/beers/index.html.erb` with the new partial:
+To new partial file `app/views/breweries/_brewery_row.html.erb`:
 
-**app/views/beers/index.html.erb**
+**app/views/breweries/_brewery_row.html.erb**
 ```erb
-<tr>
-  <td><%= link_to beer.name, beer %></td>
-  <td><%= link_to beer.style.name, beer.style %></td>
-  <td><%= link_to beer.brewery.name, beer.brewery %></td>
-  <td><%= round(beer.average_rating) %></td>
+<tr %>">
+  <td><%= link_to brewery.name, brewery, data: { turbo_frame: "_top"} %></td>
+  <td><%= brewery.year %></td>
+  <td><%= brewery.beers.count %></td>
+  <td><%= round(brewery.average_rating) %></td>
 </tr>
 ```
 
-Make sure to assign a unique ID to the table body element, such as `id="beer_rows"`. This ID will be used to target the action of appending new beers as children of the table.
+And change the original code to use this partial :
 
-**app/views/beers/_beer_row.html.erb**
 ```erb
-<tbody id="beer_rows">
-  <% @beers.each do |beer| %>
-    <%= render partial: "beer_row", locals: {beer: beer} %>
+<tbody id="<%= status %>_brewery_rows">
+  <% breweries.each do |brewery| %>
+    <%= render "brewery_row", brewery: brewery %>
   <% end %>
 </tbody>
 ```
 
-2. __Allowing Adding New Beers from Index Page__
+Pay attention to new ID that we give to the tbody element. We need `active_brewery_rows` or `retired_brewery_rows` ID to **target** the **action** of appending new breweries as children of the correct table. If in Exercise 1 you did not define local `status` or something similar containing `active`/`retired` information for the different brewery listings, you should do that now as it will help us later.
 
-Next, let's enable the addition of new beers directly from the index page. Replace the following code in `app/views/beers/index.html.erb`:
+2. __Adding New Breweries from Index Page__
 
-**app/views/beers/index.html.erb**
+Next, let's enable the addition of new breweries directly from the index page. Replace the following code in `app/views/breweries/index.html.erb`:
+
+**app/views/breweries/index.html.erb**
 ```erb
-<%= link_to('New Beer', new_beer_path) if current_user %>
+<%= link_to "New brewery", new_brewery_path if current_user %>
 ```
 
 With the following Turbo Frame tag:
 
-**app/views/beers/index.html.erb**
+**app/views/breweries/index.html.erb**
 ```erb
-<% if current_user %>
-  <%= turbo_frame_tag "new_beer", src: new_beer_path %>
-<% end %>
+<%= turbo_frame_tag "new_brewery", src: new_brewery_path if current_user %>
 ```
 
-This Turbo Frame will include a part of our existing code from the `new_beer` path.
+This Turbo Frame will include a part of our existing code from the `new_brewery` path.
 
 3. __Defining Partial View for Adding New Beer__
 
-Create a new partial file `app/views/beers/_new.html.erb` and specify which part of the view you want to show in the Turbo Frame:
+In `app/views/breweries/_new.html.erb` specify which part of the view you want to show in the Turbo Frame:
 
 **app/views/beers/_new.html.erb**
 ```erb
-<h1>New beer</h1>
-<%= turbo_frame_tag "new_beer" do %>
-  <%= render "form", beer: @beer %>
+<h1>New brewery</h1>
+
+<%= turbo_frame_tag "new_brewery" do %>
+  <%= render "form", brewery: @brewery %>
 <% end %>
+# ...
 ```
 
-![image](../images/ratebeer-w8-1.png)
+![image](../images/ratebeer-w8-4.png)
+
 
 4. __Modifying the Controller Response__
 
-In order to append the created beer to the list without doing a full page update, we need to modify the response in the create action of the `app/controllers/beers_controller.rb` file.
+In order to append the created beer to the list without doing a full page update, we need to modify the response in the create action of the `app/controllers/breweries_controller.rb` file.
 
-By adding the `format.turbo_stream` block, we specify that the response should be rendered as a Turbo Stream template with the action of appending the new beer row to the target element with the ID `beer_rows`. These steps enable the addition of beers directly from the index page while only appending the created beer to the list without refreshing the entire page.
+By adding the `format.turbo_stream` block, we specify that the response should be rendered as a Turbo Stream template with the action of appending the new brewery row to the target element with the ID `active_brewery_rows` or `retired_brewery_rows`. These steps enable the addition of breweries directly from the index page while only appending the created brewery to the list without refreshing the entire page.
 
-**app/controllers/beers_controller.rb**
+**app/controllers/breweries_controller.rb**
 ```ruby
 def create
-  @beer = Beer.new(beer_params)
+  @brewery = Brewery.new(brewery_params)
 
   respond_to do |format|
-    if @beer.save
-      format.turbo_stream { render turbo_stream: turbo_stream.append("beer_rows", partial: "beer_row", locals: { beer: @beer }) }
-      format.html { redirect_to beers_path, notice: "Beer was successfully created." }
-      format.json { render :show, status: :created, location: @beer }
+    if @brewery.save
+      format.turbo_stream {
+        status = @brewery.active? ? "active" : "retired"
+        render turbo_stream: turbo_stream.append("#{status}_brewery_rows", partial: "brewery_row", locals: { brewery: @brewery })
+      }
+      format.html { redirect_to brewery_url(@brewery), notice: "Brewery was successfully created." }
+      format.json { render :show, status: :created, location: @brewery }
     else
       format.html { render :new, status: :unprocessable_entity }
-      format.json { render json: @beer.errors, status: :unprocessable_entity }
+      format.json { render json: @brewery.errors, status: :unprocessable_entity }
     end
   end
 end
@@ -229,77 +234,74 @@ This process involves a simple addition of code, but several components are nece
 
 2. The controller, based on the `Accept` header, recognizes the request's Turbo Stream format and responds by rendering a Turbo Stream template instead of a complete page. This ensures that only the necessary HTML fragments are sent back to the browser.
 
-3. Using the `turbo_stream.append` method, a response HTML fragment is generated with the action set to `append`. This fragment targets the element with the identifier `beer_rows` and utilizes the `_beer_row.html.erb` partial to generate the content. Here is an example of the resulting fragment:
+3. Using the `turbo_stream.append` method, a response HTML fragment is generated with the action set to `append`. This fragment targets the element with the identifier `brewery_rows` and utilizes the `_brewery_row.html.erb` partial to generate the content. Here is an example of the resulting fragment:
 
-**TBA: WHICH FILE IS THIS?**
 ```html
-<turbo-stream action="append" target="beer_rows">
-  <template>
-    <tr id="beer_7">
-      <td><a href="/beers/7">Fancy beer</a></td>
-      <td><a href="/styles/1">Bulk</a></td>
-      <td><a href="/breweries/1">Iso Panimo</a></td>
-      <td>0.0</td>
-    </tr>
-  </template>
-</turbo-stream>
+<turbo-stream action="append" target="active_brewery_rows"><template><tr id="brewery_65">
+  <td><a data-turbo-frame="_top" href="/breweries/65">Laitilan Wirvoitusjuomatehdas</a></td>
+  <td>1995</td>
+  <td>0</td>
+  <td>0.0</td>
+</tr></template></turbo-stream>
 ```
 
-4. With the table body previously assigned an ID, such as `<tbody id="beer_rows">`, Turbo knows to append the generated template as the last child of the table body element. It intelligently places the new content in the appropriate location. You can test this behavior by removing or altering the ID and observing the resulting outcome.
+4. With the table body previously assigned an ID, such as `<tbody id="active_brewery_rows">`, Turbo knows to append the generated template as the last child of the table body element. It intelligently places the new content in the appropriate location. You can test this behavior by removing or altering the ID and observing the resulting outcome.
 
 #### Dynamic Updates with ActionCable
 
-[ActionCable](https://edgeguides.rubyonrails.org/action_cable_overview.html) enables dynamic updates by utilizing [WebSockets](https://en.wikipedia.org/wiki/WebSocket), providing real-time streaming of content to multiple browsers. Unlike traditional request-response logic, which requires the browser to send a request and await a response, ActionCable allows seamless updates without the need to refresh the page. This functionality has been available since Rails version 5 and is based on WebSockets technology. For futher information, see [WebSockets in 100 seconds](https://www.youtube.com/watch?v=1BfCnjr_Vjg).
+[ActionCable](https://edgeguides.rubyonrails.org/action_cable_overview.html) enables dynamic updates by utilizing [WebSockets](https://en.wikipedia.org/wiki/WebSocket), providing real-time streaming of content to multiple browsers. Unlike traditional request-response logic, which requires the browser to send a request and await a response, ActionCable allows seamless updates without the need to refresh the page. This functionality has been available since Rails version 5 and is based on WebSockets technology. For a very brief tutorial on WebSockets, see [WebSockets in 100 seconds](https://www.youtube.com/watch?v=1BfCnjr_Vjg).
 
-To establish a connection between the browser and the server for listening to changes, we define a stream or channel. In our view file, `app/views/beers/index.html.erb`, we "subscribe" to updates using the following line of code:
+To establish a connection between the browser and the server for listening to changes, we define a stream or channel. In our view file, `app/views/breweries/index.html.erb`, we "subscribe" to updates using the following line of code:
 
-**app/views/beers/index.html.erb**
+**app/views/breweries/index.html.erb**
 ```erb
-<%= turbo_stream_from "beer_index" %>
+<%= turbo_stream_from "breweries_index" %>
 ```
 
 This code establishes a WebSocket connection between the browser and the server, enabling the browser to receive real-time updates.
 
-To publish updates, we utilize the Beer model `app/models/beer.rb`. Whenever a new beer is created, the following code is triggered:
+To publish updates, we utilize the Brewery model `app/models/brewery.rb`. Whenever a new brewery is created, the following code is triggered:
 
-**app/models/beer.rb**
+**app/models/brewery.rb**
 ```ruby
-after_create_commit -> { broadcast_append_to "beer_index", partial: "beers/beer_row", target: "beer_rows" }
+
+after_create_commit -> { broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: "active_brewery_rows" }, if: :active?
+after_create_commit -> { broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: "retired_brewery_rows" }, if: :retired?
 ```
 
-This line of code broadcasts an `append` action to the `beer_index` channel, targeting the element with the ID `beer_rows`. It uses the `_beer_row.html.erb` partial to create the template for the new beer. Essentially, it replicates the same functionality we implemented earlier by responding to client requests with fragments. However, the difference lies in the fact that the HTML fragment is now broadcasted to all browsers subscribed to the `beer_index` channel, thanks to the power of WebSockets.
+This code broadcasts an `append` action to the `breweries_index` channel, targeting the element with the ID `active_brewery_rows` or `retired_brewery_rows`. It uses the `_brewery_row.html.erb` partial to create the template for the new beer. Essentially, it replicates the same functionality we implemented earlier by responding to client requests with fragments. However, the difference lies in the fact that the HTML fragment is now broadcasted to all browsers subscribed to the `breweries_index` channel, thanks to the power of WebSockets.
 
-You can test the functionality by opening two browser windows side by side and creating a new beer. You'll observe that the updates are instantly reflected in both windows, demonstrating the real-time nature of ActionCable and WebSockets.
+You can test the functionality by opening two browser windows side by side and creating a new brewery. You'll observe that the updates are instantly reflected in both windows, demonstrating the real-time nature of ActionCable and WebSockets.
 
 ![image](../images/ratebeer-w8-3.png)
 
-During the process, you may have noticed a problem: when a user adds new beers, duplicate entries appear in the list. Let's take a moment to understand why this happens.
+During the process, you may have noticed a problem: when a user adds new breweries, duplicate entries appear in the list. Let's take a moment to understand why this happens.
 
-The reason is that the current user receives the fragments twice. Firstly, as an HTTP response to the form submission triggered by the create action in the controller. Secondly, as a WebSocket update triggered by the `after_create_commit` hook in the model.
+The reason is that the current user actually receives the fragments twice. Firstly, as an HTTP response to the form submission triggered by the create action in the controller. Secondly, as a WebSocket update triggered by the `after_create_commit` hook in the model.
 
 To address this issue, there are several possible solutions:
 
-1. Comment out the stream template in the HTTP response from the controller. However, this approach has a downside: if there are any issues with WebSockets, the user won't see the effect of submitting a new beer.
+1. Comment out the stream template in the HTTP response from the controller. However, this approach has a downside: if there are any issues with WebSockets, the user won't see the effect of submitting a new brewer.
 
 2. Conditionally trigger the `after_create_commit` hook in the model based on the logged-in user. This approach ensures that the user only receives the WebSocket update once.
 
 3. Opt for a simpler solution by giving each row a unique identifier. Let's proceed with this approach here.
 
-In `app/views/beers/_beer_row.html`, add the following line of code:
+In `app/views/breweries/_brewery_row.html`, add the following line of code:
 
-**app/views/beers/_beer_row.html**
+**app/views/breweries/_brewery_row.html**
 ```erb
-<tr id="<%= dom_id beer %>">
+<tr id="<%= dom_id(brewery) %>">
   <td>...
 ```
 
-By assigning a unique identifier to each row, we prevent duplication. This unique identifier becomes essential if we want to trigger actions, such as removing a specific beer.
+By assigning a unique identifier to each row, we prevent duplication. This unique identifier becomes essential if we want to trigger actions, such as removing a specific brewery.
 
 To observe the WebSocket connection details, you can use the browser's developer tools.
 
 ![image](../images/ratebeer-w8-4.png)
 
-It's worth noting that in our example, we used a simple string, `beer_index`, as the identifier for the channel since there is only one `beer_index`. However, in certain scenarios, you may want to use an object to identify the stream. For instance, if you implement the ability to add new beers to a specific brewery from the Brewery page and stream the added data only to that page, you would want to use something like `@brewery` instead of `"beer_index"`. This way, multiple users on different brewery pages can be targeted with the streaming updates.
+It's worth noting that in our example, we used a simple string, `breweries_index`, as the identifier for the channel since there is only one `breweries_index`. However, in certain scenarios, you may want to use an object to identify the stream. For instance, if you implement the ability to add new beers to a specific brewery from the Brewery page and stream the added data only to that page, you would want to use something like `@brewery` instead of `"breweries_index"`. This way, different brewery pages can be targeted with the streaming updates.
 
 ### Stimulus
 
@@ -589,25 +591,27 @@ export default class extends Controller {
 
 ### Turbo Streams Exercises
 
-#### Implementing Beer Removal with Confirmation Pop-up
+#### Implementing Brewery Removal with Confirmation Pop-up
 
-Enhance the beers list functionality by adding a button or text "X" for removing a beer from the database. The implementation should follow these steps:
+Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database (see [Rails views documentation](https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-by-default-convention-over-configuration-in-action)). The implementation should follow these steps:
 
 1. __Initial Removal (No Turbo, Full Page Reload)__
-Initially, make the removal work without using Turbo, resulting in a full page reload after the delete action.
+Initially, make the removal work without using Turbo, requiring a full page reload after the delete action.
 
-2. __Dynamic Removal with Turbo Stream__
-Improve the functionality by dynamically removing the deleted beer from the list using Turbo Stream. Ensure the removal is reflected in the UI without requiring a full page reload.
+2. __Dynamic Removal with Turbo Streams__
+Improve the functionality by dynamically removing the deleted brewery from the list using Turbo Streams. Ensure the removal is reflected in the UI without requiring a full page reload.
 
 3. __WebSocket Integration for Real-Time Updates__
 Leverage WebSockets to stream the removal action to all connected browsers in real time.
 
 4. __Confirmation Pop-up__
-Enhance the user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove beer X?". The pop-up should provide options for "Cancel" and "Remove" actions.
+Enhance user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove brewery X and all beers associated with it?". The pop-up should provide options for "Cancel" and "Remove" actions.
 
 #### Dynamic Updating of Active and Retired Breweries
 
-On the front page, you will find two sections: _Number of Active Breweries_ and _Number of Retired Breweries_. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
+Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
+
+Hint: you can render multiple turbo stream messages from a controller response by placing them in an array.
 
 ### Stimulus Exercises
 
