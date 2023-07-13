@@ -183,7 +183,7 @@ This Turbo Frame will include a part of our existing code from the `new_brewery`
 
 In `app/views/breweries/_new.html.erb` specify which part of the view you want to show in the Turbo Frame:
 
-**app/views/beers/_new.html.erb**
+**app/views/breweries/_new.html.erb**
 ```erb
 <h1>New brewery</h1>
 
