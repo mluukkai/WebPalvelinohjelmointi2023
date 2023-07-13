@@ -579,7 +579,7 @@ Let's enhance the functionality of deleting user ratings by utilizing Stimulus t
 
 **/app/views/users/_ratings.html.erb**
 ```erb
-<div data-controller="rating" class="ratings mb-4">
+<div data-controller="ratings" class="ratings mb-4">
   <% @user.ratings.each do |rating| %>
     <div class="rating">
       <% if @user == current_user %>
@@ -589,7 +589,7 @@ Let's enhance the functionality of deleting user ratings by utilizing Stimulus t
     </div>
   <% end %>
   <% if @user == current_user %>
-    <button data-action="rating#destroy">Delete selected</button>
+    <button data-action="ratings#destroy">Delete selected</button>
   <% end %>
 </div>
 ```
