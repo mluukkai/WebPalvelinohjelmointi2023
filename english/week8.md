@@ -1,4 +1,8 @@
-# Hotwire
+**Note: This part of the course is still in beta testing. You can already try the material and exercises but they cannot be returned yet and the exercises can change before they are released.**
+
+You will continue to develop your application from the point you arrived at the end of week 6. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer to the previous week from the submission system.
+
+## Hotwire
 
 ## Table of Contents
 
@@ -764,3 +768,11 @@ By default, Fly.io configures your `Gemfile` with a Redis gem version higher tha
 ```ruby
 gem "redis", ">= 3", "< 5"
 ```
+
+## Submitting the exercises
+
+Commit all your changes and push the code to Github. Deploy to the newest version of Heroku or Fly.io, too. Remember to check with Rubocop that your code still adheres to style rules.
+
+If you have problems with Heroku, remember to use <code>heroku logs</code> to view the logs. The same can be done for Fly.io with <code>fly logs</code>.
+
+This part of the course is still in beta testing. You can already try the material and exercises but they cannot be returned yet and the exercises can change before they are released.
