@@ -293,7 +293,7 @@ If you have already executed the migration, and you notice that the code created
 
     rails db:rollback
 
-In order to establish the connections at object level too (check [last week's material](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week1.md#beers-and-the-one-to-many-connection), the classes have to be updates in the following way
+In order to establish the connections at object level too (check [last week's material](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week1.md#beers-and-the-one-to-many-connection), the classes have to be updated in the following way
 
 ```ruby
 class Beer < ApplicationRecord
@@ -304,7 +304,6 @@ end
 class Rating < ApplicationRecord
   belongs_to :beer
 end
-```
 ```
 
 Each beer has many ratings and a rating belongs to one sole beer always.
@@ -412,7 +411,6 @@ Spend a second to inspect the class <code>Brewery</code>:
 class Brewery < ApplicationRecord
   has_many :beers
 end
-```
 ```
 
 The brewery has a <code>name</code> and a founding <code>year</code>. We can reach them by hand from the console:
@@ -736,7 +734,7 @@ The information sent with the form is contained within the hash.
 
 The hash containing the parameters is saved in the controller variable <code>params</code>.
 
-The new pieces of information about the ratings are the values of the hash key <code>:rating</code>, and we can retrieve them with the command <code>params[:rating]</code>. This is an hash itself and its vaule is <code>{"beer_id"=>"1", "score"=>"2"}</code>. In other words, you can retrieve the rating with the command <code>params[:rating][:score]</code>.
+The new pieces of information about the ratings are the values of the hash key <code>:rating</code>, and we can retrieve them with the command <code>params[:rating]</code>. This is an hash itself and its value is <code>{"beer_id"=>"1", "score"=>"2"}</code>. In other words, you can retrieve the rating with the command <code>params[:rating][:score]</code>.
 
 ## debugger
 
@@ -760,7 +758,7 @@ def create
 end
 ```
 
-When you create a new rating using the form, the application stops at the <code>binding.pry</code>> command. An interactive console view will open in the terminal where Rails is running:
+When you create a new rating using the form, the application stops at the <code>binding.pry</code> command. An interactive console view will open in the terminal where Rails is running:
 
 ```ruby
 Started POST "/ratings" for ::1 at 2022-07-20 14:02:51 +0300
@@ -928,7 +926,7 @@ The rule of thumb is that you should *always* use redirection with controllers t
 
 Let us underline this important difference once again:
 
-* when the controller method end with the command <code>render :something</code> (which often happens implicitly), your Rails application generates an HTML page, and the server sends it to the browser to be rendered
+* when the controller method ends with the command <code>render :something</code> (which often happens implicitly), your Rails application generates an HTML page, and the server sends it to the browser to be rendered
 * when the controller finds the command  <code>redirect_to address</code>, the server sends a redirect request together with a status code 302 to the browser, requesting the browser to make the HTTP GET request to the address defined by the controller method. This happens automatically and the browser user will not notice the redirection
 
 **Every** Web developer has to understand the part above!
@@ -996,7 +994,7 @@ As we have already noticed,the information of the command <code>rails routes</co
 
 Creating a new rating is not the nicest thing to do now, because the user has to know the beer ID. Let's change the rating so that the user can choose the beer he wants to evaluate out of a list.
 
-If we want that the form to create a list, the controller in charge of displaying the form has to retrieve the list from the database and save it into a variable. Extend the controller in the following way:
+If we want the form to create a list, the controller in charge of displaying the form has to retrieve the list from the database and save it into a variable. Extend the controller in the following way:
 
 ```ruby
 class RatingsController < ApplicationController
@@ -1022,7 +1020,7 @@ If you consult page http://guides.rubyonrails.org/form_helpers.html#making-selec
 
 This means that the value of <code>beer_id</code> of the form is generated with the _select_ element of the HTML form. You can select the options of this element using the view method <code>options_from_collection_for_select</code> from the list of beers contained by the <code>@beers</code> variable. This is done by setting the beer ID (the second parameter :id) as value and the beer name (third parameter :name) is shown to the form users.
 
-The third parameter defines what individual options are shown on the form. In this case, the result of the method _name_ for each beer. In Ruby references to method names are defined as symbols, that is, as strings starting with a colon.
+The third parameter defines what individual options are shown on the form. In this case, the result of the method _name_ for each beer. In Ruby, references to method names are defined as symbols, that is, as strings starting with a colon.
 
 **Attention:** you can test the view methods from the console too. The methods can be called through the <code>helper</code> object:
 
@@ -1095,7 +1093,7 @@ Change the rating paths to the file routes.rb so that we use the  ready-made <co
   resources :ratings, only: [:index, :new, :create]
 ```
 
-Because you don't need routes like **delete**, **edit** ja **update**, use the <code>:only</code> qualifier to choose only the routes you need. Take a look at the paths defined for the application by running the command <code>rails routes</code> from the command line (or from the web page with an erroneous URL):
+Because you don't need routes like **delete**, **edit** and **update**, use the <code>:only</code> qualifier to choose only the routes you need. Take a look at the paths defined for the application by running the command <code>rails routes</code> from the command line (or from the web page with an erroneous URL):
 
 ```ruby
      ratings GET    /ratings(.:format)            ratings#index
@@ -1234,7 +1232,7 @@ We notice that beer and brewery both have an identically named method <code>aver
 > Modules have different uses – forming namespaces, for instance. However, now we are interested in the _mixin_ inheritance which can be implemented with modules.
 >
 > Get acquainted well enough with modules and refactor your code so that the method <codee>average_rating</code> is moved to a module which is contained by the classes <code>Beer</code> and <code>Brewery</code>.
->As we the now created module is only used by models, it is sensible to define it as a [concern](https://api.rubyonrails.org/classes/ActiveSupport/Concern.html) and place the file defining it in the directory _app/models/concerns_
+>As the newly created module is only used by models, it is sensible to define it as a [concern](https://api.rubyonrails.org/classes/ActiveSupport/Concern.html) and place the file defining it in the directory _app/models/concerns_
 >
 > ```ruby
 > module RatingAverage
@@ -1507,7 +1505,7 @@ The next thing to do is fixing the objects which cause the problem. Because you 
 
 Most commonly, the problems we have in production depend on the inconsistent state that some objects have got because of our changes in the database scheme. For instance, they may be belonging to objects which do not exist or the references might be missing. **It is a good practice to deploy the application in the production mode as often as possible**, in this way, you will know that the potential problems are caused by the changes you have just done and fixing them will be easier.
 
-Because it is a program in production, resetting the database (<code>rails db:drop</code>) in never aa acceptable way to "fix" a database inconsistency because the data in production cannot be destroyed. You should start from the beginning to learn reading logs and finding out problems as you are meant to do.
+Because it is a program in production, resetting the database (<code>rails db:drop</code>) is never an acceptable way to "fix" a database inconsistency because the data in production cannot be destroyed. You should start from the beginning to learn reading logs and finding out problems as you are meant to do.
 
 ## Submitting the exercises
 
