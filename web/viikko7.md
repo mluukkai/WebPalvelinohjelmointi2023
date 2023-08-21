@@ -1696,4 +1696,5 @@ Jos Rails kiinnostaa, kannattaa tutustumista jatkaa esim. seuraaviin suuntiin
 - http://railscasts.com/ erinomaisia yhteen teemaan keskittyviä videoita. Uusia videoita ei valitettavasti ole tullut yli vuoteen, toivottavasti sivu aktivoituu vielä. Useimmat maksulliset pro-episodit näköjään löytyvät youtubesta...
 - https://www.ruby-toolbox.com/ apua gemien etsimiseen
 - [Eloquent Ruby](http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104) erinomainen kirja Rubystä.
-- [Turbo](https://turbo.hotwired.dev/): moderni tapa kehittää railsia tekemällä rails sovelluksista single page sovelluksia.
+
+Voit myös sukeltaa [viikon 8 betaan](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md) (tarjolla vain englanniksi), kurssin tulevaan lisäosaan, jos haluat jo oppia Hotwirestä, Railssin ratkaisuun luoda reaktiivisia applikaatioita vähimmäismäärällä Javascriptiä.

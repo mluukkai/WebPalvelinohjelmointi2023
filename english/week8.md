@@ -1,37 +1,8 @@
-**Note: This part of the course is still in beta testing. You can already try the material and exercises but they cannot be returned yet and the exercises can change before they are released.**
+**Note: This part of the course is still in beta testing. You can already try the material and exercises, but they cannot be submitted yet and the exercises can change before they are released.**
 
 You will continue to develop your application from the point you arrived at the end of week 6. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer to the previous week from the submission system.
 
 ## Hotwire
-
-## Table of Contents
-
-- [Introduction to Hotwire](#introduction-to-hotwire)
-  - [Why Hotwire?](#why-hotwire)
-- [Introduction to Hotwire Components](#introduction-to-hotwire-components)
-- [Hotwire Components in Detail](#hotwire-components-in-detail)
-  - [Turbo Frames](#turbo-frames)
-  - [Turbo Streams](#turbo-streams)
-    - [Turbo Streams Actions](#turbo-streams-actions)
-    - [Turbo Streams Targets](#turbo-streams-targets)
-    - [Turbo Streams Templates](#turbo-streams-templates)
-    - [Dynamic Updates with ActionCable](#dynamic-updates-with-actioncable)
-  - [Turbo Frames](#turbo-frames)
-  - [Stimulus](#stimulus)
-    - [Stimulus Controllers](#stimulus-controllers)
-    - [Stimulus Actions](#stimulus-actions)
-    - [Stimulus Targets](#stimulus-targets)
-    - [Stimulus Values](#stimulus-values)
-    - [Lifecycle Methods](#lifecycle-methods)
-    - [Application Example](#application-example)
-- [Exercises](#exercises)
-  - [Turbo Streams Exercises](#turbo-streams-exercises)
-    - [Implementing Beer Removal with Confirmation Pop-up](#implementing-beer-removal-with-confirmation-pop-up)
-    - [Dynamic Updating of Active and Retired Breweries](#dynamic-updating-of-active-and-retired-breweries)
-  - [Stimus Exercises](#stimulus-exercises)
-- [ActionCable, Redis, and Fly.io Integration](#actioncable-redis-and-flyio-integration)
-
-## Introduction to Hotwire
 
 Ruby on Rails version 7.x introduces a new functionality called [Hotwire](https://hotwired.dev/), aimed at simplifying the creation of dynamic views with minimal reliance on Javascript. Hotwire empowers Rails developers to incorporate partial reloading of user interface elements in a similar fashion to popular Javascript libraries like [React](https://react.dev/), all while leveraging the familiar syntax of the Ruby language.
 
@@ -63,9 +34,244 @@ Stimulus is a lightweight Javascript framework that enhances interactivity and u
 
 Strada is an extension of Hotwire that allows developers to build iOS and Android applications using Rails and Turbo. Currently, Strada is being developed as separate repositories: [turbo-ios](https://github.com/hotwired/turbo-ios) for iOS and [turbo-android](https://github.com/hotwired/turbo-android) for Android, respectively.
 
-## Hotwire Components in Detail
+## Pagination
 
-### Turbo Streams
+Before jumping into the Hotwire components in detail, let's take a slight detour. After last week's [increased amount of beers](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality) you start to wonder that it would be kinda nice to have a pagination for our beers page. Let's add it first without utilizing Hotwire features.
+
+First we start by adding links for previous and next pages to the end of our beers table in `/beers/index.html.erb`:
+
+```html
+<table class="table table-striped table-hover">
+  <thead>
+  # ...
+  </thead>
+  <tbody>
+    <% beers.each do |beer| %>
+      # ...
+    <% end %>
+    <tr>
+      <td colspan="2" class="text-center">
+        <%= link_to "<<< Previous page", beers_path %>
+      </td>
+      <td colspan="2" class="text-center">
+        <%= link_to "Next page >>>", beers_path %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Our links don't do much yet so let's add some logic to the controller as well. Last week we defined ordering of the beers in our controller like so:
+
+```ruby
+def index
+  @beers = Beer.includes(:brewery, :style, :ratings).all
+
+  order = params[:order] || 'name'
+
+  @beers = case order
+            when 'name' then @beers.sort_by(&:name)
+            when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
+            when 'style' then @beers.sort_by{ |b| b.style.name }
+            when "rating" then @beers.sort_by(&:average_rating).reverse
+            end
+end
+```
+
+Which contains a bit of a problem. Method `sort_by` will load all the beers to central memory as an array and only then sort the order. But now we would want to fetch only limited amount of records from the database at a time, only what is needed for the current page. There's no sense fetching all the beers. That's why we'll opt out for using ActiveRecord SQL queries instead for ordering:
+
+```ruby
+def index
+  @beers = Beer.includes(:brewery, :style, :ratings).all
+
+  order = params[:order] || 'name'
+
+  @beers = case @order
+           when "name" then @beers.order(:name)
+           when "brewery" then @beers.joins(:brewery).order("breweries.name")
+           when "style" then @beers.joins(:style).order("styles.name")
+           when "rating" then @beers.left_joins(:ratings)
+                                    .select("beers.*, avg(ratings.score)")
+                                    .group("beers.id")
+                                    .order("avg(ratings.score) DESC")
+           end  
+end
+```
+
+This will allow us to use ActiveRecord methods `limit` and `offset` to fetch only the wanted amount of records from the database at a time. We can set the wanted amount per page to top our `beers_controller.rb` via constant:
+
+```ruby
+class BeersController < ApplicationController
+  PAGE_SIZE = 20
+  # ...
+end
+```
+
+After that we can define our `index` method like so:
+
+```ruby
+def index
+    @order = params[:order] || 'name'
+    @page = params[:page]&.to_i || 1
+    @last_page = (Beer.count / PAGE_SIZE).ceil
+    return if request.format.html? && fragment_exist?("beerlist-#{@order}")
+
+    @beers = Beer.includes(:brewery, :style, :ratings).all
+
+    @beers = case @order
+             when "name" then @beers.order(:name)
+             when "brewery" then @beers.joins(:brewery).order("breweries.name")
+             when "style" then @beers.joins(:style).order("styles.name")
+             when "rating" then @beers.left_joins(:ratings)
+                                      .select("beers.*, avg(ratings.score)")
+                                      .group("beers.id")
+                                      .order("avg(ratings.score) DESC")
+             end
+    @beers = @beers.limit(PAGE_SIZE).offset((@page - 1) * PAGE_SIZE)
+end
+```
+
+Pay attention to the `@last_page` instance variable as we are going to need it in our view. Now we are going to add the new `@page` instance variable to all of our links in the index and redefine our previous and next page links.
+
+```html
+<table class="table table-striped table-hover">
+  <thead>
+      <th><%= link_to "Name", beers_path(page: @page, order: "name")%></th>
+      <th><%= link_to "Style", beers_path(page: @page, order: "style")%></th>
+      <th><%= link_to "Brewery", beers_path(page: @page, order: "brewery")%></th>
+      <th><%= link_to "Rating", beers_path(page: @page, order: "rating")%></th>
+  </thead>
+  <tbody>
+    <% @beers.each do |beer| %>
+      <tr>
+        <td><%= link_to beer.name %></td>
+        <td><%= link_to beer.style.name, beer.style %></td>
+        <td><%= link_to beer.brewery.name, beer.brewery %></td>
+        <td><%= round(beer.average_rating) %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="2" class="text-center">
+        <% unless @page == 1 %>
+          <%= link_to "<<< Previous page", beers_path(page: @page - 1, order: @order) %>
+        <% end %>
+      </td>
+      <td colspan="2" class="text-center">
+        <% unless @page == @last_page %>
+          <%= link_to "Next page >>>", beers_path(page: @page + 1, order: @order) %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Remember to also update our cache key to include our new `@page` variable:
+
+```html
+<% cache "beerlist-#{@page}-#{@order}", skip_digest: true do %>
+```
+
+![image](../images/ratebeer-w8-1.png)
+
+And voilà! We have working pagination for our beers. But one thing that is kinda annoying is that when we navigate between the pages, the whole pages gets reloaded with menus and all even though the contents of the table are the only thing changing. Here is where we come to where Turbo Frames can help us...
+
+## Turbo Frames
+
+Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
+
+To begin, let's create a new partial called `_beers_page.html.erb` to the folder `app/views/beers` and extract the table containing the beers from our `beers/index.html.erb` file. This way, our `index.html.erb` will appear as follows:
+
+**app/views/beers/index.html.erb**
+
+```html
+<h1>Beers</h1>
+
+<% cache "beerlist-#{@page}-#{@order}", skip_digest: true do %>
+  <div id="beers">
+    <%= render "beers_page", beers: @beers, page: @page, order: @order, last_page: @last_page  %>
+  </div>
+<% end %>
+
+<%= link_to('New Beer', new_beer_path) if current_user %>
+```
+
+Once the above is functioning correctly, we can enclose our table within the `_beers_page.html.erb` partial using a turbo frame:
+
+**app/views/beers/\_beers_page.html.erb**
+
+```html
+<%= turbo_frame_tag "beers_page" do %>
+  <table class="table table-striped table-hover">
+    <!-- ... -->
+  </table>
+<% end %>
+```
+
+By using a Turbo Frame, all links and buttons within it will be controlled by Turbo, allowing the rendering of new pages triggered by the links within the Turbo Frame. However, to ensure proper functionality, we need to make a slight modification to our `index` method in `beers_controller.rb` in file path `app/controllers/beers_controller.rb`:
+
+```ruby
+def index
+  # ...
+  if turbo_frame_request?
+    render partial: "beers_page",
+      locals: { beers: @beers, page: @page, order: @order, last_page: @last_page }
+  else
+    render :index
+  end
+end
+```
+
+The `turbo_frame_request?` condition ensures that when the request is made within a Turbo Frame, only the partial containing our beer table is returned. We can now observe the behavior within the network tab of our browser's developer tools.
+
+![image](../images/ratebeer-w8-2.png)
+
+We can see that the headers include the ID of the Turbo Frame we are targeting, allowing Turbo to identify which part of the page should be replaced.
+
+![image](../images/ratebeer-w8-3.png)
+
+Indeed, the response contains only the partial and excludes the application layout that accompanies the HTML document. Turbo automatically handles this aspect.
+
+The only remaining issue is that the links to beers, breweries, and styles are no longer functional. Turbo attempts to load the links and replace our table with their content but fails to find a suitable turbo tag for replacement. We can easily resolve this by adding the target attribute to our links:
+
+**app/views/beers/\_beers_page.html.erb**
+
+```html
+<% beers.each do |beer| %>
+  <tr>
+    <td><%= link_to beer.name, beer, data: { turbo_frame: "_top"} %></td>
+    <td><%= link_to beer.style.name, beer.style, data: { turbo_frame: "_top"} %></td>
+    <td><%= link_to beer.brewery.name, beer.brewery, data: { turbo_frame: "_top"} %></td>
+    <td><%= round(beer.average_rating) %></td>
+  </tr>
+<% end %>
+```
+
+The `target="_top"` signifies that Turbo should break out of the frame and replace the entire page with the opened link. Alternatively, the `target` could be set to `_self`, targeting the current frame, or the ID of another Turbo Frame, in which case Turbo would attempt to replace that specific frame.
+
+We also notice that the URL remains unchanged when navigating between pages, and using the browser's back button may lead to unexpected results. We can easily address this by promoting our Turbo Actions into visits:
+
+**app/views/beers/\_beers_page.html.erb**
+
+```html
+<%= turbo_frame_tag "beers_page", data: { turbo_action: "advance" } do %>
+```
+
+Under the hood, Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
+
+<blockquote>
+
+## Exercise 1
+
+`turbo_frame_tag` has an attribute `src` available that will lazy load the contents of the source address into the turbo frame.
+
+1. Refactor breweries page so that there is new partial `_breweries_list.html.erb` which is used separately to list breweries under active breweries and retired breweries.
+2. Create new endpoints behind `breweries/active` and `breweries/retired` routes that return the partials for the active and retired breweries respectively.
+3. Use `turbo_frame_tag` with `src` attribute to lazy load active and retired breweries into their respective turbo frames.
+4. Fix the links to breweries so that they work inside the turbo frames.
+</blockquote>
+
+## Turbo Streams
 
 The purpose of [Turbo Streams](https://turbo.hotwired.dev/handbook/streams) is to enable page updates in fragments. For example, when a page displays a list of beers, instead of performing a complete page reload, a single beer can be appended or removed from the list in response to a change.
 
@@ -75,7 +281,7 @@ Turbo simplifies this process by streaming pre-rendered HTML, compiled on the ba
 
 Key concepts in Turbo Streams include **actions**, **targets**, and **templates**. These concepts determine which action should be applied to specific target elements using specific template data.
 
-#### Turbo Streams Actions
+### Turbo Streams Actions
 
 In Turbo Streams, **actions** are a fundamental concept used to specify the changes or updates that should be performed on the client-side HTML DOM in response to a server-side event. An action represents a specific operation that can be applied to one or more target elements within a Turbo Stream response.
 
@@ -91,13 +297,13 @@ The operations that can be applied to a target element include:
 | `update`  | Updates specific attributes or properties of the target element. |
 | `remove`  | Removes the target element from the DOM.                         |
 
-#### Turbo Streams Targets
+### Turbo Streams Targets
 
 In order for **actions** to function properly, Turbo requires the identification of target elements within the DOM. This can be achieved by assigning unique HTML `id` parameters to individual elements or by utilizing `class` parameters to target multiple elements.
 
 For identifying a single element, one can explicitly create an ID value in the view or leverage the convenient Rails [dom_id](https://api.rubyonrails.org/classes/ActionView/RecordIdentifier.html) helper, which automatically generates the ID tag. For example:
 
-```erb
+```html
 <div id="<%= dom_id(brewery) %>">
   <%= brewery.name %>
 </div>
@@ -105,13 +311,13 @@ For identifying a single element, one can explicitly create an ID value in the v
 
 This would result in a unique ID like:
 
-```erb
+```html
 <div id="brewery_55">Sinebrychoff</div>
 ```
 
 Alternatively, when targeting **multiple elements** based on specific [CSS class selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors), such as:
 
-```erb
+```html
 <div class="active" id="brewery_55">Sinebrychoff</div>
 <div class="active" id="brewery_62">Laitilan Wirvoitusjuomatehdas</div>
 <div class="retired" id="brewery_71">Pyynikin käsityöläispanimo</div>
@@ -119,17 +325,15 @@ Alternatively, when targeting **multiple elements** based on specific [CSS class
 
 you could use the remove action to remove all retired breweries from the list by targeting the class ".retired".
 
-#### Turbo Streams Templates
+### Turbo Streams Templates
 
 To leverage the capabilities of Turbo Streams, view templates should be designed as [partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials) that can be rendered individually. This enables targeted streaming of changes to specific components. For example, when streaming updates for breweries and appending new breweries to a list, the brewery row should be implemented as a partial.
-
-1. **Extracting Row Rendering Logic**
 
 To prepare the Breweries index page for streaming, extract the row rendering logic (created in Exercise 1) from `app/views/breweries/_breweries_list.html.erb`:
 
 **app/views/breweries/\_breweries_list.html.erb**
 
-```erb
+```html
 <tbody>
   <% breweries.each do |brewery| %>
     <tr %>">
@@ -146,7 +350,7 @@ To new partial file `app/views/breweries/_brewery_row.html.erb`:
 
 **app/views/breweries/\_brewery_row.html.erb**
 
-```erb
+```html
 <tr %>">
   <td><%= link_to brewery.name, brewery, data: { turbo_frame: "_top"} %></td>
   <td><%= brewery.year %></td>
@@ -157,7 +361,7 @@ To new partial file `app/views/breweries/_brewery_row.html.erb`:
 
 And change the original code to use this partial :
 
-```erb
+```html
 <tbody id="<%= status %>_brewery_rows">
   <% breweries.each do |brewery| %>
     <%= render "brewery_row", brewery: brewery %>
@@ -167,13 +371,11 @@ And change the original code to use this partial :
 
 Pay attention to new ID that we give to the tbody element. We need `active_brewery_rows` or `retired_brewery_rows` ID to **target** the **action** of appending new breweries as children of the correct table. If in Exercise 1 you did not define local `status` or something similar containing `active`/`retired` information for the different brewery listings, you should do that now as it will help us later.
 
-2. **Adding New Breweries from Index Page**
-
 Next, let's enable the addition of new breweries directly from the index page. Replace the following code in `app/views/breweries/index.html.erb`:
 
 **app/views/breweries/index.html.erb**
 
-```erb
+```html
 <%= link_to "New brewery", new_brewery_path if current_user %>
 ```
 
@@ -181,19 +383,17 @@ With the following Turbo Frame tag:
 
 **app/views/breweries/index.html.erb**
 
-```erb
+```html
 <%= turbo_frame_tag "new_brewery", src: new_brewery_path if current_user %>
 ```
 
 This Turbo Frame will include a part of our existing code from the `new_brewery` path.
 
-3. **Defining Partial View for Adding a New Brewery**
-
 In `app/views/breweries/_new.html.erb` specify which part of the view you want to show in the Turbo Frame:
 
 **app/views/breweries/\_new.html.erb**
 
-```erb
+```html
 <h1>New brewery</h1>
 
 <%= turbo_frame_tag "new_brewery" do %>
@@ -203,8 +403,6 @@ In `app/views/breweries/_new.html.erb` specify which part of the view you want t
 ```
 
 ![image](../images/ratebeer-w8-4.png)
-
-4. **Modifying the Controller Response**
 
 In order to append the created beer to the list without doing a full page update, we need to modify the response in the create action of the `app/controllers/breweries_controller.rb` file.
 
@@ -261,7 +459,7 @@ This change involves one line of code, but under the hood, several components en
 
 4. With the table body previously assigned an ID, such as `<tbody id="active_brewery_rows">`, Turbo knows to append the generated template as the last child of the table body element. It intelligently places the new content in the appropriate location. You can test this behavior by removing or altering the ID and observing the resulting outcome.
 
-#### Dynamic Updates with ActionCable
+### Dynamic Updates with ActionCable
 
 [ActionCable](https://edgeguides.rubyonrails.org/action_cable_overview.html) enables dynamic updates by utilizing [WebSockets](https://en.wikipedia.org/wiki/WebSocket), providing real-time streaming of content to multiple browsers. Unlike traditional request-response logic, which requires the browser to send a request and await a response, ActionCable allows seamless updates without the need to refresh the page. This functionality has been available since Rails version 5 and is based on WebSockets technology. For a very brief tutorial on WebSockets, see [WebSockets in 100 seconds](https://www.youtube.com/watch?v=1BfCnjr_Vjg).
 
@@ -269,7 +467,7 @@ To establish a connection between the browser and the server for listening to ch
 
 **app/views/breweries/index.html.erb**
 
-```erb
+```html
 <%= turbo_stream_from "breweries_index" %>
 ```
 
@@ -307,7 +505,7 @@ In `app/views/breweries/_brewery_row.html`, add the following line of code:
 
 **app/views/breweries/\_brewery_row.html**
 
-```erb
+```html
 <tr id="<%= dom_id(brewery) %>">
   <td>...
 ```
@@ -320,90 +518,36 @@ To observe the WebSocket connection details, you can use the browser's developer
 
 It's worth noting that in our example, we used a simple string, `breweries_index`, as the identifier for the channel since there is only one `breweries_index`. However, in certain scenarios, you may want to use an object to identify the stream. For instance, if you implement the ability to add new beers to a specific brewery from the Brewery page and stream the added data only to that page, you would want to use something like `@brewery` instead of `"breweries_index"`. This way, different brewery pages can be targeted with the streaming updates.
 
-### Turbo Frames
+<blockquote>
 
-Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
+## Exercise 2
 
-To begin, let's create a new partial called `_beers_page.html.erb` and extract the table containing the beers from our `index.html.erb` file. This way, our `index.html.erb` will appear as follows:
+Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database (see [Rails views documentation](https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-by-default-convention-over-configuration-in-action)). The implementation should follow these steps:
 
-**app/views/beers/index.html.erb**
+1. **Initial Removal (No Turbo, Full Page Reload)**
+   Initially, make the removal work without using Turbo, requiring a full page reload after the delete action.
 
-```erb
-<h1>Beers</h1>
+2. **Dynamic Removal with Turbo Streams**
+   Improve the functionality by dynamically removing the deleted brewery from the list using Turbo Streams. Ensure the removal is reflected in the UI without requiring a full page reload.
 
-<% cache "beerlist-#{@page}-#{@order}", skip_digest: true do %>
-  <div id="beers">
-    <%= render "beers_page", beers: @beers, page: @page, order: @order, last_page: @last_page  %>
-  </div>
-<% end %>
+3. **WebSocket Integration for Real-Time Updates**
+   Leverage WebSockets to stream the removal action to all connected browsers in real time.
 
-<%= link_to('New Beer', new_beer_path) if current_user %>
-```
+4. **Confirmation Pop-up**
+   Enhance user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove brewery X and all beers associated with it?". The pop-up should provide options for "Cancel" and "Remove" actions.
 
-Once the above is functioning correctly, we can enclose our table within the `_beers_page.html.erb` partial using a turbo frame:
+</blockquote>
 
-**app/views/beers/\_beers_page.html.erb**
+<blockquote>
 
-```erb
-<%= turbo_frame_tag "beers_page" do %>
-  <table class="table table-striped table-hover">
-    <!-- ... -->
-  </table>
-<% end %>
-```
+## Exercise 3
 
-By using a Turbo Frame, all links and buttons within it will be controlled by Turbo, allowing the rendering of new pages triggered by the links within the Turbo Frame. However, to ensure proper functionality, we need to make a slight modification to our `index` method in `beers_controller.rb` in file path `app/controllers/beers_controller.rb`:
+Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
 
-```ruby
-def index
-  # ...
-  if turbo_frame_request?
-    render partial: "beers_page",
-      locals: { beers: @beers, page: @page, order: @order, last_page: @last_page }
-  else
-    render :index
-  end
-end
-```
+Hint: you can render multiple turbo stream messages from a controller response by placing them in an array.
+</blockquote>
 
-The `turbo_frame_request?` condition ensures that when the request is made within a Turbo Frame, only the partial containing our beer table is returned. We can now observe the behavior within the network tab of our browser's developer tools.
-
-TODO: image
-
-We can see that the headers include the ID of the Turbo Frame we are targeting, allowing Turbo to identify which part of the page should be replaced.
-
-TODO: image
-
-Indeed, the response contains only the partial and excludes the application layout that accompanies the HTML document. Turbo automatically handles this aspect.
-
-The only remaining issue is that the links to beers, breweries, and styles are no longer functional. Turbo attempts to load the links and replace our table with their content but fails to find a suitable turbo tag for replacement. We can easily resolve this by adding the target attribute to our links:
-
-**\*TODO: Which file is this?**
-
-```erb
-<% beers.each do |beer| %>
-  <tr>
-    <td><%= link_to beer.name, beer, data: { turbo_frame: "_top"} %></td>
-    <td><%= link_to beer.style.name, beer.style, data: { turbo_frame: "_top"} %></td>
-    <td><%= link_to beer.brewery.name, beer.brewery, data: { turbo_frame: "_top"} %></td>
-    <td><%= round(beer.average_rating) %></td>
-  </tr>
-<% end %>
-```
-
-The `target="_top"` signifies that Turbo should break out of the frame and replace the entire page with the opened link. Alternatively, the `target` could be set to `_self`, targeting the current frame, or the ID of another Turbo Frame, in which case Turbo would attempt to replace that specific frame.
-
-We also notice that the URL remains unchanged when navigating between pages, and using the browser's back button may lead to unexpected results. We can easily address this by promoting our Turbo Actions into visits:
-
-**TODO: Which file is this?**
-
-```erb
-<%= turbo_frame_tag "beers_page", data: { turbo_action: "advance" } do %>
-```
-
-Under the hood, Turbo utilizes JavaScript to manipulate the HTML DOM of the page, eliminating the need for us to write any JavaScript code ourselves!
-
-### Stimulus
+## Stimulus
 
 [Stimulus](https://stimulus.hotwired.dev/) is a JavaScript framework designed to enhance interactivity in HTML, eliminating the need for extensive custom JavaScript development. By utilizing a set of JavaScript modules that can be seamlessly attached to HTML elements using specific attributes, Stimulus enables developers to create simpler and more maintainable code.
 
@@ -423,120 +567,125 @@ Stimulus utilizes key concepts such as **controllers**, **actions**, **targets**
 - Careful organization and structuring of Stimulus controllers is necessary to prevent bloated and unmanageable code.
 - Developers who are unfamiliar with the Stimulus framework may experience a learning curve and added complexity during development.
 
-#### Stimulus Controllers
+### Deleting ratings
+
+Let's try our hand at Stimulus with implementing a feature that allows users to delete multiple beer ratings at once without need for a full page reload.
+
+We can start by creating a new partial file named `_ratings.html.erb` within the `/app/views/users` folder.
+
+Then we extract the ratings code section (shown below) from the `/app/views/users/show.html.erb` file and place it into the ratings partial file.
+
+**/app/views/users/\_ratings.html.erb**
+
+```html
+<ul>
+  <% @user.ratings.each do |rating| %>
+    <li>
+      <%= "#{rating.score} #{rating.beer.name}" %>
+      <% if @user == current_user %>
+        <%= button_to 'delete', rating, method: :delete, form: { style:'display:inline-block;', data: { 'turbo-confirm': 'Are you sure?' } } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+```
+
+Then we delete the ratings code from the `/app/views/users/show.html.erb` file and insert the ratings partial using the `<%= render partial: 'ratings' %>` statement under the ratings header.
+
+**/app/views/users/show.html.erb**
+
+```html
+<h4>Ratings</h4>
+<%= render partial: 'ratings' %>
+```
+
+We can then modify the partial by removing the list elements and delete button from the `/app/views/users/_ratings.html.erb` file, like so:
+
+**/app/views/users/\_ratings.html.erb**
+
+```html
+<div class="ratings mb-4">
+  <% @user.ratings.each do |rating| %>
+    <div class="rating">
+      <% if @user == current_user %>
+        <input type="checkbox" name="ratings[]" value="<%= rating.id %>" />
+      <% end %>
+      <span><%= "#{rating.score} #{rating.beer.name}" %></span>
+    </div>
+  <% end %>
+  <% if @user == current_user %>
+    <button>Delete selected</button>
+  <% end %>
+</div>
+```
+
+With the modified templates ready, let's update the `routes.rb` file (`/app/config/routes.rb`) to handle the ratings destroy action. Remove the `destroy` action from the ratings resources and add a separate delete method to handle the removal of rating IDs.
+
+**/app/config/routes.rb**
+
+```ruby
+resources :ratings, only: [:index, :new, :create]
+delete 'ratings', to: 'ratings#destroy'
+```
+
+Modify the `destroy` method within the `ratings_controller.rb` file (`app/controllers/ratings_controller.rb`) to handle the deletion of multiple rating IDs. We can do it like this:
+
+**app/controllers/ratings_controller.rb**
+
+```ruby
+def destroy
+  destroy_ids = request.body.string.split(',')
+  # Loop through multiple rating IDs and delete them if they exist and belong to the current user
+  destroy_ids.each do |id|
+    rating = Rating.find_by(id: id)
+    rating.destroy if rating && current_user == rating.user
+  # Rescue in case one of the rating IDs is invalid so we can continue deleting the rest 
+  rescue StandardError => e
+    puts "Rating record has an error: #{e.message}"
+  end
+  @user = current_user
+  respond_to do |format|
+    format.html { render partial: '/users/ratings', status: :ok, user: @user }
+  end
+end
+```
+![image](../images/ratebeer-w8-8.png)
+Right now the delete button does not really do anything as it's not connected to our route or controller any way. This is where we start using Stimulus.
+
+### Stimulus Controllers
 
 When working with Stimulus, it is essential to follow a specific naming convention for **controller** files. Each controller file should be named in the format `[identifier]_controller.js`, where the identifier corresponds to the data-controller attribute associated with the respective controller in your HTML markup.
 By adhering to this naming convention, Stimulus can seamlessly link the controllers in your HTML with their corresponding JavaScript files.
 
-Here is an example of a controller named `hello_controller.js` located at the file path `/app/javascript/controllers/hello_controller.js`:
+Let's start by creating a `ratings_controller.js` and put it to file path `/app/javascript/controllers/ratings_controller.js`:
 
-**/app/javascript/controllers/hello_controller.js**
-
-```javascript
-import { Controller } from "@hotwired/stimulus";
-
-export default class extends Controller {}
-```
-
-In the example below, a `<div>` element is associated with the `data-controller` attribute, which has the value `hello`. This binds it to the Stimulus controller named `hello_controller.js` (as shown above). It's important to note that the scope of a Stimulus controller includes the element it is connected to and its children, but not the surrounding elements. For instance, in the example below, the `<div>`, `<input>`, and `<button>` are part of the controller's scope, while the surrounding `<h1>` element is not.
-
-```html
-<h1>Greetings</h1>
-<div data-controller="hello">
-  <input type="text" />
-  <button>Greet</button>
-</div>
-```
-
-#### Stimulus Actions
-
-**Actions** in Stimulus are methods defined within a controller that respond to user events or changes in the application state. These actions are identified using the data-action attribute and can be triggered by various events, such as clicks, form submissions, or custom events.
-
-For example, to add an action to a `<button>` element, you can use the data-action attribute with the format `event->controller#method`. In the following example, a click event listener is attached to the `<button>` element with the controller identifier `hello`, and it calls the `greet` method when clicked.
-
-```html
-<h1>Greetings</h1>
-<div data-controller="hello">
-  <input type="text" />
-  <button data-action="click->hello#greet">Greet</button>
-</div>
-```
-
-Stimulus provides default events for certain elements, which means that the click event can be omitted from the data-action attribute for buttons. For example, `<button data-action="hello#greet">Greet</button>` would achieve the same result.
-
-Here is a complete list of elements and their default events:
-
-| Element             | Default Event |
-| ------------------- | ------------- |
-| `a`                 | `click`       |
-| `button`            | `click`       |
-| `details`           | `toggle`      |
-| `form`              | `submit`      |
-| `input`             | `input`       |
-| `input type=submit` | `click`       |
-| `select`            | `change`      |
-| `textarea`          | `input`       |
-
-#### Stimulus Targets
-
-**Targets** in Stimulus are special attributes that allow a controller to reference and manipulate specific elements within its scope. To define targets, you need to add the `data-[controller name]-target` attribute to the HTML elements. Stimulus scans your controller class and identifies target names in the static `targets` array. It automatically adds three properties for each target name: `sourceTarget`, which evaluates to the first matching target element, `sourceTargets`, which evaluates to an array of all matching target elements, and `hasSourceTarget`, which returns boolean value `true` or `false` depending on the presence of a matching target.
-
-```html
-<h1>Greetings</h1>
-<div data-controller="hello">
-  <input data-hello-target="name" type="text" />
-  <button data-action="hello#greet">Greet</button>
-</div>
-```
-
-To add the target's name to the controller's list of target definitions, you need to update the `hello_controller.js` file accordingly. This will automatically create a property named `nameTarget` that returns the first matching target element. You can then use this property to read the value of the element and build the greeting string.
-
-**/app/javascript/controllers/hello_controller.js**
+**/app/javascript/controllers/ratings_controller.js**
 
 ```javascript
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["name"];
-
-  greet() {
-    const name = this.nameTarget.value;
-    console.log(`Hello, ${name}!`);
-  }
+   // We'll talk about the connect in a second... 
+   connect() {
+      console.log("Hello, Stimulus!");
+   }
 }
 ```
 
-#### Stimulus Values
-
-**Values** in Stimulus are a way to store and access data within a controller using the `value` method. These values can be declared in various ways, such as static values defined in the controller, attributes on HTML elements, or dynamic values.
-
-In the example below, the attribute `data-hello-greeting-value` is used to add a value to an HTML element. In this case, the value is set to `Welcome`.
+In our `_ratings.html.erb` we can edit `<div>` element with the `data-controller` attribute, with value `ratings`.
 
 ```html
-<h1>Greetings</h1>
-<div data-controller="hello" data-hello-greeting-value="Welcome">
-  <input data-hello-target="name" type="text" />
-  <button data-action="hello#greet">Greet</button>
+<div data-controller="ratings" class="ratings mb-4">
+  # ...
 </div>
 ```
+This binds it to the Stimulus controller named `ratings_controller.js`. It's important to note that the scope of a Stimulus controller includes the element it is connected to and its children, but not the surrounding elements.
 
-In the controller file `hello_controller.js`, a static values array is created, including the attribute name `greeting` with a type of `String`. By adding the attribute `data-hello-greeting-value="Welcome"` to the `<div>` element, the value `Welcome` is assigned to the `greetingValue` variable in the controller. This value can then be accessed and used within the controller's code.
+We can then reload the page and see from the console log that we have indeed connected to the Stimulus controller.
 
-**/app/javascript/controllers/hello_controller.js**
+![image](../images/ratebeer-w8-9.png)
 
-```javascript
-import { Controller } from "@hotwired/stimulus";
-
-export default class extends Controller {
-  static targets = ["name"];
-  static values = { greeting: String };
-
-  greet() {
-    const name = this.nameTarget.value;
-    console.log(`${this.greetingValue}, ${name}!`);
-  }
-}
-```
+`connect()` is a callback method which Stimulus supports out of the box which is executed when the controller is connected to the DOM.
 
 ### Lifecycle Methods
 
@@ -574,86 +723,41 @@ These lifecycle methods provide developers with the flexibility to perform speci
 
 By leveraging these lifecycle methods, developers can ensure proper initialization, respond to changes in DOM state, and maintain organized and maintainable code in their Stimulus controllers.
 
-### Application Example
+### Stimulus Actions
 
-Let's enhance the functionality of deleting user ratings by utilizing Stimulus to enable the simultaneous deletion of multiple ratings, offering a more efficient process compared to deleting them one by one.
+**Actions** in Stimulus are methods defined within a controller that respond to user events or changes in the application state. These actions are identified using the data-action attribute and can be triggered by various events, such as clicks, form submissions, or custom events.
 
-1. Create a new partial file named `_ratings.html.erb` within the `/app/views/users` folder. Next, extract the ratings code section (shown below) from the `/app/views/users/show.html.erb` file and place it into the ratings partial file (`/app/views/users/_ratings.html.erb`).
-
-**/app/views/users/\_ratings.html.erb**
-
-```erb
-<ul>
-  <% @user.ratings.each do |rating| %>
-    <li>
-      <%= "#{rating.score} #{rating.beer.name}" %>
-      <% if @user == current_user %>
-        <%= button_to 'delete', rating, method: :delete, form: { style:'display:inline-block;', data: { 'turbo-confirm': 'Are you sure?' } } %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-```
-
-2. Delete the ratings code from the `/app/views/users/show.html.erb` file and insert the ratings partial using the `<%= render partial: 'ratings' %>` statement under the ratings header.
-
-**/app/views/users/show.html.erb**
-
-```erb
-<h4>Ratings</h4>
-<%= render partial: 'ratings' %>
-```
-
-3. Modify the partial by removing the list elements and delete button from the `/app/views/users/_ratings.html.erb` file.
+Let's add an action to our `<button>` element, data-action attributes are used with the format `event->controller#method`.
 
 **/app/views/users/\_ratings.html.erb**
 
-```erb
+```html
 <div data-controller="ratings" class="ratings mb-4">
-  <% @user.ratings.each do |rating| %>
-    <div class="rating">
-      <% if @user == current_user %>
-        <input type="checkbox" name="ratings[]" value="<%= rating.id %>" />
-      <% end %>
-      <span><%= "#{rating.score} #{rating.beer.name}" %></span>
-    </div>
-  <% end %>
+  # ...
   <% if @user == current_user %>
-    <button data-action="ratings#destroy">Delete selected</button>
+    <button data-action="click->ratings#destroy">Delete selected</button>
   <% end %>
 </div>
 ```
 
-4. With the modified templates ready, let's update the `routes.rb` file (`/app/config/routes.rb`) to handle the ratings destroy action. Remove the `destroy` action from the ratings resources and add a separate delete method to handle the removal of rating IDs.
+Here a click event listener is attached to the `<button>` element with the controller identifier `ratings`, and it calls the `destroy` method when clicked.
 
-**/app/config/routes.rb**
+Stimulus provides default events for certain elements, which means that the click event can be omitted from the data-action attribute for buttons. For example, `<button data-action="ratings#destroy">Delete selected</button>` would achieve the same result.
 
-```ruby
-resources :ratings, only: [:index, :new, :create]
-delete 'ratings', to: 'ratings#destroy'
-```
+Here is a complete list of elements and their default events:
 
-5. Modify the `destroy` method within the `ratings_controller.rb` file (`app/controllers/ratings_controller.rb`) to handle the deletion of multiple rating IDs. Retrieve the rating IDs from the request body, loop through each ID, find the respective rating, and destroy it if the current user is the author of the rating. Implement a `rescue` block to handle any potential errors during the loop. After the destruction, ensure the user data is refreshed to reflect the changes.
+| Element             | Default Event |
+| ------------------- | ------------- |
+| `a`                 | `click`       |
+| `button`            | `click`       |
+| `details`           | `toggle`      |
+| `form`              | `submit`      |
+| `input`             | `input`       |
+| `input type=submit` | `click`       |
+| `select`            | `change`      |
+| `textarea`          | `input`       |
 
-**app/controllers/ratings_controller.rb**
-
-```ruby
-def destroy
-  destroy_ids = request.body.string.split(',')
-  destroy_ids.each do |id|
-    rating = Rating.find_by(id: id)
-    rating.destroy if rating && current_user == rating.user
-  rescue StandardError => e
-    puts "Rating record has an error: #{e.message}"
-  end
-  @user = current_user
-  respond_to do |format|
-    format.html { render partial: '/users/ratings', status: :ok, user: @user }
-  end
-end
-```
-
-6. Create the Stimulus ratings controller file `ratings_controller.js` within the `/app/javascript/controllers/` folder. Import the `Controller` class from the `@hotwired/stimulus` module and define a class that extends the `Controller` class. Within this class, implement the destroy method. Begin by displaying a confirmation dialog to the user. If the user confirms the deletion, retrieve the selected rating IDs from the checkboxes, include the CSRF token in the request headers, and initiate a `fetch` request to the `/ratings` endpoint with the selected rating IDs as the request body. Handle the response accordingly, updating the HTML of the ratings element if the response is successful, and logging any errors that occur during the process.
+We can now write the `destroy` method in our `ratings_controller.js`:
 
 **/app/javascript/controllers/ratings_controller.js**
 
@@ -662,21 +766,25 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   destroy() {
+    // Confirmation dialog for the user
     const confirmDelete = confirm(
       "Are you sure you want to delete these selected ratings?"
     );
     if (!confirmDelete) {
       return;
     }
-
+    
+    // Retrieve the selected rating IDs from the checkboxes
     const selectedRatingsIDs = Array.from(
       document.querySelectorAll('input[name="ratings[]"]:checked'),
       (checkbox) => checkbox.value
     );
-
+    
+    // Include the CSRF token in the request headers so that Rails recognizes us as the logged in user
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     const headers = { "X-CSRF-Token": csrfToken };
 
+    // Send a DELETE request to the ratings controller with the selected rating IDs
     fetch("/ratings", {
       method: "DELETE",
       headers: headers,
@@ -697,50 +805,258 @@ export default class extends Controller {
   }
 }
 ```
+And now we finally have a working delete button for deleting multiple ratings!
 
-## Exercises
+### Beer tax calculator
 
-### Turbo Streams Exercises
+To showcase a bit more Stimulus features we'll build a handy beer tax calculator for our application so that you know how much you are supporting Helsinki University and other public services with each beer bought. To start let's add new path to our `routes.rb`.
 
-#### Implementing Brewery Removal with Confirmation Pop-up
+**/config/routes.rb**
 
-Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database (see [Rails views documentation](https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-by-default-convention-over-configuration-in-action)). The implementation should follow these steps:
+```ruby
+Rails.application.routes.draw do
+   #...
+   get 'calculator', to: 'misc#calculator'
+   # ...
+end
+```
 
-1. **Initial Removal (No Turbo, Full Page Reload)**
-   Initially, make the removal work without using Turbo, requiring a full page reload after the delete action.
+And create a new controller file for out path:
 
-2. **Dynamic Removal with Turbo Streams**
-   Improve the functionality by dynamically removing the deleted brewery from the list using Turbo Streams. Ensure the removal is reflected in the UI without requiring a full page reload.
+**/app/controllers/misc_controller.rb**
 
-3. **WebSocket Integration for Real-Time Updates**
-   Leverage WebSockets to stream the removal action to all connected browsers in real time.
+```ruby
+class MiscController < ApplicationController
+   def calculator
+   end
+end
+```
 
-4. **Confirmation Pop-up**
-   Enhance user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove brewery X and all beers associated with it?". The pop-up should provide options for "Cancel" and "Remove" actions.
+And then add link for the calculator to our navbar:
 
-#### Dynamic Updating of Active and Retired Breweries
+**/app/views/layouts/application.html.erb**
 
-Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
+```html
+<!--(...)-->
+<li class="nav-item">
+  <%= link_to 'styles', styles_path, { class: "nav-link" } %>
+</li>
+<li class="nav-item">
+  <%= link_to 'tax calculator', calculator_path, { class: "nav-link" } %>
+</li>
+<!--(...)-->
+```
 
-Hint: you can render multiple turbo stream messages from a controller response by placing them in an array.
+Lastly we can create a Stimulus controller file for our calculator to `app/javascript/controllers`:
 
-### Stimulus Exercises
+**/app/javascript/controllers/calculator_controller.js**
 
-#### Add select all checkbox input to users ratings partial and event that select/deselect all users ratings by that selection
+```javascript
+import { Controller } from "@hotwired/stimulus";
 
-#### New brewery form page clear all form inputs(also checkbox) after form is submitted
+    export default class extends Controller {}
+}
+```
 
-#### New brewery form page add new select field that gets its data(breweries) from the PRH API
+#### Stimulus Targets
 
-- Add select input-field and get its data(breweries) from the PRH API.
-- After user selects brewery from select input get selected brewerys data from the PRH API and fill brewery name and registration year to new form inputs(name, year).
+**Targets** in Stimulus are special attributes that allow a controller to reference and manipulate specific elements within its scope. To define targets, you need to add the `data-[controller name]-target` attribute to the HTML elements. Stimulus scans your controller class and identifies target names in the static `targets` array. It automatically adds three properties for each target name: `sourceTarget`, which evaluates to the first matching target element, `sourceTargets`, which evaluates to an array of all matching target elements, and `hasSourceTarget`, which returns boolean value `true` or `false` depending on the presence of a matching target.
+
+Let's create a form for our calculator containing some targets to collect.
+```html
+<h2>Beer tax calculator</h2>
+
+<div data-controller="calculator" class="container">
+   <form data-action="calculator#calculate">
+      <div>
+         <label>Amount</label>
+         <input type="number" min="0" step="0.001" value="0.000" required="true" data-calculator-target="amount" />
+         <label>liters</label>
+      </div>
+      <div>
+         <label>Alcohol by volume (ABV)</label>
+         <input type="number" min="0" step="0.01" value="0.00" required="true" data-calculator-target="abv" />
+         <label>%</label>
+      </div>
+      <div>
+         <label>Price </label>
+         <input type="number" min="0" step="0.01" value="0.00" required="true" data-calculator-target="price" />
+         <label>€</label>
+      </div>
+      </br>
+      <button>Calculate</button>
+   </form>
+</div>
+```
+
+To add target names to the controller's list of target definitions, you need to update the `calculator_controller.js` file accordingly. This will automatically create properties with names `nameTarget` for each which return the first matching target element. You can then use this property to read the value of the element and for testing print each value to console.
+
+**/app/javascript/controllers/calculator_controller.js**
+
+```javascript
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+   static targets = ["amount", "abv", "price"];
+
+   calculate(event) {
+      // Prevent the default form submission from reloading the page.
+      event.preventDefault();
+      const amount = parseFloat(this.amountTarget.value);
+      const abv = parseFloat(this.abvTarget.value);
+      const price = parseFloat(this.priceTarget.value);
+      console.log(amount, abv, price);
+   }
+}
+```
+
+When testing the submit button we can see that we are getting the values printed to javascript console.
+
+![image](../images/ratebeer-w8-10.png)
+
+#### Stimulus Values
+
+**Values** in Stimulus are a way to store and access data within a controller using the `value` method. These values can be declared in various ways, such as static values defined in the controller, attributes on HTML elements, or dynamic values.
+
+For our calculator app we can create attribute `data-calculator-vat-value` for having value saved for value added tax. In this case, the value gets set to `0.24`.
+
+Let's also add div for us to input the result of our calculations. Notice that the div needs to be inside the `<div data-controller="calculator">` element so that our calculator controller can see and access it.
+
+```html
+<h2>Beer tax calculator</h2>
+
+<% vat = 0.24 %>
+<div data-controller="calculator" data-calculator-vat-value="<%= vat %>" class="container">
+   <form data-action="calculator#calculate">
+      // (...)
+      <div>
+         <p>Value added tax <%= vat * 100 %>%</p>
+      </div>
+      </br>
+      <button>Calculate</button>
+   </form>
+   </br>
+   <div id="result">
+   </div>
+</div>
+```
+
+In the controller file `calculator_controller.js`, a static values array is created, including the attribute name `vat` with a type of `Number`. By adding the attribute `data-calculator-vat-value="0.24"` to the `<div>` element, the value `0.24` is assigned to the `vatValue` variable in the controller and converted into number with JavaScript's `Number()` -function. This value can then be accessed and used within the controller's code.
+
+Now we can finish the code for our calculator.
+
+**/app/javascript/controllers/hello_controller.js**
+
+```javascript
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+   static targets = ["amount", "abv", "price"];
+   static values = { vat: Number };
+   calculate(event) {
+      event.preventDefault();
+      const amount = parseFloat(this.amountTarget.value);
+      const abv = parseFloat(this.abvTarget.value);
+      const price = parseFloat(this.priceTarget.value);
+      // Amounts of alcohol tax per liter of pure alcohol for beers.
+      let alcoholTax = 0;
+      switch (true) {
+         case (abv < 0.5):
+            alcoholTax = 0;
+         case (abv <= 3.5):
+            alcoholTax = 0.2835;
+         case (abv > 3.5):
+            alcoholTax = 0.3805;
+      }
+      const beerTax = (amount * abv * alcoholTax);
+      const vatAmount = (price * this.vatValue);
+      const taxPercentage = ((beerTax + vatAmount) / price * 100);
+      const result = document.getElementById("result")
+      result.innerHTML = "<p>Beer has " + beerTax.toFixed(2) + "€ of alcohol tax and " + vatAmount.toFixed(2) + "€ of value added tax.</p>" +
+              "<p>" + taxPercentage.toFixed(1) + "% of the price is taxes.</p>"
+   }
+}
+```
+
+And now we have a beautifully working beer tax calculator!
+
+![image](../images/ratebeer-w8-11.png)
+
+<blockquote>
+
+## Exercise 4
+
+Improve beer tax calculator by changing the amount field to be dropdown selection containing most common beer can and bottle sizes, for example these: 0.33, 0.375, 0.5, 0.66, 0.75, 1, 1.3 and 1.5 liters.
+</blockquote>
+
+<blockquote>
+
+## Exercise 5
+
+Continuing from the exercise 4, add option `Custom` to the dropdown. When custom option is selected, there is user fillable custom amount field added to the form. If user switches back to pre-defined amount in the dropdown, custom amount field gets removed from the form.
+
+![image](../images/ratebeer-w8-12.png)
+
+Hint: Remember that you have `this.has[name]Target` checker available to check if named target has been defined.
+</blockquote>
+
+
+<blockquote>
+
+## Exercise 6
+
+Add _select all_ checkbox input to users ratings partial and event that selects/deselects all users ratings when that checkbox is selected/deselected.
+</blockquote>
+
+<blockquote>
+
+## Exercise 7
+
+When we add new breweries in the brewery page, our form does not get emptied out after adding the brewery. Use Stimulus to clear all form inputs (also the checkbox) after the form is submitted.
+
+Hint: Turbo offers `turbo:submit-end` event that is fired after form is submitted which you can user to trigger an action. More turbo events can be found here: https://turbo.hotwired.dev/reference/events
+</blockquote>
+
+<blockquote>
+
+## Exercise 8
+
+For the form for creating a new brewery, add a select field that gets its data (breweries) from the PRH API
+
+- Add select input-field and get its data (breweries) from the PRH API.
+- After user selects brewery from select input, get selected brewery's data from the PRH API and fill brewery name and registration year to new form inputs (name, year).
+
+
 - API url to get all breweries: https://avoindata.prh.fi/bis/v1?totalResults=true&maxResults=500&businessLine=Oluen%20valmistus
 - API url to get the single brewery data: https://avoindata.prh.fi/bis/v1?businessId=${breweryId}
 
-## ActionCable, Redis, and Fly.io Integration
+You can assume year of the registration date as the year of the brewery's establishment, unless it is before 1980's as those records don't seem to match to the actual establishment year. Leave the year field empty for those.
+</blockquote>
+
+## ActionCable, Redis, and Heroku / Fly.io Integration
 
 To ensure seamless operation of **ActionCable**, the foundational component for Turbo streams, in a production environment, it is necessary to have [Redis](https://redis.io/) installed. Please follow the steps outlined below to ensure a proper configuration.
 
+### Heroku
+1. **Verify Redis Installation**
+
+Check if you already have a Redis add-on by running the following command in your terminal:
+
+`$ heroku addons | grep heroku-redis`
+
+If no Redis add-on is listed, proceed to create a Redis instance using the command:
+
+`$ heroku addons:create heroku-redis:mini -a your-app-name`
+
+2. **Gemfile Configuration**
+
+By default,  Heroku configures your `Gemfile` with a Redis gem version higher than 5. However, if you are running a Rails version lower than 7.0.4, you will need an older version of the gem. Update your `Gemfile` with the following Redis configuration:
+
+```ruby
+gem "redis", ">= 3", "< 5"
+```
+
+### Fly.io
 1. **Verify Redis Installation**
 
 Check if you already have a Redis instance by running the following command in your terminal:
@@ -775,4 +1091,4 @@ Commit all your changes and push the code to Github. Deploy to the newest versio
 
 If you have problems with Heroku, remember to use <code>heroku logs</code> to view the logs. The same can be done for Fly.io with <code>fly logs</code>.
 
-This part of the course is still in beta testing. You can already try the material and exercises but they cannot be returned yet and the exercises can change before they are released.
+This part of the course is still in beta testing. You can already try the material and exercises, but they cannot be submitted yet and the exercises can change before they are released.
