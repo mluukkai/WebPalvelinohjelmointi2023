@@ -70,6 +70,8 @@ Workshop guidance is organized on the Kumpula campus in room BK107 during the fa
 
 - [week 7](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md)
 
+- [week 8 beta](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md)
+
 - [About the material](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/materiaalista-english.md)
 
 ## Links

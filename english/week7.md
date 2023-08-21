@@ -1751,6 +1751,7 @@ If Rails seems interesting you could dig more into it in the following ways
 - http://railscasts.com/ excellent videos focusing on one theme at a time. Unfortunately new videos haven't been published in over a year - Hopefully the page will be re-activated at some point. It seems most pay-to-see pro-episodes can be found on Youtube... 
 - https://www.ruby-toolbox.com/ help for finding gems
 - [Eloquent Ruby](http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104) an excellent book on Ruby
-- [Turbo](https://turbo.hotwired.dev/): a modern way to develop rails by making rails applications single page applications
+
+You can also dive into [week 8 beta](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md), upcoming addition for the course, if you want to already learn about Hotwire, Rails way of creating reactive applications with minimal Javascript.
 
 
