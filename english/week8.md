@@ -38,7 +38,9 @@ Strada is an extension of Hotwire that allows developers to build iOS and Androi
 
 Before jumping into the Hotwire components in detail, let's take a slight detour. After last week's [increased amount of beers](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality) you start to wonder that it would be kinda nice to have a pagination for our beers page. Let's add it first without utilizing Hotwire features.
 
-First we start by adding links for previous and next pages to the end of our beers table in `/beers/index.html.erb`:
+First we start by adding links for previous and next pages to the end of our beers table:
+
+**app/views/beers/index.html.erb**
 
 ```html
 <table class="table table-striped table-hover">
@@ -63,6 +65,8 @@ First we start by adding links for previous and next pages to the end of our bee
 
 Our links don't do much yet so let's add some logic to the controller as well. Last week we defined ordering of the beers in our controller like so:
 
+**app/controllers/beers_controller.rb**
+
 ```ruby
 def index
   @beers = Beer.includes(:brewery, :style, :ratings).all
@@ -79,6 +83,8 @@ end
 ```
 
 Which contains a bit of a problem. Method `sort_by` will load all the beers to central memory as an array and only then sort the order. But now we would want to fetch only limited amount of records from the database at a time, only what is needed for the current page. There's no sense fetching all the beers. That's why we'll opt out for using ActiveRecord SQL queries instead for ordering:
+
+**app/controllers/beers_controller.rb**
 
 ```ruby
 def index
@@ -100,6 +106,8 @@ end
 
 This will allow us to use ActiveRecord methods `limit` and `offset` to fetch only the wanted amount of records from the database at a time. We can set the wanted amount per page to top our `beers_controller.rb` via constant:
 
+**app/controllers/beers_controller.rb**
+
 ```ruby
 class BeersController < ApplicationController
   PAGE_SIZE = 20
@@ -108,6 +116,8 @@ end
 ```
 
 After that we can define our `index` method like so:
+
+**app/controllers/beers_controller.rb**
 
 ```ruby
 def index
@@ -132,6 +142,8 @@ end
 ```
 
 Pay attention to the `@last_page` instance variable as we are going to need it in our view. Now we are going to add the new `@page` instance variable to all of our links in the index and redefine our previous and next page links.
+
+**app/views/beers/index.html.erb**
 
 ```html
 <table class="table table-striped table-hover">
@@ -167,6 +179,8 @@ Pay attention to the `@last_page` instance variable as we are going to need it i
 ```
 
 Remember to also update our cache key to include our new `@page` variable:
+
+**app/views/beers/index.html.erb**
 
 ```html
 <% cache "beerlist-#{@page}-#{@order}", skip_digest: true do %>
