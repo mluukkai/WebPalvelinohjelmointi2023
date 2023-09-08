@@ -202,9 +202,7 @@ Let us decide that instead of having a individual view for each style, we show t
 <div id="styles">
   <%= turbo_frame_tag "styles" do %>
     <% @styles.each do |style| %>
-      <p>
-        <%= link_to style.name, style %>
-      </p>
+      <%= link_to style.name, style %>
     <% end %>
   <% end %>
 
@@ -256,9 +254,9 @@ Notice now that the partial is given the _@style_ as a variable!
 
 Now when a style name is clicked, the list of styles is replaced with the details of a particular style.
 
-### Targetting a different rame
+### Targetting a different frame
 
-This is perhaps not quite what we want. Instead, let us let the style list remain visible all the time, and add a new turbo frame (with id "style_details") where the details of the clicked style are shown:
+This is perhaps not quite what we want. Instead, let the style list remain visible all the time, and add a new turbo frame (with id "style_details") where the details of the clicked style are shown:
 
 ```html
 <div id="styles">
@@ -276,7 +274,13 @@ This is perhaps not quite what we want. Instead, let us let the style list remai
 </div>
 ```
 
-The turbo frame tag in the partial _details.html.erb need not to be changed accordingly:
+Since we now  want to target a different turbo frame instaad of the one where links (or othe component) reside, we must define the targetted frame as an attribute. As seen from the above snippet it is done as follows:
+
+```html
+link_to style.name, style, data: { turbo_frame: "style_details" }
+```
+
+The turbo frame tag in the partial _details.html.erb needs to be changed accordingly:
 
 ```html
 <%= turbo_frame_tag "style_details" do %>
@@ -290,7 +294,7 @@ The turbo frame tag in the partial _details.html.erb need not to be changed acco
 <% end %>
 ```
 
-The result is finally as we expected to be:
+The result is finally as we expectedit to be:
 
 ![image](../images/8-4.png)
 
