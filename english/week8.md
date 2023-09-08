@@ -34,7 +34,7 @@ Stimulus is a lightweight JavaScript framework that enhances interactivity and u
 
 Strada is an extension of Hotwire that allows developers to build iOS and Android applications using Rails and Turbo. Currently, Strada is being developed as separate repositories: [turbo-ios](https://github.com/hotwired/turbo-ios) for iOS and [turbo-android](https://github.com/hotwired/turbo-android) for Android, respectively.
 
-## Turbo frames, the first steps
+### Turbo frames, the first steps
 
 Before we start, let us simplify our app a bit. Start by removing the mini profiler by deleting the following line from <i>Gemfile</i>
 
@@ -157,9 +157,44 @@ From the console we can also see, that the GET request caused by the link clicki
 
 ![image](../images/8-3.png)
 
-## Introduction to Hotwire Components
+We are now using the index controller both for rendering the whole styles page and for the partial that renders the about information. Let us split rendering the partial to on own controller. The *routes.rb* extends as follows
 
-## Pagination
+```rb
+Rails.application.routes.draw do
+  resources :styles do
+    get 'about', on: :collection
+  end
+  # ...
+end
+```
+
+The controller cleans up a fit:
+
+```rb
+class StylesController < ApplicationController
+  before_action :set_style, only: %i[show edit update destroy]
+
+  def index
+    @styles = Style.all
+  end
+
+  # own controller function for the partial
+  def about 
+    render partial: 'about'
+  end
+  # ...
+end
+```
+
+The link is changed accordingly:
+
+```html
+<%= turbo_frame_tag "about_style" do %>
+  <%= link_to "about", about_styles_path %>
+<% end %>
+```
+
+### Pagination
 
 Before jumping into the Hotwire components in detail, let's take a slight detour. After last week's [increased amount of beers](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality) you start to wonder that it would be kinda nice to have a pagination for our beers page. Let's add it first without utilizing Hotwire features.
 
