@@ -194,6 +194,106 @@ The link is changed accordingly:
 <% end %>
 ```
 
+Let us decide that instead of having a individual view for each style, we show the style details when we click the style name in the list. Let us star by wrapping the list in a turbo frame:
+
+```html
+<h1>Styles</h1>
+
+<div id="styles">
+  <%= turbo_frame_tag "styles" do %>
+    <% @styles.each do |style| %>
+      <p>
+        <%= link_to style.name, style %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag "style_details" do %>
+  <% end %>  
+</div>
+```
+
+The idea is to replace the frame with the following when a 
+
+```html
+<%= turbo_frame_tag "styles" do %>
+  <h3><%= style.name %></h3>
+  <p>
+    <strong>Description:</strong>
+    <%= style.description %>
+  </p>
+
+  <h4>beers</h4>
+
+  <ul>
+    <% @style.beers.each do |beer| %>
+      <li>
+        <%= link_to beer.name, beer %>
+      </li>
+    <% end %>
+  </ul>  
+<% end %>
+```
+
+Clicking a style name now causes a turbo frame request for a single style, the controller is altered to render the above partial in these cases:
+
+```rb
+class StylesController < ApplicationController
+  # ...
+
+  def show
+    if turbo_frame_request?
+      render partial: 'details', locals: { style: @style } 
+    end
+    # the default is a full page reload
+  end
+
+  # ...
+end
+```
+
+Notice now that the partial is given the _@style_ as a variable!
+
+Now when a style name is clicked, the list of styles is replaced with the details of a particular style.
+
+### Targetting a different rame
+
+This is perhaps not quite what we want. Instead, let us let the style list remain visible all the time, and add a new turbo frame (with id "style_details") where the details of the clicked style are shown:
+
+```html
+<div id="styles">
+  <%= turbo_frame_tag "styles" do %>
+    <% @styles.each do |style| %>
+      <%= link_to style.name, style, data: { turbo_frame: "style_details" } %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag "style_details" do %>
+  <% end %>  
+</div>
+
+<%= link_to "New style", new_style_path %>
+</div>
+```
+
+The turbo frame tag in the partial _details.html.erb need not to be changed accordingly:
+
+```html
+<%= turbo_frame_tag "style_details" do %>
+  <h3><%= style.name %></h3>
+  <p>
+    <strong>Description:</strong>
+    <%= style.description %>
+  </p>
+
+  # ...
+<% end %>
+```
+
+The result is finally as we expected to be:
+
+![image](../images/8-4.png)
+
 <blockquote>
 
 ## Exercise 1
