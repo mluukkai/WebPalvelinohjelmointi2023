@@ -4,7 +4,7 @@ You will continue to develop your application from the point you arrived at the 
 
 ## Hotwire
 
-Ruby on Rails version 7.x introduces a new functionality called [Hotwire](https://hotwired.dev/), aimed at simplifying the creation of dynamic views with minimal reliance on Javascript. Hotwire empowers Rails developers to incorporate partial reloading of user interface elements in a similar fashion to popular Javascript libraries like [React](https://react.dev/), all while leveraging the familiar syntax of the Ruby language.
+Ruby on Rails version 7.x introduces a new functionality called [Hotwire](https://hotwired.dev/), aimed at simplifying the creation of dynamic views with minimal reliance on JavaScript. Hotwire empowers Rails developers to incorporate partial reloading of user interface elements in a similar fashion to popular JavaScript libraries like [React](https://react.dev/), all while leveraging the familiar syntax of the Ruby language.
 
 ### Why Hotwire?
 
@@ -12,7 +12,7 @@ Throughout its history, the Rails framework has been renowned for its ability to
 
 To meet these expectations, developers have had to rely on additional software tools, such as the React library, to build the necessary functionality. Unfortunately, this approach adds complexity to the applications and often diminishes the role of the View component within the Rails [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) architecture, reducing it to merely serving as a [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) or [GraphQL](https://en.wikipedia.org/wiki/GraphQL) API.
 
-With the introduction of Hotwire, Rails aims to tackle the challenges posed by the rapidly evolving Javascript landscape. This is in contrast to the more steadily-paced Ruby ecosystem, which tends to favor incremental and conservative evolution. Hotwire offers a more streamlined and cohesive approach to fulfilling the requirements of full-featured, full-stack applications. It achieves this by eliminating the reliance on disparate tools and aligning with the ethos of Rails as a comprehensive platform for web application development. Hotwire provides the tools to construct dynamic and interactive user experiences while maintaining consistency with the familiar Rails paradigms.
+With the introduction of Hotwire, Rails aims to tackle the challenges posed by the rapidly evolving JavaScript landscape. This is in contrast to the more steadily-paced Ruby ecosystem, which tends to favor incremental and conservative evolution. Hotwire offers a more streamlined and cohesive approach to fulfilling the requirements of full-featured, full-stack applications. It achieves this by eliminating the reliance on disparate tools and aligning with the ethos of Rails as a comprehensive platform for web application development. Hotwire provides the tools to construct dynamic and interactive user experiences while maintaining consistency with the familiar Rails paradigms.
 
 ## Introduction to Hotwire Components
 
@@ -28,11 +28,136 @@ Hotwire encompasses three core components, each serving a specific purpose: Turb
 
 2. **Stimulus**
 
-Stimulus is a lightweight Javascript framework that enhances interactivity and user interactions in server-rendered HTML views. By attaching JavaScript behavior to HTML elements, it improves the user experience without complex frameworks or extensive coding.
+Stimulus is a lightweight JavaScript framework that enhances interactivity and user interactions in server-rendered HTML views. By attaching JavaScript behavior to HTML elements, it improves the user experience without complex frameworks or extensive coding.
 
 3. **Strada**
 
 Strada is an extension of Hotwire that allows developers to build iOS and Android applications using Rails and Turbo. Currently, Strada is being developed as separate repositories: [turbo-ios](https://github.com/hotwired/turbo-ios) for iOS and [turbo-android](https://github.com/hotwired/turbo-android) for Android, respectively.
+
+## Turbo frames, the first steps
+
+Before we start, let us simplify our app a bit. Start by removing the mini profiler by deleting the following line from <i>Gemfile</i>
+
+```
+gem 'rack-mini-profiler'
+```
+
+and by running _bundle install_. 
+
+Let us also remove all the code that is implementing the [server side caching](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality). So from the view templates, we get rid of all the the _cache_ elements that wrap the real page content:
+
+```html
+<h1>Beers</h1>
+
+<% cache "beerlist-#{@order}", skip_digest: true do %>
+  <div id="beers">
+    <table class="table table-striped table-hover">
+       ...
+    </table>
+  </div>
+<% end %>
+```
+
+and from the corresponding controllers, the guards that prevent full page render should also be removed. Eg. in the controller/beers.rb the change is the following: 
+
+```ruby
+  def index
+    @order = params[:order] || 'name'
+
+    # remove this line:
+    return if request.format.html? && fragment_exist?("beerlist-#{@order}")
+
+    @beers = Beer.all
+
+    @beers = case @order
+             when "name" then @beers.sort_by(&:name)
+             when "brewery" then @beers.sort_by { |b| b.brewery.name }
+             when "style" then @beers.sort_by { |b| b.style.name }
+             when "rating" then @beers.sort_by(&:average_rating).reverse
+             end
+  end
+```
+
+Now we are ready to begin!
+
+Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
+
+Let us add a turbo frame to the styles page:
+
+```html
+<h1>Styles</h1>
+
+<div id="styles">
+  <% @styles.each do |style| %>
+    <p>
+      <%= link_to style.name, style %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New style", new_style_path %>
+
+<br><br>
+
+<%= turbo_frame_tag "about_style" do %>
+  <%= link_to "about", styles_path %>
+<% end %>
+```
+
+The turbo frame is created with a helper function <i>turbo_frame_tag</i> that has a identifier as a parameter. 
+
+The generated HTML looks like the following:
+
+![image](../images/8-1.png)
+
+So the frame has just a link element that points back to the page itself. 
+
+Our intention is to show some infromation about beer styles within the turboframe when the user clicks the link.
+
+
+Let us now create a partial */views/styles/_about.html.erb* that also has the same turbo frame id:
+
+```html
+<%= turbo_frame_tag "about_style" do %>
+  <div class="card">
+    <p>Beer styles differentiate and categorise beers by colour, flavour, strength, ingredients, production method, recipe, history, or origin.</i>
+    <p>The modern concept of beer styles is largely based on the work of writer Michael Jackson in his 1977 book The World Guide To Beer. In 1989, Fred Eckhardt furthered Jackson's work publishing The Essentials of Beer Style. Although the systematic study of beer styles is a modern phenomenon, the practice of distinguishing between different varieties of beer is ancient, dating to at least 2000 BC.</p>
+    <p>What constitutes a beer style may involve provenance, local tradition, ingredients, aroma, appearance, flavour and mouthfeel. The flavour may include the degree of bitterness of a beer due to bittering agents such as hops, roasted barley, or herbs; and the sweetness from the sugar present in the beer.</p>
+    <p>Source <a href="https://en.wikipedia.org/wiki/Beer_style">Wikipedia</a></p>
+  </div>
+  <% end %>
+```
+
+Now when user clicks the link, that creates a GET request to the same url and the request is handled by the controller function _index_. We can use the helper function *turbo_frame_request?* to detect the turbo request and handle it accordingly:
+
+```rb
+class StylesController < ApplicationController
+
+  def index
+    if turbo_frame_request?
+      # this was a request from the turbo frame
+      render partial: 'about'
+    else
+      # this was a normal requesst
+      @styles = Style.all
+    end
+  end
+
+  // ...
+end
+```
+
+So in case of a turbo request (that is link "about" is clicked), there is now full page reload but the partial <i>about</i> is rendered. 
+
+As we see from the developer cosole, the response of the turbo request does not contain the full HTML of the page, only the HTML fragment that will be inserted to the turboframe:
+
+![image](../images/8-2.png)
+
+From the console we can also see, that the GET request caused by the link clicking within the frame has a special header that tells Rails controller to treat the request as a turbo request and not cause a full page reload:
+
+![image](../images/8-3.png)
+
+## Introduction to Hotwire Components
 
 ## Pagination
 
@@ -82,7 +207,7 @@ def index
 end
 ```
 
-Which contains a bit of a problem. Method `sort_by` will load all the beers to central memory as an array and only then sort the order. But now we would want to fetch only limited amount of records from the database at a time, only what is needed for the current page. There's no sense fetching all the beers. That's why we'll opt out for using ActiveRecord SQL queries instead for ordering:
+Which contains a bit of a problem. Method `sort_by` will load all the beers to main memory as an array and only then sort the order. But now we would want to fetch only limited amount of records from the database at a time, only what is needed for the current page. There's no sense fetching all the beers. That's why we'll opt for using ActiveRecord SQL queries instead for ordering:
 
 **app/controllers/beers_controller.rb**
 
@@ -90,7 +215,7 @@ Which contains a bit of a problem. Method `sort_by` will load all the beers to c
 def index
   @beers = Beer.includes(:brewery, :style, :ratings).all
 
-  order = params[:order] || 'name'
+  @order = params[:order] || 'name'
 
   @beers = case @order
            when "name" then @beers.order(:name)
@@ -671,11 +796,11 @@ Right now the delete button does not really do anything as it's not connected to
 When working with Stimulus, it is essential to follow a specific naming convention for **controller** files. Each controller file should be named in the format `[identifier]_controller.js`, where the identifier corresponds to the data-controller attribute associated with the respective controller in your HTML markup.
 By adhering to this naming convention, Stimulus can seamlessly link the controllers in your HTML with their corresponding JavaScript files.
 
-Let's start by creating a `ratings_controller.js` and put it to file path `/app/javascript/controllers/ratings_controller.js`:
+Let's start by creating a `ratings_controller.js` and put it to file path `/app/JavaScript/controllers/ratings_controller.js`:
 
-**/app/javascript/controllers/ratings_controller.js**
+**/app/JavaScript/controllers/ratings_controller.js**
 
-```javascript
+```JavaScript
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -707,7 +832,7 @@ Lifecycle methods in Stimulus provide a capability for executing code at specifi
 
 Here is an example showcasing the available lifecycle methods in a Stimulus controller:
 
-```javascript
+```JavaScript
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
@@ -773,9 +898,9 @@ Here is a complete list of elements and their default events:
 
 We can now write the `destroy` method in our `ratings_controller.js`:
 
-**/app/javascript/controllers/ratings_controller.js**
+**/app/JavaScript/controllers/ratings_controller.js**
 
-```javascript
+```JavaScript
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -861,11 +986,11 @@ And then add link for the calculator to our navbar:
 <!--(...)-->
 ```
 
-Lastly we can create a Stimulus controller file for our calculator to `app/javascript/controllers`:
+Lastly we can create a Stimulus controller file for our calculator to `app/JavaScript/controllers`:
 
-**/app/javascript/controllers/calculator_controller.js**
+**/app/JavaScript/controllers/calculator_controller.js**
 
-```javascript
+```JavaScript
 import { Controller } from "@hotwired/stimulus";
 
     export default class extends Controller {}
@@ -905,9 +1030,9 @@ Let's create a form for our calculator containing some targets to collect.
 
 To add target names to the controller's list of target definitions, you need to update the `calculator_controller.js` file accordingly. This will automatically create properties with names `nameTarget` for each which return the first matching target element. You can then use this property to read the value of the element and for testing print each value to console.
 
-**/app/javascript/controllers/calculator_controller.js**
+**/app/JavaScript/controllers/calculator_controller.js**
 
-```javascript
+```JavaScript
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -924,7 +1049,7 @@ export default class extends Controller {
 }
 ```
 
-When testing the submit button we can see that we are getting the values printed to javascript console.
+When testing the submit button we can see that we are getting the values printed to JavaScript console.
 
 ![image](../images/ratebeer-w8-10.png)
 
@@ -959,9 +1084,9 @@ In the controller file `calculator_controller.js`, a static values array is crea
 
 Now we can finish the code for our calculator.
 
-**/app/javascript/controllers/hello_controller.js**
+**/app/JavaScript/controllers/hello_controller.js**
 
-```javascript
+```JavaScript
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
