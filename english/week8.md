@@ -194,9 +194,21 @@ The link is changed accordingly:
 <% end %>
 ```
 
+<blockquote>
+
+## Exercise 1
+
+a warm up exercise
+
+## Exercise 2
+
+exercise for a warmed up dev
+
+</blockquote>
+
 ### Pagination
 
-Before jumping into the Hotwire components in detail, let's take a slight detour. After last week's [increased amount of beers](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality) you start to wonder that it would be kinda nice to have a pagination for our beers page. Let's add it first without utilizing Hotwire features.
+Before continuing with the Hotwire further, let's take a slight detour. After last week's [increased amount of beers](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality) you start to wonder that it would be kinda nice to have a pagination for our beers page. Let's add it first without utilizing Hotwire features.
 
 First we start by adding links for previous and next pages to the end of our beers table:
 
