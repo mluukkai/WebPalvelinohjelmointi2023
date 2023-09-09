@@ -302,11 +302,9 @@ The result is finally as we expectedit to be:
 
 ## Exercise 1
 
-a warm up exercise
+Extend the user page so that when clicking a rating, the basic info of the rated beer are shown. Your solution could look like this
 
-## Exercise 2
-
-exercise for a warmed up dev
+![image](../images/8-5.png)
 
 </blockquote>
 
@@ -465,6 +463,14 @@ Remember to also update our cache key to include our new `@page` variable:
 ![image](../images/ratebeer-w8-1.png)
 
 And voilà! We have working pagination for our beers. But one thing that is kinda annoying is that when we navigate between the pages, the whole pages gets reloaded with menus and all even though the contents of the table are the only thing changing. Here is where we come to where Turbo Frames can help us...
+
+<blockquote>
+
+## Exercise 2
+
+paginate x
+
+</blockquote>
 
 ## Turbo Frames
 
