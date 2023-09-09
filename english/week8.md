@@ -356,66 +356,30 @@ def index
 end
 ```
 
-Which contains a bit of a problem. Method `sort_by` will load all the beers to main memory as an array and only then sort the order. But now we would want to fetch only limited amount of records from the database at a time, only what is needed for the current page. There's no sense fetching all the beers. That's why we'll opt for using ActiveRecord SQL queries instead for ordering:
+Which contains a bit of a problem. Method `sort_by` will load all the beers to main memory as an array and only then sort the order. But now we would want to fetch only limited amount of records from the database at a time, only what is needed for the current page. There's no sense fetching all the beers. That's why we'll opt for using ActiveRecord SQL queries for the ordering.
 
-**app/controllers/beers_controller.rb**
-
-```ruby
-def index
-  @beers = Beer.includes(:brewery, :style, :ratings).all
-
-  @order = params[:order] || 'name'
-
-  @beers = case @order
-           when "name" then @beers.order(:name)
-           when "brewery" then @beers.joins(:brewery).order("breweries.name")
-           when "style" then @beers.joins(:style).order("styles.name")
-           when "rating" then @beers.left_joins(:ratings)
-                                    .select("beers.*, avg(ratings.score)")
-                                    .group("beers.id")
-                                    .order("avg(ratings.score) DESC")
-           end  
-end
-```
-
-This will allow us to use ActiveRecord methods `limit` and `offset` to fetch only the wanted amount of records from the database at a time. We can set the wanted amount per page to top our `beers_controller.rb` via constant:
-
-**app/controllers/beers_controller.rb**
+Let us at the first forget about the different orderings and get the pagination to work for beers ordered by name. The controller changes as follows:
 
 ```ruby
 class BeersController < ApplicationController
   PAGE_SIZE = 20
+
+  def index
+    @order = params[:order] || 'name'
+    @page = params[:page]&.to_i || 1
+    @last_page = (Beer.count / PAGE_SIZE).ceil
+    offset = (@page - 1) * PAGE_SIZE
+
+    @beers = Beer.order(:name).limit(PAGE_SIZE).offset(offset)
+  end
+
   # ...
 end
 ```
 
-After that we can define our `index` method like so:
+We are using a combination of ActiveRecord [order](https://edgeguides.rubyonrails.org/active_record_querying.html#ordering), [limit and offset](https://edgeguides.rubyonrails.org/active_record_querying.html#limit-and-offset) to control what page of the ordered beers is queried from the database. 
 
-**app/controllers/beers_controller.rb**
-
-```ruby
-def index
-    @order = params[:order] || 'name'
-    @page = params[:page]&.to_i || 1
-    @last_page = (Beer.count / PAGE_SIZE).ceil
-    return if request.format.html? && fragment_exist?("beerlist-#{@order}")
-
-    @beers = Beer.includes(:brewery, :style, :ratings).all
-
-    @beers = case @order
-             when "name" then @beers.order(:name)
-             when "brewery" then @beers.joins(:brewery).order("breweries.name")
-             when "style" then @beers.joins(:style).order("styles.name")
-             when "rating" then @beers.left_joins(:ratings)
-                                      .select("beers.*, avg(ratings.score)")
-                                      .group("beers.id")
-                                      .order("avg(ratings.score) DESC")
-             end
-    @beers = @beers.limit(PAGE_SIZE).offset((@page - 1) * PAGE_SIZE)
-end
-```
-
-Pay attention to the `@last_page` instance variable as we are going to need it in our view. Now we are going to add the new `@page` instance variable to all of our links in the index and redefine our previous and next page links.
+Pay attention to the `@last_page` instance variable as we are going to need it in our view. Now we are going to add the new `@page` instance variable to all of our links in the index and redefine our previous and next page links:
 
 **app/views/beers/index.html.erb**
 
@@ -452,15 +416,69 @@ Pay attention to the `@last_page` instance variable as we are going to need it i
 </table>
 ```
 
-Remember to also update our cache key to include our new `@page` variable:
+Pagination works now nicely with the default ordering! We need a bit more advanced use of ActiveRecord to get also the other orders to work.
 
-**app/views/beers/index.html.erb**
+When ordering based on brewery or style name, we can not just use the data in the beer object, we must do a SQL [join](https://edgeguides.rubyonrails.org/active_record_querying.html#joining-tables) to get the assosiated rows also from the database to do the ordering based on the fields of those. The contreller extends as follows:
 
-```html
-<% cache "beerlist-#{@page}-#{@order}", skip_digest: true do %>
+
+```ruby
+class BeersController < ApplicationController
+  PAGE_SIZE = 20
+
+  def index
+    @order = params[:order] || 'name'
+    @page = params[:page]&.to_i || 1
+    @last_page = (Beer.count / PAGE_SIZE).ceil
+    offset = (@page - 1) * PAGE_SIZE
+
+    @beers = case @order
+      when "name"    then Beer.order(:name)
+        .limit(PAGE_SIZE).offset(offset)
+      when "brewery" then Beer.joins(:brewery)
+        .order("breweries.name").limit(PAGE_SIZE).offset(offset)
+      when "style"   then Beer.joins(:style)
+        .order("styles.name").limit(PAGE_SIZE).offset(offset)
+    end
+
+  end
+
+  # ...
+end
 ```
 
-![image](../images/ratebeer-w8-1.png)
+So now depending on the order user wants, a different kind of query is executed to get the beers.
+
+The last one, ordering by ratings is the most tricky case. One way to achieve the functionality is shown below. The required SQL mastery is beyond the objectives of this course, so you may just copy paste the code and believe that it works.
+
+```ruby
+class BeersController < ApplicationController
+  PAGE_SIZE = 20
+
+  def index
+    @order = params[:order] || 'name'
+    @page = params[:page]&.to_i || 1
+    @last_page = (Beer.count / PAGE_SIZE).ceil
+    offset = (@page - 1) * PAGE_SIZE
+
+    @beers = case @order
+      when "name"    then Beer.order(:name)
+        .limit(PAGE_SIZE).offset(offset)
+      when "brewery" then Beer.joins(:brewery)
+        .order("breweries.name").limit(PAGE_SIZE).offset(offset)
+      when "style"   then Beer.joins(:style)
+        .order("styles.name").limit(PAGE_SIZE).offset(offset)
+      when "rating"  then Beer.left_joins(:ratings)
+        .select("beers.*, avg(ratings.score)")
+        .group("beers.id")
+        .order("avg(ratings.score) DESC").limit(PAGE_SIZE).offset(offset)
+    end
+
+  end
+
+  # ...
+end
+```
+
 
 And voilà! We have working pagination for our beers. But one thing that is kinda annoying is that when we navigate between the pages, the whole pages gets reloaded with menus and all even though the contents of the table are the only thing changing. Here is where we come to where Turbo Frames can help us...
 
@@ -468,7 +486,10 @@ And voilà! We have working pagination for our beers. But one thing that is kind
 
 ## Exercise 2
 
-paginate x
+Change the ratings page to show all ratings in a paginated form. The default order is to show the most recent rating first, add a button that allows reversing the order. Your solution could look like the following:
+
+
+![image](../images/8-6.png)
 
 </blockquote>
 
