@@ -194,7 +194,7 @@ The link is changed accordingly:
 <% end %>
 ```
 
-Let us decide that instead of having a individual view for each style, we show the style details when we click the style name in the list. Let us star by wrapping the list in a turbo frame:
+Instead of having an individual view for each style, let us show the style details when clicking the style name on the list. We begin with wrapping the list in a turbo frame:
 
 ```html
 <h1>Styles</h1>
