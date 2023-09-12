@@ -494,7 +494,7 @@ Change the ratings page to show all ratings in a paginated form. The default ord
 
 ## Turbo framing the beer list
 
-To begin, let's create a new partial called `_beers_list.html.erb` to the folder `app/views/beers` and extract the table containing the beers from our `beers/index.html.erb` file. 
+To begin, let's create a new partial called `_beer_list.html.erb` to the folder `app/views/beers` and extract the table containing the beers from our `beers/index.html.erb` file. 
 
 This way, our `index.html.erb` will appear as follows:
 
@@ -504,7 +504,7 @@ This way, our `index.html.erb` will appear as follows:
 <h1>Beers</h1>
 
 <div id="beers">
-  <%= render "beers_list", beers: @beers, page: @page, order: @order, last_page: @last_page  %>
+  <%= render "beer_list", beers: @beers, page: @page, order: @order, last_page: @last_page  %>
 </div>
 
 <%= link_to('New Beer', new_beer_path) if current_user %>
@@ -515,7 +515,7 @@ Once the above is functioning correctly, we can enclose our table within the `_b
 **app/views/beers/\_beer_list.html.erb**
 
 ```html
-<%= turbo_frame_tag "beers_list" do %>
+<%= turbo_frame_tag "beer_list" do %>
   <table class="table table-striped table-hover">
     <!-- ... -->
   </table>
@@ -528,7 +528,7 @@ By using a Turbo Frame, all links and buttons within it will be controlled by Tu
 def index
   # ...
   if turbo_frame_request?
-    render partial: "beers_list",
+    render partial: "beer_list",
       locals: { beers: @beers, page: @page, order: @order, last_page: @last_page }
   else
     render :index
@@ -568,7 +568,7 @@ We also notice that the URL remains unchanged when navigating between pages, and
 **app/views/beers/\_beer_list.html.erb**
 
 ```html
-<%= turbo_frame_tag "beers_list", data: { turbo_action: "advance" } do %>
+<%= turbo_frame_tag "beer_list", data: { turbo_action: "advance" } do %>
 ```
 
 Under the hood, Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
