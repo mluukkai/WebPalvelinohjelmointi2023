@@ -490,38 +490,32 @@ Change the ratings page to show all ratings in a paginated form. The default ord
 
 ![image](../images/8-6.png)
 
-## Exercise 3
-
-TODO make this a fragment
-
 </blockquote>
 
-## Turbo Frames
+## Turbo framing the beer list
 
-Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
+To begin, let's create a new partial called `_beers_list.html.erb` to the folder `app/views/beers` and extract the table containing the beers from our `beers/index.html.erb` file. 
 
-To begin, let's create a new partial called `_beers_page.html.erb` to the folder `app/views/beers` and extract the table containing the beers from our `beers/index.html.erb` file. This way, our `index.html.erb` will appear as follows:
+This way, our `index.html.erb` will appear as follows:
 
 **app/views/beers/index.html.erb**
 
 ```html
 <h1>Beers</h1>
 
-<% cache "beerlist-#{@page}-#{@order}", skip_digest: true do %>
-  <div id="beers">
-    <%= render "beers_page", beers: @beers, page: @page, order: @order, last_page: @last_page  %>
-  </div>
-<% end %>
+<div id="beers">
+  <%= render "beers_list", beers: @beers, page: @page, order: @order, last_page: @last_page  %>
+</div>
 
 <%= link_to('New Beer', new_beer_path) if current_user %>
 ```
 
-Once the above is functioning correctly, we can enclose our table within the `_beers_page.html.erb` partial using a turbo frame:
+Once the above is functioning correctly, we can enclose our table within the `_beer_list.html.erb` partial using a turbo frame:
 
-**app/views/beers/\_beers_page.html.erb**
+**app/views/beers/\_beer_list.html.erb**
 
 ```html
-<%= turbo_frame_tag "beers_page" do %>
+<%= turbo_frame_tag "beers_list" do %>
   <table class="table table-striped table-hover">
     <!-- ... -->
   </table>
@@ -534,7 +528,7 @@ By using a Turbo Frame, all links and buttons within it will be controlled by Tu
 def index
   # ...
   if turbo_frame_request?
-    render partial: "beers_page",
+    render partial: "beers_list",
       locals: { beers: @beers, page: @page, order: @order, last_page: @last_page }
   else
     render :index
@@ -554,7 +548,7 @@ Indeed, the response contains only the partial and excludes the application layo
 
 The only remaining issue is that the links to beers, breweries, and styles are no longer functional. Turbo attempts to load the links and replace our table with their content but fails to find a suitable turbo tag for replacement. We can easily resolve this by adding the target attribute to our links:
 
-**app/views/beers/\_beers_page.html.erb**
+**app/views/beers/\_beer_list.html.erb**
 
 ```html
 <% beers.each do |beer| %>
@@ -571,17 +565,17 @@ The `target="_top"` signifies that Turbo should break out of the frame and repla
 
 We also notice that the URL remains unchanged when navigating between pages, and using the browser's back button may lead to unexpected results. We can easily address this by promoting our Turbo Actions into visits:
 
-**app/views/beers/\_beers_page.html.erb**
+**app/views/beers/\_beer_list.html.erb**
 
 ```html
-<%= turbo_frame_tag "beers_page", data: { turbo_action: "advance" } do %>
+<%= turbo_frame_tag "beers_list", data: { turbo_action: "advance" } do %>
 ```
 
 Under the hood, Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
 
 <blockquote>
 
-## Exercise 1
+## Exercise 4
 
 `turbo_frame_tag` has an attribute `src` available that will lazy load the contents of the source address into the turbo frame.
 
