@@ -211,7 +211,7 @@ Instead of having an individual view for each style, let us show the style detai
 </div>
 ```
 
-The idea is to replace the frame with the following when a 
+We add the following to partial *_details.html.erb*:
 
 ```html
 <%= turbo_frame_tag "styles" do %>
