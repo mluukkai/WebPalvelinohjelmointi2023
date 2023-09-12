@@ -488,8 +488,11 @@ And voilà! We have working pagination for our beers. But one thing that is kind
 
 Change the ratings page to show all ratings in a paginated form. The default order is to show the most recent rating first, add a button that allows reversing the order. Your solution could look like the following:
 
-
 ![image](../images/8-6.png)
+
+## Exercise 3
+
+TODO make this a fragment
 
 </blockquote>
 
