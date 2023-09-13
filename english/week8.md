@@ -515,7 +515,7 @@ Once the above is functioning correctly, we can enclose our table within the `_b
 **app/views/beers/\_beer_list.html.erb**
 
 ```html
-<%= turbo_frame_tag "beer_list" do %>
+<%= turbo_frame_tag "beer_list_frame" do %>
   <table class="table table-striped table-hover">
     <!-- ... -->
   </table>
@@ -538,15 +538,21 @@ end
 
 The `turbo_frame_request?` condition ensures that when the request is made within a Turbo Frame, only the partial containing our beer table is returned. We can now observe the behavior within the network tab of our browser's developer tools.
 
-![image](../images/ratebeer-w8-2.png)
+![image](../images/8-7.png)
 
 We can see that the headers include the ID of the Turbo Frame we are targeting, allowing Turbo to identify which part of the page should be replaced.
 
-![image](../images/ratebeer-w8-3.png)
+![image](../images/8-8.png)
 
-Indeed, the response contains only the partial and excludes the application layout that accompanies the HTML document. Turbo automatically handles this aspect.
+Indeed, the response contains only the partial and excludes the application layout that accompanies the HTML document. The turbo magic automatically handles this aspect.
 
-The only remaining issue is that the links to beers, breweries, and styles are no longer functional. Turbo attempts to load the links and replace our table with their content but fails to find a suitable turbo tag for replacement. We can easily resolve this by adding the target attribute to our links:
+The only remaining issue is that the links to beers, breweries, and styles are no longer functional. If we eg. click a beer name, the response looks as follows:
+
+![image](../images/8-9.png)
+
+Turbo attempts to replace our table with their content but fails to find a suitable turbo tag (*beer_list_frame*) for replacement so it simply renders nothing within the frame.
+
+We can easily resolve this by adding the target attribute to our links:
 
 **app/views/beers/\_beer_list.html.erb**
 
@@ -568,21 +574,103 @@ We also notice that the URL remains unchanged when navigating between pages, and
 **app/views/beers/\_beer_list.html.erb**
 
 ```html
-<%= turbo_frame_tag "beer_list", data: { turbo_action: "advance" } do %>
+<%= turbo_frame_tag "beer_list_frame", data: { turbo_action: "advance" } do %>
 ```
+
+### Async frame
+
+Let us assume that we would like to show a user a beer recommendation based on user ratings. Calculating the recommendation might take a long time, that is why we decide to load it asynchronusly. So initially when the user goes to his own page, it is just showing a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
+
+This can be achieved with turbo frames with a <i>src</i> attribute:
+
+```rb
+  <%= turbo_frame_tag "beer_recommendation_tag", src: recommendation_user_path do %>
+    calculating the recommendation...
+  <% end %>
+```
+
+Now initlally only the text <i>calculating the recommendation...</i> is rendered. After the page is rendered Turbo makes a HTTP GET request to the specified path (users/id/recommendation), and fills in the HTML that it gets as response. The partial for recommendation looks the following *view/users/_recommendation.html.erb*:
+
+```html
+<%= turbo_frame_tag "beer_recommendation_tag" do %>
+  <div>
+    <h4>Recommendation based on your ratings</h4>
+
+    <p><%= link_to beer.name, beer %> by <%= link_to beer.brewery.name, beer.brewery %></p>
+  </div>
+<% end %>
+```
+
+We will need a route and controller for the recommendation. The route (definer in *rotes.rb*) is defined as follows:
+
+```rb
+resources :users  do
+  post 'toggle_closed', on: :member
+  get 'recommendation', on: :member
+end
+```
+
+The controller finds out the recommendation (that is in our case just a randomly picked beer) and renders the partial. We have added a sleep of 2 seconds to simulate that calculating the recommendation takes a bit time.
+
+```rb
+class UsersController < ApplicationController
+  # ...
+
+  def recommendation
+    # simulate a delay in calculating the recommendation
+    sleep(2)
+    ids = Beer.pluck(:id)
+    # our recommendation us just a randomly picked beer...
+    random_beer = Beer.find(ids.sample)
+    render partial: 'recommendation', locals: { beer: random_beer } 
+  end
+
+  # ...
+end
+```
+
+Now when the user browsers to own page, there is a indication that the recommendation is still to be calculated:
+
+![image](../images/8-10.png)
+
+And after the while, the HTTP response is ready, and the returned partial containing the recommendation is rendered.
+
+![image](../images/8-11.png)
+
+### Turbo under the hood
+
+Please explain here...
 
 Under the hood, Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
 
 <blockquote>
 
+## Exercise 3
+
+In this and the next exercise, we will refactor the breweries page to render the brewery lists asyncronously.
+
+Start by refactoring breweries page so that there is new partial `_brewery_list.html.erb` which is used separately to list breweries under active breweries and retired breweries.
+
+Create the new endpoint GET `breweries/active` that returns the partial for the active breweries and use that in rendering the breweries page.
+
+The retired brewery list can still remain as it is.
+
 ## Exercise 4
 
-`turbo_frame_tag` has an attribute `src` available that will lazy load the contents of the source address into the turbo frame.
+Create also the new endpoint GET `breweries/retired` that returns the partial for the active breweries and use that in rendering the breweries page.
 
-1. Refactor breweries page so that there is new partial `_breweries_list.html.erb` which is used separately to list breweries under active breweries and retired breweries.
-2. Create new endpoints behind `breweries/active` and `breweries/retired` routes that return the partials for the active and retired breweries respectively.
-3. Use `turbo_frame_tag` with `src` attribute to lazy load active and retired breweries into their respective turbo frames.
-4. Fix the links to breweries so that they work inside the turbo frames.
+The same partial should be used both for active and retired breweries. Note that you **can not** anymore use same turbo frame tag for both the active and retired breweries. 
+
+Instead of defining a turbo frame tag as a string, we can define it also as a variable that you set in the controller:
+
+```rb
+<%= turbo_frame_tag tag_as_a_variable do %>
+  # ...
+<% end %>
+```
+
+Fix also the links to breweries so that they work inside the turbo frames.
+
 </blockquote>
 
 ## Turbo Streams
@@ -643,15 +731,15 @@ you could use the remove action to remove all retired breweries from the list by
 
 To leverage the capabilities of Turbo Streams, view templates should be designed as [partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials) that can be rendered individually. This enables targeted streaming of changes to specific components. For example, when streaming updates for breweries and appending new breweries to a list, the brewery row should be implemented as a partial.
 
-To prepare the Breweries index page for streaming, extract the row rendering logic (created in Exercise 1) from `app/views/breweries/_breweries_list.html.erb`:
+To prepare the Breweries index page for streaming, extract the row rendering logic (created in Exercise 1) from `app/views/breweries/_brewery_list.html.erb`:
 
-**app/views/breweries/\_breweries_list.html.erb**
+**app/views/breweries/\_brewery_list.html.erb**
 
 ```html
 <tbody>
   <% breweries.each do |brewery| %>
     <tr %>">
-      <td><%= link_to brewery.name, brewery, data: { turbo_frame: "_top"} %></td>
+      <td><%= link_to brewery.name, brewery, data: { turbo_frame: "_top" } %></td>
       <td><%= brewery.year %></td>
       <td><%= brewery.beers.count %></td>
       <td><%= round(brewery.average_rating) %></td>
@@ -834,7 +922,7 @@ It's worth noting that in our example, we used a simple string, `breweries_index
 
 <blockquote>
 
-## Exercise 2
+## Exercise 5
 
 Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database (see [Rails views documentation](https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-by-default-convention-over-configuration-in-action)). The implementation should follow these steps:
 
@@ -854,7 +942,7 @@ Enhance the breweries list functionality by adding a button or text "X" for remo
 
 <blockquote>
 
-## Exercise 3
+## Exercise 6
 
 Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
 
@@ -1298,14 +1386,14 @@ And now we have a beautifully working beer tax calculator!
 
 <blockquote>
 
-## Exercise 4
+## Exercise 7
 
 Improve beer tax calculator by changing the amount field to be dropdown selection containing most common beer can and bottle sizes, for example these: 0.33, 0.375, 0.5, 0.66, 0.75, 1, 1.3 and 1.5 liters.
 </blockquote>
 
 <blockquote>
 
-## Exercise 5
+## Exercise 8
 
 Continuing from the exercise 4, add option `Custom` to the dropdown. When custom option is selected, there is user fillable custom amount field added to the form. If user switches back to pre-defined amount in the dropdown, custom amount field gets removed from the form.
 
@@ -1317,14 +1405,14 @@ Hint: Remember that you have `this.has[name]Target` checker available to check i
 
 <blockquote>
 
-## Exercise 6
+## Exercise 9
 
 Add _select all_ checkbox input to users ratings partial and event that selects/deselects all users ratings when that checkbox is selected/deselected.
 </blockquote>
 
 <blockquote>
 
-## Exercise 7
+## Exercise 10
 
 When we add new breweries in the brewery page, our form does not get emptied out after adding the brewery. Use Stimulus to clear all form inputs (also the checkbox) after the form is submitted.
 
@@ -1333,7 +1421,7 @@ Hint: Turbo offers `turbo:submit-end` event that is fired after form is submitte
 
 <blockquote>
 
-## Exercise 8
+## Exercise 11
 
 For the form for creating a new brewery, add a select field that gets its data (breweries) from the PRH API
 
