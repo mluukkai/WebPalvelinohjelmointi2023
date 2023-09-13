@@ -34,7 +34,7 @@ Stimulus is a lightweight JavaScript framework that enhances interactivity and u
 
 Strada is an extension of Hotwire that allows developers to build iOS and Android applications using Rails and Turbo. Currently, Strada is being developed as separate repositories: [turbo-ios](https://github.com/hotwired/turbo-ios) for iOS and [turbo-android](https://github.com/hotwired/turbo-android) for Android, respectively.
 
-### Turbo frames, the first steps
+## Turbo frames, getting ready
 
 Before we start, let us simplify our app a bit. Start by removing the mini profiler by deleting the following line from <i>Gemfile</i>
 
@@ -79,6 +79,8 @@ and from the corresponding controllers, the guards that prevent full page render
 ```
 
 Now we are ready to begin!
+
+### the first steps
 
 Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
 
@@ -256,7 +258,7 @@ Notice now that the partial is given the _@style_ as a variable!
 
 Now when a style name is clicked, the list of styles is replaced with the details of a particular style.
 
-### Targetting a different frame
+#### Targetting a different frame
 
 This is perhaps not quite what we want. Instead, let the style list remain visible all the time, and add a new turbo frame (with id "style_details") where the details of the clicked style are shown:
 
@@ -302,7 +304,7 @@ The result is finally as we expectedit to be:
 
 <blockquote>
 
-## Exercise 1
+#### Exercise 1
 
 Extend the user page so that when clicking a rating, the basic info of the rated beer are shown. Your solution could look like this
 
@@ -422,7 +424,6 @@ Pagination works now nicely with the default ordering! We need a bit more advanc
 
 When ordering based on brewery or style name, we can not just use the data in the beer object, we must do a SQL [join](https://edgeguides.rubyonrails.org/active_record_querying.html#joining-tables) to get the assosiated rows also from the database to do the ordering based on the fields of those. The contreller extends as follows:
 
-
 ```ruby
 class BeersController < ApplicationController
   PAGE_SIZE = 20
@@ -486,7 +487,7 @@ And voilà! We have working pagination for our beers. But one thing that is kind
 
 <blockquote>
 
-## Exercise 2
+#### Exercise 2
 
 Change the ratings page to show all ratings in a paginated form. The default order is to show the most recent rating first, add a button that allows reversing the order. Your solution could look like the following:
 
@@ -494,7 +495,7 @@ Change the ratings page to show all ratings in a paginated form. The default ord
 
 </blockquote>
 
-## Turbo framing the beer list
+### Turbo framing the beer list
 
 To begin, let's create a new partial called `_beer_list.html.erb` to the folder `app/views/beers` and extract the table containing the beers from our `beers/index.html.erb` file. 
 
@@ -579,7 +580,7 @@ We also notice that the URL remains unchanged when navigating between pages, and
 <%= turbo_frame_tag "beer_list_frame", data: { turbo_action: "advance" } do %>
 ```
 
-### Async frame
+#### Async frame
 
 Let us assume that we would like to show a user a beer recommendation based on user ratings. Calculating the recommendation might take a long time, that is why we decide to load it asynchronusly. So initially when the user goes to his own page, it is just showing a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
 
@@ -639,7 +640,7 @@ And after the while, the HTTP response is ready, and the returned partial contai
 
 ![image](../images/8-11.png)
 
-### Turbo under the hood
+#### Turbo under the hood
 
 Please explain here...
 
@@ -647,7 +648,7 @@ Under the hood, Turbo utilizes JavaScript to manipulate the [HTML DOM](https://w
 
 <blockquote>
 
-## Exercise 3
+#### Exercise 3
 
 In this and the next exercise, we will refactor the breweries page to render the brewery lists asyncronously.
 
@@ -657,7 +658,7 @@ Create the new endpoint GET `breweries/active` that returns the partial for the 
 
 The retired brewery list can still remain as it is.
 
-## Exercise 4
+#### Exercise 4
 
 Create also the new endpoint GET `breweries/retired` that returns the partial for the active breweries and use that in rendering the breweries page.
 
