@@ -44,7 +44,7 @@ gem 'rack-mini-profiler'
 
 and by running _bundle install_. 
 
-Let us also remove all the code that is implementing the [server side caching](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality). So from the view templates, we get rid of all the the _cache_ elements that wrap the real page content:
+Let us also remove all the code that is implementing the [server side caching](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality). So from the view templates, we get rid of all the the _cache_ elements that wrap the real page content. Eg. in _views/beers/index.html.erb_ we should get rid of this element that wraps the real content:
 
 ```html
 <h1>Beers</h1>
@@ -58,7 +58,7 @@ Let us also remove all the code that is implementing the [server side caching](h
 <% end %>
 ```
 
-and from the corresponding controllers, the guards that prevent full page render should also be removed. Eg. in the controller/beers.rb the change is the following: 
+and from the corresponding controllers, the guards that prevent full page render should also be removed. Eg. in the _controllers/beers.rb_ the change is the following: 
 
 ```ruby
   def index
@@ -70,11 +70,11 @@ and from the corresponding controllers, the guards that prevent full page render
     @beers = Beer.all
 
     @beers = case @order
-             when "name" then @beers.sort_by(&:name)
-             when "brewery" then @beers.sort_by { |b| b.brewery.name }
-             when "style" then @beers.sort_by { |b| b.style.name }
-             when "rating" then @beers.sort_by(&:average_rating).reverse
-             end
+      when "name" then @beers.sort_by(&:name)
+      when "brewery" then @beers.sort_by { |b| b.brewery.name }
+      when "style" then @beers.sort_by { |b| b.style.name }
+      when "rating" then @beers.sort_by(&:average_rating).reverse
+    end
   end
 ```
 
@@ -82,7 +82,7 @@ Now we are ready to begin!
 
 Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
 
-Let us add a turbo frame to the styles page:
+Let us add a turbo frame that contains a link element to the bottom of the styles page, that is, to the view _views/styles/index.html.erb_:
 
 ```html
 <h1>Styles</h1>
@@ -104,7 +104,7 @@ Let us add a turbo frame to the styles page:
 <% end %>
 ```
 
-The turbo frame is created with a helper function <i>turbo_frame_tag</i> that has a identifier as a parameter. 
+The turbo frame is created with a helper function <i>turbo_frame_tag</i> that has a identifier as a parameter. We use now a string _"about_style"_ as the identifier.
 
 The generated HTML looks like the following:
 
@@ -112,8 +112,7 @@ The generated HTML looks like the following:
 
 So the frame has just a link element that points back to the page itself. 
 
-Our intention is to show some infromation about beer styles within the turboframe when the user clicks the link.
-
+Our intention is to show some infromation about beer styles within the turbo frame when the user clicks the link.
 
 Let us now create a partial */views/styles/_about.html.erb* that also has the same turbo frame id:
 
@@ -128,7 +127,7 @@ Let us now create a partial */views/styles/_about.html.erb* that also has the sa
   <% end %>
 ```
 
-Now when user clicks the link, that creates a GET request to the same url and the request is handled by the controller function _index_. We can use the helper function *turbo_frame_request?* to detect the turbo request and handle it accordingly:
+Now when user clicks the link, that creates a GET request to the same url and the request is handled by the  function _index_ of the _beers_ controller. We can use the helper function *turbo_frame_request?* to detect the turbo request and handle it accordingly:
 
 ```rb
 class StylesController < ApplicationController
@@ -147,17 +146,17 @@ class StylesController < ApplicationController
 end
 ```
 
-So in case of a turbo request (that is link "about" is clicked), there is now full page reload but the partial <i>about</i> is rendered. 
+So in case of a turbo request (that is link "about" is clicked), instead of a full page reload only the partial <i>about</i> is rendered. 
 
-As we see from the developer cosole, the response of the turbo request does not contain the full HTML of the page, only the HTML fragment that will be inserted to the turboframe:
+As we see from the developer cosole, the response of the turbo request does not contain the full HTML of the page, only the HTML fragment that will be inserted to the turbo frame:
 
 ![image](../images/8-2.png)
 
-From the console we can also see, that the GET request caused by the link clicking within the frame has a special header that tells Rails controller to treat the request as a turbo request and not cause a full page reload:
+From the console we can also see, that the GET request caused by the link clicking within the frame has a special header _Turbo frame_ that tells Rails controller to treat the request as a turbo request and **not** cause a full page reload:
 
 ![image](../images/8-3.png)
 
-We are now using the index controller both for rendering the whole styles page and for the partial that renders the about information. Let us split rendering the partial to on own controller. The *routes.rb* extends as follows
+We are now using the index controller function both for rendering the whole styles page and for the partial that renders the about information. Let us separate the partial rendering to on own controller function. The *routes.rb* extends as follows
 
 ```rb
 Rails.application.routes.draw do
@@ -168,13 +167,14 @@ Rails.application.routes.draw do
 end
 ```
 
-The controller cleans up a fit:
+The controller cleans up a bit:
 
 ```rb
 class StylesController < ApplicationController
   before_action :set_style, only: %i[show edit update destroy]
 
   def index
+    # now this takes only care of the full page reloads
     @styles = Style.all
   end
 
@@ -193,6 +193,8 @@ The link is changed accordingly:
   <%= link_to "about", about_styles_path %>
 <% end %>
 ```
+
+#### Rendering style details on demand
 
 Instead of having an individual view for each style, let us show the style details when clicking the style name on the list. We begin with wrapping the list in a turbo frame:
 
