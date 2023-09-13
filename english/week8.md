@@ -1,6 +1,6 @@
 **Note: This part of the course is still in beta testing. You can already try the material and exercises, but they cannot be submitted yet and the exercises can change before they are released.**
 
-You will continue to develop your application from the point you arrived at the end of week 7. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer to the previous week from the submission system.
+You will continue to develop your application from the point you arrived at the end of week 7. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer of the previous week from the submission system.
 
 ## Hotwire
 
@@ -44,7 +44,7 @@ gem 'rack-mini-profiler'
 
 and by running _bundle install_. 
 
-Let us also remove all the code that is implementing the [server side caching](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality). So from the view templates, we get rid of all the the _cache_ elements that wrap the real page content. Eg. in _views/beers/index.html.erb_ we should get rid of this element that wraps the real content:
+Let us also remove all the code that is implementing the [server-side caching](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality). So from the view templates, we get rid of all the the _cache_ elements that wrap the real page content. Eg. in _views/beers/index.html.erb_ we should get rid of this element that wraps the real content:
 
 ```html
 <h1>Beers</h1>
@@ -80,7 +80,7 @@ and from the corresponding controllers, the guards that prevent full page render
 
 Now we are ready to begin!
 
-### the first steps
+### The first steps
 
 Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
 
@@ -106,7 +106,7 @@ Let us add a turbo frame that contains a link element to the bottom of the style
 <% end %>
 ```
 
-The turbo frame is created with a helper function <i>turbo_frame_tag</i> that has a identifier as a parameter. We use now a string _"about_style"_ as the identifier.
+The turbo frame is created with a helper function <i>turbo_frame_tag</i> that has an identifier as a parameter. We use now the string _"about_style_"_ as the identifier.
 
 The generated HTML looks like the following:
 
@@ -114,22 +114,10 @@ The generated HTML looks like the following:
 
 So the frame has just a link element that points back to the page itself. 
 
-Our intention is to show some infromation about beer styles within the turbo frame when the user clicks the link.
+Our intention is to show some information about beer styles within the turbo frame when the user clicks the link.
 
 Let us now create a partial */views/styles/_about.html.erb* that also has the same turbo frame id:
-
-```html
-<%= turbo_frame_tag "about_style" do %>
-  <div class="card">
-    <p>Beer styles differentiate and categorise beers by colour, flavour, strength, ingredients, production method, recipe, history, or origin.</i>
-    <p>The modern concept of beer styles is largely based on the work of writer Michael Jackson in his 1977 book The World Guide To Beer. In 1989, Fred Eckhardt furthered Jackson's work publishing The Essentials of Beer Style. Although the systematic study of beer styles is a modern phenomenon, the practice of distinguishing between different varieties of beer is ancient, dating to at least 2000 BC.</p>
-    <p>What constitutes a beer style may involve provenance, local tradition, ingredients, aroma, appearance, flavour and mouthfeel. The flavour may include the degree of bitterness of a beer due to bittering agents such as hops, roasted barley, or herbs; and the sweetness from the sugar present in the beer.</p>
-    <p>Source <a href="https://en.wikipedia.org/wiki/Beer_style">Wikipedia</a></p>
-  </div>
-  <% end %>
-```
-
-Now when user clicks the link, that creates a GET request to the same url and the request is handled by the  function _index_ of the _beers_ controller. We can use the helper function *turbo_frame_request?* to detect the turbo request and handle it accordingly:
+Now when the user clicks the link, that creates a GET request to the same URL and the request is handled by the function _index_ of the _beers_ controller. We can use the helper function *turbo_frame_request?* to detect the turbo request and handle it accordingly:
 
 ```rb
 class StylesController < ApplicationController
@@ -150,11 +138,9 @@ end
 
 So in case of a turbo request (that is link "about" is clicked), instead of a full page reload only the partial <i>about</i> is rendered. 
 
-As we see from the developer cosole, the response of the turbo request does not contain the full HTML of the page, only the HTML fragment that will be inserted to the turbo frame:
+As we see from the developer console, the response of the turbo request does not contain the full HTML of the page, only the HTML fragment that will be inserted into the turbo frame:
 
-![image](../images/8-2.png)
-
-From the console we can also see, that the GET request caused by the link clicking within the frame has a special header _Turbo frame_ that tells Rails controller to treat the request as a turbo request and **not** cause a full page reload:
+![image]From the console, we can also see, that the GET request caused by the link clicking within the frame has a special header _Turbo frame_ that tells the Rails controller to treat the request as a turbo request and **not** cause a full page reload:
 
 ![image](../images/8-3.png)
 
@@ -198,7 +184,7 @@ The link is changed accordingly:
 
 #### Rendering style details on demand
 
-Instead of having an individual view for each style, let us show the style details when clicking the style name on the list. We begin with wrapping the list in a turbo frame:
+Instead of having just an individual page for each style, let us show the style details on the styles page when the user clicks a style name on the list. We start by wrapping the style list in a turbo frame:
 
 ```html
 <h1>Styles</h1>
@@ -209,13 +195,10 @@ Instead of having an individual view for each style, let us show the style detai
       <%= link_to style.name, style %>
     <% end %>
   <% end %>
-
-  <%= turbo_frame_tag "style_details" do %>
-  <% end %>  
 </div>
 ```
 
-We add the following to partial *_details.html.erb*:
+We add the following to partial *_details.html.erb* that shows besides the style name, its description and the beers of that style:
 
 ```html
 <%= turbo_frame_tag "styles" do %>
@@ -237,7 +220,7 @@ We add the following to partial *_details.html.erb*:
 <% end %>
 ```
 
-Clicking a style name now causes a turbo frame request for a single style, the controller is altered to render the above partial in these cases:
+Clicking a style name now causes a turbo frame request for a single style, and the controller is altered to render the above partial in this case:
 
 ```rb
 class StylesController < ApplicationController
@@ -254,9 +237,9 @@ class StylesController < ApplicationController
 end
 ```
 
-Notice now that the partial is given the _@style_ as a variable!
+Notice now that the partial is given the _style_ as a variable!
 
-Now when a style name is clicked, the list of styles is replaced with the details of a particular style.
+Now when a style name is clicked, the list of styles is **replaced** with the details of a particular style.
 
 #### Targetting a different frame
 
@@ -278,7 +261,7 @@ This is perhaps not quite what we want. Instead, let the style list remain visib
 </div>
 ```
 
-Since we now  want to target a different turbo frame instaad of the one where links (or othe component) reside, we must define the targetted frame as an attribute. As seen from the above snippet it is done as follows:
+Since we now want to target a _different_ turbo frame instead of the one where links reside, we must define the targeted frame as an attribute. As seen from the above snippet it is done as follows:
 
 ```html
 link_to style.name, style, data: { turbo_frame: "style_details" }
@@ -298,15 +281,15 @@ The turbo frame tag in the partial _details.html.erb needs to be changed accordi
 <% end %>
 ```
 
-The result is finally as we expectedit to be:
+The result is finally as we expected it to be:
 
 ![image](../images/8-4.png)
 
 <blockquote>
 
-#### Exercise 1
+## Exercise 1
 
-Extend the user page so that when clicking a rating, the basic info of the rated beer are shown. Your solution could look like this
+Extend the user page so that when clicking a rating, the basic info of the rated beer is shown. Your solution could look like this
 
 ![image](../images/8-5.png)
 
@@ -314,9 +297,8 @@ Extend the user page so that when clicking a rating, the basic info of the rated
 
 ### Pagination
 
-Before continuing with the Hotwire further, let's take a slight detour. After last week's [increased amount of beers](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality) you start to wonder that it would be kinda nice to have a pagination for our beers page. Let's add it first without utilizing Hotwire features.
-
-First we start by adding links for previous and next pages to the end of our beers table:
+Before continuing with the Hotwire further, let's take a slight detour. After last week's [increased amount of beers](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md#server-caching-functionality), you start to wonder that it would be kind of nice to have a pagination for our beers page. Let's add it first without utilizing Hotwire features.
+First, we start by adding links for the previous and next pages to the end of our beer table:
 
 **app/views/beers/index.html.erb**
 
@@ -341,7 +323,7 @@ First we start by adding links for previous and next pages to the end of our bee
 </table>
 ```
 
-Our links don't do much yet so let's add some logic to the controller as well. Last week we defined ordering of the beers in our controller like so:
+Our links don't do much yet so let's add some logic to the controller as well. Last week we defined the ordering of the beers in our controller as so:
 
 **app/controllers/beers_controller.rb**
 
@@ -352,17 +334,17 @@ def index
   @beers = Beer.all
 
   @beers = case @order
-            when "name"    then @beers.sort_by(&:name)
-            when "brewery" then @beers.sort_by { |b| b.brewery.name }
-            when "style"   then @beers.sort_by { |b| b.style.name }
-            when "rating"  then @beers.sort_by(&:average_rating).reverse
-            end
+    when "name"    then @beers.sort_by(&:name)
+    when "brewery" then @beers.sort_by { |b| b.brewery.name }
+    when "style"   then @beers.sort_by { |b| b.style.name }
+    when "rating"  then @beers.sort_by(&:average_rating).reverse
+    end
 end
 ```
 
-Which contains a bit of a problem. Method `sort_by` will load all the beers to main memory as an array and only then sort the order. But now we would want to fetch only limited amount of records from the database at a time, only what is needed for the current page. There's no sense fetching all the beers. That's why we'll opt for using ActiveRecord SQL queries for the ordering.
+This approach contains a bit of a problem. The code loads all the beers to the main memory as an array and only then uses `sort_by` to get the appropriate order. But now we would want to fetch only a limited amount of records from the database at a time, only what is needed for the current page. There's no sense fetching all the beers. That's why we'll opt for using ActiveRecord SQL queries for the ordering.
 
-Let us at the first forget about the different orderings and get the pagination to work for beers ordered by name. The controller changes as follows:
+Let us at first forget about the different orderings and get the pagination to work for beers ordered by name. The controller changes as follows:
 
 ```ruby
 class BeersController < ApplicationController
@@ -420,9 +402,9 @@ Pay attention to the `@last_page` instance variable as we are going to need it i
 </table>
 ```
 
-Pagination works now nicely with the default ordering! We need a bit more advanced use of ActiveRecord to get also the other orders to work.
+Pagination works now nicely with the default ordering! We need a bit more advanced use of ActiveRecord to get the other orders to work.
 
-When ordering based on brewery or style name, we can not just use the data in the beer object, we must do a SQL [join](https://edgeguides.rubyonrails.org/active_record_querying.html#joining-tables) to get the assosiated rows also from the database to do the ordering based on the fields of those. The contreller extends as follows:
+When ordering based on a brewery name or style name, we can not just use the data in the beer object, we must do an SQL [join](https://edgeguides.rubyonrails.org/active_record_querying.html#joining-tables) to get the associated rows from the database and to do the ordering based on the fields of those. The controller extends as follows:
 
 ```ruby
 class BeersController < ApplicationController
@@ -449,9 +431,9 @@ class BeersController < ApplicationController
 end
 ```
 
-So now depending on the order user wants, a different kind of query is executed to get the beers.
+So now depending on the order the user wants, a different kind of query is executed to get a page of beers.
 
-The last one, ordering by ratings is the most tricky case. One way to achieve the functionality is shown below. The required SQL mastery is beyond the objectives of this course, so you may just copy paste the code and believe that it works.
+The last one, ordering by ratings is the most tricky case. One way to achieve the functionality is shown below. The required SQL mastery is beyond the objectives of this course, so you may just copy-paste the code and believe that it works.
 
 ```ruby
 class BeersController < ApplicationController
@@ -482,14 +464,21 @@ class BeersController < ApplicationController
 end
 ```
 
+And voilà! We have a working pagination for our beers. But one kinda annoying thing is that when we navigate between the pages, the whole page gets reloaded with menus and all even though the contents of the table are the only thing changing. Here is where we come to where Turbo Frames can help us...
 
-And voilà! We have working pagination for our beers. But one thing that is kinda annoying is that when we navigate between the pages, the whole pages gets reloaded with menus and all even though the contents of the table are the only thing changing. Here is where we come to where Turbo Frames can help us...
+The controller code has now a slightly ugly feature, it contains repetition, eg. the following fragment is repeated many times:
+
+```rb
+.limit(PAGE_SIZE).offset(offset)
+```
+
+It would be possible to clean up the repetition, but we will leave that as a volunteer exercise.
 
 <blockquote>
 
-#### Exercise 2
+## Exercise 2
 
-Change the ratings page to show all ratings in a paginated form. The default order is to show the most recent rating first, add a button that allows reversing the order. Your solution could look like the following:
+Change the ratings page to show *all* ratings in a paginated form. The default order is to show the most recent rating first. Add a button that allows reversing the order. Your solution could look like the following:
 
 ![image](../images/8-6.png)
 
@@ -582,7 +571,7 @@ We also notice that the URL remains unchanged when navigating between pages, and
 
 #### Async frame
 
-Let us assume that we would like to show a user a beer recommendation based on user ratings. Calculating the recommendation might take a long time, that is why we decide to load it asynchronusly. So initially when the user goes to his own page, it is just showing a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
+Let us assume that we would like to show a user a beer recommendation based on user ratings. Calculating the recommendation might take a long time, which is why we decided to load it asynchronously. So initially when the user goes to his own page, it just shows a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
 
 This can be achieved with turbo frames with a <i>src</i> attribute:
 
@@ -592,7 +581,7 @@ This can be achieved with turbo frames with a <i>src</i> attribute:
   <% end %>
 ```
 
-Now initlally only the text <i>calculating the recommendation...</i> is rendered. After the page is rendered Turbo makes a HTTP GET request to the specified path (users/id/recommendation), and fills in the HTML that it gets as response. The partial for recommendation looks the following *view/users/_recommendation.html.erb*:
+Now initially only the text <i>calculating the recommendation...</i> is rendered. After the page is rendered Turbo makes an HTTP GET request to the specified path (users/id/recommendation), and fills in the HTML that it gets as a response. The partial for recommendation looks the following *view/users/_recommendation.html.erb*:
 
 ```html
 <%= turbo_frame_tag "beer_recommendation_tag" do %>
@@ -613,7 +602,7 @@ resources :users  do
 end
 ```
 
-The controller finds out the recommendation (that is in our case just a randomly picked beer) and renders the partial. We have added a sleep of 2 seconds to simulate that calculating the recommendation takes a bit time.
+The controller finds out the recommendation (that is in our case just a randomly picked beer) and renders the partial. We have added a sleep of 2 seconds to simulate that calculating the recommendation takes a bit of time.
 
 ```rb
 class UsersController < ApplicationController
@@ -632,11 +621,11 @@ class UsersController < ApplicationController
 end
 ```
 
-Now when the user browsers to own page, there is a indication that the recommendation is still to be calculated:
+Now when the user browsers to their own page, there is an indication that the recommendation is still to be calculated:
 
 ![image](../images/8-10.png)
 
-And after the while, the HTTP response is ready, and the returned partial containing the recommendation is rendered.
+After a while, the HTTP response is ready, and the returned partial containing the recommendation is rendered.
 
 ![image](../images/8-11.png)
 
@@ -648,21 +637,21 @@ Under the hood, Turbo utilizes JavaScript to manipulate the [HTML DOM](https://w
 
 <blockquote>
 
-#### Exercise 3
+## Exercise 3
 
-In this and the next exercise, we will refactor the breweries page to render the brewery lists asyncronously.
+In this and the next exercise, we will refactor the breweries page to render the brewery lists asynchronously.
 
-Start by refactoring breweries page so that there is new partial `_brewery_list.html.erb` which is used separately to list breweries under active breweries and retired breweries.
+Start by refactoring the breweries page so that there is a new partial `_`brewery_list.html.erb` which is used separately to list breweries under active breweries and retired breweries.
 
 Create the new endpoint GET `breweries/active` that returns the partial for the active breweries and use that in rendering the breweries page.
 
 The retired brewery list can still remain as it is.
 
-#### Exercise 4
+## Exercise 4
 
 Create also the new endpoint GET `breweries/retired` that returns the partial for the active breweries and use that in rendering the breweries page.
 
-The same partial should be used both for active and retired breweries. Note that you **can not** anymore use same turbo frame tag for both the active and retired breweries. 
+The same partial should be used both for active and retired breweries. Note that you **can not** anymore use the same turbo frame tag for both the active and retired breweries. 
 
 Instead of defining a turbo frame tag as a string, we can define it also as a variable that you set in the controller:
 
@@ -690,7 +679,7 @@ Key concepts in Turbo Streams include **actions**, **targets**, and **templates*
 
 In Turbo Streams, **actions** are a fundamental concept used to specify the changes or updates that should be performed on the client-side HTML DOM in response to a server-side event. An action represents a specific operation that can be applied to one or more target elements within a Turbo Stream response.
 
-**Actions** are defined using HTML-like syntax and consist of a combination of elements and attributes. Each action includes a target element, which represents the HTML element on the client-side that needs to be updated, and one or more operations that define how the target element should be modified.
+**Actions** are defined using HTML-like syntax and consist of a combination of elements and attributes. Each action includes a target element, which represents the HTML element on the client side that needs to be updated, and one or more operations that define how the target element should be modified.
 
 The operations that can be applied to a target element include:
 
