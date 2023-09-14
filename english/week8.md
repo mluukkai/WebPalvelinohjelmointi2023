@@ -631,9 +631,9 @@ After a while, the HTTP response is ready, and the returned partial containing t
 
 #### Turbo under the hood
 
-Please explain here...
+As we have seen in the beginning of this week's material, turbo frame blocks are identified and separated with ```id``` tags and catched by controller with the ```turbo_frame_request?```method. The controller then queries model for the data needed and sends the updated part of HTML to the view. With the help of id tags, only the speficic part inside ```<turbo-frame>``` is updated without having to refresh the entire page. 
 
-Under the hood, Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
+Turbo Frames is built on the concept of [AJAX](https://www.w3schools.com/xml/ajax_intro.asp). In a tradidtional Rails application, a typical HTTP request (like ```GET```) would involve controller to process the page load request and querying the model's database before delivering an entire HTML page back to the browser. With AJAX, and by extension Turbo Frames, instead of returning a full HTML page, only a section of the page is updated. This leads to faster loading as the application doesn't have to reload all data from database. Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
 
 <blockquote>
 
