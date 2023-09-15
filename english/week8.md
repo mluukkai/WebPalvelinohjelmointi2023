@@ -528,15 +528,15 @@ def index
 end
 ```
 
-The `turbo_frame_request?` condition ensures that when the request is made within a Turbo Frame, only the partial containing our beer table is returned. We can now observe the behavior within the network tab of our browser's developer tools.
+The `turbo_frame_request?` condition ensures that when the request is made within a Turbo Frame, only the partial containing our beer table is returned. We can now observe the behavior within the network tab of our browser's developer tools:
 
 ![image](../images/8-7.png)
 
-We can see that the headers include the ID of the Turbo Frame we are targeting, allowing Turbo to identify which part of the page should be replaced.
+We can see that the headers include the id of the Turbo Frame we are targeting, allowing Turbo to identify which part of the page should be replaced with the response data:
 
 ![image](../images/8-8.png)
 
-Indeed, the response contains only the partial and excludes the application layout that accompanies the HTML document. The turbo magic automatically handles this aspect.
+Indeed, the response contains only the partial and excludes the application layout that accompanies the HTML document. The Turbo magic automatically handles this aspect.
 
 The only remaining issue is that the links to beers, breweries, and styles are no longer functional. If we eg. click a beer name, the response looks as follows:
 
@@ -544,7 +544,7 @@ The only remaining issue is that the links to beers, breweries, and styles are n
 
 Turbo attempts to replace our table with their content but fails to find a suitable turbo tag (*beer_list_frame*) for replacement so it simply renders nothing within the frame.
 
-We can easily resolve this by adding the target attribute to our links:
+We can easily resolve this by adding a suitable target attribute to our links:
 
 **app/views/beers/\_beer_list.html.erb**
 
@@ -559,7 +559,7 @@ We can easily resolve this by adding the target attribute to our links:
 <% end %>
 ```
 
-The `target="_top"` signifies that Turbo should break out of the frame and replace the entire page with the opened link. Alternatively, the `target` could be set to `_self`, targeting the current frame, or the ID of another Turbo Frame, in which case Turbo would attempt to replace that specific frame.
+The `turbo_frame="_top"` signifies that Turbo should break out of the frame and replace the entire page with the opened link. As seen from the earlier examples we can also use an id of another Turbo Frame here, in which case Turbo would attempt to replace that specific frame.
 
 We also notice that the URL remains unchanged when navigating between pages, and using the browser's back button may lead to unexpected results. We can easily address this by promoting our Turbo Actions into visits:
 
@@ -571,9 +571,9 @@ We also notice that the URL remains unchanged when navigating between pages, and
 
 #### Async frame
 
-Let us assume that we would like to show a user a beer recommendation based on user ratings. Calculating the recommendation might take a long time, which is why we decided to load it asynchronously. So initially when the user goes to his own page, it just shows a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
+Let's say we want to suggest a beer to the user based on how they've rated other beers.Calculating the recommendation might take a long time, which is why we decided to load it asynchronously. So initially when the user goes to his own page, it just shows a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
 
-This can be achieved with turbo frames with a <i>src</i> attribute:
+This can be achieved with Turbo frames with a <i>src</i> attribute:
 
 ```rb
   <%= turbo_frame_tag "beer_recommendation_tag", src: recommendation_user_path do %>
@@ -581,7 +581,9 @@ This can be achieved with turbo frames with a <i>src</i> attribute:
   <% end %>
 ```
 
-Now initially only the text <i>calculating the recommendation...</i> is rendered. After the page is rendered Turbo makes an HTTP GET request to the specified path (users/id/recommendation), and fills in the HTML that it gets as a response. The partial for recommendation looks the following *view/users/_recommendation.html.erb*:
+Now initially only the text <i>calculating the recommendation...</i> is rendered. After the page is rendered Turbo makes an HTTP GET request to the specified path (users/id/recommendation) and fills in the HTML that it gets as a response. The partial for the recommendation looks the following:
+
+**view/users/_recommendation.html.erb**
 
 ```html
 <%= turbo_frame_tag "beer_recommendation_tag" do %>
@@ -593,7 +595,7 @@ Now initially only the text <i>calculating the recommendation...</i> is rendered
 <% end %>
 ```
 
-We will need a route and controller for the recommendation. The route (definer in *rotes.rb*) is defined as follows:
+We will need a route and controller for the recommendation. The route (in *rotues.rb*) is defined as follows:
 
 ```rb
 resources :users  do
@@ -602,7 +604,7 @@ resources :users  do
 end
 ```
 
-The controller finds out the recommendation (that is in our case just a randomly picked beer) and renders the partial. We have added a sleep of 2 seconds to simulate that calculating the recommendation takes a bit of time.
+The controller finds out the recommendation (that is in our case just a randomly picked beer) and renders the partial. We have added a sleep of 2 seconds to simulate that calculating the recommendation takes a bit of time:
 
 ```rb
 class UsersController < ApplicationController
@@ -625,15 +627,15 @@ Now when the user browsers to their own page, there is an indication that the re
 
 ![image](../images/8-10.png)
 
-After a while, the HTTP response is ready, and the returned partial containing the recommendation is rendered.
+After a while, the HTTP response is ready, and the returned partial containing the recommendation is rendered:
 
 ![image](../images/8-11.png)
 
 #### Turbo under the hood
 
-As we have seen in the beginning of this week's material, turbo frame blocks are identified and separated with ```id``` tags and catched by controller with the ```turbo_frame_request?```method. The controller then queries model for the data needed and sends the updated part of HTML to the view. With the help of id tags, only the speficic part inside ```<turbo-frame>``` is updated without having to refresh the entire page. 
+As we have seen at the beginning of this week's material, Turbo frame blocks are identified and separated with ```id``` tags and caught by the controller with the ```turbo_frame_request?```method. The controller then queries the model for the data needed and sends the updated part of HTML to the view. With the help of id tags, only the specific part inside ```<turbo-frame>``` is updated without having to refresh the entire page. 
 
-Turbo Frames is built on the concept of [AJAX](https://www.w3schools.com/xml/ajax_intro.asp). In a tradidtional Rails application, a typical HTTP request (like ```GET```) would involve controller to process the page load request and querying the model's database before delivering an entire HTML page back to the browser. With AJAX, and by extension Turbo Frames, instead of returning a full HTML page, only a section of the page is updated. This leads to faster loading as the application doesn't have to reload all data from database. Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
+Turbo Frames is built on the concept of [AJAX](https://www.w3schools.com/xml/ajax_intro.asp). In a traditional Rails application, a typical HTTP request (like ```GET```) would involve the controller processing the page load request and querying the model's database before delivering an entire HTML page back to the browser. With AJAX, and by extension Turbo Frames, instead of returning a full HTML page, only a section of the page is updated. This leads to faster loading as the application doesn't have to reload all data from the database. Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
 
 <blockquote>
 
@@ -641,25 +643,27 @@ Turbo Frames is built on the concept of [AJAX](https://www.w3schools.com/xml/aja
 
 In this and the next exercise, we will refactor the breweries page to render the brewery lists asynchronously.
 
-Start by refactoring the breweries page so that there is a new partial `_`brewery_list.html.erb` which is used separately to list breweries under active breweries and retired breweries.
+Start by refactoring the breweries page so that there is a new partial `_brewery_list.html.erb` which is used separately to list breweries under active breweries and retired breweries.
 
-Create the new endpoint GET `breweries/active` that returns the partial for the active breweries and use that in rendering the breweries page.
+Create the new endpoint GET `breweries/active` that returns the partial for the active breweries and use that to render the active breweries asynchronously.
 
 The retired brewery list can still remain as it is.
 
 ## Exercise 4
 
-Create also the new endpoint GET `breweries/retired` that returns the partial for the active breweries and use that in rendering the breweries page.
+Create also the new endpoint GET `breweries/retired` that returns the partial for the retired breweries and use also that in rendering the breweries page.
 
-The same partial should be used both for active and retired breweries. Note that you **can not** anymore use the same turbo frame tag for both the active and retired breweries. 
+The same partial should be used both for active and retired breweries. Note that you **can not** anymore use the **same** Turbo frame tag for both the active and retired breweries. 
 
-Instead of defining a turbo frame tag as a string, we can define it also as a variable that you set in the controller:
+Notice that instead of defining a Turbo frame tag as a hard-coded string, we can define it also as a variable that you set in the controller:
 
 ```rb
 <%= turbo_frame_tag tag_as_a_variable do %>
   # ...
 <% end %>
 ```
+
+This makes it possible to use the same partial to render the contents of many different Turbo frames (that all have their own identifiers).
 
 Fix also the links to breweries so that they work inside the turbo frames.
 
