@@ -930,7 +930,9 @@ It's worth noting that in our example, we used a simple string, `breweries_index
 
 ## Exercise 5
 
-Beer chat
+With Turbo Streams and Action Cable, we are now equipped to create a beer chat for the users of our app! Create a model 
+
+could look like the following:
 
 ### Exercise 6
 
