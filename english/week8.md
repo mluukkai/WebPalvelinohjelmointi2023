@@ -34,7 +34,7 @@ Stimulus is a lightweight JavaScript framework that enhances interactivity and u
 
 Strada is an extension of Hotwire that allows developers to build iOS and Android applications using Rails and Turbo. Currently, Strada is being developed as separate repositories: [turbo-ios](https://github.com/hotwired/turbo-ios) for iOS and [turbo-android](https://github.com/hotwired/turbo-android) for Android, respectively.
 
-## Turbo frames, getting ready
+## Turbo Frames, getting ready
 
 Before we start, let us simplify our app a bit. Start by removing the mini profiler by deleting the following line from <i>Gemfile</i>
 
@@ -84,7 +84,7 @@ Now we are ready to begin!
 
 Turbo Frames provide a convenient way to update specific parts of a page upon request, allowing us to focus on updating only the necessary content while keeping the rest of the page intact.
 
-Let us add a turbo frame that contains a link element to the bottom of the styles page, that is, to the view _views/styles/index.html.erb_:
+Let us add a Turbo Frame that contains a link element to the bottom of the styles page, that is, to the view _views/styles/index.html.erb_:
 
 ```html
 <h1>Styles</h1>
@@ -106,25 +106,24 @@ Let us add a turbo frame that contains a link element to the bottom of the style
 <% end %>
 ```
 
-The turbo frame is created with a helper function <i>turbo_frame_tag</i> that has an identifier as a parameter. We use now the string _"about_style_"_ as the identifier.
+The Turbo Frame is created with a helper function <i>turbo_frame_tag</i> that has an identifier as a parameter. We use now the string _"about_style_"_ as the identifier.
 
 The generated HTML looks like the following:
 
 ![image](../images/8-1.png)
 
-So the frame has just a link element that points back to the page itself. 
+So the frame has just a link element that points back to the page itself. We intend to show some information about beer styles within the Turbo Frame when the user clicks the link.
 
-Our intention is to show some information about beer styles within the turbo frame when the user clicks the link.
+Let us now create a partial */views/styles/_about.html.erb* that also has the same Turbo Frame ID:
 
-Let us now create a partial */views/styles/_about.html.erb* that also has the same turbo frame id:
-Now when the user clicks the link, that creates a GET request to the same URL and the request is handled by the function _index_ of the _beers_ controller. We can use the helper function *turbo_frame_request?* to detect the turbo request and handle it accordingly:
+Now when the user clicks the link, that creates a GET request to the same URL and the request is handled by the function _index_ of the _beers_ controller. We can use the helper function *turbo_frame_request?* to detect the Turbo request and handle it accordingly:
 
 ```rb
 class StylesController < ApplicationController
 
   def index
     if turbo_frame_request?
-      # this was a request from the turbo frame
+      # this was a request from the Turbo Frame
       render partial: 'about'
     else
       # this was a normal requesst
@@ -138,9 +137,7 @@ end
 
 So in case of a turbo request (that is link "about" is clicked), instead of a full page reload only the partial <i>about</i> is rendered. 
 
-As we see from the developer console, the response of the turbo request does not contain the full HTML of the page, only the HTML fragment that will be inserted into the turbo frame:
-
-![image]From the console, we can also see, that the GET request caused by the link clicking within the frame has a special header _Turbo frame_ that tells the Rails controller to treat the request as a turbo request and **not** cause a full page reload:
+From the console, we can also see, that the GET request caused by the link clicking within the frame has a special header _Turbo frame_ that tells the Rails controller to treat the request as a turbo request and **not** cause a full page reload:
 
 ![image](../images/8-3.png)
 
@@ -184,7 +181,7 @@ The link is changed accordingly:
 
 #### Rendering style details on demand
 
-Instead of having just an individual page for each style, let us show the style details on the styles page when the user clicks a style name on the list. We start by wrapping the style list in a turbo frame:
+Instead of having just an individual page for each style, let us show the style details on the styles page when the user clicks a style name on the list. We start by wrapping the style list in a Turbo Frame:
 
 ```html
 <h1>Styles</h1>
@@ -220,7 +217,7 @@ We add the following to partial *_details.html.erb* that shows besides the style
 <% end %>
 ```
 
-Clicking a style name now causes a turbo frame request for a single style, and the controller is altered to render the above partial in this case:
+Clicking a style name now causes a Turbo Frame request for a single style, and the controller is altered to render the above partial in this case:
 
 ```rb
 class StylesController < ApplicationController
@@ -243,7 +240,7 @@ Now when a style name is clicked, the list of styles is **replaced** with the de
 
 #### Targetting a different frame
 
-This is perhaps not quite what we want. Instead, let the style list remain visible all the time, and add a new turbo frame (with id "style_details") where the details of the clicked style are shown:
+This is perhaps not quite what we want. Instead, let the style list remain visible all the time, and add a new Turbo Frame (with ID "style_details") where the details of the clicked style are shown:
 
 ```html
 <div id="styles">
@@ -261,13 +258,13 @@ This is perhaps not quite what we want. Instead, let the style list remain visib
 </div>
 ```
 
-Since we now want to target a _different_ turbo frame instead of the one where links reside, we must define the targeted frame as an attribute. As seen from the above snippet it is done as follows:
+Since we now want to target a _different_ Turbo Frame instead of the one where links reside, we must define the targeted frame as an attribute. As seen from the above snippet it is done as follows:
 
 ```html
 link_to style.name, style, data: { turbo_frame: "style_details" }
 ```
 
-The turbo frame tag in the partial _details.html.erb needs to be changed accordingly:
+The Turbo Frame tag in the partial _details.html.erb needs to be changed accordingly:
 
 ```html
 <%= turbo_frame_tag "style_details" do %>
@@ -502,7 +499,7 @@ This way, our `index.html.erb` will appear as follows:
 <%= link_to('New Beer', new_beer_path) if current_user %>
 ```
 
-Once the above is functioning correctly, we can enclose our table within the `_beer_list.html.erb` partial using a turbo frame:
+Once the above is functioning correctly, we can enclose our table within the `_beer_list.html.erb` partial using a Turbo Frame:
 
 **app/views/beers/\_beer_list.html.erb**
 
@@ -532,7 +529,7 @@ The `turbo_frame_request?` condition ensures that when the request is made withi
 
 ![image](../images/8-7.png)
 
-We can see that the headers include the id of the Turbo Frame we are targeting, allowing Turbo to identify which part of the page should be replaced with the response data:
+We can see that the headers include the ID of the Turbo Frame we are targeting, allowing Turbo to identify which part of the page should be replaced with the response data:
 
 ![image](../images/8-8.png)
 
@@ -559,7 +556,7 @@ We can easily resolve this by adding a suitable target attribute to our links:
 <% end %>
 ```
 
-The `turbo_frame="_top"` signifies that Turbo should break out of the frame and replace the entire page with the opened link. As seen from the earlier examples we can also use an id of another Turbo Frame here, in which case Turbo would attempt to replace that specific frame.
+The `turbo_frame="_top"` signifies that Turbo should break out of the frame and replace the entire page with the opened link. As seen from the earlier examples we can also use an ID of another Turbo Frame here, in which case Turbo would attempt to replace that specific frame.
 
 We also notice that the URL remains unchanged when navigating between pages, and using the browser's back button may lead to unexpected results. We can easily address this by promoting our Turbo Actions into visits:
 
@@ -569,9 +566,9 @@ We also notice that the URL remains unchanged when navigating between pages, and
 <%= turbo_frame_tag "beer_list_frame", data: { turbo_action: "advance" } do %>
 ```
 
-#### Async frame
+#### Asynchronous frame
 
-Let's say we want to suggest a beer to the user based on how they've rated other beers.Calculating the recommendation might take a long time, which is why we decided to load it asynchronously. So initially when the user goes to his own page, it just shows a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
+Let's say we want to suggest a beer to the user based on how they've rated other beers. Calculating the recommendation might take a long time, which is why we decided to load it asynchronously. So initially when the user goes to his own page, it just shows a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
 
 This can be achieved with Turbo frames with a <i>src</i> attribute:
 
@@ -633,7 +630,7 @@ After a while, the HTTP response is ready, and the returned partial containing t
 
 #### Turbo under the hood
 
-As we have seen at the beginning of this week's material, Turbo frame blocks are identified and separated with ```id``` tags and caught by the controller with the ```turbo_frame_request?```method. The controller then queries the model for the data needed and sends the updated part of HTML to the view. With the help of id tags, only the specific part inside ```<turbo-frame>``` is updated without having to refresh the entire page. 
+As we have seen at the beginning of this week's material, Turbo Frame blocks are identified and separated with ```id``` tags and caught by the controller with the ```turbo_frame_request?```method. The controller then queries the model for the data needed and sends the updated part of HTML to the view. With the help of ID tags, only the specific part inside ```<turbo-frame>``` is updated without having to refresh the entire page. 
 
 Turbo Frames is built on the concept of [AJAX](https://www.w3schools.com/xml/ajax_intro.asp). In a traditional Rails application, a typical HTTP request (like ```GET```) would involve the controller processing the page load request and querying the model's database before delivering an entire HTML page back to the browser. With AJAX, and by extension Turbo Frames, instead of returning a full HTML page, only a section of the page is updated. This leads to faster loading as the application doesn't have to reload all data from the database. Turbo utilizes JavaScript to manipulate the [HTML DOM](https://www.w3schools.com/js/js_htmldom.asp) of the page, eliminating the need for us to write any JavaScript code ourselves!
 
@@ -645,17 +642,17 @@ In this and the next exercise, we will refactor the breweries page to render the
 
 Start by refactoring the breweries page so that there is a new partial `_brewery_list.html.erb` which is used separately to list breweries under active breweries and retired breweries.
 
-Create the new endpoint GET `breweries/active` that returns the partial for the active breweries and use that to render the active breweries asynchronously.
+Create the new endpoint GET `breweries/active` that returns the partial for the active breweries and uses that to render the active breweries asynchronously.
 
 The retired brewery list can still remain as it is.
 
 ## Exercise 4
 
-Create also the new endpoint GET `breweries/retired` that returns the partial for the retired breweries and use also that in rendering the breweries page.
+Create also the new endpoint GET `breweries/retired` that returns the partial for the retired breweries and use that also in rendering the breweries page.
 
-The same partial should be used both for active and retired breweries. Note that you **can not** anymore use the **same** Turbo frame tag for both the active and retired breweries. 
+The same partial should be used both for active and retired breweries. Note that you **can not** anymore use the **same** Turbo Frame tag for both the active and retired breweries. 
 
-Notice that instead of defining a Turbo frame tag as a hard-coded string, we can define it also as a variable that you set in the controller:
+Notice that instead of defining a Turbo Frame tag as a hard-coded string, we can define it also as a variable that you set in the controller:
 
 ```rb
 <%= turbo_frame_tag tag_as_a_variable do %>
@@ -671,9 +668,9 @@ Fix also the links to breweries so that they work inside the turbo frames.
 
 ## Turbo Streams
 
-The purpose of [Turbo Streams](https://turbo.hotwired.dev/handbook/streams) is to enable page updates in fragments. For example, when a page displays a list of breweries, instead of performing a complete page reload, a single brewery can be appended or removed from the list in response to a change.
+The purpose of [Turbo Streams](https://turbo.hotwired.dev/handbook/streams) is to enable page updates in fragments. For example, when a page displays a list of breweries and a new beer is added or deleted, instead of performing a complete page reload, a single brewery can be appended or removed from the list in response to a change.
 
-In modern web applications, achieving this behavior often involves having a separate server-side REST API or GraphQL API, commonly referred to as the back-end, to provide the necessary information in JSON format. The front-end queries this back-end, receives the JSON data, and renders the required HTML while updating the DOM accordingly.
+In modern web applications, achieving this kind of behavior often involves having a separate server-side REST API or GraphQL API, commonly referred to as the back-end, to provide the necessary information in JSON format. The front-end queries this back-end, receives the JSON data, and renders the required HTML while updating the DOM accordingly by using logic written in JavaScript.
 
 Turbo simplifies this process by streaming pre-rendered HTML, compiled on the back-end, directly to the browser and handling the necessary actions internally.
 
@@ -697,7 +694,7 @@ The operations that can be applied to a target element include:
 
 ### Turbo Streams Targets
 
-In order for **actions** to function properly, Turbo requires the identification of target elements within the DOM. This can be achieved by assigning unique HTML `id` parameters to individual elements or by utilizing `class` parameters to target multiple elements.
+For **actions** to function properly, Turbo requires the identification of target elements within the DOM. This can be achieved by assigning unique HTML `id` parameters to individual elements or by utilizing `class` parameters to target multiple elements.
 
 For identifying a single element, one can explicitly create an ID value in the view or leverage the convenient Rails [dom_id](https://api.rubyonrails.org/classes/ActionView/RecordIdentifier.html) helper, which automatically generates the ID tag. For example:
 
@@ -734,7 +731,7 @@ To prepare the Breweries index page for streaming, extract the row rendering log
 ```html
 <tbody>
   <% breweries.each do |brewery| %>
-    <tr %>">
+    <tr>
       <td><%= link_to brewery.name, brewery, data: { turbo_frame: "_top" } %></td>
       <td><%= brewery.year %></td>
       <td><%= brewery.beers.count %></td>
@@ -749,7 +746,7 @@ To new partial file `app/views/breweries/_brewery_row.html.erb`:
 **app/views/breweries/\_brewery_row.html.erb**
 
 ```html
-<tr %>">
+<tr>
   <td><%= link_to brewery.name, brewery, data: { turbo_frame: "_top"} %></td>
   <td><%= brewery.year %></td>
   <td><%= brewery.beers.count %></td>
@@ -757,7 +754,7 @@ To new partial file `app/views/breweries/_brewery_row.html.erb`:
 </tr>
 ```
 
-And change the original code to use this partial :
+And change the original code to use this partial:
 
 ```html
 <tbody id="<%= status %>_brewery_rows">
@@ -767,19 +764,15 @@ And change the original code to use this partial :
 </tbody>
 ```
 
-Pay attention to new ID that we give to the tbody element. We need `active_brewery_rows` or `retired_brewery_rows` ID to **target** the **action** of appending new breweries as children of the correct table. If in Exercise 1 you did not define local `status` or something similar containing `active`/`retired` information for the different brewery listings, you should do that now as it will help us later.
+Pay attention to the new ID that we give to the tbody element. We need `active_brewery_rows` or `retired_brewery_rows` ID to **target** the **action** of appending new breweries as children of the correct table. If in Exercises 3 and 4 you did not define local `status` or something similar containing `active`/`retired` information for the different brewery listings, you should do that now as it will help us later.
 
 Next, let's enable the addition of new breweries directly from the index page. Replace the following code in `app/views/breweries/index.html.erb`:
-
-**app/views/breweries/index.html.erb**
 
 ```html
 <%= link_to "New brewery", new_brewery_path if current_user %>
 ```
 
 With the following Turbo Frame tag:
-
-**app/views/breweries/index.html.erb**
 
 ```html
 <%= turbo_frame_tag "new_brewery", src: new_brewery_path if current_user %>
@@ -788,8 +781,6 @@ With the following Turbo Frame tag:
 This Turbo Frame will include a part of our existing code from the `new_brewery` path.
 
 In `app/views/breweries/_new.html.erb` specify which part of the view you want to show in the Turbo Frame:
-
-**app/views/breweries/\_new.html.erb**
 
 ```html
 <h1>New brewery</h1>
@@ -800,31 +791,35 @@ In `app/views/breweries/_new.html.erb` specify which part of the view you want t
 # ...
 ```
 
+Now the breweries page looks like this:
+
 ![image](../images/ratebeer-w8-4.png)
 
-In order to append the created brewery to the list without doing a full page update, we need to modify the response in the create action of the `app/controllers/breweries_controller.rb` file.
+To append the created brewery to the list without doing a full page update, we need to modify the response in the create action of the `app/controllers/breweries_controller.rb` file.
 
 By adding the `format.turbo_stream` block, we specify that the response should be rendered as a Turbo Stream template with the action of appending the new brewery row to the target element with the ID `active_brewery_rows` or `retired_brewery_rows`. These steps enable the addition of breweries directly from the index page while only appending the created brewery to the list without refreshing the entire page.
 
-**app/controllers/breweries_controller.rb**
-
 ```ruby
-def create
-  @brewery = Brewery.new(brewery_params)
+class BreweriesController < ApplicationController
 
-  respond_to do |format|
-    if @brewery.save
-      format.turbo_stream {
-        status = @brewery.active? ? "active" : "retired"
-        render turbo_stream: turbo_stream.append("#{status}_brewery_rows", partial: "brewery_row", locals: { brewery: @brewery })
-      }
-      format.html { redirect_to brewery_url(@brewery), notice: "Brewery was successfully created." }
-      format.json { render :show, status: :created, location: @brewery }
-    else
-      format.html { render :new, status: :unprocessable_entity }
-      format.json { render json: @brewery.errors, status: :unprocessable_entity }
+  def create
+    @brewery = Brewery.new(brewery_params)
+
+    respond_to do |format|
+      if @brewery.save
+        format.turbo_stream {
+          status = @brewery.active? ? "active" : "retired"
+          render turbo_stream: turbo_stream.append("#{status}_brewery_rows", partial: "brewery_row", locals: { brewery: @brewery })
+        }
+        format.html { redirect_to brewery_url(@brewery), notice: "Brewery was successfully created." }
+        format.json { render :show, status: :created, location: @brewery }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @brewery.errors, status: :unprocessable_entity }
+      end
     end
   end
+
 end
 ```
 
@@ -836,11 +831,11 @@ This change involves one line of code, but under the hood, several components en
 
 2. The controller, based on the `Accept` header, recognizes the request's Turbo Stream format and responds by rendering a Turbo Stream template instead of a complete page. This ensures that only the necessary HTML fragments are sent back to the browser.
 
-3. Using the `turbo_stream.append` method, a response HTML fragment is generated with the action set to `append`. This fragment targets the element with the identifier `brewery_rows` and utilizes the `_brewery_row.html.erb` partial to generate the content. Here is an example of the resulting fragment:
+3. Using the `turbo_stream.append` method, a response HTML fragment is generated with the action set to `append`. This fragment targets the element with the identifier `brewery_rows` and utilizes the `_brewery_row.html.erb` partial to generate the content. Here is an example of the resulting fragment (go and see yourself from the developer tools how the response looks):
 
 ```html
-<turbo-stream action="append" target="active_brewery_rows"
-  ><template
+<turbo-stream action="append" target="active_brewery_rows">
+  <template
     ><tr id="brewery_65">
       <td>
         <a data-turbo-frame="_top" href="/breweries/65"
@@ -851,8 +846,8 @@ This change involves one line of code, but under the hood, several components en
       <td>0</td>
       <td>0.0</td>
     </tr></template
-  ></turbo-stream
->
+  >
+</turbo-stream>
 ```
 
 4. With the table body previously assigned an ID, such as `<tbody id="active_brewery_rows">`, Turbo knows to append the generated template as the last child of the table body element. It intelligently places the new content in the appropriate location. You can test this behavior by removing or altering the ID and observing the resulting outcome.
@@ -876,12 +871,27 @@ To publish updates, we utilize the Brewery model `app/models/brewery.rb`. Whenev
 **app/models/brewery.rb**
 
 ```ruby
+class Brewery < ApplicationRecord
+  include RatingAverage
+  extend TopRated
 
-after_create_commit -> { broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: "active_brewery_rows" }, if: :active?
-after_create_commit -> { broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: "retired_brewery_rows" }, if: :retired?
+  # ...
+
+  after_create_commit do 
+    target_id = if active
+      "active_brewery_rows"
+    else
+      "retired_brewery_rows"
+    end
+
+    broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: target_id
+  end
+end
 ```
 
-This code broadcasts an `append` action to the `breweries_index` channel, targeting the element with the ID `active_brewery_rows` or `retired_brewery_rows`. It uses the `_brewery_row.html.erb` partial to create the template for the new brewery. Essentially, it replicates the same functionality we implemented earlier by responding to client requests with fragments. However, the difference lies in the fact that the HTML fragment is now broadcasted to all browsers subscribed to the `breweries_index` channel, thanks to the power of WebSockets.
+Ruby on Rails calls the [callback](https://guides.rubyonrails.org/active_record_callbacks.html) function [after_create_commit](https://api.rubyonrails.org/v7.0.8/classes/ActiveRecord/Transactions/ClassMethods.html#method-i-after_commit) always when a new object is created.
+
+The callback function broadcasts an `append` action to the `breweries_index` channel, targeting the element with the ID `active_brewery_rows` or `retired_brewery_rows`. It uses the `_brewery_row.html.erb` partial to create the template for the new brewery. Essentially, it replicates the same functionality we implemented earlier by responding to client requests with fragments. However, the difference lies in the fact that the HTML fragment is now broadcasted to **all browsers** subscribed to the `breweries_index` channel, thanks to the power of WebSockets.
 
 You can test the functionality by opening two browser windows side by side and creating a new brewery. You'll observe that the updates are instantly reflected in both windows, demonstrating the real-time nature of ActionCable and WebSockets.
 
@@ -920,6 +930,14 @@ It's worth noting that in our example, we used a simple string, `breweries_index
 
 ## Exercise 5
 
+Beer chat
+
+### Exercise 6
+
+beer chat, private rooms
+
+## Exercise 7
+
 Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database (see [Rails views documentation](https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-by-default-convention-over-configuration-in-action)). The implementation should follow these steps:
 
 1. **Initial Removal (No Turbo, Full Page Reload)**
@@ -929,16 +947,12 @@ Enhance the breweries list functionality by adding a button or text "X" for remo
    Improve the functionality by dynamically removing the deleted brewery from the list using Turbo Streams. Ensure the removal is reflected in the UI without requiring a full page reload.
 
 3. **WebSocket Integration for Real-Time Updates**
-   Leverage WebSockets to stream the removal action to all connected browsers in real time.
+   Leverage WebSockets to stream the removal action to all connected browsers in real-time.
 
 4. **Confirmation Pop-up**
    Enhance user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove brewery X and all beers associated with it?". The pop-up should provide options for "Cancel" and "Remove" actions.
 
-</blockquote>
-
-<blockquote>
-
-## Exercise 6
+## Exercise 8
 
 Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
 
