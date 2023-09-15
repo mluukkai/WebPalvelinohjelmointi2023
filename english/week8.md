@@ -930,35 +930,34 @@ It's worth noting that in our example, we used a simple string, `breweries_index
 
 ## Exercise 5
 
-With Turbo Streams and Action Cable, we are now equipped to create a beer chat for the users of our app! Create a model 
+With Turbo Streams and Action Cable, we are now equipped to create a beer chat for the users of our app! Your solution could look like the following:
 
-could look like the following:
+![image](../images/8-12.png)
 
-### Exercise 6
+You need a model for the messages. Each message has the text content and ID of the creator. Note the order of the messages, the most recent is shown at the top.
 
-beer chat, private rooms
+## Exercise 6
+
+Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database (see [Rails views documentation](https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-by-default-convention-over-configuration-in-action)).
+
+The implementation should follow these steps:
+
+Initially, make the removal work without using Turbo, requiring a full page reload after the delete action.
+
+Improve the functionality by dynamically removing the deleted brewery from the list using Turbo Streams. Ensure the removal is reflected in the UI without requiring a full page reload.
 
 ## Exercise 7
 
-Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database (see [Rails views documentation](https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-by-default-convention-over-configuration-in-action)). The implementation should follow these steps:
+Leverage WebSockets to stream the removal action to all connected browsers in realtime.
 
-1. **Initial Removal (No Turbo, Full Page Reload)**
-   Initially, make the removal work without using Turbo, requiring a full page reload after the delete action.
-
-2. **Dynamic Removal with Turbo Streams**
-   Improve the functionality by dynamically removing the deleted brewery from the list using Turbo Streams. Ensure the removal is reflected in the UI without requiring a full page reload.
-
-3. **WebSocket Integration for Real-Time Updates**
-   Leverage WebSockets to stream the removal action to all connected browsers in real-time.
-
-4. **Confirmation Pop-up**
-   Enhance user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove brewery X and all beers associated with it?". The pop-up should provide options for "Cancel" and "Remove" actions.
+Enhance the user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove brewery X and all beers associated with it?". The pop-up should provide options for "Cancel" and "Remove" actions.
 
 ## Exercise 8
 
 Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
 
-Hint: you can render multiple turbo stream messages from a controller response by placing them in an array.
+Hint: you can render multiple Turbo Stream messages from a controller response by placing them in an array.
+
 </blockquote>
 
 ## Stimulus
@@ -1398,53 +1397,44 @@ And now we have a beautifully working beer tax calculator!
 
 <blockquote>
 
-## Exercise 7
+## Exercise 9
 
 Improve beer tax calculator by changing the amount field to be dropdown selection containing most common beer can and bottle sizes, for example these: 0.33, 0.375, 0.5, 0.66, 0.75, 1, 1.3 and 1.5 liters.
-</blockquote>
 
-<blockquote>
-
-## Exercise 8
+## Exercise 10
 
 Continuing from the exercise 4, add option `Custom` to the dropdown. When custom option is selected, there is user fillable custom amount field added to the form. If user switches back to pre-defined amount in the dropdown, custom amount field gets removed from the form.
 
 ![image](../images/ratebeer-w8-12.png)
 
 Hint: Remember that you have `this.has[name]Target` checker available to check if named target has been defined.
-</blockquote>
 
-
-<blockquote>
-
-## Exercise 9
+## Exercise 11
 
 Add _select all_ checkbox input to users ratings partial and event that selects/deselects all users ratings when that checkbox is selected/deselected.
-</blockquote>
 
-<blockquote>
-
-## Exercise 10
+## Exercise 12
 
 When we add new breweries in the brewery page, our form does not get emptied out after adding the brewery. Use Stimulus to clear all form inputs (also the checkbox) after the form is submitted.
 
 Hint: Turbo offers `turbo:submit-end` event that is fired after form is submitted which you can user to trigger an action. More turbo events can be found here: https://turbo.hotwired.dev/reference/events
-</blockquote>
 
-<blockquote>
-
-## Exercise 11
+## Exercise 13
 
 For the form for creating a new brewery, add a select field that gets its data (breweries) from the PRH API
 
 - Add select input-field and get its data (breweries) from the PRH API.
 - After user selects brewery from select input, get selected brewery's data from the PRH API and fill brewery name and registration year to new form inputs (name, year).
 
-
 - API url to get all breweries: https://avoindata.prh.fi/bis/v1?totalResults=true&maxResults=500&businessLine=Oluen%20valmistus
 - API url to get the single brewery data: https://avoindata.prh.fi/bis/v1?businessId=${breweryId}
 
 You can assume year of the registration date as the year of the brewery's establishment, unless it is before 1980's as those records don't seem to match to the actual establishment year. Leave the year field empty for those.
+
+## Exercise 14
+
+Beer chat VOL2
+
 </blockquote>
 
 ## ActionCable, Redis, and Heroku / Fly.io Integration
