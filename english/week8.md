@@ -978,9 +978,13 @@ You will [here](https://www.rubydoc.info/gems/turbo-rails/0.5.2/Turbo/Broadcasta
 
 ## Exercise 8
 
-Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by any user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly.
+Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by the user him or herself triggers real-time updates. The changes should be streamed to reflect the updated counts instantly. In this exercise the change made by other user/browser does not need to affect to the counts so Action Cable is not yet needed.
 
 Hint: you can render multiple Turbo Stream messages from a controller response by placing them in an array.
+
+## Exercise 9
+
+Extend the solution of the previous exercise to leverage Action Cable so that the brewery couts are updated also when somebody other creates or deletes a brewery.
 
 </blockquote>
 
