@@ -1,4 +1,4 @@
-**Note: This part of the course is still in beta testing. You can already try the material and exercises, but they cannot be submitted yet and the exercises can change before they are released.**
+**Note: This part of the course is still in beta testing. Everything up to Exercise 9 is more or less ready so you might already start. The offical release will mosst likely be at the last week of September**
 
 You will continue to develop your application from the point you arrived at the end of week 7. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer of the previous week from the submission system.
 
