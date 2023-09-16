@@ -282,6 +282,10 @@ The result is finally as we expected it to be:
 
 ![image](../images/8-4.png)
 
+### A very important thing to remember
+
+It is **EXTREMELY IMPORTANT** to follow all the possible error messages, in the Rails console and the network tab of the browser especially when working with the Hotwire. For unknown reasons, some beginners do not believe this and end up in deep trouble. Do not even think taking that dark path... 
+
 <blockquote>
 
 ## Exercise 1
@@ -289,6 +293,8 @@ The result is finally as we expected it to be:
 Extend the user page so that when clicking a rating, the basic info of the rated beer is shown. Your solution could look like this
 
 ![image](../images/8-5.png)
+
+Note: it is **EXTREMELY IMPORTANT** to follow all the possible error messages, in the Rails console and the network tab of the browser!
 
 </blockquote>
 
@@ -646,6 +652,8 @@ Create the new endpoint GET `breweries/active` that returns the partial for the 
 
 The retired brewery list can still remain as it is.
 
+Note: it is **EXTREMELY IMPORTANT** to follow all the possible error messages, in the Rails console and the network tab of the browser when working with Action Frame!
+
 ## Exercise 4
 
 Create also the new endpoint GET `breweries/retired` that returns the partial for the retired breweries and use that also in rendering the breweries page.
@@ -662,7 +670,7 @@ Notice that instead of defining a Turbo Frame tag as a hard-coded string, we can
 
 This makes it possible to use the same partial to render the contents of many different Turbo frames (that all have their own identifiers).
 
-Fix also the links to breweries so that they work inside the turbo frames.
+Fix also the links to breweries so that they work inside the Turbo Frames.
 
 </blockquote>
 
@@ -934,11 +942,13 @@ With Turbo Streams and Action Cable, we are now equipped to create a beer chat f
 
 ![image](../images/8-12.png)
 
-You need a model for the messages. Each message has the text content and ID of the creator. Note the order of the messages, the most recent is shown at the top.
+You need a model for the messages. Each message has the text content and ID of the creator. Note the order of the messages, the most recent is shown at the top!
+
+Note: it is **EXTREMELY IMPORTANT** to follow all the possible error messages, in the Rails console and the network tab of the browser especially when working with Action Cable!
 
 ## Exercise 6
 
-Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database (see [Rails views documentation](https://guides.rubyonrails.org/layouts_and_rendering.html#rendering-by-default-convention-over-configuration-in-action)).
+Enhance the breweries list functionality by adding a button or text "X" for removing a brewery from the database.
 
 The implementation should follow these steps:
 
@@ -946,11 +956,25 @@ Initially, make the removal work without using Turbo, requiring a full page relo
 
 Improve the functionality by dynamically removing the deleted brewery from the list using Turbo Streams. Ensure the removal is reflected in the UI without requiring a full page reload.
 
+Note: you might end up trying the following
+
+```html
+link_to("X", brewery, method: :delete) %>
+```
+
+this was a proper way to make a delete request in Rails up to version 6. In Rails 7 you need to specify the HTTP request verb a bit differently:
+
+```html
+link_to("X", brewery, data: {turbo_method: :delete }) %>
+```
+
 ## Exercise 7
 
-Leverage WebSockets to stream the removal action to all connected browsers in realtime.
+Leverage WebSockets to stream the removal action to all connected browsers in real time.
 
 Enhance the user experience by introducing a confirmation pop-up. When a user clicks the remove button, a confirmation dialog should appear with the text "Are you sure you want to remove brewery X and all beers associated with it?". The pop-up should provide options for "Cancel" and "Remove" actions.
+
+You will [here](https://www.rubydoc.info/gems/turbo-rails/0.5.2/Turbo/Broadcastable) a suitable broadcast method. You might need to google a bit to get the parameters right.
 
 ## Exercise 8
 
@@ -986,7 +1010,7 @@ Let's try our hand at Stimulus with implementing a feature that allows users to 
 
 We can start by creating a new partial file named `_ratings.html.erb` within the `/app/views/users` folder.
 
-Then we extract the ratings code section (shown below) from the `/app/views/users/show.html.erb` file and place it into the ratings partial file.
+Then we extract the rating code section (shown below) from the `/app/views/users/show.html.erb` file and place it into the ratings partial file.
 
 **/app/views/users/\_ratings.html.erb**
 
