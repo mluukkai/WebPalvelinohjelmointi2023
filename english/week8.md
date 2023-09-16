@@ -1425,11 +1425,11 @@ And now we have a beautifully working beer tax calculator!
 
 <blockquote>
 
-## Exercise 9
+## Exercise 10
 
 Improve beer tax calculator by changing the amount field to be dropdown selection containing most common beer can and bottle sizes, for example these: 0.33, 0.375, 0.5, 0.66, 0.75, 1, 1.3 and 1.5 liters.
 
-## Exercise 10
+## Exercise 11
 
 Continuing from the exercise 4, add option `Custom` to the dropdown. When custom option is selected, there is user fillable custom amount field added to the form. If user switches back to pre-defined amount in the dropdown, custom amount field gets removed from the form.
 
@@ -1437,17 +1437,17 @@ Continuing from the exercise 4, add option `Custom` to the dropdown. When custom
 
 Hint: Remember that you have `this.has[name]Target` checker available to check if named target has been defined.
 
-## Exercise 11
+## Exercise 12
 
 Add _select all_ checkbox input to users ratings partial and event that selects/deselects all users ratings when that checkbox is selected/deselected.
 
-## Exercise 12
+## Exercise 13
 
 When we add new breweries in the brewery page, our form does not get emptied out after adding the brewery. Use Stimulus to clear all form inputs (also the checkbox) after the form is submitted.
 
 Hint: Turbo offers `turbo:submit-end` event that is fired after form is submitted which you can user to trigger an action. More turbo events can be found here: https://turbo.hotwired.dev/reference/events
 
-## Exercise 13
+## Exercise 14
 
 For the form for creating a new brewery, add a select field that gets its data (breweries) from the PRH API
 
@@ -1459,7 +1459,7 @@ For the form for creating a new brewery, add a select field that gets its data (
 
 You can assume year of the registration date as the year of the brewery's establishment, unless it is before 1980's as those records don't seem to match to the actual establishment year. Leave the year field empty for those.
 
-## Exercise 14
+## Exercise 15
 
 Beer chat VOL2
 
