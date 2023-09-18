@@ -913,7 +913,7 @@ To address this issue, there are several possible solutions:
 
 1. Comment out the stream template in the HTTP response from the controller. However, this approach has a downside: if there are any issues with WebSockets, the user won't see the effect of submitting a new brewer.
 
-2. Conditionally trigger the `after_create_commit` hook in the model based on the logged-in user. This approach ensures that the user only receives the WebSocket update once.
+2. Conditionally trigger the `after_create_commit` hook in the model based on the logged-in user. This approach ensures that the user only receives the WebSocket update once. This is pretty tricky to implement and would require the use of user speific streams.
 
 3. Opt for a simpler solution by giving each row a unique identifier. Let's proceed with this approach here.
 
