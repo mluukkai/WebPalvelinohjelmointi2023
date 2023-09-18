@@ -1329,6 +1329,9 @@ Let's create a form for our calculator containing some targets to collect.
       </br>
       <button>Calculate</button>
    </form>
+   </br>
+   <div id="result">
+   </div>
 </div>
 ```
 
@@ -1379,7 +1382,7 @@ Now we can create the data attribute `data-calculator-vat-value` based on the in
    <form data-action="calculator#calculate">
       // (...)
       <div>
-         <p>Value added tax <%= vat * 100 %>%</p>
+         <p>Value added tax <%= @vat * 100 %>%</p>
       </div>
       </br>
       <button>Calculate</button>
@@ -1425,7 +1428,7 @@ export default class extends Controller {
       const result = document.getElementById("result")
       result.innerHTML = `
         <p>Beer has ${beerTax.toFixed(2)} € of alcohol tax and ${vatAmount.toFixed(2)} € of value added tax.</p>
-        <p> ${taxPercentage.toFixed(1)} of the price is taxes.</p>`
+        <p> ${taxPercentage.toFixed(1)} % of the price is taxes.</p>`
    }
 }
 ```
@@ -1440,27 +1443,65 @@ And now we have a beautifully working beer tax calculator!
 
 ## Exercise 10
 
-Improve beer tax calculator by changing the amount field to be dropdown selection containing most common beer can and bottle sizes, for example these: 0.33, 0.375, 0.5, 0.66, 0.75, 1, 1.3 and 1.5 liters.
+Add caclulator a button that can be used to reset all the input values to value zero:
+
+![image](../images/8-14.png)
 
 ## Exercise 11
 
-Continuing from the exercise 4, add option `Custom` to the dropdown. When custom option is selected, there is user fillable custom amount field added to the form. If user switches back to pre-defined amount in the dropdown, custom amount field gets removed from the form.
-
-![image](../images/ratebeer-w8-12.png)
-
-Hint: Remember that you have `this.has[name]Target` checker available to check if named target has been defined.
+Improve beer tax calculator by changing the amount field to be a dropdown selection, implemented with the [select](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) component, containing most common beer can and bottle sizes, for example these: 0.33, 0.375, 0.5, 0.66, 0.75, 1, 1.3 and 1.5 liters.
 
 ## Exercise 12
 
-Add _select all_ checkbox input to users ratings partial and event that selects/deselects all users ratings when that checkbox is selected/deselected.
+Continuing from the exercise 4, add option `Custom` to the dropdown. 
+When custom option is selected, the amount is taken from a user fillable custom amount field:
+
+![image](../images/8-15.png)
+
+For the time being the custom field can remain visible all the time.
 
 ## Exercise 13
+
+Fine tune the solution so that there a is user fillable custom amount field added to the form **only** when the "custom" option is selected. If user switches back to pre-defined amount in the dropdown, custom amount field gets removed from the form.
+
+Note that it is possible attach a controller function to a select component that is executed always when a new option is selected:
+
+```html
+<select data-calculator-target="amount" data-action="calculator#change">
+  ...
+</select>
+```
+
+```js
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+  // ...
+
+  change(event) {
+    // a new option was selected!
+    console.log(event.target.value)
+  } 
+
+  // ...
+}
+```
+
+## Exercise 14
+
+Let us get back to users' rating list.
+
+Add a _select all_ checkbox input to users ratings partial and event that selects/deselects all users ratings when that checkbox is selected/deselected.
+
+## Exercise 15
+
+Now it is time to use Stimulus in fine tuning the breweries page!
 
 When we add new breweries in the brewery page, our form does not get emptied out after adding the brewery. Use Stimulus to clear all form inputs (also the checkbox) after the form is submitted.
 
 Hint: Turbo offers `turbo:submit-end` event that is fired after form is submitted which you can user to trigger an action. More turbo events can be found here: https://turbo.hotwired.dev/reference/events
 
-## Exercise 14
+## Exercise 16
 
 For the form for creating a new brewery, add a select field that gets its data (breweries) from the PRH API
 
@@ -1472,7 +1513,7 @@ For the form for creating a new brewery, add a select field that gets its data (
 
 You can assume year of the registration date as the year of the brewery's establishment, unless it is before 1980's as those records don't seem to match to the actual establishment year. Leave the year field empty for those.
 
-## Exercise 15
+## Exercise 17
 
 Beer chat VOL2
 
