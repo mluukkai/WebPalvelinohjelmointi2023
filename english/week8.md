@@ -1022,11 +1022,11 @@ Then we extract the rating code section (shown below) from the `/app/views/users
 <ul>
   <% @user.ratings.each do |rating| %>
     <li>
-      <%= "#{rating.score} #{rating.beer.name}" %>
+      <%= link_to "#{rating.score} #{rating.beer.name}", rating, data: { turbo_frame: "rating_details" }  %>
       <% if @user == current_user %>
-        <%= button_to 'delete', rating, method: :delete, form: { style:'display:inline-block;', data: { 'turbo-confirm': 'Are you sure?' } } %>
+        <%= button_to 'delete', rating, method: :delete, form: { style: 'display:inline-block;',  data: { 'turbo-confirm': 'Are you sure?' } } %>
       <% end %>
-    </li>
+    </il>
   <% end %>
 </ul>
 ```
@@ -1051,7 +1051,9 @@ We can then modify the partial by removing the list elements and delete button f
       <% if @user == current_user %>
         <input type="checkbox" name="ratings[]" value="<%= rating.id %>" />
       <% end %>
-      <span><%= "#{rating.score} #{rating.beer.name}" %></span>
+      <span>
+        <%= link_to "#{rating.score} #{rating.beer.name}", rating, data: { turbo_frame: "rating_details" }  %> 
+      </span>
     </div>
   <% end %>
   <% if @user == current_user %>
@@ -1060,7 +1062,7 @@ We can then modify the partial by removing the list elements and delete button f
 </div>
 ```
 
-With the modified templates ready, let's update the `routes.rb` file (`/app/config/routes.rb`) to handle the ratings destroy action. Remove the `destroy` action from the ratings resources and add a separate delete method to handle the removal of rating IDs.
+With the modified templates ready, let's update the `routes.rb` file to handle the ratings destroy action. Remove the `destroy` action from the ratings resources and add a separate delete method to handle the removal of rating IDs.
 
 **/app/config/routes.rb**
 
@@ -1069,7 +1071,7 @@ resources :ratings, only: [:index, :new, :create]
 delete 'ratings', to: 'ratings#destroy'
 ```
 
-Modify the `destroy` method within the `ratings_controller.rb` file (`app/controllers/ratings_controller.rb`) to handle the deletion of multiple rating IDs. We can do it like this:
+Modify the `destroy` method within the `ratings_controller.rb` to handle the deletion of multiple rating IDs. We can do it like this:
 
 **app/controllers/ratings_controller.rb**
 
@@ -1095,8 +1097,9 @@ Right now the delete button does not really do anything as it's not connected to
 
 ### Stimulus Controllers
 
-When working with Stimulus, it is essential to follow a specific naming convention for **controller** files. Each controller file should be named in the format `[identifier]_controller.js`, where the identifier corresponds to the data-controller attribute associated with the respective controller in your HTML markup.
-By adhering to this naming convention, Stimulus can seamlessly link the controllers in your HTML with their corresponding JavaScript files.
+The basic organizational unit of a Stimulus application is a [controller](https://stimulus.hotwired.dev/reference/controllers).
+
+When working with Stimulus, it is essential to follow a specific naming convention for **controller** files. Each controller file should be named in the format `[identifier]_controller.js`, where the identifier corresponds to the data-controller attribute associated with the respective controller in your HTML markup. By adhering to this naming convention, Stimulus can seamlessly link the controllers in your HTML with their corresponding JavaScript files.
 
 Let's start by creating a `ratings_controller.js` and put it to file path `/app/JavaScript/controllers/ratings_controller.js`:
 
@@ -1130,7 +1133,7 @@ We can then reload the page and see from the console log that we have indeed con
 
 ### Lifecycle Methods
 
-Lifecycle methods in Stimulus provide a capability for executing code at specific stages in the lifecycle of a controller. These methods, defined within the controller class, offer hooks for initialization, connection to the DOM, and disconnection from the DOM.
+[Lifecycle](https://stimulus.hotwired.dev/reference/lifecycle-callbacks) methods in Stimulus provide a capability for executing code at specific stages in the lifecycle of a controller. These methods, defined within the controller class, offer hooks for initialization, connection to the DOM, and disconnection from the DOM.
 
 Here is an example showcasing the available lifecycle methods in a Stimulus controller:
 
@@ -1166,7 +1169,7 @@ By leveraging these lifecycle methods, developers can ensure proper initializati
 
 ### Stimulus Actions
 
-**Actions** in Stimulus are methods defined within a controller that respond to user events or changes in the application state. These actions are identified using the data-action attribute and can be triggered by various events, such as clicks, form submissions, or custom events.
+[Actions](https://stimulus.hotwired.dev/reference/actions) in Stimulus are methods defined within a controller that respond to user events or changes in the application state. These actions are identified using the data-action attribute and can be triggered by various events, such as clicks, form submissions, or custom events.
 
 Let's add an action to our `<button>` element, data-action attributes are used with the format `event->controller#method`.
 
@@ -1295,13 +1298,12 @@ Lastly we can create a Stimulus controller file for our calculator to `app/JavaS
 ```JavaScript
 import { Controller } from "@hotwired/stimulus";
 
-    export default class extends Controller {}
-}
+export default class extends Controller {}
 ```
 
 #### Stimulus Targets
 
-**Targets** in Stimulus are special attributes that allow a controller to reference and manipulate specific elements within its scope. To define targets, you need to add the `data-[controller name]-target` attribute to the HTML elements. Stimulus scans your controller class and identifies target names in the static `targets` array. It automatically adds three properties for each target name: `sourceTarget`, which evaluates to the first matching target element, `sourceTargets`, which evaluates to an array of all matching target elements, and `hasSourceTarget`, which returns boolean value `true` or `false` depending on the presence of a matching target.
+[Targets](https://stimulus.hotwired.dev/reference/targets) in Stimulus are special attributes that allow a controller to reference and manipulate specific elements within its scope. To define targets, you need to add the `data-[controller name]-target` attribute to the HTML elements. Stimulus scans your controller class and identifies target names in the static `targets` array. It automatically adds three properties for each target name: `[name]Target`, which evaluates to the first matching target element, `[name]Targets`, which evaluates to an array of all matching target elements, and `has[Name]Target`, which returns boolean value `true` or `false` depending on the presence of a matching target.
 
 Let's create a form for our calculator containing some targets to collect.
 ```html
@@ -1330,7 +1332,7 @@ Let's create a form for our calculator containing some targets to collect.
 </div>
 ```
 
-To add target names to the controller's list of target definitions, you need to update the `calculator_controller.js` file accordingly. This will automatically create properties with names `nameTarget` for each which return the first matching target element. You can then use this property to read the value of the element and for testing print each value to console.
+To add target names to the controller's list of target definitions, you need to update the `calculator_controller.js` file accordingly. This will automatically create properties with names `[name]Target` for each which return the first matching target element. You can then use this property to read the value of the element and for testing print each value to console.
 
 **/app/JavaScript/controllers/calculator_controller.js**
 
@@ -1357,17 +1359,23 @@ When testing the submit button we can see that we are getting the values printed
 
 #### Stimulus Values
 
-**Values** in Stimulus are a way to store and access data within a controller using the `value` method. These values can be declared in various ways, such as static values defined in the controller, attributes on HTML elements, or dynamic values.
+[Values](https://stimulus.hotwired.dev/reference/values) in Stimulus are a way to store and access data within a controller using the `value` method. These values can be declared in various ways, such as static values defined in the controller, attributes on HTML elements, or dynamic values.
 
-For our calculator app we can create attribute `data-calculator-vat-value` for having value saved for value added tax. In this case, the value gets set to `0.24`.
+For our calculator app we could create attribute for having value saved for value added tax. Let us define the value in the controller:
 
-Let's also add div for us to input the result of our calculations. Notice that the div needs to be inside the `<div data-controller="calculator">` element so that our calculator controller can see and access it.
+```rb
+class MiscController < ApplicationController
+  def calculator
+    @vat = 0.24
+  end
+end
+```
+
+Now we can create the data attribute `data-calculator-vat-value` based on the initial value given by the controller:
 
 ```html
 <h2>Beer tax calculator</h2>
-
-<% vat = 0.24 %>
-<div data-controller="calculator" data-calculator-vat-value="<%= vat %>" class="container">
+<div data-controller="calculator" data-calculator-vat-value="<%= @vat %>" class="container">
    <form data-action="calculator#calculate">
       // (...)
       <div>
@@ -1382,11 +1390,11 @@ Let's also add div for us to input the result of our calculations. Notice that t
 </div>
 ```
 
-In the controller file `calculator_controller.js`, a static values array is created, including the attribute name `vat` with a type of `Number`. By adding the attribute `data-calculator-vat-value="0.24"` to the `<div>` element, the value `0.24` is assigned to the `vatValue` variable in the controller and converted into number with JavaScript's `Number()` -function. This value can then be accessed and used within the controller's code.
 
-Now we can finish the code for our calculator.
 
-**/app/JavaScript/controllers/hello_controller.js**
+In the controller file `calculator_controller.js`, a static `values` array is created, including the attribute name `vat` with a type of `Number`. By adding the attribute `data-calculator-vat-value="0.24"` to the `<div>` element, the value `0.24` is assigned to the `vatValue` variable in the controller and converted into number with JavaScript's `Number()` -function. This value can then be accessed and used within the controller's code.
+
+Now we can finish the code for our calculator:
 
 ```JavaScript
 import { Controller } from "@hotwired/stimulus";
@@ -1412,12 +1420,17 @@ export default class extends Controller {
       const beerTax = (amount * abv * alcoholTax);
       const vatAmount = (price * this.vatValue);
       const taxPercentage = ((beerTax + vatAmount) / price * 100);
+
+      // search for the element where the result is shown
       const result = document.getElementById("result")
-      result.innerHTML = "<p>Beer has " + beerTax.toFixed(2) + "€ of alcohol tax and " + vatAmount.toFixed(2) + "€ of value added tax.</p>" +
-              "<p>" + taxPercentage.toFixed(1) + "% of the price is taxes.</p>"
+      result.innerHTML = `
+        <p>Beer has ${beerTax.toFixed(2)} € of alcohol tax and ${vatAmount.toFixed(2)} € of value added tax.</p>
+        <p> ${taxPercentage.toFixed(1)} of the price is taxes.</p>`
    }
 }
 ```
+
+The code uses [document.getElementById](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) to find the `div` element that has the ID `result`. The result set to the element using the [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) attribute.
 
 And now we have a beautifully working beer tax calculator!
 
@@ -1467,9 +1480,10 @@ Beer chat VOL2
 
 ## ActionCable, Redis, and Heroku / Fly.io Integration
 
-To ensure seamless operation of **ActionCable**, the foundational component for Turbo streams, in a production environment, it is necessary to have [Redis](https://redis.io/) installed. Please follow the steps outlined below to ensure a proper configuration.
+To ensure seamless operation of **ActionCable**, the foundational component for Turbo Streams, in a production environment, it is necessary to have [Redis](https://redis.io/) installed. Please follow the steps outlined below to ensure a proper configuration.
 
 ### Heroku
+
 1. **Verify Redis Installation**
 
 Check if you already have a Redis add-on by running the following command in your terminal:
@@ -1489,6 +1503,7 @@ gem "redis", ">= 3", "< 5"
 ```
 
 ### Fly.io
+
 1. **Verify Redis Installation**
 
 Check if you already have a Redis instance by running the following command in your terminal:
@@ -1519,8 +1534,6 @@ gem "redis", ">= 3", "< 5"
 
 ## Submitting the exercises
 
-Commit all your changes and push the code to Github. Deploy to the newest version of Heroku or Fly.io, too. Remember to check with Rubocop that your code still adheres to style rules.
-
-If you have problems with Heroku, remember to use <code>heroku logs</code> to view the logs. The same can be done for Fly.io with <code>fly logs</code>.
+Commit all your changes and push the code to GitHub. Deploy to the newest version of Heroku or Fly.io, too. Remember to check with Rubocop that your code still adheres to style rules.
 
 This part of the course is still in beta testing. You can already try the material and exercises, but they cannot be submitted yet and the exercises can change before they are released.
