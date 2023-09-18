@@ -469,7 +469,7 @@ end
 
 And voilà! We have a working pagination for our beers. But one kinda annoying thing is that when we navigate between the pages, the whole page gets reloaded with menus and all even though the contents of the table are the only thing changing. Here is where we come to where Turbo Frames can help us...
 
-The controller code has now a slightly ugly feature, it contains repetition, eg. the following fragment is repeated many times:
+The controller code has now a slightly ugly feature, it contains repetition, eg. the following piece of code is repeated many times:
 
 ```rb
 .limit(PAGE_SIZE).offset(offset)
@@ -574,7 +574,7 @@ We also notice that the URL remains unchanged when navigating between pages, and
 
 #### Asynchronous frame
 
-Let's say we want to suggest a beer to the user based on how they've rated other beers. Calculating the recommendation might take a long time, which is why we decided to load it asynchronously. So initially when the user goes to his own page, it just shows a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
+Let's say we want to suggest a beer to the user based on how they've rated other beers. Calculating the recommendation might take a long time, which is why we decided to load it asynchronously. So initially when the user goes to their own page, it just shows a "loading indicator", and when the recommendation is ready, that gets rendered to the page.
 
 This can be achieved with Turbo frames with a <i>src</i> attribute:
 
@@ -598,7 +598,7 @@ Now initially only the text <i>calculating the recommendation...</i> is rendered
 <% end %>
 ```
 
-We will need a route and controller for the recommendation. The route (in *rotues.rb*) is defined as follows:
+We will need a route and controller for the recommendation. The route (in *routes.rb*) is defined as follows:
 
 ```rb
 resources :users  do
@@ -626,7 +626,7 @@ class UsersController < ApplicationController
 end
 ```
 
-Now when the user browsers to their own page, there is an indication that the recommendation is still to be calculated:
+Now when the user navigates to their own page, there is an indication that the recommendation is still to be calculated:
 
 ![image](../images/8-10.png)
 
@@ -676,7 +676,7 @@ Fix also the links to breweries so that they work inside the Turbo Frames.
 
 ## Turbo Streams
 
-The purpose of [Turbo Streams](https://turbo.hotwired.dev/handbook/streams) is to enable page updates in fragments. For example, when a page displays a list of breweries and a new beer is added or deleted, instead of performing a complete page reload, a single brewery can be appended or removed from the list in response to a change.
+The purpose of [Turbo Streams](https://turbo.hotwired.dev/handbook/streams) is to enable page updates in fragments. For example, when a page displays a list of breweries and a new beer is added or deleted, instead of performing a full page reload, a single brewery can be appended or removed from the list in response to a change.
 
 In modern web applications, achieving this kind of behavior often involves having a separate server-side REST API or GraphQL API, commonly referred to as the back-end, to provide the necessary information in JSON format. The front-end queries this back-end, receives the JSON data, and renders the required HTML while updating the DOM accordingly by using logic written in JavaScript.
 
