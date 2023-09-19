@@ -1,6 +1,8 @@
-**Note: This part of the course is still in beta testing. Everything up to Exercise 9 is more or less ready so you might already start. The offical release will mosst likely be at the last week of September**
-
 You will continue to develop your application from the point you arrived at the end of week 7. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer of the previous week from the submission system.
+
+## Prerequisites
+
+Two od the three topics covered int this part are using just Ruby. The last topic (Stimulus) uses JavaScript and also some browser DOM API:s. If you have no experiece on using JavaScript on browser side, the last topic might be quite challenging.
 
 ## Hotwire
 
@@ -1491,35 +1493,57 @@ export default class extends Controller {
 
 Let us get back to users' rating list.
 
-Add a _select all_ checkbox input to users ratings partial and event that selects/deselects all users ratings when that checkbox is selected/deselected.
+Add a _select all_ checkbox input to `users/ratings? partial that selects/deselects all users ratings when that checkbox is selected/deselected.
+
+Your solution could look like this:
+
+![image](../images/8-16.png)
 
 ## Exercise 15
 
 Now it is time to use Stimulus in fine tuning the breweries page!
 
-When we add new breweries in the brewery page, our form does not get emptied out after adding the brewery. Use Stimulus to clear all form inputs (also the checkbox) after the form is submitted.
+When we add new breweries in the brewery page, our form does not get emptied out after adding the brewery. We shall fix this in the next exercise but let us warm up and add first a button that can be used to empty the input fields.
 
-Hint: Turbo offers `turbo:submit-end` event that is fired after form is submitted which you can user to trigger an action. More turbo events can be found here: https://turbo.hotwired.dev/reference/events
+Hint: You can add a `data-form-target` attribute to a input field as follows:
+
+```html
+  <%= form.text_field :name, data: { "form--target": "name" } %>
+```
 
 ## Exercise 16
 
-For the form for creating a new brewery, add a select field that gets its data (breweries) from the PRH API
+Use now Stimulus to clear all form inputs after the form is submitted.
 
-- Add select input-field and get its data (breweries) from the PRH API.
-- After user selects brewery from select input, get selected brewery's data from the PRH API and fill brewery name and registration year to new form inputs (name, year).
+Hint: Turbo offers `turbo:submit-end` event that is fired after form is submitted which you can user to trigger an action. More turbo events can be found here: https://turbo.hotwired.dev/reference/events
 
-- API url to get all breweries: https://avoindata.prh.fi/bis/v1?totalResults=true&maxResults=500&businessLine=Oluen%20valmistus
-- API url to get the single brewery data: https://avoindata.prh.fi/bis/v1?businessId=${breweryId}
-
-You can assume year of the registration date as the year of the brewery's establishment, unless it is before 1980's as those records don't seem to match to the actual establishment year. Leave the year field empty for those.
+It might be a bit tricky to the data-action attribute properly defined. Remember that you have to use the "long" form (with arrow) since the event we use is not the default.
 
 ## Exercise 17
 
-Beer chat VOL2
+As the final exercise of this part, you shall make a brewery creation a bit easier with the use of [Avoin data](http://avoindata.prh.fi/) (Open data) API that provides a list of Finnish breweries in the endpoint
+
+```
+https://avoindata.prh.fi/bis/v1?totalResults=true&maxResults=500&businessLine=Oluen%20valmistus
+```
+
+Add the creation form a select drop down that gets its data (breweries) from the above API endpoint. The select drop down could be used to prefill the input fields.
+
+Your solution should work as follows. User can fill the info of a brewery either in the old way (by writing to text fields), or select a brewery from the drop down:
+
+![image](../images/8-17.png)
+
+If user selects a brewery, it's name and the year is filled to the text fields:
+
+![image](../images/8-18.png)
+
+You can assume year of the registration date as the year of the brewery's establishment, unless it is before 1980's as those records don't seem to match to the actual establishment year. You may leave the year field empty for those.
 
 </blockquote>
 
 ## ActionCable, Redis, and Heroku / Fly.io Integration
+
+It is not necessary to deploy your final version to the cloud but if you do so, here are some tips to get everything set.
 
 To ensure seamless operation of **ActionCable**, the foundational component for Turbo Streams, in a production environment, it is necessary to have [Redis](https://redis.io/) installed. Please follow the steps outlined below to ensure a proper configuration.
 
@@ -1576,5 +1600,3 @@ gem "redis", ">= 3", "< 5"
 ## Submitting the exercises
 
 Commit all your changes and push the code to GitHub. Deploy to the newest version of Heroku or Fly.io, too. Remember to check with Rubocop that your code still adheres to style rules.
-
-This part of the course is still in beta testing. You can already try the material and exercises, but they cannot be submitted yet and the exercises can change before they are released.

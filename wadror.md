@@ -71,7 +71,7 @@ Pajaohjausta järjestetään Kumpulan kampuksella huoneessa BK107 syyslukukaudel
 
 - [viikko 7](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko7.md)
 
-- [viikon 8 beta (englanniksi)](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md)
+- [viikon 8 (englanniksi)](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md)
 
 - [Materiaalista](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/materiaalista.md)
 

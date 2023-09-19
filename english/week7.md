@@ -1752,6 +1752,6 @@ If Rails seems interesting you could dig more into it in the following ways
 - https://www.ruby-toolbox.com/ help for finding gems
 - [Eloquent Ruby](http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104) an excellent book on Ruby
 
-You can also dive into [week 8 beta](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md), upcoming addition for the course, if you want to already learn about Hotwire, Rails way of creating reactive applications with minimal Javascript.
+You can also dive into [week 8](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md), upcoming addition for the course, if you want to already learn about Hotwire, Rails way of creating reactive applications with minimal Javascript.
 
 
