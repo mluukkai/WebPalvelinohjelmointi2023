@@ -1599,4 +1599,7 @@ gem "redis", ">= 3", "< 5"
 
 ## Submitting the exercises
 
-Commit all your changes and push the code to GitHub. Deploy to the newest version of Heroku or Fly.io, too. Remember to check with Rubocop that your code still adheres to style rules.
+Commit all your changes and push the code to GitHub. Remember to check with Rubocop that your code still adheres to style rules. Deployingthe newest version of Heroku or Fly.io, is voluntary!
+
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023-hotwire notice that for this part there is a separate course instance in the submission system!
+
