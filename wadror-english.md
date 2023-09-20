@@ -6,15 +6,15 @@ Ruby on Rails is an MVC web application framework that became very popular more 
 
 Try how it feels to program in a language whose prevailing design paradigm is the satisfaction of the application developer, and with an application framework that has solved the trivial but hard-to-decide issues (e.g. file names and directory structures) for you! You will also notice that, contrary to what the app developers of the new alliance think, not all apps have to be SPA, i.e. single page apps.
 
-The long-term Rails house [Kisko](https://www.kiskolabs.com/en/) is the partner of the course. See [here](https://www.youtube.com/watch?v=P8THIRXnLGk) Kisko's Vesa and Antti's greetings to the course participants about why Rails is still the right technology choice for many projects in 2023.
+The long-term Rails house [Kisko labs](https://www.kiskolabs.com/en/) is the partner of the course. See [here](https://www.youtube.com/watch?v=P8THIRXnLGk) Kisko's Vesa and Antti's greetings to the course participants about why Rails is still the right technology choice for many projects in 2023.
 
 At 15th December those who have completed the course will have a Rails-inspired evening at Kisko's premises...
 
 The course focuses on implementing server-side functionality, the user interfaces produced in the course will be elementary. The course is not an introductory course to browser programming and user interface design, the role of HTML, CSS and JavaScript in the course is very minor.
 
-The scope of the course is 5 credits.
+The scope of the base course (parts 1-7) is 5 credits.
 
-Although the content of the course is very similar to [Web-server programming Java](https://web-palvelinohjelmointi-21.mooc.fi/), it is possible to complete both courses.
+**The course now includes a part that covers the new features of Ruby on Rails version 7, released on 20.9.2023, for which one credit is offered. The new part is produced by the developers of Kisko Labs.**
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Participating in the course requires a good programming routine and readiness fo
 
 The structure of the course deviates to some extent from the department's course standard. Only one application is made in the course (which at the end of the course will look something like [this](https://ratebeer22.fly.dev/)), the same application is made both in the theory material and in the calculators embedded in the theory. **You can't just read the theory material of the course; When following the material, you have to build an application that is supplemented along the way, because otherwise it will be impossible to do the tasks. In other words, the course must be followed steadily for the entire seven weeks.**
 
-The course is divided into seven "weeks", i.e. the part that was done in the previous version of the course during one week. However, this course has only one deadline, 31 December 2023 at 23:59.
+The course is divided into eight "weeks", i.e. the part that was done in the previous version of the course during one week. However, this course has only one deadline, 31 December 2023 at 23:59.
 
 Each "week" is returned separately to the course's [return application](https://studies.cs.helsinki.fi/stats/courses/rails2023/). After returning one week's assignments, you can see the example answer for the week. In the following week, it is possible to continue either building your own application or take the example answer from the previous week as a basis.
 
@@ -36,7 +36,9 @@ One of the most important learning goals of the course is to encourage independe
 
 ## Evaluation criteria
 
-The course grade is based on the number of assignments returned. A grade of 1 requires 50% of the assignments and a grade of 5 approximately 90% of the assignments. There is no exam in the course.
+The base course (parts 1-7) grade is based on the number of assignments returned. A grade of 1 requires 50% of the assignments and a grade of 5 approximately 90% of the assignments. There is no exam in the course.
+
+The course [part 8](/english/week8.md) will be marked graded and requires the completion of 16 tasks.
 
 The deadline for course assignments is December 31, 2023 at 11:59 p.m.
 
@@ -49,10 +51,6 @@ After completing the course, [register](https://github.com/mluukkai/WebPalvelino
 
 - course Discord channel <https://study.cs.helsinki.fi/discord/>
    - **Note:** all inappropriate, derogatory and discriminatory comments on the channel are prohibited and those who make such comments will be removed from the channel
-
-### Workshop
-
-Workshop guidance is organized on the Kumpula campus in room BK107 during the fall semester
 
 ## Material and tasks
 
@@ -71,8 +69,6 @@ Workshop guidance is organized on the Kumpula campus in room BK107 during the fa
 - [week 7](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week7.md)
 
 - [week 8](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md)
-
-- [About the material](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/materiaalista-english.md)
 
 ## Links
 

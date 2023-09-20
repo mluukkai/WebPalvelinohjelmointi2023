@@ -8,15 +8,15 @@ Ruby on Rails on reilut 15 vuotta sitten suureen suosioon noussut MVC-websovellu
 
 Kokeile miltä tuntuu ohjelmoida kielellä, jonka vallitseva suunnitteluparadigma on sovelluskehittäjän tyytyväisyys, ja sovelluskehyksellä joka on ratkaissut triviaalit, mutta hankalasti päätettävissä olevat asiat (mm. tiedostojen nimentä ja hakemistorakenteet) puolestasi! Huomaat myös, että toisin kuin uuden liiton sovelluksehittäjät ajattelevat, ei kaikkien sovelluksien tarvitse olla SPA- eli yhden sivun sovelluksia...
 
-Kurssin yhteistyökumppanina toimii pitkän linjan Rails-talo [Kisko](https://www.kiskolabs.com/fi/). Katso [täältä](https://www.youtube.com/watch?v=P8THIRXnLGk) Kiskon Vesan ja Antin terveiset kurssilaisille siitä miksi Rails on edelleen vuonna 2023 oivallinen teknologiavalinta moniin projekteihin.
+Kurssin yhteistyökumppanina toimii pitkän linjan Rails-talo [Kisko Labs](https://www.kiskolabs.com/fi/). Katso [täältä](https://www.youtube.com/watch?v=P8THIRXnLGk) Kiskon Vesan ja Antin terveiset kurssilaisille siitä miksi Rails on edelleen vuonna 2023 oivallinen teknologiavalinta moniin projekteihin.
 
 Joulukuun 15 päivä on kurssin suorittaneille on luvassa Rails-henkinen illanvietto Kiskon tiloissa...
 
 Kurssilla keskitytään palvelinpuolen toiminnallisuuden toteuttamiseen, kurssilla tuotettavat käyttöliittymät tulevat olemaan alkeellisia. Kurssi ei ole johdatuskurssi selainohjelmointiin ja käyttöliittymäsuunnitteluun, HTML:n, CSS:n ja JavaScriptin rooli kurssilla on hyvin vähäinen.
 
-Kurssin laajuus on 5 opintopistettä.
+Kurssin perusosan (osat 1-7) laajuus on 5 opintopistettä.
 
-Vaikka kurssi on sisällöllisesti hyvin samankaltainen kuin [Web-palvelinohjelmointi Java](https://courses.helsinki.fi/fi/TKT21007/124962332), molempien kurssien suorittaminen on mahdollista.
+**Kurssilla on nyt uutena 20.9.2023 ilmestynyt Ruby on Railsin version 7 uusiin ominaisuuksiin keskittyvä osa, josta on tarjolla yksi opintopiste. Uuden osan on tuottanut Kisko Labs!**
 
 ## Esitietovaatimukset
 
@@ -28,7 +28,7 @@ Kurssille osallistuminen edellyttää hyvää ohjelmointirutiinia sekä valmiutt
 
 Kurssin rakenne poikkeaa jossain määrin osaston kurssistandardista. Kurssilla tehdään ainoastaan yksi sovellus (joka tulee kurssin lopussa näyttämään suunilleen [tällaiselta](https://ratebeer22.fly.dev/)), samaa sovellusta tehdään sekä teoriamateriaalissa että teorian sekaan upotetuissa laskareissa. **Kurssin teoriamateriaalia ei pystykään pelkästään lukemaan; Materiaalia seuratessa tulee itse rakentaa matkan varrella täydentyvää sovellusta, sillä muuten tehtävien tekeminen on mahdotonta. Toisin sanoen kurssia on seurattava tasaisesti koko seitsemän viikon ajan.**
 
-Kurssi jakautuu seitsemään "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.12.2023 klo 23.59.
+Kurssi jakautuu kahdeksaan "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.12.2023 klo 23.59.
 
 Jokainen "viikko" palautetaan erikseen kurssin [palautussovellukseen](https://studies.cs.helsinki.fi/stats/courses/rails2023/). Palautettuasi yhden viikon tehtävät, pääset näkemään viikon esimerkkivastauksen. Seuraavalla viikolla on mahdollista jatkaa joko oman sovelluksen rakentamista tai ottaa pohjaksi edellisen viikon esimerkkivastaus.
 
@@ -38,7 +38,9 @@ Yksi kurssin tärkeimmistä oppimistavoitteista on itsenäiseen tiedonhakuun kan
 
 ## Arvosteluperusteet
 
-Kurssin arvosana perustuu palautettujen tehtävien määrään. Arvosanaan 1 vaaditaan 50% tehtävistä ja arvosanaan 5 noin 90% tehtävistä. Kurssilla ei ole koetta.
+Kurssin perusosan (osat 1-7) arvosana perustuu palautettujen tehtävien määrään. Arvosanaan 1 vaaditaan 50% tehtävistä ja arvosanaan 5 noin 90% tehtävistä. Kurssilla ei ole koetta.
+
+Kurssin [kahdeksannesta osasta](/english/week8.md) annetaan erillinen suoritusmerkintä, joka edellyttää 16 tehtävän tekemistä.
 
 Kurssin tehtävien deadline on 31.12.2023 klo 23.59.
 
@@ -51,9 +53,6 @@ Suoritettuasi kurssin [ilmoittaudu](https://github.com/mluukkai/WebPalvelinohjel
 - kurssin Discord-kanava <https://study.cs.helsinki.fi/discord/join/ror-wepa>
   - **Huom:** kaikki epäasialliset, halventavat ja jotain ihmisryhmää syrjivät kommentit kanavalla ovat kiellettyjä ja tälläisten kommenttien esittäjät poistetaan kanavalta
 
-### Paja
-
-Pajaohjausta järjestetään Kumpulan kampuksella huoneessa BK107 syyslukukaudella
 
 ## Materiaali ja tehtävät
 
@@ -73,7 +72,6 @@ Pajaohjausta järjestetään Kumpulan kampuksella huoneessa BK107 syyslukukaudel
 
 - [viikon 8 (englanniksi)](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md)
 
-- [Materiaalista](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/materiaalista.md)
 
 ## Linkkejä
 

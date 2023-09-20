@@ -1,7 +1,0 @@
-A few words about the course material
-
-The course material is based on the 2018 [Ruby on Rails course materials](https://github.com/mluukkai/WebPalvelinojjellomointi2018) and has been updated to work with the latest versions of both Ruby and Rails. The material contains a mix of new and old screenshots, as a result of which the appearance of the browser and the application in the images varies. However, the old pictures are still up-to-date in essential parts and that is why they were not updated. The stacktraces in the material are also largely old, but those that have been essential to update have been updated.
-
-Although the course material has been updated to work with modern versions, it does not take much of a stand on modern Rails development. In modern rails development, [Turbo](https://turbo.hotwired.dev/) has become popular, which allows the application to become a [single-page application](https://en.wikipedia.org/wiki/Single-page_application) such as, for example, React applications. Despite this, from the material you learn to work both in the Rails environment and to program using ruby. After the course, you should familiarize yourself with Turbo and the possibilities it offers if you are interested in application development with RoR!
-
-If there are any ambiguities, updates or errors in the material, you should make a [pull request](https://github.com/mluukkai/WebPalvelinohjelmointi2023/pulls)
