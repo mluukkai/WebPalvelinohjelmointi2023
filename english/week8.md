@@ -1,6 +1,6 @@
 You will continue to develop your application from the point you arrived at the end of week 7. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer of the previous week from the submission system.
 
-This part is provided by four awesome developers from Kisko Labs: [Eetu Mattila](https://github.com/zHarrowed), [Teemu Palokangas](https://github.com/palokangas), [Teemu Tammela](), and [Kimmo Salonen](https://github.com/KimmoSalonen). [Kisko Labs](https://www.kiskolabs.com/en/) is a consultancy firm based in Helsinki, which has successfully used Ruby on Rails in various customer products for more than a decade. Check out this video [this video](https://www.youtube.com/watch?v=qyWdcRQfqI4&t=1s) for more!
+This part is provided by four awesome developers from Kisko Labs: [Eetu Mattila](https://github.com/zHarrowed), [Teemu Palokangas](https://github.com/palokangas), [Teemu Tammela](https://github.com/teemutammela), and [Kimmo Salonen](https://github.com/KimmoSalonen). [Kisko Labs](https://www.kiskolabs.com/en/) is a consultancy firm based in Helsinki, which has successfully used Ruby on Rails in various customer products for more than a decade. Check out this video [this video](https://www.youtube.com/watch?v=qyWdcRQfqI4&t=1s) for more!
 
 ## Prerequisites
 

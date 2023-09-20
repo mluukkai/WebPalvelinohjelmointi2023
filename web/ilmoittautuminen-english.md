@@ -41,7 +41,7 @@ If you want to receive University of Helsinki credits, save your University of H
 
 ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ilmo-1.png)
 
-You will receive your credits after you have submitted enough exercises for a passing grade, passed the exam and then letting us know through the exercise submission system that you have completed the course:
+You will receive your credits after you have submitted enough exercises for a passing grade and then letting us know through the exercise submission system that you have completed the course:
 
 ![kuva](https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/ilmo-2.png)
 
@@ -60,3 +60,5 @@ You can view your grade in University of Helsinki Sisu and [Opintopolku](https:/
 When the registration is done, the following text appears in the submission system
 
 > University credits registered, see the course page how to get a transcript if you need one
+
+Please note that you need a separate enrollment for the part 8 of the course, the above described button presses are also needed for the part 8.

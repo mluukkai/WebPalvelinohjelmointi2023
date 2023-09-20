@@ -59,3 +59,5 @@ Arvosana siirtyy Helsingin yliopiston opintorekisteriin Sisuun ja [Opintopolkuun
 Kun suoritusmerkintä on kirjattu, näet palautussovelluksessa tekstin
 
 > University credits registered, see the course page how to get a transcript if you need one
+
+Huomaa, että kurssin osa 8 edellyttää erillistä ilmoittautumistsa sekä suoritusmerkinnän pyytämistä!
