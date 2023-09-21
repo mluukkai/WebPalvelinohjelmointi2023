@@ -26,7 +26,7 @@ After course enrollment, you will receive a confirmation email to an email addre
 
 #### C) Contact Student Services
 
-If you have trouble finding your student number through the means listed above, you can email University of Helsinki Student Services <avoin-student@helsinki.fi> . Make sure you have enrolled in the course through the Open University before sending the email!
+If you have trouble finding your student number through the means listed above, you can email the University of Helsinki Student Services <avoin-student@helsinki.fi> . Make sure you have enrolled in the course through the Open University before sending the email!
 
 In your email, include the following information
 
@@ -55,10 +55,10 @@ When pressed twice you should see the following text
 
 > University credit registration in progress...
 
-You can view your grade in University of Helsinki Sisu and [Opintopolku](https://opintopolku.fi/oma-opintopolku/) approximately four weeks after notifying us.
+You can view your grade in the University of Helsinki Sisu and [Opintopolku](https://opintopolku.fi/oma-opintopolku/) approximately four weeks after notifying us.
 
 When the registration is done, the following text appears in the submission system
 
 > University credits registered, see the course page how to get a transcript if you need one
 
-Please note that you need a separate enrollment for the part 8 of the course, the above described button presses are also needed for the part 8.
+Please note that you need a separate enrollment for part 8 of the course, the above described-button presses are also needed for part 8.

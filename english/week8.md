@@ -1,10 +1,12 @@
 You will continue to develop your application from the point you arrived at the end of week 7. The material that follows comes with the assumption that you have done all the exercises of the previous week. In case you have not done all of them, you can take the sample answer of the previous week from the submission system.
 
+This part is graded separately from the "base course". The part has 17 exercises. You need to complete 16 of those to get the ECTS credit registered. 
+
 This part is provided by four awesome developers from Kisko Labs: [Eetu Mattila](https://github.com/zHarrowed), [Teemu Palokangas](https://github.com/palokangas), [Teemu Tammela](https://github.com/teemutammela), and [Kimmo Salonen](https://github.com/KimmoSalonen). [Kisko Labs](https://www.kiskolabs.com/en/) is a consultancy firm based in Helsinki, which has successfully used Ruby on Rails in various customer products for more than a decade. Check out [this video](https://www.youtube.com/watch?v=qyWdcRQfqI4&t=1s) for more!
 
 ## Prerequisites
 
-Two of the three topics covered int this part are using just Ruby. The last topic (Stimulus) uses JavaScript and also some browser DOM API:s. If you have no experiece on using JavaScript on browser side, the last topic might be quite challenging.
+Two of the three topics covered in this part are using just Ruby. The last topic (Stimulus) uses JavaScript and also some browser DOM APIs. If you have no experience using JavaScript on the browser side, the last topic might be quite challenging.
 
 ## Hotwire
 
@@ -837,7 +839,7 @@ end
 
 This change involves one line of code, but under the hood, several components enable this to work:
 
-1. When the browser initiates a new request, the Turbo framework includes the `text/vnd.turbo-stream.html` in the request's `Accept` headers. This informs the server that it expects a Turbo Stream template instead of a full page update.
+1. When the browser initiates a new request, the Turbo framework includes the `text/vnd.turbo-stream.html` in the request's `Accept` headers. This informs the server that it expects a Turbo Stream template instead of a full-page update.
 
 ![image](../images/ratebeer-w8-turbo-streams-header.png)
 
@@ -917,7 +919,7 @@ To address this issue, there are several possible solutions:
 
 1. Comment out the stream template in the HTTP response from the controller. However, this approach has a downside: if there are any issues with WebSockets, the user won't see the effect of submitting a new brewer.
 
-2. Conditionally trigger the `after_create_commit` hook in the model based on the logged-in user. This approach ensures that the user only receives the WebSocket update once. This is pretty tricky to implement and would require the use of user speific streams.
+2. Conditionally trigger the `after_create_commit` hook in the model based on the logged-in user. This approach ensures that the user only receives the WebSocket update once. This is pretty tricky to implement and would require the use of user-specific streams.
 
 3. Opt for a simpler solution by giving each row a unique identifier. Let's proceed with this approach here.
 
@@ -982,13 +984,13 @@ You will [here](https://www.rubydoc.info/gems/turbo-rails/0.5.2/Turbo/Broadcasta
 
 ## Exercise 8
 
-Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by the user him or herself triggers real-time updates. The changes should be streamed to reflect the updated counts instantly. In this exercise the change made by other user/browser does not need to affect to the counts so Action Cable is not yet needed.
+Notice that _Number of Active Breweries_ and _Number of Retired Breweries_ require a full page reload to reflect the actual numbers. Make these numbers dynamic so that any addition or retirement of a brewery by the user triggers real-time updates. The changes should be streamed to reflect the updated counts instantly. In this exercise, the change made by other user/browsers does not need to affect the counts so Action Cable is not yet needed.
 
 Hint: you can render multiple Turbo Stream messages from a controller response by placing them in an array.
 
 ## Exercise 9
 
-Extend the solution of the previous exercise to leverage Action Cable so that the brewery couts are updated also when somebody other creates or deletes a brewery.
+Extend the solution of the previous exercise to leverage Action Cable so that the brewery counts are updated also when somebody other creates or deletes a brewery.
 
 </blockquote>
 
@@ -1014,7 +1016,7 @@ Stimulus utilizes key concepts such as **controllers**, **actions**, **targets**
 
 ### Deleting ratings
 
-Let's try our hand at Stimulus with implementing a feature that allows users to delete multiple beer ratings at once without need for a full page reload.
+Let's try our hand at Stimulus by implementing a feature that allows users to delete multiple beer ratings at once without the need for a full page reload.
 
 We can start by creating a new partial file named `_ratings.html.erb` within the `/app/views/users` folder.
 
@@ -1030,7 +1032,7 @@ Then we extract the rating code section (shown below) from the `/app/views/users
       <% if @user == current_user %>
         <%= button_to 'delete', rating, method: :delete, form: { style: 'display:inline-block;',  data: { 'turbo-confirm': 'Are you sure?' } } %>
       <% end %>
-    </il>
+    </li>
   <% end %>
 </ul>
 ```
@@ -1044,7 +1046,7 @@ Then we delete the ratings code from the `/app/views/users/show.html.erb` file a
 <%= render partial: 'ratings' %>
 ```
 
-We can then modify the partial by removing the list elements and delete button from the `/app/views/users/_ratings.html.erb` file, like so:
+We can then modify the partial by removing the list elements and the delete button from the `/app/views/users/_ratings.html.erb` file, like so:
 
 **/app/views/users/\_ratings.html.erb**
 
@@ -1066,7 +1068,7 @@ We can then modify the partial by removing the list elements and delete button f
 </div>
 ```
 
-With the modified templates ready, let's update the `routes.rb` file to handle the ratings destroy action. Remove the `destroy` action from the ratings resources and add a separate delete method to handle the removal of rating IDs.
+With the modified templates ready, let's update the `routes.rb` file to handle the ratings destroy action. Remove the `destroy` action from the rating resources and add a separate delete method to handle the removal of rating IDs.
 
 **/app/config/routes.rb**
 
@@ -1105,7 +1107,7 @@ The basic organizational unit of a Stimulus application is a [controller](https:
 
 When working with Stimulus, it is essential to follow a specific naming convention for **controller** files. Each controller file should be named in the format `[identifier]_controller.js`, where the identifier corresponds to the data-controller attribute associated with the respective controller in your HTML markup. By adhering to this naming convention, Stimulus can seamlessly link the controllers in your HTML with their corresponding JavaScript files.
 
-Let's start by creating a `ratings_controller.js` and put it to file path `/app/JavaScript/controllers/ratings_controller.js`:
+Let's start by creating a `ratings_controller.js` and putting it to file path `/app/JavaScript/controllers/ratings_controller.js`:
 
 **/app/JavaScript/controllers/ratings_controller.js**
 
@@ -1133,7 +1135,7 @@ We can then reload the page and see from the console log that we have indeed con
 
 ![image](../images/ratebeer-w8-9.png)
 
-`connect()` is a callback method which Stimulus supports out of the box which is executed when the controller is connected to the DOM.
+`connect()` is a callback method that Stimulus supports out of the box which is executed when the controller is connected to the DOM.
 
 ### Lifecycle Methods
 
@@ -1257,7 +1259,7 @@ And now we finally have a working delete button for deleting multiple ratings!
 
 ### Beer tax calculator
 
-To showcase a bit more Stimulus features we'll build a handy beer tax calculator for our application so that you know how much you are supporting Helsinki University and other public services with each beer bought. To start let's add new path to our `routes.rb`.
+To showcase a bit more Stimulus features we'll build a handy beer tax calculator for our application so that you know how much you are supporting Helsinki University and other public services with each beer bought. To start let's add a new path to our `routes.rb`.
 
 **/config/routes.rb**
 
@@ -1269,7 +1271,7 @@ Rails.application.routes.draw do
 end
 ```
 
-And create a new controller file for out path:
+And create a new controller file for into path:
 
 **/app/controllers/misc_controller.rb**
 
@@ -1280,7 +1282,7 @@ class MiscController < ApplicationController
 end
 ```
 
-And then add link for the calculator to our navbar:
+And then add a link for the calculator to our navbar:
 
 **/app/views/layouts/application.html.erb**
 
@@ -1339,7 +1341,7 @@ Let's create a form for our calculator containing some targets to collect.
 </div>
 ```
 
-To add target names to the controller's list of target definitions, you need to update the `calculator_controller.js` file accordingly. This will automatically create properties with names `[name]Target` for each which return the first matching target element. You can then use this property to read the value of the element and for testing print each value to console.
+To add target names to the controller's list of target definitions, you need to update the `calculator_controller.js` file accordingly. This will automatically create properties with names `[name]Target` for each which returns the first matching target element. You can then use this property to read the value of the element and for testing print each value to the console.
 
 **/app/JavaScript/controllers/calculator_controller.js**
 
@@ -1360,7 +1362,7 @@ export default class extends Controller {
 }
 ```
 
-When testing the submit button we can see that we are getting the values printed to JavaScript console.
+When testing the submit button we can see that we are getting the values printed to the JavaScript console.
 
 ![image](../images/ratebeer-w8-10.png)
 
@@ -1368,7 +1370,7 @@ When testing the submit button we can see that we are getting the values printed
 
 [Values](https://stimulus.hotwired.dev/reference/values) in Stimulus are a way to store and access data within a controller using the `value` method. These values can be declared in various ways, such as static values defined in the controller, attributes on HTML elements, or dynamic values.
 
-For our calculator app we could create attribute for having value saved for value added tax. Let us define the value in the controller:
+For our calculator app, we could create an attribute for having value saved for value-added tax. Let us define the value in the controller:
 
 ```rb
 class MiscController < ApplicationController
@@ -1437,7 +1439,7 @@ export default class extends Controller {
 }
 ```
 
-The code uses [document.getElementById](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) to find the `div` element that has the ID `result`. The result set to the element using the [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) attribute.
+The code uses [document.getElementById](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) to find the `div` element that has the ID `result`. The result is set to the element using the [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) attribute.
 
 And now we have a beautifully working beer tax calculator!
 
@@ -1453,12 +1455,12 @@ Add caclulator a button that can be used to reset all the input values to value 
 
 ## Exercise 11
 
-Improve beer tax calculator by changing the amount field to be a dropdown selection, implemented with the [select](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) component, containing most common beer can and bottle sizes, for example these: 0.33, 0.375, 0.5, 0.66, 0.75, 1, 1.3 and 1.5 liters.
+Improve the beer tax calculator by changing the amount field to be a dropdown selection, implemented with the [select](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) component, containing the most common beer can and bottle sizes, for example 0.33, 0.375, 0.5, 0.66, 0.75, 1, 1.3 and 1.5 liters.
 
 ## Exercise 12
 
-Continuing from the exercise 4, add option `Custom` to the dropdown. 
-When custom option is selected, the amount is taken from a user fillable custom amount field:
+Continuing from exercise 4, add the option `Custom` to the dropdown. 
+When the custom option is selected, the amount is taken from a user-fillable custom amount field:
 
 ![image](../images/8-15.png)
 
@@ -1466,9 +1468,9 @@ For the time being the custom field can remain visible all the time.
 
 ## Exercise 13
 
-Fine tune the solution so that there a is user fillable custom amount field added to the form **only** when the "custom" option is selected. If user switches back to pre-defined amount in the dropdown, custom amount field gets removed from the form.
+Fine-tune the solution so that there a is user fillable custom amount field added to the form **only** when the "custom" option is selected. If the user switches back to the pre-defined amount in the dropdown, the custom amount field gets removed from the form.
 
-Note that it is possible attach a controller function to a select component that is executed always when a new option is selected:
+Note that it is possible to attach a controller function to a select component that is executed always when a new option is selected:
 
 ```html
 <select data-calculator-target="amount" data-action="calculator#change">
@@ -1493,9 +1495,9 @@ export default class extends Controller {
 
 ## Exercise 14
 
-Let us get back to users' rating list.
+Let us get back to the users' rating list.
 
-Add a _select all_ checkbox input to `users/ratings? partial that selects/deselects all users ratings when that checkbox is selected/deselected.
+Add a _select all_ checkbox input to `users/ratings? partial that selects/deselects all users' ratings when that checkbox is selected/deselected.
 
 Your solution could look like this:
 
@@ -1503,11 +1505,11 @@ Your solution could look like this:
 
 ## Exercise 15
 
-Now it is time to use Stimulus in fine tuning the breweries page!
+Now it is time to use Stimulus in fine-tuning the breweries page!
 
-When we add new breweries in the brewery page, our form does not get emptied out after adding the brewery. We shall fix this in the next exercise but let us warm up and add first a button that can be used to empty the input fields.
+When we add new breweries to the brewery page, our form does not get emptied out after adding the brewery. We shall fix this in the next exercise but let us warm up and add first a button that can be used to empty the input fields.
 
-Hint: You can add a `data-form-target` attribute to a input field as follows:
+Hint: You can add a `data-form-target` attribute to an input field as follows:
 
 ```html
   <%= form.text_field :name, data: { "form--target": "name" } %>
@@ -1517,9 +1519,9 @@ Hint: You can add a `data-form-target` attribute to a input field as follows:
 
 Use now Stimulus to clear all form inputs after the form is submitted.
 
-Hint: Turbo offers `turbo:submit-end` event that is fired after form is submitted which you can user to trigger an action. More turbo events can be found here: https://turbo.hotwired.dev/reference/events
+Hint: Turbo offers `turbo:submit-end` event that is fired after the form is submitted which you can use to trigger an action. More turbo events can be found here: https://turbo.hotwired.dev/reference/events
 
-It might be a bit tricky to the data-action attribute properly defined. Remember that you have to use the "long" form (with arrow) since the event we use is not the default.
+It might be a bit tricky to have the data-action attribute properly defined. Remember that you have to use the "long" form (with an arrow) since the event we use is not the default.
 
 ## Exercise 17
 
@@ -1529,17 +1531,17 @@ As the final exercise of this part, you shall make a brewery creation a bit easi
 https://avoindata.prh.fi/bis/v1?totalResults=true&maxResults=500&businessLine=Oluen%20valmistus
 ```
 
-Add the creation form a select drop down that gets its data (breweries) from the above API endpoint. The select drop down could be used to prefill the input fields.
+Add the creation form a select drop-down that gets its data (breweries) from the above API endpoint. The select drop-down could be used to prefill the input fields.
 
-Your solution should work as follows. User can fill the info of a brewery either in the old way (by writing to text fields), or select a brewery from the drop down:
+Your solution should work as follows. The user can fill in the info of a brewery either in the old way (by writing to text fields), or select a brewery from the drop-down:
 
 ![image](../images/8-17.png)
 
-If user selects a brewery, it's name and the year is filled to the text fields:
+If the user selects a brewery, its name and the year are filled to the text fields:
 
 ![image](../images/8-18.png)
 
-You can assume year of the registration date as the year of the brewery's establishment, unless it is before 1980's as those records don't seem to match to the actual establishment year. You may leave the year field empty for those.
+You can assume the year of the registration date as the year of the brewery's establishment unless it is before the 1980's as those records don't seem to match the actual establishment year. You may leave the year field empty for those.
 
 </blockquote>
 
@@ -1601,7 +1603,8 @@ gem "redis", ">= 3", "< 5"
 
 ## Submitting the exercises
 
-Commit all your changes and push the code to GitHub. Remember to check with Rubocop that your code still adheres to style rules. Deployingthe newest version of Heroku or Fly.io, is voluntary!
+Commit all your changes and push the code to GitHub. Remember to check with Rubocop that your code still adheres to style rules. Deploying the newest version of Heroku or Fly.io is voluntary!
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023-hotwire notice that for this part there is a separate course instance in the submission system!
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023-hotwire notice that for this part there is a separate course instance in the submission system! 
 
+See [here](/web/ilmoittautuminen-english.md) for the info on how to get the University of Helsinki credits for this part registered!
