@@ -547,7 +547,7 @@ irb(main):046 >
 
 Luodut oluet **iso 3** ja **Karhu** siis liitetään panimoon Koff. Tietokannan tasolla oluiden ja panimon välillä on liitos. Koodin tasolla liitos ei kuitenkaan vielä toimi.
 
-Jotta saamme liitokset toimimaan myös koodin tasolla, muokataan modeleja seuraavasti:
+Jotta saamme liitokset toimimaan myös koodin tasolla, muokataan modeleja seuraavasti (eli tiedostoja app/models/brewery.rb ja app/models/beer.rb):
 
 ```ruby
 class Beer < ApplicationRecord
