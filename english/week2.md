@@ -1165,7 +1165,7 @@ If you remove beers with ratings from your application, the ratings which belong
 >
 > The error is caused by the fact that it tries to call <code>beer.name</code> from the method <code>to_s</code> of the rating object.
 >
-> Delete the orphan ratings by hand from the console. Try to think first of a command/some commands, which can help you to make a list of the orphan ratings. If you can't think of it yourself, you can find a ready-made answer for the exercise above in this page.
+> Delete the orphan ratings by hand from the console. Try to think first of a command/some commands, which can help you to make a list of the orphan ratings. If you can't think of it yourself, you can find a ready-made answer for the exercise below in this page.
 
 The ratings which belong to a beer can be deleted easily automatically. Alongside the beer model code <code>has_many :ratings</code>, you should mark that ratings are dependent on beers, and that they should be destroyed if beers are destroyed:
 
