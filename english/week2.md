@@ -1189,7 +1189,7 @@ The orphan issue is solved now.
 >
 >If you can't yet access individual breweries from the all breweries page, fix it now!
 
-## Inderect object connection
+## Indirect object connection
 
 Your application is created in a way so that ratings belong to beers and that beers belong to breweries. This means that a set of ratings belong to each brewery, indirectly. Rails provides you with a simple way to go from the breweries to the ratings directly:
 
