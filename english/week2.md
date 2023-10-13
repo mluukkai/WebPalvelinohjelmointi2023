@@ -1227,7 +1227,7 @@ You will see, that beer and brewery both a method called <code>average_rating</c
 We notice that beer and brewery both have an identically named method <code>average_rating</code> that also work identically. It is not acceptable to leave our code this way.
 > ## Exercise 15
 >
-> Ruby provides you with a way to share methods between two classes with the help of modules, see https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/rubyn_perusteita.md#moduuli
+> Ruby provides you with a way to share methods between two classes with the help of modules, see https://ruby-doc.com/docs/ProgrammingRuby/html/tut_modules.html
 >
 > Modules have different uses – forming namespaces, for instance. However, now we are interested in the _mixin_ inheritance which can be implemented with modules.
 >
@@ -1242,7 +1242,7 @@ We notice that beer and brewery both have an identically named method <code>aver
 > end
 > ```
 >
-> - Attention: if the name of your module is <code>RatingAverage</code>, exactly like in the example, because of Ruby naming conventions it has to be placed in the file <code>app/models/concerns/rating_average.rb</code>. In fact, even though classes names are CamelCase and start with capital letters, their files names follow the snake_case.rb style.
+> - Attention: if the name of your module is <code>RatingAverage</code>, exactly like in the example, because of Ruby naming conventions it has to be placed in the file <code>app/models/concerns/rating_average.rb</code>. In fact, even though classes names are PascalCase and start with capital letters, their files names follow the snake_case.rb style.
 
 After you have done the exercise, the class Brewery should look more or less like below (assuming your module is called RatingAverage):
 
