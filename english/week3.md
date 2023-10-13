@@ -332,7 +332,11 @@ The styling rules monitored by Rubocop are defined in _.rubocop.yml_ that is pla
 
 The rules defined there are based on the [Relaxed Ruby](https://relaxed.ruby.style/) style, but they are a bit stricter on some points. The file contents also define that some files are to be left out of any style checks.
 
-A code style check is executed with the command _rubocop_ on the command line.
+A code style check is executed with the command
+```
+rubocop
+```
+on the command line.
 
 There are quite a few problems in the code, for example:
 
