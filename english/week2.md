@@ -1511,7 +1511,7 @@ Because it is a program in production, resetting the database (<code>rails db:dr
 
 Commit all your changes and push the code to Github. Deploy to the newest version to Heroku or Fly.io, as well.
 
-Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023.
+Mark the exercises you have done at https://studies.cs.helsinki.fi/stats/courses/rails2023/submissions.
 
 And let's continue coding: [week 3](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week3.md).
 
