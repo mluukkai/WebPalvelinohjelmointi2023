@@ -1390,7 +1390,7 @@ http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Digest.ht
 >```
 >and try what values variables _admin_accounts_, _username_ and _password_ contain ja form the right command.
 >
-> HINT 2: The code block should be evaluated either as true or untrue depending on whether the password is correct. The value doesn't however necessarily have to be either _true_ or _false_ because Ruby interprets also other values as either true (truthy) or untrue (falsy). For example _nil_ is interpreted as untrue/falsy. See more eg. at https://learn.co/lessons/truthiness-in-ruby-readme.
+> HINT 2: The code block should be evaluated either as true or untrue depending on whether the password is correct. The value doesn't however necessarily have to be either _true_ or _false_ because Ruby interprets also other values as either true (truthy) or untrue (falsy). For example _nil_ is interpreted as untrue/falsy. See more at [Truth value - Wikipedia](https://en.wikipedia.org/wiki/Truth_value#Computing), [class TrueClass](https://docs.ruby-lang.org/en/master/TrueClass.html) and [class FalseClass](https://docs.ruby-lang.org/en/master/FalseClass.html) .
 
 ## Application to Internet
 
