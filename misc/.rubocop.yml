@@ -69,3 +69,6 @@ Naming/MethodParameterName:
 
 Metrics/BlockLength:
   Enabled: false
+
+Layout/IndentationStyle:
+  Enabled: false
