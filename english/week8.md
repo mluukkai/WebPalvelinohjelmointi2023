@@ -1073,7 +1073,7 @@ With the modified templates ready, let's update the `routes.rb` file to handle t
 **/app/config/routes.rb**
 
 ```ruby
-resources :ratings, only: [:index, :new, :create]
+resources :ratings, only: [:index, :new, :create, :show]
 delete 'ratings', to: 'ratings#destroy'
 ```
 
