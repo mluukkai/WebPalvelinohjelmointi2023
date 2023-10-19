@@ -296,13 +296,14 @@ It is **EXTREMELY IMPORTANT** to follow all the possible error messages, in the 
 
 ## Exercise 1
 
-Extend the user page so that when clicking a rating, the basic info of the rated beer is shown. Your solution could look like this
-
-![image](../images/8-5.png)
+Extend the user page so that when clicking a rating, the basic info of the rated beer is shown.
 
 Note: it is **EXTREMELY IMPORTANT** to follow all the possible error messages, in the Rails console and the network tab of the browser!
 
 </blockquote>
+Your solution could look like this:
+
+![image](../images/8-5.png)
 
 ### Pagination
 
@@ -487,11 +488,13 @@ It would be possible to clean up the repetition, but we will leave that as a vol
 
 ## Exercise 2
 
-Change the ratings page to show *all* ratings in a paginated form. The default order is to show the most recent rating first. Add a button that allows reversing the order. Your solution could look like the following:
-
-![image](../images/8-6.png)
+Change the ratings page to show *all* ratings in a paginated form. The default order is to show the most recent rating first. Add a button that allows reversing the order.
 
 </blockquote>
+
+Your solution could look like the following:
+
+![image](../images/8-6.png)
 
 ### Turbo framing the beer list
 
@@ -944,13 +947,16 @@ It's worth noting that in our example, we used a simple string, `breweries_index
 
 ## Exercise 5
 
-With Turbo Streams and Action Cable, we are now equipped to create a beer chat for the users of our app! Your solution could look like the following:
-
-![image](../images/8-12.png)
+With Turbo Streams and Action Cable, we are now equipped to create a beer chat for the users of our app!
 
 You need a model for the messages. Each message has the text content and ID of the creator. Note the order of the messages, the most recent is shown at the top!
 
 Note: it is **EXTREMELY IMPORTANT** to follow all the possible error messages, in the Rails console and the network tab of the browser especially when working with Action Cable!
+</blockquote>
+Your solution could look like the following:
+
+![image](../images/8-12.png)
+<blockquote>
 
 ## Exercise 6
 
@@ -1451,7 +1457,11 @@ And now we have a beautifully working beer tax calculator!
 
 Add caclulator a button that can be used to reset all the input values to value zero:
 
+</blockquote>
+
 ![image](../images/8-14.png)
+
+<blockquote>
 
 ## Exercise 11
 
@@ -1462,9 +1472,13 @@ Improve the beer tax calculator by changing the amount field to be a dropdown se
 Continuing from exercise 4, add the option `Custom` to the dropdown. 
 When the custom option is selected, the amount is taken from a user-fillable custom amount field:
 
+For the time being the custom field can remain visible all the time.
+
+</blockquote>
+
 ![image](../images/8-15.png)
 
-For the time being the custom field can remain visible all the time.
+<blockquote>
 
 ## Exercise 13
 
@@ -1499,9 +1513,13 @@ Let us get back to the users' rating list.
 
 Add a _select all_ checkbox input to `users/ratings? partial that selects/deselects all users' ratings when that checkbox is selected/deselected.
 
+</blockquote>
+
 Your solution could look like this:
 
 ![image](../images/8-16.png)
+
+<blockquote>
 
 ## Exercise 15
 
@@ -1533,6 +1551,10 @@ https://avoindata.prh.fi/bis/v1?totalResults=true&maxResults=500&businessLine=Ol
 
 Add the creation form a select drop-down that gets its data (breweries) from the above API endpoint. The select drop-down could be used to prefill the input fields.
 
+You can assume the year of the registration date as the year of the brewery's establishment unless it is before the 1980's as those records don't seem to match the actual establishment year. You may leave the year field empty for those.
+
+</blockquote>
+
 Your solution should work as follows. The user can fill in the info of a brewery either in the old way (by writing to text fields), or select a brewery from the drop-down:
 
 ![image](../images/8-17.png)
@@ -1540,10 +1562,6 @@ Your solution should work as follows. The user can fill in the info of a brewery
 If the user selects a brewery, its name and the year are filled to the text fields:
 
 ![image](../images/8-18.png)
-
-You can assume the year of the registration date as the year of the brewery's establishment unless it is before the 1980's as those records don't seem to match the actual establishment year. You may leave the year field empty for those.
-
-</blockquote>
 
 ## ActionCable, Redis, and Heroku / Fly.io Integration
 
