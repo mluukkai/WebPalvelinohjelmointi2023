@@ -1459,7 +1459,7 @@ Improve the beer tax calculator by changing the amount field to be a dropdown se
 
 ## Exercise 12
 
-Continuing from exercise 4, add the option `Custom` to the dropdown. 
+Continuing from exercise 11, add the option `Custom` to the dropdown. 
 When the custom option is selected, the amount is taken from a user-fillable custom amount field:
 
 ![image](../images/8-15.png)
