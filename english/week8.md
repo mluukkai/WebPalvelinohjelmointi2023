@@ -1427,7 +1427,7 @@ export default class extends Controller {
             alcoholTax = 0.3805;
       }
       const beerTax = (amount * abv * alcoholTax);
-      const vatAmount = (price * this.vatValue);
+      const vatAmount = (price - price / (1.0 + this.vatValue));
       const taxPercentage = ((beerTax + vatAmount) / price * 100);
 
       // search for the element where the result is shown
