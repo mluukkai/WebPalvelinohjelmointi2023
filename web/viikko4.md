@@ -1624,27 +1624,14 @@ Githubissa olevat projektit on helppo asettaa Github actionsin tarkkailtaviksi.
 
 > ## Tehtävä 12
 >
-> Lisätään nyt myös Rubocop GitHub Actioniin. Käytetään tässä avuksemme [marketplacesta valmiiksi löytyvää actionia](https://github.com/marketplace/actions/rubocop-linter-action), jonka voimme liittää omaamme.
+> Lisätään nyt myös Rubocop GitHub Actioniin.
 >
-> Lisää <code>rubyonrails.yml</code> tiedostoon seuraava sisältö:
+> Lisää <code>rubocop</code> Gemfile test osioon ja <code>rubyonrails.yml</code> tiedostoon seuraava sisältö:
 >
 > ```
->  lint:
->    runs-on: ubuntu-22.04
->    steps:
->      - name: Checkout code
->        uses: actions/checkout@v3
->      - name: Install Ruby and gems
->        uses: ruby/setup-ruby@v1
->        with:
->          bundler-cache: true
->      - name: RuboCop Linter Action
->        uses: andrewmcodes-archive/rubocop-linter-action@v3.3.0
->        env:
->          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+>    - name: Run RuboCop
+>      run: bundle exec rubocop --parallel
 > ```
->
-> GITHUB_TOKEN rivillä käytetään [Githubin tarjoamaa automaattista tokenia](https://docs.github.com/en/actions/security-guides/automatic-token-authentication), jolla pystytään autentikoimaan githubin sovellukset.
 >
 > Nyt Github Actionsin pitäisi suorittaa sekä testit, että Rubocop sovellukselle joka kerta kun GitHubiin lisätään muutoksia.
 
