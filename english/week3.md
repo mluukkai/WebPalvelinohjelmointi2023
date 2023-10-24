@@ -992,7 +992,7 @@ http://guides.rubyonrails.org/active_record_validations.html and https://apidock
 >
 > Add the following validations to your program
 > * beer and brewery names are not empty
-> * the brewery founding year is an integer between 1040-2022
+> * the brewery founding year is an integer between 1040-2023
 > * the length of the username attribute of the User class is 3 – 30 characters
 
 If you try to create a beer with an empty name, you get an error message
