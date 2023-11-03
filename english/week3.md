@@ -1184,7 +1184,7 @@ However, the trend is to use the has_many through combination and explicitly def
 >
 > Refine the previous exercise so that users cannot join the same beer club multiple times.
 >
-> There are many ways to accomplish this but using validations might not be the most sensible way. It doesn't really make sense to even offer beer clubs that the user is already a member of on the joining form.
+> There are many ways to accomplish this but using validations might not be the most sensible way. It doesn't really make sense to even offer beer clubs that the user is already a member of on the joining form. Have a look at the Active Record Query Interface Subset Conditions: [https://guides.rubyonrails.org/active_record_querying.html#subset-conditions](https://guides.rubyonrails.org/active_record_querying.html#subset-conditions)
 
 The following two pictures will help you understand what your application should look like after exercises 9–11.
 
