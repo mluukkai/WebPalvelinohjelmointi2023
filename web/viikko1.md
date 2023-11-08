@@ -767,7 +767,7 @@ irb(main):071:0> koff.beers.create name: "Extra Light Triple Brewed", style: "La
 
 Tutkitaan hieman panimon valmiiksi generoitua kontrolleria app/controller/breweries_controller.rb
 
-Kontrolleri on siis nimetty Railsin konvention mukaan monikkomuodossa. Kontrollerissa on Railsin konventioiden mukaan 6 metodia, tutkitaan niistä aluksi kaikkien oluiden näyttämisestä huolehtivaa metodia <code>index</code>:
+Kontrolleri on siis nimetty Railsin konvention mukaan monikkomuodossa. Kontrollerissa on Railsin konventioiden mukaan 6 metodia, tutkitaan niistä aluksi kaikkien panimoiden näyttämisestä huolehtivaa metodia <code>index</code>:
 
 ```ruby
 class BreweriesController < ApplicationController
