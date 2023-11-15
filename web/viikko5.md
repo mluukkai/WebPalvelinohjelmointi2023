@@ -4,9 +4,7 @@ Jatkamme sovelluksen rakentamista siitä, mihin jäimme viikon 4 lopussa. Allaol
 
 Suuri osa internetin palveluista hyödyntää nykyään joitain avoimia rajapintoja, joiden tarjoaman datan avulla sovellukset voivat rikastaa omaa toiminnallisuuttaan.
 
-Myös oluihin liittyviä avoimia rajapintoja on tarjolla, ks. https://www.programmableweb.com/ hakusanalla beer
-
-Käyttöömme valikoituu Beermapping API (ks. <https://www.programmableweb.com/api/beer-mapping> ja <https://beermapping.com/api/>), joka tarjoaa mahdollisuuden oluita tarjoilevien ravintoloiden tietojen etsintään.
+Käyttöömme valikoituu Beermapping API <https://beermapping.com/api/>, joka tarjoaa mahdollisuuden oluita tarjoilevien ravintoloiden tietojen etsintään.
 
 Beermapingin API:a käyttävät sovellukset tarvitsevat yksilöllisen API-avaimen. Saat avaimen sivulta https://beermapping.com/api/ kirjauduttuasi ensin sivulle (kirjautumisen jälkeen vaihda selaimen osoiteriviltä osoite takaisin muotoon https://beermapping.com/api/). Vastaava käytäntö on olemassa hyvin suuressa osassa nykyään tarjolla olevissa avoimissa rajapinnoissa.
 

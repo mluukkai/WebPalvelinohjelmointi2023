@@ -5,9 +5,7 @@ You will continue to develop your application from the point you arrived at the 
 
 A great part of modern Internet services makes use of open interfaces which provides useful data to enrich applications functionality.
 
-Interfaces for beers are also available, try to search for beer at http://www.programmableweb.com/ 
-
-The best interface among the ones available seems to be  Beermapping API (see http://www.programmableweb.com/api/beer-mapping ja http://beermapping.com/api/), which makes it possible to search for beer restaurants.
+The best interface among the ones available seems to be  Beermapping API <http://beermapping.com/api/>, which makes it possible to search for beer restaurants.
 
 Applications which make use of beermaping API need a singular API key. You can retrieve a key at https://beermapping.com/api/, after logging in to the page (after logging in edit the url in your browser's address bar back to https://beermapping.com/api/). This is a common procedure in use for the larger part of modern free interfaces.
 
