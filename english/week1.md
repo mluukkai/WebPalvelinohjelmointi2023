@@ -1317,7 +1317,7 @@ Go to the application directory and create a Fly.io application with `fly launch
 
 Deploy your application to production with `fly deploy`. Use this command everytime you wish to push the current version of your application to the internet.
 
-You can open your application in a browser with  `fly open`.
+You can open your application in a browser with  `fly apps open`.
 
 **Note** that (currently) there is nothing at the root of the application, eg. in my case in https://ratebeer.fly.dev/. Our beers can be found at https://ratebeer.fly.dev/beers and breweries at https://ratebeer.fly.dev/breweries.
 
