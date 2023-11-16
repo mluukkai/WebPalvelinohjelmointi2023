@@ -227,7 +227,7 @@ You can initialize rspec in your application running the following from command 
 
 The initialization creates a folder /spec in the application and the various tests – or specs – will be placed in its subfolders.
 
-According to Rails standard but currently less common testing framework, the test are place in the folder /test. The folder will be useless after taking rspec, and you can delete it.
+According to Rails standard but currently less common testing framework, the tests are placed in the folder /test. The folder will be useless after taking up rspec as the only testing tool, and you can delete it.
 
 The tests – the correct words would be specs or specifications when it comes to rspec, we will be using the word test in the future however – can be written at different levels: unit tests for models and controllers, view tests, and integration tests for controllers. In addition to these, the application can be tested using a simulated browser with the help of the capybara gem https://github.com/jnicklas/capybara.
 
