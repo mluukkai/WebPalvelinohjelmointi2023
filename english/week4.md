@@ -817,6 +817,7 @@ If you look at the documentation (http://guides.rubyonrails.org/active_record_qu
 ```ruby
 def favorite_beer
   return nil if ratings.empty?
+
   ratings.order(score: :desc).limit(1).first.beer
 end
 ```
