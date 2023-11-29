@@ -744,7 +744,7 @@ end
 
 Your test will not succeed, because your method does not do anything so far, and its return value is always <code>nil</code>.
 
-Use [in the spirit of TDD](https://stanislaw.github.io/2016/01/25/notes-on-test-driven-development-by-example-by-kent-beck.html) a "fake solution", without trying to make the final working version yet:
+Use [in the spirit of TDD](https://stanislaw.github.io/2016-01-25-notes-on-test-driven-development-by-example-by-kent-beck.html) a "fake solution", without trying to make the final working version yet:
 
 ```ruby
 class User < ApplicationRecord
