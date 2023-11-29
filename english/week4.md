@@ -663,7 +663,7 @@ FactoryBot.create(:user)
 FactoryBot.create(:user, username: 'Vilma')
 ```
 
-More instructions for using FactoryBot at https://www.rubydoc.info/gems/factory_bot/file/GETTING_STARTED.md
+More instructions for using FactoryBot at https://thoughtbot.github.io/factory_bot/
 
 ## Users favourite beers, breweries, and styles
 
