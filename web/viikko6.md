@@ -116,7 +116,7 @@ From: /myapp/app/views/beers/_form.html.erb:15 #<Class:0x00007ffb824e7ac0>#_app_
 [3] pry(#<#<Class:0x00007ffb824e7750>>)>
 ```
 
-Uuden oluen luomisen lomakkeen bäkymätemplateen on siis lisätty <code><% binding.pry %></code>. Jopa näkymän apumetodin <code>options_from_collection_for_select</code> kutsuminen mahdollista debuggerista käsin:
+Uuden oluen luomisen lomakkeen näkymätemplateen on siis lisätty <code><% binding.pry %></code>. Jopa näkymän apumetodin <code>options_from_collection_for_select</code> kutsuminen mahdollista debuggerista käsin:
 
 ```ruby
 [3] pry(#<#<Class:0x00007ffb824e7750>>)> options_from_collection_for_select(@styles, :id, :name, selected: @beer.style_id)
