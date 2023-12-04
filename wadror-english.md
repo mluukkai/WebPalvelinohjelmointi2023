@@ -1,3 +1,11 @@
+## Kisko afterparty Friday 15.12. klo 16-18
+
+Finland's leading Rails-house [Kisko](https://www.kiskolabs.com/fi/) is organising an evening event for course participants on Fri 15.12. at 16-18
+
+<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/kiskoparty.png" width="600">
+
+If you want to join, ask for the registration link matti.luukkainen@helsinki.fi or on Discord via the course channel or @mluukkai
+
 ## Web Server Programming Ruby on Rails 2023
 
 Web server programming Ruby on Rails returned to the curriculum for fall 2022 as a wish list. People demanded more and the course is here again!
