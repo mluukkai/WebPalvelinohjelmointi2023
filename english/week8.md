@@ -122,6 +122,8 @@ So the frame has just a link element that points back to the page itself. We int
 
 Let us now create a partial */views/styles/_about.html.erb* that also has the same Turbo Frame ID:
 
+![image](../images/8-2.png)
+
 Now when the user clicks the link, that creates a GET request to the same URL and the request is handled by the function _index_ of the _beers_ controller. We can use the helper function *turbo_frame_request?* to detect the Turbo request and handle it accordingly:
 
 ```rb
