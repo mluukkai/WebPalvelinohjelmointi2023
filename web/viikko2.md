@@ -291,7 +291,7 @@ Toisin kuin viime viikolla käyttämämme _scaffold_-generaattori, model-generaa
 
     rails destroy model Rating
 
-Jos olet suorittanut jo migraation ja huomaat että generaattorin luoma koodi onkin tuohottava, on **erittäin tärkeää** ensin perua migraatio komennolla
+Jos olet suorittanut jo migraation ja huomaat että generaattorin luoma koodi onkin tuhottava, on **erittäin tärkeää** ensin perua migraatio komennolla
 
     rails db:rollback
 
