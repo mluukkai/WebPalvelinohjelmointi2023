@@ -758,7 +758,15 @@ class User < ApplicationRecord
 end
 ```
 
-Make another test which will force you to make a real implementation [(see triangulation)](https://stanislaw.github.io/2016/01/25/notes-on-test-driven-development-by-example-by-kent-beck.html):
+Make another test which will force you to make a real implementation [(see triangulation)](https://stanislaw.github.io/2016-01-25-notes-on-test-driven-development-by-example-by-kent-beck.html#triangulation):
+
+> How do you most conservatively drive abstraction with tests? Abstract only when you have two or more examples. (p.153)
+>
+> If two receiving stations at a known distance from teach other can both measure the direction of a radio signal, then there is enough information to calculate the range and bearing of the signal. This calculation is called Triangulation.
+>
+> By analogy when we triangulate, we only generalize code when we have two examples or more... When the second example demands a more general solution, then and only then do we generalize (p.16).
+>
+> I only use Triangulation when I'm really, really unsure about the correct abstraction for the calculation. Otherwise I rely on either Obvious Implementation or Fake It. (p.154)
 
 ```ruby
 it "is the one with highest rating if several rated" do
