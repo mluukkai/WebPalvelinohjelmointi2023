@@ -1127,7 +1127,7 @@ If/when you ran into problems:
 >
 >Add information about the user's favourite style to their page.
 >
-> Do not do everything with one method (unless you solve the problem at database level with ActiveRecord or another elegantly compact solution), instead, define the suitable auxiliary methods! If you notice that you method is more than 6 lines long, you are doing either too much or something too complicated, so refactor your code. Ruby's collections have various auxiliary methods which might be useful for the exercise, see http://http://ruby-doc.org/core-2.5.1/Enumerable.html
+> Do not do everything with one method (unless you solve the problem at database level with ActiveRecord or another elegantly compact solution), instead, define the suitable auxiliary methods! If you notice that you method is more than 6 lines long, you are doing either too much or something too complicated, so refactor your code. Ruby's collections have various auxiliary methods which might be useful for the exercise, see https://docs.ruby-lang.org/en/3.2/Enumerable.html
 
 > ## Exercise 4
 >
