@@ -1412,7 +1412,7 @@ end
 The test builds its brewery, two beers and a user with the method <code>let!</code> instead of <code>let</code> which we used earlier. In fact, the version without exclamation mark does not execute the operation immediately, but only once the code refers to the object explicitly. The object <code>beer1</code> is mentioned only at the end of the code, so if you had created it with the method <code>let</code>, you would have run into a problem creating the rating, because its beer would have not existed in the database yet, and the corresponding select element would not have been found.
 
 
-The code contained in the <code>before</code> chunk of the test helps users to sign in the system. Most probably, the same code chunk will be useful in various different test files. You had better extract the test code needed in various different places and make a [module](https://relishapp.com/rspec/rspec-core/docs/helper-methods/define-helper-methods-in-a-module), which can be included in all test files which need it. Create a module <code>Helpers</code> in a file named _helpers.rb_ in the _specs_ directory and put the sign-in code there:
+The code contained in the <code>before</code> chunk of the test helps users to sign in the system. Most probably, the same code chunk will be useful in various different test files. You had better extract the test code needed in various different places and make a [module](https://rspec.info/features/3-12/rspec-core/helper-methods/modules/), which can be included in all test files which need it. Create a module <code>Helpers</code> in a file named _helpers.rb_ in the _specs_ directory and put the sign-in code there:
 
 ```ruby
 module Helpers
