@@ -1369,7 +1369,7 @@ The test expects that clicking the _Create user_ button will cause the number of
 You will have to take into consideration a small detail, that is, the method <code>expect</code> can be given parameters in two ways.
 If the method has to test a value, the value is given between brackets, like <code>expect(current_path).to eq(signin_path)</code>. Instead, if it tests the impact of an operation (like the one above, <code>click_button('Create User')</code>) on the value of an application object (<code>User.count</code>), the operation to execute is given to <code>expect</code> in a code chunk.
 
-Read more about this in Rspec documentation https://relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+Read more about this in Rspec documentation https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
 
 So the last test checked whether the operation executed at browser level created an object in the database. Should you make a separate test to see whether a username can sign in the system? Maybe. After all, the previous test did not questioned whether the user object was saved in the database correctly.
 
