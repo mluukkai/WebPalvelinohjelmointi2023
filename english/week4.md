@@ -1533,7 +1533,7 @@ Moving the previously defined methods <code>create\_beer\_with\_rating</code> an
 
 > ## Exercise 9
 >
-> If you did the exercises 3-4, extend the user page so that it will show the user favourite style as well as favourite brewery. Also, make capybara tests for this. Functions using complex computations do not require tests, because the unit tests ensure the functionality well enough. 
+> If you didn't do exercises 3-4, extend the user page so that it will show the user favourite style as well as favourite brewery. Also, make capybara tests for this. Functions using complex computations do not require tests, because the unit tests ensure the functionality well enough. 
 
 
 ## Test coverage
