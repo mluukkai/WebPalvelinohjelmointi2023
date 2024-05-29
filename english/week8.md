@@ -365,7 +365,7 @@ class BeersController < ApplicationController
   def index
     @order = params[:order] || 'name'
     @page = params[:page]&.to_i || 1
-    @last_page = (Beer.count / PAGE_SIZE).ceil
+    @last_page = (Beer.count / PAGE_SIZE.to_f).ceil
     offset = (@page - 1) * PAGE_SIZE
 
     @beers = Beer.order(:name).limit(PAGE_SIZE).offset(offset)
@@ -425,7 +425,7 @@ class BeersController < ApplicationController
   def index
     @order = params[:order] || 'name'
     @page = params[:page]&.to_i || 1
-    @last_page = (Beer.count / PAGE_SIZE).ceil
+    @last_page = (Beer.count / PAGE_SIZE.to_f).ceil
     offset = (@page - 1) * PAGE_SIZE
 
     @beers = case @order
@@ -454,7 +454,7 @@ class BeersController < ApplicationController
   def index
     @order = params[:order] || 'name'
     @page = params[:page]&.to_i || 1
-    @last_page = (Beer.count / PAGE_SIZE).ceil
+    @last_page = (Beer.count / PAGE_SIZE.to_f).ceil
     offset = (@page - 1) * PAGE_SIZE
 
     @beers = case @order
@@ -597,7 +597,7 @@ This can be achieved with Turbo frames with a <i>src</i> attribute:
 
 Now initially only the text <i>calculating the recommendation...</i> is rendered. After the page is rendered Turbo makes an HTTP GET request to the specified path (users/id/recommendation) and fills in the HTML that it gets as a response. The partial for the recommendation looks the following:
 
-**view/users/_recommendation.html.erb**
+**views/users/_recommendation.html.erb**
 
 ```html
 <%= turbo_frame_tag "beer_recommendation_tag" do %>
