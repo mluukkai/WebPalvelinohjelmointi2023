@@ -1661,9 +1661,9 @@ Write a small description of your strategy to speed up the page in the <code>ind
 
 ## An application made of various services
 
-You can scale your application performance only till a certain point if your application is a monolithic entity using a single database and running on a single server. The application can be optimised so that it is scaled <strong>horizontally</strong> – that is, increasing the physical resources of its server.
+You can scale your application performance only till a certain point if your application is a monolithic entity using a single database and running on a single server. The application can be optimised so that it is scaled <strong>vertically</strong> – that is, increasing the physical resources of its server.
 
-You will have better scaling results if you scale <strong>vertically</strong>, meaning that instead of improving the physical resources of one server, you start to use various servers, all executing your application actions at the same time. Vertical scaling is not necessarily trivial, you'll have to change the application architecture. If your application works with only one database, you may run into troubles despite vertical scaling, as that one database becomes a bottleneck. Especially so if that is a relational database, that is not easy to distribute and scale vertically.
+You will have better scaling results if you scale <strong>horizontally</strong>, meaning that instead of improving the physical resources of one server, you start to use various servers, all executing your application actions at the same time. Horizontal scaling is not necessarily trivial, you'll have to change the application architecture. If your application works with only one database, you may run into troubles despite horizontal scaling, as that one database becomes a bottleneck. Especially so if that is a relational database, that is not easy to distribute and scale horizontally.
 
 Scaling an application (and sometimes also updating and extending it) is easier if the application is made of various different <strong>services</strong> that work independently and communicate with each other for instance with an HTTP protocol. In fact, your application is already making use of another service, that is BeermappingAPI. In the same way, your application functionality could be expanded if new services were integrated.
 
