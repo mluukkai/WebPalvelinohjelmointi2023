@@ -499,7 +499,7 @@ response = HTTParty.get "#{url}#{ERB::Util.url_encode(params[:city])}"
 
 ## Refactoring your Places controller
 
-Rails controllers should not include application logic. It is a best practice to put external APIs in their own class. A good place for such class is in the _lib_ folder. Place the following code into the file _lib/beermapping_api.rb_:
+Rails controllers should not include application logic. It is a best practice to put external APIs in their own class. A good place for such class is in the _services_ folder under the _app_ folder. Even though this folder is not automatically created, starting from Rails 5 the _services_ folder is autoloaded in boot sequence. Place the following code into the file _app/services/beermapping_api.rb_:
 
 ```ruby
 class BeermappingApi
@@ -525,26 +525,7 @@ end
 
 So the class defines a static method which returns a table of the beer restaurants which have been found in the towns defined by the parameter. If no restaurant is found, the table will be empty. The API class is not in its best format yet, because you cannot know completely what other methods you need.
 
-To ensure that code in the _lib_ folder will work (not only on your computer but also in Heroku and Fly.io), you must add these two lines into the _config/application.rb_ file:
-
-```ruby
-config.autoload_paths << Rails.root.join("lib")
-config.eager_load_paths << Rails.root.join("lib")
-```
-
-The addition should be placed inside _Application_ class definition
-
-```ruby
-module Ratebeer
-  class Application < Rails::Application
-    # ...
-
-    # add here
-  end
-end
-```
-
-Restart the application for the changes to take effect.
+If needed, restart the application.
 
 The controller will be looking neat, by now:
 
@@ -663,7 +644,7 @@ mluukkai@melkki$ curl http://beermapping.com/webservice/loccity/731955affc547174
 Now you could copy-paste the information returned in XML form by the HTTP reqest to your test. If you want to be sure you place the XML right in the string, you should use a quite particular syntax
 see http://blog.jayfields.com/2006/12/ruby-multiline-strings-here-doc-or.html where the string is placed between <code><<-END_OF_STRING</code> and <code>END_OF_STRING</code>.
 
-You find below the test code which should be placed into spec/lib/beermapping_api_spec.rb (deciding to place the code in the lib subfolder because the test destination is an auxiliary class in the lib folder):
+You find below the test code which should be placed into spec/services/beermapping_api_spec.rb (deciding to place the code in the services subfolder because the test destination is an auxiliary class in the services folder):
 
 ```ruby
 require 'rails_helper'
