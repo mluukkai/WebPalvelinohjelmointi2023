@@ -8,7 +8,7 @@ Suomen johtava Rails-talo [Kisko](https://www.kiskolabs.com/fi/) järjestää ku
 
 Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai Discordissa kurssikanavalla tai @mluukkai
 
-## Web-palvelinohjelmointi Ruby on Rails 2023
+## Web-palvelinohjelmointi Ruby on Rails 2024
 
 Web-palvelinohjelmointi Ruby on Rails palasi toiveuusintana opetusohjelmaan syksysyksi 2022. Kansa vaati lisää ja kurssi on taas täällä!
 
@@ -50,7 +50,7 @@ Kurssin perusosan (osat 1-7) arvosana perustuu palautettujen tehtävien määrä
 
 Kurssin [kahdeksannesta osasta](/english/week8.md) annetaan erillinen suoritusmerkintä, joka edellyttää 16 tehtävän tekemistä.
 
-Kurssin tehtävien deadline on 31.12.2023 klo 23.59.
+Kurssin tehtävien deadline on 31.5.2025 klo 23.59.
 
 Suoritettuasi kurssin [ilmoittaudu](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen.md) avoimen yliopiston kurssitoteutukseen ja [pyydä suoritusmerkintää](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen.md#suoritusmerkinn%C3%A4n-pyyt%C3%A4minen) palautussovelluksessa.
 
@@ -60,7 +60,6 @@ Suoritettuasi kurssin [ilmoittaudu](https://github.com/mluukkai/WebPalvelinohjel
 
 - kurssin Discord-kanava <https://study.cs.helsinki.fi/discord/join/ror-wepa>
   - **Huom:** kaikki epäasialliset, halventavat ja jotain ihmisryhmää syrjivät kommentit kanavalla ovat kiellettyjä ja tälläisten kommenttien esittäjät poistetaan kanavalta
-
 
 ## Materiaali ja tehtävät
 
@@ -79,7 +78,6 @@ Suoritettuasi kurssin [ilmoittaudu](https://github.com/mluukkai/WebPalvelinohjel
 - [viikko 7](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko7.md)
 
 - [viikon 8 (englanniksi)](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/english/week8.md)
-
 
 ## Linkkejä
 
