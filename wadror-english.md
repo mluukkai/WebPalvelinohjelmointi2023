@@ -6,7 +6,7 @@ Finland's leading Rails-house [Kisko](https://www.kiskolabs.com/fi/) is organisi
 
 If you want to join, ask for the registration link matti.luukkainen@helsinki.fi or on Discord via the course channel or @mluukkai
 
-## Web Server Programming Ruby on Rails 2023
+## Web Server Programming Ruby on Rails 2024
 
 Web server programming Ruby on Rails returned to the curriculum for fall 2022 as a wish list. People demanded more and the course is here again!
 
@@ -34,7 +34,7 @@ Participating in the course requires a good programming routine and readiness fo
 
 The structure of the course deviates to some extent from the department's course standard. Only one application is made in the course (which at the end of the course will look something like [this](https://ratebeer22.fly.dev/)), the same application is made both in the theory material and in the calculators embedded in the theory. **You can't just read the theory material of the course; When following the material, you have to build an application that is supplemented along the way, because otherwise it will be impossible to do the tasks. In other words, the course must be followed steadily for the entire seven weeks.**
 
-The course is divided into eight "weeks", i.e. the part that was done in the previous version of the course during one week. However, this course has only one deadline, 31 December 2023 at 23:59.
+The course is divided into eight "weeks", i.e. the part that was done in the previous version of the course during one week. However, this course has only one deadline, 31 May 2025 at 23:59.
 
 Each "week" is returned separately to the course's [return application](https://studies.cs.helsinki.fi/stats/courses/rails2023/). After returning one week's assignments, you can see the example answer for the week. In the following week, it is possible to continue either building your own application or take the example answer from the previous week as a basis.
 
@@ -48,17 +48,16 @@ The base course (parts 1-7) grade is based on the number of assignments returned
 
 The course [part 8](/english/week8.md) will be marked graded and requires the completion of 16 tasks.
 
-The deadline for course assignments is December 31, 2023 at 11:59 p.m.
+The deadline for course assignments is May 31, 2025 at 11:59 p.m.
 
 After completing the course, [register](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen-english.md) for the course implementation of the open university and [request a completion note](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/ilmoittautuminen-english.md#how-to-get-your-credits) in the recovery application.
-
 
 ## Teaching
 
 ### Discord
 
 - course Discord channel <https://study.cs.helsinki.fi/discord/>
-   - **Note:** all inappropriate, derogatory and discriminatory comments on the channel are prohibited and those who make such comments will be removed from the channel
+  - **Note:** all inappropriate, derogatory and discriminatory comments on the channel are prohibited and those who make such comments will be removed from the channel
 
 ## Material and tasks
 
