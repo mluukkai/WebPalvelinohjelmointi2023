@@ -735,7 +735,7 @@ end
 
 Testi ei mene läpi, sillä metodimme ei vielä tee mitään ja sen paluuarvo on siis aina <code>nil</code>.
 
-Tehdään [TDD:n hengen mukaan](https://stanislaw.github.io/2016/01/25/notes-on-test-driven-development-by-example-by-kent-beck.html) ensin "huijattu ratkaisu", eli ei vielä yritetäkään tehdä lopullista toimivaa versiota:
+Tehdään [TDD:n hengen mukaan](https://stanislaw.github.io/2016-01-25-notes-on-test-driven-development-by-example-by-kent-beck.html#fake-it) ensin "huijattu ratkaisu", eli ei vielä yritetäkään tehdä lopullista toimivaa versiota:
 
 ```ruby
 class User < ApplicationRecord
@@ -749,7 +749,7 @@ class User < ApplicationRecord
 end
 ```
 
-Tehdään vielä testi, joka pakottaa meidät kunnollisen toteutuksen tekemiseen [(ks. triangulation)](https://stanislaw.github.io/2016/01/25/notes-on-test-driven-development-by-example-by-kent-beck.html):
+Tehdään vielä testi, joka pakottaa meidät kunnollisen toteutuksen tekemiseen [(ks. triangulation)](https://stanislaw.github.io/2016-01-25-notes-on-test-driven-development-by-example-by-kent-beck.html#triangulation):
 
 ```ruby
 it "is the one with highest rating if several rated" do
