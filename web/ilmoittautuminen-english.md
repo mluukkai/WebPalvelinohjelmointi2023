@@ -3,7 +3,7 @@
 
 If you want to receive University of Helsinki credits, enroll in the course through the Open University. Only those students who have enrolled in the course through the Open University can have their study credits registered in the University of Helsinki’s study credit registry.
 
-1. Enroll through this link: <https://www.avoin.helsinki.fi/palvelut/esittely.aspx?s=otm-ae414126-b981-4942-9079-ef268abf016f>
+1. Enroll through this link: <https://www.avoin.helsinki.fi/palvelut/esittely.aspx?s=otm-7c59477c-a0f6-47ce-9de0-1bc6669a2523>
 2. Input your student number to the submission system.
 
 ### How to find out your student number
