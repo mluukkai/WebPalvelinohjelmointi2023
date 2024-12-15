@@ -1,13 +1,5 @@
 ## Material in English [here](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/wadror-english.md).
 
-## Kisko afterparty pe 15.12. klo 16-18
-
-Suomen johtava Rails-talo [Kisko](https://www.kiskolabs.com/fi/) järjestää kurssilaisille illanvieton pe 15.12. klo 16-18
-
-<img src="https://raw.githubusercontent.com/mluukkai/WebPalvelinohjelmointi2023/main/images/kiskoparty.png" width="600">
-
-Jos haluat mukaan, kysy ilmoittautumislinkkiä matti.luukkainen@helsinki.fi tai Discordissa kurssikanavalla tai @mluukkai
-
 ## Web-palvelinohjelmointi Ruby on Rails 2024
 
 Web-palvelinohjelmointi Ruby on Rails palasi toiveuusintana opetusohjelmaan syksysyksi 2022. Kansa vaati lisää ja kurssi on taas täällä!
