@@ -7,6 +7,8 @@ A great part of modern Internet services makes use of open interfaces which prov
 
 The best interface among the ones available seems to be  Beermapping API <http://beermapping.com/api/>, which makes it possible to search for beer restaurants.
 
+**NOTE** the Beermapping API is currently not functioning properly. There is a replacement created for this course, see https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/beermapping.md
+
 Applications which make use of beermaping API need a singular API key. You can retrieve a key at https://beermapping.com/api/, after logging in to the page (after logging in edit the url in your browser's address bar back to https://beermapping.com/api/). This is a common procedure in use for the larger part of modern free interfaces.
 
 The API's services are listed at the page http://beermapping.com/api/reference/

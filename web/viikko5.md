@@ -6,6 +6,10 @@ Suuri osa internetin palveluista hyödyntää nykyään joitain avoimia rajapint
 
 Käyttöömme valikoituu Beermapping API <https://beermapping.com/api/>, joka tarjoaa mahdollisuuden oluita tarjoilevien ravintoloiden tietojen etsintään.
 
+**HUOM** the Beermapping API ei toimi kunnolla tällä hetkellä. Kurssin tarpeita varten on luotu korvaava API, ks.
+ https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/beermapping.md
+
+
 Beermapingin API:a käyttävät sovellukset tarvitsevat yksilöllisen API-avaimen. Saat avaimen sivulta https://beermapping.com/api/ kirjauduttuasi ensin sivulle (kirjautumisen jälkeen vaihda selaimen osoiteriviltä osoite takaisin muotoon https://beermapping.com/api/). Vastaava käytäntö on olemassa hyvin suuressa osassa nykyään tarjolla olevissa avoimissa rajapinnoissa.
 
 API:n tarjoamat palvelut on listattu sivulla https://beermapping.com/api/reference/
