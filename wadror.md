@@ -28,7 +28,7 @@ Kurssille osallistuminen edellyttää hyvää ohjelmointirutiinia sekä valmiutt
 
 Kurssin rakenne poikkeaa jossain määrin osaston kurssistandardista. Kurssilla tehdään ainoastaan yksi sovellus (joka tulee kurssin lopussa näyttämään suunilleen [tällaiselta](https://ratebeer22.fly.dev/)), samaa sovellusta tehdään sekä teoriamateriaalissa että teorian sekaan upotetuissa laskareissa. **Kurssin teoriamateriaalia ei pystykään pelkästään lukemaan; Materiaalia seuratessa tulee itse rakentaa matkan varrella täydentyvää sovellusta, sillä muuten tehtävien tekeminen on mahdotonta. Toisin sanoen kurssia on seurattava tasaisesti koko seitsemän viikon ajan.**
 
-Kurssi jakautuu kahdeksaan "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.12.2023 klo 23.59.
+Kurssi jakautuu kahdeksaan "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.5.2025 klo 23.59.
 
 Jokainen "viikko" palautetaan erikseen kurssin [palautussovellukseen](https://studies.cs.helsinki.fi/stats/courses/rails2023/). Palautettuasi yhden viikon tehtävät, pääset näkemään viikon esimerkkivastauksen. Seuraavalla viikolla on mahdollista jatkaa joko oman sovelluksen rakentamista tai ottaa pohjaksi edellisen viikon esimerkkivastaus.
 
