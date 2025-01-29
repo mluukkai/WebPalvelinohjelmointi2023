@@ -95,9 +95,9 @@ Railsilla tapahtuvassa sovelluskehityksessä komentorivin käyttön hallinta on 
 
 Kurssin rakenne poikkeaa jossain määrin Tietojenkäsittelytieteen osaston kurssistandardista. Kurssilla tehdään ainoastaan yksi sovellus, samaa sovellusta tehdään sekä kurssimateriaalissa että materiaalin sekaan upotetuissa tehtävissä. Kurssin materiaalia ei pystykään pelkästään lukemaan. Materiaalia seuratessa tulee itse rakentaa matkan varrella täydentyvää sovellusta, sillä muuten tehtävien tekeminen on mahdotonta. 
 
-Kurssi jakautuu seitsemään "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.12.2023 klo 23.59.
+Kurssi jakautuu seitsemään "viikkoon", eli osaan jotka tehtiin kurssin aiemmissa versiossa yhden viikon aikana. Tällä kurssilla on kuitenkin ainoastaan yksi deadline, 31.5.2025 klo 23.59.
 
-Jokainen "viikko" palauteaan erikseen kurssin palautussovellukseen. Palautettuasi yhden viikon tehtävät, pääset näkemään viikon esimerkkivastauksen. Seuraavalla viikolla on mahdollista jatkaa joko oman sovelluksen rakentamista tai ottaa pohjaksi edellisen viikon esimerkkivastaus.
+Jokainen "viikko" palautetaan erikseen kurssin palautussovellukseen. Palautettuasi yhden viikon tehtävät, pääset näkemään viikon esimerkkivastauksen. Seuraavalla viikolla on mahdollista jatkaa joko oman sovelluksen rakentamista tai ottaa pohjaksi edellisen viikon esimerkkivastaus.
 
 Osa viikon tehtävistä on käytännössä pakollisia, muuten eteneminen pysähtyy viikon osalta. Osa tehtävistä taas on vapaaehtoisia, ei-kriittisten ominaisuuksien toteutuksia. Osa näistä ominaisuuksista oletetaan olevan ohjelmistossa seuraavalla viikolla, joten jos et ole tehnyt kaikkia viikon tehtäviä, kannattaa aloittaa esimerkkivastauksesta tai vaihtoehtoisesti copypasteta sieltä tarvittavat asiat koodiisi.
 
