@@ -402,7 +402,7 @@ Konstruktorin kutsun voisi siis kirjoittaa myös muodossa
 Brewery.new( { name: "Stadin Panimo", year: 1997 } )
 ```
 
-Metodin/konstruktorin parametrina olevassa hashissa ei ole kuitankaan pakko käyttää aaltosulkuja kaikissa tapauksissa, joten usein ne jätetäänkin pois. Jos metodilla on useita parametreja, ovat aaltosulkeet joissain tilanteissa tarpeen.
+Metodin/konstruktorin parametrina olevassa hashissa ei ole kuitenkaan pakko käyttää aaltosulkuja kaikissa tapauksissa, joten usein ne jätetäänkin pois. Jos metodilla on useita parametreja, ovat aaltosulkeet joissain tilanteissa tarpeen.
 
 Huom: Rubyssä on myös vaihtoehtoinen syntaksi hashien määrittelyyn, sitä käyttäen edellinen tulisi muodossa
 
