@@ -800,7 +800,7 @@ end
 
 Näkymätemplatet, eli erb-tiedostot ovat html:ää, joihin on upotettu Ruby-koodia.
 
-Tarkastellaan valmiiksigeneroitua näkymätemplatea eli tiedostoa app/views/breweries/index.html.erb
+Tarkastellaan valmiiksi generoitua näkymätemplatea eli tiedostoa app/views/breweries/index.html.erb
 
 ```html
 <p style="color: green"><%= notice %></p>
@@ -916,7 +916,7 @@ Itse osoite luodaan tässä pitemmässä muodossa apumetodilla `brewery_path(bre
 
 Linkin generoivan komennon voisi myös "kovakoodata" muodossa `<%= link_to "Show this brewery", "breweries/#{brewery.id}" %>`, mutta kovakoodaus ei ole yleensä eikä tässäkään tapauksessa kovin järkevää.
 
-Mitä tarkoittaa `"breweries/#{brewery.id}"`? Kyseinen merkkijonon alussa on ensiksi kaikkiin panimoihin viittaava "breweries", jonka jälkeen siihen tulee yksilöivän panimon id muttujana. Muuttuja asetetaan käyttäen <code>#{}</code>-notaatiota, jonka avulla merkkijonoon voidaan upottaa muuttajia.
+Mitä tarkoittaa `"breweries/#{brewery.id}"`? Kyseinen merkkijonon alussa on ensiksi kaikkiin panimoihin viittaava "breweries", jonka jälkeen siihen tulee yksilöivän panimon id muuttujana. Muuttuja asetetaan käyttäen <code>#{}</code>-notaatiota, jonka avulla merkkijonoon voidaan upottaa muuttajia.
 
 > ## Tehtävä 6
 >
@@ -1031,7 +1031,7 @@ Partialin parametriksi saama panimo on muuttujassa brewery. Partialia siis kutsu
 
 Partialille voitaisiin antaa enemmänkin parametreja, mutta nyt annettiin ainoastaan yksi. Koska parametri on tyypiltään panimo eli Brewery, renderöidään _brewery.html.erb partiaali ja välitetään sille parametri muuttujan nimeltään brewery kautta. Parametrin välittävä muuttuja saa nimensä automaattisesti partialin nimen perusteella.
 
-Koska muutamme pian yksittäisen panimoin näkymää, mutta emme halua samaa templatea käyttävän kaikkien panimoiden näkyvän muuttuvan, luovutaan paritalin käytöstä kaikkien panimoiden sivulla ja muutetaan tiedosto app/views/breweries/index.html.erb seuraavaan muotoon:
+Koska muutamme pian yksittäisen panimon näkymää, mutta emme halua samaa templatea käyttävän kaikkien panimoiden näkymän muuttuvan, luovutaan partialin käytöstä kaikkien panimoiden sivulla ja muutetaan tiedosto app/views/breweries/index.html.erb seuraavaan muotoon:
 
 ```html
 <p style="color: green"><%= notice %></p>
