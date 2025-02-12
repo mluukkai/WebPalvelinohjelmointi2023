@@ -1,6 +1,6 @@
 ## Material in English [here](https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/wadror-english.md).
 
-## Web-palvelinohjelmointi Ruby on Rails 2024
+## Web-palvelinohjelmointi Ruby on Rails 2024-25
 
 Web-palvelinohjelmointi Ruby on Rails palasi toiveuusintana opetusohjelmaan syksysyksi 2022. Kansa vaati lisää ja kurssi on taas täällä!
 
@@ -8,7 +8,7 @@ Ruby on Rails on reilut 15 vuotta sitten suureen suosioon noussut MVC-websovellu
 
 Kokeile miltä tuntuu ohjelmoida kielellä, jonka vallitseva suunnitteluparadigma on sovelluskehittäjän tyytyväisyys, ja sovelluskehyksellä joka on ratkaissut triviaalit, mutta hankalasti päätettävissä olevat asiat (mm. tiedostojen nimentä ja hakemistorakenteet) puolestasi! Huomaat myös, että toisin kuin uuden liiton sovelluksehittäjät ajattelevat, ei kaikkien sovelluksien tarvitse olla SPA- eli yhden sivun sovelluksia...
 
-Kurssin yhteistyökumppanina toimii pitkän linjan Rails-talo [Kisko Labs](https://www.kiskolabs.com/fi/). Katso [täältä](https://www.youtube.com/watch?v=P8THIRXnLGk) Kiskon Vesan ja Antin terveiset kurssilaisille siitä miksi Rails on edelleen vuonna 2023 oivallinen teknologiavalinta moniin projekteihin.
+Kurssin yhteistyökumppanina toimii pitkän linjan Rails-talo [Kisko Labs](https://www.kiskolabs.com/fi/). Katso [täältä](https://www.youtube.com/watch?v=P8THIRXnLGk) Kiskon Vesan ja Antin terveiset kurssilaisille siitä miksi Rails on edelleen vuonna 2025 oivallinen teknologiavalinta moniin projekteihin.
 
 Joulukuun 15 päivä on kurssin suorittaneille on luvassa Rails-henkinen illanvietto Kiskon tiloissa...
 
@@ -16,7 +16,7 @@ Kurssilla keskitytään palvelinpuolen toiminnallisuuden toteuttamiseen, kurssil
 
 Kurssin perusosan (osat 1-7) laajuus on 5 opintopistettä.
 
-**Kurssilla on nyt uutena 20.9.2023 ilmestynyt Ruby on Railsin version 7 uusiin ominaisuuksiin keskittyvä osa, josta on tarjolla yksi opintopiste. Uuden osan on tuottanut Kisko Labs!**
+**Kurssilla on nyt myös Ruby on Railsin version 7 uusiin ominaisuuksiin keskittyvä osa, josta on tarjolla yksi opintopiste. Uuden osan on tuottanut Kisko Labs!**
 
 ## Esitietovaatimukset
 
