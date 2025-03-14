@@ -1,4 +1,4 @@
-## Web-palvelinohjelmointi Ruby on Rails 2024, Tietojenkäsittelytieteen osasto, Helsingin Yliopisto
+## Web-palvelinohjelmointi Ruby on Rails 2024-25, Tietojenkäsittelytieteen osasto, Helsingin Yliopisto
 
 Kurssisivu https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/wadror.md
 
